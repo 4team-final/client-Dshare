@@ -4,16 +4,8 @@ import { Switch, Link } from "react-router-dom";
 export default function EmpMainPage() {
   return (
     <>
-      test
       <Switch>
-        {/* <PublicRoute restricted={false} exact path="/" component={MainPage} />
-          <PublicRoute
-            restricted={true}
-            component={Login}
-            path="/login"
-            exact
-          />
-          <PublicRoute
+        {/* <PublicRoute
             restricted={true}
             component={SignUp}
             path="/signup"
