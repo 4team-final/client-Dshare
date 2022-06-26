@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Icon from "@mdi/react";
 import "./scroll_to.css";
 import { mdiArrowUpDropCircle } from "@mdi/js";
