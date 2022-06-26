@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Icon from "@mdi/react";
-import "./scroll_to.css";
+import "./ScrollTo.css";
 import { mdiArrowUpDropCircle } from "@mdi/js";
 import { mdiArrowDownDropCircle } from "@mdi/js";
 import $ from "jquery";

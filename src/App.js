@@ -5,7 +5,8 @@ import "./App.scss";
 import { Switch, Routes, Route, Router } from "react-router-dom";
 import LoginPage from "./page/login/LoginPage";
 //Main
-import EmpMain from "./page/employee/main/EmpMainPage";
+import EmpMainPage from "./page/employee/main/EmpMainPage";
+import ReservationStatusPage from "./page/employee/main/reservation/ReservationStatusPage";
 import Header from "./components/Outlet/Header";
 import reset from "styled-reset";
 import QuickMenu from "./components/Outlet/QuickMenu";
@@ -18,12 +19,17 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <QuickMenu />
+      {/* <QuickMenu /> */}
       <Switch>
         {/* <Route path={"/"} component={Header} /> */}
         <Route path={"/login"} component={LoginPage} />
         {/* <Route path={"/login"}  component={Footer} /> */}
-        <Route path={"/"} component={EmpMain} />
+        <Route exact path={"/"} component={EmpMainPage} />
+        <Route
+          exact
+          path={"/reservation/status"}
+          component={ReservationStatusPage}
+        />
       </Switch>
     </div>
   );
