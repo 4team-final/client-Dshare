@@ -11,22 +11,20 @@
   z-index: 1;
 
   border-radius: 20px;
-  padding: 10px 30px;
+  padding: 5% 5%;
 
-  font-size: large;
+  font-size: medium;
 
-  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  color: #000;
+
   &::-webkit-scrollbar {
     width: 4px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 2px;
     background: #ccc;
-  }
-  .alarmClock {
-    font-size: 3em;
-    position: absolute;
-    right: -10px;
-    top: -10px;
   }
 }

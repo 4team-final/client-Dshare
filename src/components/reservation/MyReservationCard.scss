@@ -4,4 +4,8 @@
   border-radius: 20px;
   border: 1px solid #d3d3d3;
   z-index: 1;
+
+  &:hover {
+    border: 1px solid black;
+  }
 }

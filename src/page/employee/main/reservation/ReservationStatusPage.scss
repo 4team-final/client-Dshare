@@ -42,6 +42,14 @@
       background-color: white;
       border: 1px solid #1296ec;
       border-radius: 20px;
+      .CalendarDate {
+        background-color: white;
+        font-size: 3em;
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        z-index: 2;
+      }
     }
     .card {
       height: 60%;

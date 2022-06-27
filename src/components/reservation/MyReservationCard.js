@@ -14,7 +14,7 @@ import {
 } from "../../store/actions/ReservationAction";
 import "./MyReservationCard.scss";
 
-function MyReservationCard() {
+function MyReservationCard(props) {
   const reservationStore = useSelector((state) => state.reservationReducer);
   const dispatch = useDispatch();
 

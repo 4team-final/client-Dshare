@@ -15,6 +15,17 @@ export const ING_TIME_VEHICLE_GET = "ING_TIME_VEHICLE_GET";
 export const ING_TIME_VEHICLE_GET_SUCCESS = "ING_TIME_VEHICLE_GET_SUCCESS";
 export const ING_TIME_VEHICLE_GET_ERROR = "ING_TIME_VEHICLE_GET_ERROR";
 
+export const MY_RESERVATION_ROOM_GET = "MY_RESERVATION_ROOM_GET";
+export const MY_RESERVATION_ROOM_GET_SUCCESS =
+  "MY_RESERVATION_ROOM_GET_SUCCESS";
+export const MY_RESERVATION_ROOM_GET_ERROR = "MY_RESERVATION_ROOM_GET_ERROR";
+
+export const MY_RESERVATION_VEHICLE_GET = "MY_RESERVATION_VEHICLE_GET";
+export const MY_RESERVATION_VEHICLE_GET_SUCCESS =
+  "MY_RESERVATION_VEHICLE_GET_SUCCESS";
+export const MY_RESERVATION_VEHICLE_GET_ERROR =
+  "MY_RESERVATION_VEHICLE_GET_ERROR";
+
 export const soonIngTimeRoom = createPromiseThunk(
   SOON_ING_TIME_ROOM_GET,
   ReserveApi.findSoonIngTimeRoom
@@ -27,4 +38,13 @@ export const soonTimeVehicle = createPromiseThunk(
 export const ingTimeVehicle = createPromiseThunk(
   ING_TIME_VEHICLE_GET,
   ReserveApi.findIngTimeVehcle
+);
+
+export const myReservationRoomList = createPromiseThunk(
+  MY_RESERVATION_ROOM_GET,
+  ReserveApi.findMyReservationRoomPage
+);
+export const myReservationVehicleList = createPromiseThunk(
+  MY_RESERVATION_VEHICLE_GET,
+  ReserveApi.findMyReservationVehiclePage
 );

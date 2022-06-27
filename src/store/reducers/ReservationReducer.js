@@ -8,12 +8,20 @@ import {
   ING_TIME_VEHICLE_GET,
   ING_TIME_VEHICLE_GET_SUCCESS,
   ING_TIME_VEHICLE_GET_ERROR,
+  MY_RESERVATION_ROOM_GET,
+  MY_RESERVATION_ROOM_GET_SUCCESS,
+  MY_RESERVATION_ROOM_GET_ERROR,
+  MY_RESERVATION_VEHICLE_GET,
+  MY_RESERVATION_VEHICLE_GET_SUCCESS,
+  MY_RESERVATION_VEHICLE_GET_ERROR,
 } from "../actions/ReservationAction";
 import { reducerUtils, handleAsyncActions } from "../../api/AsyncUtil";
 const initialState = {
   soonIngTimeRoom: reducerUtils.initial(),
   soonTimeVehicle: reducerUtils.initial(),
   ingTimeVehicle: reducerUtils.initial(),
+  myReservationRoomList: reducerUtils.initial(),
+  myReservationVehicleList: reducerUtils.initial(),
 };
 
 export default function ReservationReducer(state = initialState, action) {
@@ -39,6 +47,20 @@ export default function ReservationReducer(state = initialState, action) {
         state,
         action
       );
+    case MY_RESERVATION_ROOM_GET:
+    case MY_RESERVATION_ROOM_GET_SUCCESS:
+    case MY_RESERVATION_ROOM_GET_ERROR:
+      return handleAsyncActions(
+        MY_RESERVATION_ROOM_GET,
+        "myReservationRoomList"
+      )(state, action);
+    case MY_RESERVATION_VEHICLE_GET:
+    case MY_RESERVATION_VEHICLE_GET_SUCCESS:
+    case MY_RESERVATION_VEHICLE_GET_ERROR:
+      return handleAsyncActions(
+        MY_RESERVATION_VEHICLE_GET,
+        "myReservationVehicleList"
+      )(state, action);
 
     default:
       return state;

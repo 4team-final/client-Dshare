@@ -48,3 +48,39 @@ export const findIngTimeVehcle = async (token) => {
     });
   return result;
 };
+
+//reservation API - 나의 예약 현황 조회 페이지네이션 (회의실)
+//- /emp/room/reservation/my/{lastId}/{limit}
+export const findMyReservationRoomPage = async (data) => {
+  // console.log(data);
+  const result = axios
+    .get(baseUrl + `emp/room/reservation/all/${data.lastId}/${data.limit}`, {
+      headers: {
+        Authorization: data.token,
+      },
+    })
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+  return result;
+};
+
+//reservation API - 나의 예약 현황 조회 페이지네이션 (회의실)
+//- /emp/vehicle/list/own/paging
+export const findMyReservationVehiclePage = async (data) => {
+  const result = axios
+    .get(baseUrl + "emp/vehicle/list/own/paging", {
+      headers: {
+        Authorization: data.token,
+      },
+      body: {
+        id: data.lastId,
+      },
+    })
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+  return result;
+};

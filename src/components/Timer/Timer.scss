@@ -34,6 +34,20 @@
     .memo {
       align-items: center;
       justify-content: center;
+      animation-name: memo;
+      animation-duration: 2s;
+      animation-duration: leaner;
+      animation-iteration-count: 3;
+      animation-direction: alternate;
+      animation-fill-mode: forwards;
+      @keyframes memo {
+        0% {
+          left: 100px;
+        }
+        100% {
+          left: 300px;
+        }
+      }
     }
   }
   .alarmClock {
