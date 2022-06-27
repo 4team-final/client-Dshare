@@ -3,7 +3,10 @@ import "./InputLogin.scss";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosLock } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { employeeValidate } from "../../store/actions/EmployeeAction";
+import {
+  employeeValidate,
+  testToken,
+} from "../../store/actions/EmployeeAction";
 
 function InputLogin() {
   const employeeStore = useSelector((s) => s.employeeReducer);
@@ -30,7 +33,6 @@ function InputLogin() {
     dispatch(employeeValidate(dataSet));
     inputReset();
   };
-
   const validateLogin = () => {
     if (
       employeeStore.data === undefined ||
@@ -45,8 +47,13 @@ function InputLogin() {
   useEffect(() => {
     console.log(employeeStore);
   }, [employeeStore]);
+  function time() {
+    console.log("time");
+    dispatch(testToken());
+  }
   return (
     <div className="InputLogin">
+      <button onClick={time}>test</button>
       <form className="inputLoginForm" onSubmit={onClickLogin}>
         <div className="input-container">
           <FaRegUser className="i" />

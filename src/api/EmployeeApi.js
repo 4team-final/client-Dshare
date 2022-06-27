@@ -1,12 +1,15 @@
-import axios from "axios";
-import { baseUrl } from "./BaseUrl";
+import { dshareAxios } from "../components/LoginForm/manageLogin";
 
 export const requestByEmployeeLogin = async (dataSet) => {
-  const response = await axios
-    .post(`${baseUrl}login`, {
-      empNo: dataSet.id,
-      password: dataSet.pw,
-    })
-    .catch((e) => console.error(e));
+  const response = await dshareAxios.post("/login", {
+    empNo: dataSet.id,
+    password: dataSet.pw,
+  });
+  return response;
+};
+
+export const testByReIssuanceToken = async () => {
+  const response = await dshareAxios.get("/emp/vehicle/list/reservation");
+  console.log(response);
   return response;
 };
