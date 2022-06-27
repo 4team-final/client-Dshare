@@ -24,7 +24,7 @@ export const soonTimeVehicle = createPromiseThunk(
   SOON_TIME_VEHICLE_GET,
   ReserveApi.findSoonTimeVehcle
 );
-export const IngTimeVehicle = createPromiseThunk(
+export const ingTimeVehicle = createPromiseThunk(
   ING_TIME_VEHICLE_GET,
   ReserveApi.findIngTimeVehcle
 );

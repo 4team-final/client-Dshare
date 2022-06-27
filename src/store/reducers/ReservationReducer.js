@@ -1,4 +1,3 @@
-//BoardReducer.js
 import {
   SOON_ING_TIME_ROOM_GET,
   SOON_ING_TIME_ROOM_GET_SUCCESS,
@@ -14,10 +13,10 @@ import { reducerUtils, handleAsyncActions } from "../../api/AsyncUtil";
 const initialState = {
   soonIngTimeRoom: reducerUtils.initial(),
   soonTimeVehicle: reducerUtils.initial(),
-  IngTimeVehicle: reducerUtils.initial(),
+  ingTimeVehicle: reducerUtils.initial(),
 };
 
-export default function boardReducer(state = initialState, action) {
+export default function ReservationReducer(state = initialState, action) {
   switch (action.type) {
     case SOON_ING_TIME_ROOM_GET:
     case SOON_ING_TIME_ROOM_GET_SUCCESS:
@@ -29,14 +28,14 @@ export default function boardReducer(state = initialState, action) {
     case SOON_TIME_VEHICLE_GET:
     case SOON_TIME_VEHICLE_GET_SUCCESS:
     case SOON_TIME_VEHICLE_GET_ERROR:
-      return handleAsyncActions(SOON_ING_TIME_ROOM_GET, "soonTimeVehicle")(
+      return handleAsyncActions(SOON_TIME_VEHICLE_GET, "soonTimeVehicle")(
         state,
         action
       );
     case ING_TIME_VEHICLE_GET:
     case ING_TIME_VEHICLE_GET_SUCCESS:
     case ING_TIME_VEHICLE_GET_ERROR:
-      return handleAsyncActions(SOON_ING_TIME_ROOM_GET, "IngTimeVehicle")(
+      return handleAsyncActions(ING_TIME_VEHICLE_GET, "ingTimeVehicle")(
         state,
         action
       );

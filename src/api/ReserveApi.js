@@ -1,11 +1,17 @@
 import axios from "axios";
 import { baseUrl } from "./BaseUrl";
+import { token2 } from "./BaseUrl";
 
 //reservation API - 나의 다가오는 회의실 시간 및 남은 회의 시간 조회
 //- /emp/room/reservation/soon/my/time
-export const findSoonIngTimeRoom = () => {
+export const findSoonIngTimeRoom = async (token) => {
   const result = axios
-    .get(baseUrl + "emp/room/reservation/soon/my/time")
+    .get(baseUrl + "emp/room/reservation/soon/my/time", {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => res.data)
     .catch((err) => {
       console.log(err);
     });
@@ -14,9 +20,14 @@ export const findSoonIngTimeRoom = () => {
 
 //reservation API - 나의 다음 예약 시작 시간 조회 (차량)
 //- /emp/vehicle/own/reservation/ongoing
-export const findSoonTimeVehcle = () => {
+export const findSoonTimeVehcle = async (token) => {
   const result = axios
-    .get(baseUrl + "emp/vehicle/own/reservation/next")
+    .get(baseUrl + "emp/vehicle/own/reservation/next", {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => res.data)
     .catch((err) => {
       console.log(err);
     });
@@ -24,9 +35,14 @@ export const findSoonTimeVehcle = () => {
 };
 //reservation API - 내가 현재 진행중인 예약 종료 시간 조회 (차량)
 //- /emp/vehicle/own/reservation/next
-export const findIngTimeVehcle = () => {
+export const findIngTimeVehcle = async (token) => {
   const result = axios
-    .get(baseUrl + "emp/vehicle/own/reservation/ongoing")
+    .get(baseUrl + "emp/vehicle/own/reservation/ongoing", {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => res.data)
     .catch((err) => {
       console.log(err);
     });

@@ -1,0 +1,45 @@
+.box {
+  margin: 10px;
+
+  position: absolute;
+
+  height: 150px;
+  width: 400px;
+
+  min-height: 150px;
+  min-width: 300px;
+
+  background-color: white;
+  border: 1px solid #d3d3d3;
+  z-index: 1;
+
+  border-radius: 20px;
+  padding: 10px 30px;
+
+  font-size: large;
+
+  color: #5073b4;
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    .line {
+      padding: 10px 30px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .bold {
+        font-weight: bold;
+      }
+    }
+  }
+  .alarmClock {
+    font-size: 3em;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+  }
+}
