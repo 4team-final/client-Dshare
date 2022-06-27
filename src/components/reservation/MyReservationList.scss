@@ -1,0 +1,32 @@
+.MyReservatationList {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  // min-height: 750px;
+  // min-width: 600px;
+
+  background-color: white;
+  border: 1px solid #d3d3d3;
+  z-index: 1;
+
+  border-radius: 20px;
+  padding: 10px 30px;
+
+  font-size: large;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #ccc;
+  }
+  .alarmClock {
+    font-size: 3em;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+  }
+}

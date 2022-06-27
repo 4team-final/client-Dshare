@@ -6,8 +6,20 @@ import MyReservationList from "../../../../components/reservation/MyReservationL
 function ReservationStatusPage() {
   return (
     <>
-      <Timer />
-      <MyReservationList />
+      <div className="layout">
+        <div className="left">
+          <Timer />
+          <div className="calendar">달력</div>
+        </div>
+        <div className="middle">
+          <div className="date">시간 선택</div>
+          <div className="card">게시물 카드</div>
+        </div>
+
+        <div className="right">
+          <MyReservationList />
+        </div>
+      </div>
     </>
   );
 }

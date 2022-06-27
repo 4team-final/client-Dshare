@@ -5,12 +5,15 @@ import React, {
   useRef,
   useMemo,
 } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
   soonIngTimeRoom,
   soonTimeVehicle,
   ingTimeVehicle,
 } from "../../store/actions/ReservationAction";
+import "./MyReservationList.scss";
+import MyReservationCard from "./MyReservationCard";
 
 function MyReservationList() {
   const reservationStore = useSelector((state) => state.reservationReducer);
@@ -22,7 +25,29 @@ function MyReservationList() {
 
   return (
     <>
-      <div></div>
+      <div className="MyReservatationList">
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+        <MyReservationCard />
+      </div>
     </>
   );
 }

@@ -20,7 +20,7 @@ function Timer() {
   const dispatch = useDispatch();
 
   const [token, setToken] = useState(
-    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTYzMjA2NTcsImV4cCI6MTY1NjMyMjQ1N30.HhSJU88CUtAClslBSdVAfhULQ3aFKXgMpzd7a4ZqqjGbVWBxhpH-z7L8zAmJgy89_ySHSfQTe106Wj14rnRk1w"
+    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTYzMjYyMjgsImV4cCI6MTY1NjMyODAyOH0.Q50aPz4mYJ9E9KtCiZFopZPTO1uJCgz1DPNIZfRraUY_NWJ0kCyfAO7WDjHAKeo1bOhTDgpovq97wG0ivHORJA"
   );
 
   const [_soonTimeRoom, setSoonTimeRoom] = useState(-1);
@@ -183,7 +183,23 @@ function Timer() {
           )}
         </div>
         <div>
-          {alertBool ? <Alert severity="success">{message}</Alert> : <></>}
+          {!alertBool ? (
+            <Alert
+              sx={{ bgcolor: "#5073b4" }}
+              variant="filled"
+              severity="success"
+            >
+              <div>
+                {message ? (
+                  <div>{message}</div>
+                ) : (
+                  <div className="memo">안녕하세요 반갑습니다.</div>
+                )}
+              </div>
+            </Alert>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
