@@ -8,7 +8,6 @@ export const createPromiseThunk = (type, api) => {
     dispatch({ type, param });
     try {
       const payload = await api(param);
-      console.log(payload);
       dispatch({ type: SUCCESS, payload }); // 성공
     } catch (e) {
       dispatch({ type: FAILURE, payload: e, error: true }); // 실패

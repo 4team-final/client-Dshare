@@ -13,6 +13,7 @@ import {
 } from "../../store/actions/ReservationAction";
 import "./Timer.scss";
 import { FcAlarmClock } from "react-icons/fc";
+import Alert from "@mui/material/Alert";
 
 function Timer() {
   const reservationStore = useSelector((state) => state.reservationReducer);
@@ -22,10 +23,12 @@ function Timer() {
     "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTYzMTgzOTksImV4cCI6MTY1NjMyMDE5OX0.VUFw7Mu6cRNBMwoeArDMOXmrHBQ76WfKq4xevn0d5PcfJsMTiH0-N6as9bwzJLnZQl3F2Y1D3iFrPlBw9D5X5Q"
   );
 
-  const [_soonTimeRoom, setSoonTimeRoom] = useState(0);
-  const [_ingTimeRoom, setIngTimeRoom] = useState(0);
-  const [_soonTimeVehicle, setSoonTimeVehicle] = useState(0);
-  const [_ingTimeVehicle, setIngTimeVehicle] = useState(0);
+  const [_soonTimeRoom, setSoonTimeRoom] = useState(-1);
+  const [_ingTimeRoom, setIngTimeRoom] = useState(-1);
+  const [_soonTimeVehicle, setSoonTimeVehicle] = useState(-1);
+  const [_ingTimeVehicle, setIngTimeVehicle] = useState(-1);
+  const [alertBool, setAlertBool] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     dispatch(soonIngTimeRoom(token));
@@ -60,6 +63,8 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_soonTimeRoom) > 0) {
         setSoonTimeRoom(parseInt(_soonTimeRoom) - 1);
+      } else if (parseInt(_soonTimeRoom) === 0) {
+        setMessage("회의시작! 서두르세요!!");
       }
     }, 1000);
     return () => clearInterval(countdown);
@@ -69,6 +74,8 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_ingTimeRoom) > 0) {
         setIngTimeRoom(parseInt(_ingTimeRoom) - 1);
+      } else if (parseInt(_ingTimeRoom) === 0) {
+        setMessage("회의종료! 수고하셨습니다!!");
       }
     }, 1000);
     return () => clearInterval(countdown);
@@ -78,6 +85,8 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_soonTimeVehicle) > 0) {
         setSoonTimeVehicle(parseInt(_soonTimeVehicle) - 1);
+      } else if (parseInt(_soonTimeVehicle) === 0) {
+        setMessage("차량시작! 안전운전!!");
       }
     }, 1000);
     return () => clearInterval(countdown);
@@ -87,10 +96,24 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_ingTimeVehicle) > 0) {
         setIngTimeVehicle(parseInt(_ingTimeVehicle) - 1);
+      } else if (parseInt(_ingTimeVehicle) === 0) {
+        setMessage("차량반납! 수고하셨습니다!!");
       }
     }, 1000);
     return () => clearInterval(countdown);
   }, [_ingTimeVehicle]);
+
+  useEffect(() => {
+    if (message === "") {
+    } else {
+      setAlertBool(true);
+      setTimeout(() => {
+        setAlertBool(false);
+      }, 1000);
+    }
+  }, [message]);
+
+  // const TimeOutAlert = () => {};
 
   const handleUpdateTimer = (time) => {
     const days = parseInt(time / 86400);
@@ -159,6 +182,7 @@ function Timer() {
             <></>
           )}
         </div>
+        {alertBool ? <Alert severity="success">{message}</Alert> : <></>}
       </div>
     </>
   );
