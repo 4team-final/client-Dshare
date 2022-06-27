@@ -29,7 +29,7 @@ function LoginForm() {
         기능이 있다면 업무 일정 관리가 더욱 편리해질 것입니다.
       </div>
       <div className="contents">
-        <InputLogin></InputLogin>
+        <InputLogin />
       </div>
     </div>
   );
