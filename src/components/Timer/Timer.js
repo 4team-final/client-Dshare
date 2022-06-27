@@ -20,7 +20,7 @@ function Timer() {
   const dispatch = useDispatch();
 
   const [token, setToken] = useState(
-    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTYzMTgzOTksImV4cCI6MTY1NjMyMDE5OX0.VUFw7Mu6cRNBMwoeArDMOXmrHBQ76WfKq4xevn0d5PcfJsMTiH0-N6as9bwzJLnZQl3F2Y1D3iFrPlBw9D5X5Q"
+    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTYzMjA2NTcsImV4cCI6MTY1NjMyMjQ1N30.HhSJU88CUtAClslBSdVAfhULQ3aFKXgMpzd7a4ZqqjGbVWBxhpH-z7L8zAmJgy89_ySHSfQTe106Wj14rnRk1w"
   );
 
   const [_soonTimeRoom, setSoonTimeRoom] = useState(-1);
@@ -63,7 +63,7 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_soonTimeRoom) > 0) {
         setSoonTimeRoom(parseInt(_soonTimeRoom) - 1);
-      } else if (parseInt(_soonTimeRoom) === 0) {
+      } else if (parseInt(_soonTimeRoom) === 5) {
         setMessage("회의시작! 서두르세요!!");
       }
     }, 1000);
@@ -74,7 +74,7 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_ingTimeRoom) > 0) {
         setIngTimeRoom(parseInt(_ingTimeRoom) - 1);
-      } else if (parseInt(_ingTimeRoom) === 0) {
+      } else if (parseInt(_ingTimeRoom) === 5) {
         setMessage("회의종료! 수고하셨습니다!!");
       }
     }, 1000);
@@ -85,7 +85,7 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_soonTimeVehicle) > 0) {
         setSoonTimeVehicle(parseInt(_soonTimeVehicle) - 1);
-      } else if (parseInt(_soonTimeVehicle) === 0) {
+      } else if (parseInt(_soonTimeVehicle) === 5) {
         setMessage("차량시작! 안전운전!!");
       }
     }, 1000);
@@ -96,7 +96,7 @@ function Timer() {
     const countdown = setInterval(() => {
       if (parseInt(_ingTimeVehicle) > 0) {
         setIngTimeVehicle(parseInt(_ingTimeVehicle) - 1);
-      } else if (parseInt(_ingTimeVehicle) === 0) {
+      } else if (parseInt(_ingTimeVehicle) === 5) {
         setMessage("차량반납! 수고하셨습니다!!");
       }
     }, 1000);
@@ -109,7 +109,8 @@ function Timer() {
       setAlertBool(true);
       setTimeout(() => {
         setAlertBool(false);
-      }, 1000);
+        setMessage("");
+      }, 4000);
     }
   }, [message]);
 
@@ -149,7 +150,7 @@ function Timer() {
               남았습니다.
             </div>
           ) : (
-            <></>
+            <div className="line">다음 회의실 예약이 없습니다.</div>
           )}
           {_ingTimeRoom > 0 ? (
             <div className="line">
@@ -158,31 +159,32 @@ function Timer() {
               남았습니다.
             </div>
           ) : (
-            <></>
+            <div className="line">현재 반납할 회의실이 없습니다.</div>
           )}
           {_soonTimeVehicle > 0 ? (
             <div className="line">
               다음 차량 예약 :
               <span className="bold">
-                {" "}
                 {handleUpdateTimer(_soonTimeVehicle)}
-              </span>{" "}
+              </span>
               남았습니다.
             </div>
           ) : (
-            <></>
+            <div className="line">다음 차량 예약이 없습니다.</div>
           )}
           {_ingTimeVehicle > 0 ? (
             <div className="line">
-              현재 차량 반납 :{" "}
-              <span className="bold">{handleUpdateTimer(_ingTimeVehicle)}</span>{" "}
+              현재 차량 반납 :
+              <span className="bold">{handleUpdateTimer(_ingTimeVehicle)}</span>
               남았습니다.
             </div>
           ) : (
-            <></>
+            <div className="line">현재 반납할 차량이 없습니다.</div>
           )}
         </div>
-        {alertBool ? <Alert severity="success">{message}</Alert> : <></>}
+        <div>
+          {alertBool ? <Alert severity="success">{message}</Alert> : <></>}
+        </div>
       </div>
     </>
   );
