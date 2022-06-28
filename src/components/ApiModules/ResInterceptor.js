@@ -5,10 +5,9 @@ import {
   sendAccessToken,
   reqAccess,
   resAccess,
-  baseUrl,
   urlRefresh,
 } from "./ApiParts";
-import { dshareAPI } from "./ApiHandler";
+import { dshareAPI, requestByEmployeeLogout } from "./ApiHandler";
 
 export const resSuccess = (res) => {
   if (res.headers.authorization) {
@@ -31,10 +30,8 @@ export const resSuccess = (res) => {
       originalRequest.headers[reqAccess] = sendAccessToken();
       return dshareAPI(originalRequest);
     } else {
-      dshareAPI.get(`${baseUrl}logout`);
-      removeCookie(2);
+      requestByEmployeeLogout();
       alert("토큰이 만료되었습니다. 다시 로그인 해주세요.");
-      window.location.href = "/login";
       return false;
     }
   }
