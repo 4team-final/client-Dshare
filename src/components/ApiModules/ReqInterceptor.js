@@ -1,4 +1,4 @@
-import { sendAccessToken, urlRefresh, reqAccess } from "./ApiModules";
+import { sendAccessToken, urlRefresh, reqAccess } from "./ApiParts";
 
 export const request = (req) => {
   req.headers["Content-Type"] = "application/json; charset=utf-8";

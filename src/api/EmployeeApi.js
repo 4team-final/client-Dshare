@@ -1,4 +1,4 @@
-import dshareAPI from "../components/configuration/index";
+import dshareAPI from "../components/ApiModules/index";
 
 export const requestByEmployeeLogin = async (dataSet) => {
   const response = await dshareAPI.post("/login", {
