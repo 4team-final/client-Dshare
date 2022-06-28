@@ -1,24 +1,32 @@
 import React, { useContext } from "react";
-
-import "./App.css";
+import { createGlobalStyle } from "styled-components";
+import "./App.scss";
 //redux
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import ReduxThunk from "redux-thunk";
-import rootReducer from "./store/reducers/indexReducer";
-
+import { Switch, Route } from "react-router-dom";
+import LoginPage from "./page/login/LoginPage";
 //Main
 import EmpMain from "./page/employee/main/EmpMainPage";
-
+import Header from "./components/Outlet/Header";
+import reset from "styled-reset";
+import QuickMenu from "./components/Outlet/QuickMenu";
+import PublicRoute from "./components/Route/Public";
 //store
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-
+const GlobalStyle = createGlobalStyle`
+${reset}
+`;
 //최상위 컴포넌트 App
 function App() {
   return (
-    <Provider store={store}>
-      <EmpMain />
-    </Provider>
+    <div className="App">
+      <GlobalStyle />
+      <QuickMenu />
+      <Switch>
+        <PublicRoute path={"/login"} restricted={true} component={LoginPage} />
+        {/* <Route path={"/"} component={Header} /> */}
+        {/* <Route path={"/"}  component={Footer} /> */}
+        <Route path={"/"} component={EmpMain} />
+      </Switch>
+    </div>
   );
 }
 

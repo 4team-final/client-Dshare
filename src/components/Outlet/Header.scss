@@ -1,0 +1,97 @@
+header {
+  font-family: "AppleSDGothicNeoL";
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 0px;
+  background-color: #555555;
+  color: rgb(230, 230, 230);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  font-family: BMHannaAir;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  a {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    color: rgb(230, 230, 230) !important;
+    &:hover {
+      color: rgb(255, 255, 255);
+    }
+  }
+  .theme {
+    width: 160px;
+  }
+  .selctor {
+    color: rgb(230, 230, 230);
+    &:hover {
+      color: rgb(255, 255, 255);
+    }
+  }
+  .D-share {
+    font-size: 1rem;
+    width: 100%;
+    &:hover {
+      color: rgb(255, 255, 255);
+    }
+  }
+  .logo {
+    width: 1.8rem;
+    margin-right: 15px;
+  }
+}
+
+.search-container {
+  position: relative;
+  input {
+    font-family: BMHannaAir;
+  }
+}
+.fa-magnifying-glass {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  cursor: pointer;
+}
+.menu-container {
+  display: flex;
+  font-size: 11px;
+}
+
+.menu-container {
+  text-align: center;
+  margin-top: 12px;
+  width: 30%;
+  p {
+    width: 100%;
+    padding: 0px;
+    cursor: pointer;
+  }
+}
+
+.searchBox {
+  font-size: 12px;
+  padding: 0;
+  height: 50%;
+  width: 350px;
+  border-radius: 10px;
+  margin-top: 13px;
+  line-height: 15px;
+}
+
+.searchBox:focus {
+  outline: none;
+  border: 2px solid #ccecff;
+}
+
+.vertical-line2 {
+  height: 15px;
+  margin: 1px 7px 1px 10px;
+  border-left: 1px solid rgb(240, 228, 228);
+}
