@@ -1,67 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./InputLogin.scss";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosLock } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  employeeValidate,
-  testToken,
-} from "../../store/actions/EmployeeAction";
+import { requestByEmployeeLogin } from "../ApiModules/ApiHandler";
 
-function InputLogin() {
-  const employeeStore = useSelector((s) => s.employeeReducer);
-  const dispatch = useDispatch();
-  const [empNo, setEmpNo] = useState("");
+export default function InputLogin() {
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const empNoHandler = (e) => {
-    setEmpNo(e.target.value);
+
+  const idHandler = (e) => {
+    setId(e.target.value);
   };
   const passwordHandler = (e) => {
     setPassword(e.target.value);
   };
   const inputReset = () => {
-    setEmpNo("");
+    setId("");
     setPassword("");
   };
   const onClickLogin = async (e) => {
-    e.preventDefault();
-    if (empNo === "" || password === "") {
+    if (e) e.preventDefault();
+    if (id === "" || password === "") {
       alert("사번과 비밀번호는 필수 입력 사항입니다.");
       return;
     }
-    let dataSet = { id: empNo, pw: password };
-    dispatch(employeeValidate(dataSet));
+    let dataSet = { id: id, pw: password };
     inputReset();
-  };
-  const validateLogin = () => {
-    if (
-      employeeStore.data === undefined ||
-      employeeStore.data === null ||
-      employeeStore.data.value === null
-    ) {
-      alert("사번 혹은 비밀번호가 맞지 않습니다.");
+    if ((await requestByEmployeeLogin(dataSet)) === 0) {
+      window.location.href = "/";
+    } else {
+      alert("사번 혹은 비밀번호가 틀렸습니다.");
     }
-    window.location.href = "/";
   };
 
-  const test = () => {
-    dispatch(testToken());
-    console.log("time");
-  };
-  useEffect(() => {
-    console.log(employeeStore);
-  }, [employeeStore]);
   return (
     <div className="InputLogin">
-      <button onClick={test}>test</button>
       <form className="inputLoginForm" onSubmit={onClickLogin}>
         <div className="input-container">
           <FaRegUser className="i" />
-          <input
-            type="text"
-            placeholder="사원번호 입력"
-            onChange={empNoHandler}
-          />
+          <input type="text" placeholder="사원번호 입력" onChange={idHandler} />
         </div>
         <div className="input-container">
           <IoIosLock className="i lock" />
@@ -78,4 +55,3 @@ function InputLogin() {
     </div>
   );
 }
-export default InputLogin;
