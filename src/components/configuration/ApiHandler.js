@@ -6,6 +6,7 @@ import { resError, resSuccess } from "./ResInterceptor";
 export const dshareAPI = axios.create({
   baseURL: baseUrl,
   timeout: 5000,
+  withCredentials: true,
 });
 
 dshareAPI.interceptors.request.use(request);

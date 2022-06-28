@@ -45,7 +45,7 @@ function InputLogin() {
   };
 
   const test = () => {
-    dispatch(testToken);
+    dispatch(testToken());
     console.log("time");
   };
   useEffect(() => {

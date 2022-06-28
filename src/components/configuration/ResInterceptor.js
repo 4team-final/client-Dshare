@@ -11,10 +11,11 @@ import {
 import { dshareAPI } from "./ApiHandler";
 
 export const resSuccess = (res) => {
+  debugger;
   if (res.headers.authorization) {
     saveAccessToken(res.headers.authorization);
   }
-
+  debugger;
   if (
     res.data.message.startsWith("expired_token") ||
     res.data.status === "FORBIDDEN"
@@ -22,6 +23,7 @@ export const resSuccess = (res) => {
     const originalRequest = res.config.baseURL + res.config.url.substring(1);
     const RefreshToken = getRefresh();
 
+    debugger;
     if (RefreshToken) {
       console.log("hihi 리프레쉬토큰");
       removeCookie(1);
@@ -31,8 +33,10 @@ export const resSuccess = (res) => {
             RefreshToken: RefreshToken,
           },
         });
+        debugger;
         saveAccessToken(res.headers[resAccess]);
         originalRequest.headers[reqAccess] = sendAccessToken();
+        debugger;
         return dshareAPI(originalRequest);
       } catch {
         dshareAPI.get(`${baseUrl}logout`);
