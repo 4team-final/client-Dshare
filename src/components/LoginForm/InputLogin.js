@@ -44,16 +44,16 @@ function InputLogin() {
     window.location.href = "/";
   };
 
+  const test = () => {
+    dispatch(testToken);
+    console.log("time");
+  };
   useEffect(() => {
     console.log(employeeStore);
   }, [employeeStore]);
-  function time() {
-    console.log("time");
-    dispatch(testToken());
-  }
   return (
     <div className="InputLogin">
-      <button onClick={time}>test</button>
+      <button onClick={test}>test</button>
       <form className="inputLoginForm" onSubmit={onClickLogin}>
         <div className="input-container">
           <FaRegUser className="i" />
