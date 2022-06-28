@@ -8,4 +8,78 @@
   &:hover {
     border: 1px solid black;
   }
+  .slider_nameLayout {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    height: auto;
+    margin: 3%;
+    padding: 2%;
+    border: 1px solid black;
+    .sliderLayout {
+      position: relative;
+      height: 120px;
+      width: 120px;
+      border: 1px solid black;
+    }
+    .nameLayout {
+      position: relative;
+      height: 20px;
+      width: 120px;
+      border: 1px solid black;
+    }
+  }
+  .room_reserveLayout {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: auto;
+    margin: 3%;
+    padding: 2%;
+    border: 1px solid black;
+    .roomLayout {
+      width: 100%;
+      height: 50%;
+      border: 1px solid black;
+      .half {
+        height: 50%;
+        border: 1px solid black;
+        span {
+          align-self: center;
+          font-size: medium;
+          .float {
+            position: relative;
+            float: right;
+            right: 1%;
+          }
+        }
+        .fontB {
+          font-family: "BMDOHYEON";
+          font-size: small;
+        }
+      }
+    }
+    .reserveLayout {
+      width: 100%;
+      height: 50%;
+      border: 1px solid black;
+      .half {
+        height: 50%;
+        border: 1px solid black;
+        font-size: small;
+        .float {
+          position: relative;
+          float: right;
+          right: 1%;
+        }
+        .reserveTitle {
+          font-family: "BMDOHYEON";
+          position: relative;
+          float: right;
+          right: 1%;
+          font-size: large;
+        }
+      }
+    }
+  }
 }

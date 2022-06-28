@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./ReservationStatusPage.scss";
 import Timer from "../../../../components/timer/Timer.js";
 import MyReservationList from "../../../../components/reservation/MyReservationList.js";
+import ReservationChoice from "../../../../components/reservation/ReservationChoice";
 import { BsCalendarDate } from "react-icons/bs";
 
 function ReservationStatusPage() {
@@ -21,6 +22,7 @@ function ReservationStatusPage() {
         </div>
 
         <div className="right">
+          <ReservationChoice />
           <MyReservationList />
         </div>
       </div>
