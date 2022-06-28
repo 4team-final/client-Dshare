@@ -1,15 +1,10 @@
-import axios from "axios";
-import { baseUrl } from "./BaseUrl";
+import dshareAPI from "../components/ApiModules/index";
 
 //reservation API - 나의 다가오는 회의실 시간 및 남은 회의 시간 조회
 //- /emp/room/reservation/soon/my/time
 export const findSoonIngTimeRoom = async (token) => {
-  const result = axios
-    .get(baseUrl + "emp/room/reservation/soon/my/time", {
-      headers: {
-        Authorization: token,
-      },
-    })
+  const result = dshareAPI
+    .get("emp/room/reservation/soon/my/time")
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
@@ -20,12 +15,8 @@ export const findSoonIngTimeRoom = async (token) => {
 //reservation API - 나의 다음 예약 시작 시간 조회 (차량)
 //- /emp/vehicle/own/reservation/ongoing
 export const findSoonTimeVehcle = async (token) => {
-  const result = axios
-    .get(baseUrl + "emp/vehicle/own/reservation/next", {
-      headers: {
-        Authorization: token,
-      },
-    })
+  const result = dshareAPI
+    .get("emp/vehicle/own/reservation/next")
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
@@ -35,12 +26,8 @@ export const findSoonTimeVehcle = async (token) => {
 //reservation API - 내가 현재 진행중인 예약 종료 시간 조회 (차량)
 //- /emp/vehicle/own/reservation/next
 export const findIngTimeVehcle = async (token) => {
-  const result = axios
-    .get(baseUrl + "emp/vehicle/own/reservation/ongoing", {
-      headers: {
-        Authorization: token,
-      },
-    })
+  const result = dshareAPI
+    .get("emp/vehicle/own/reservation/ongoing")
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
@@ -52,12 +39,8 @@ export const findIngTimeVehcle = async (token) => {
 //- /emp/room/reservation/my/{lastId}/{limit}
 export const findMyReservationRoomPage = async (data) => {
   // console.log(data);
-  const result = axios
-    .get(baseUrl + `emp/room/reservation/my/${data.lastId}/${data.limit}`, {
-      headers: {
-        Authorization: data.token,
-      },
-    })
+  const result = dshareAPI
+    .get(`emp/room/reservation/my/${data.lastId}/${data.limit}`)
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
@@ -68,12 +51,9 @@ export const findMyReservationRoomPage = async (data) => {
 //reservation API - 나의 예약 현황 조회 페이지네이션 (차량)
 //- /emp/vehicle/list/own/paging
 export const findMyReservationVehiclePage = async (data) => {
-  const result = axios
-    .get(baseUrl + "emp/vehicle/list/own/paging", {
+  const result = dshareAPI
+    .get("emp/vehicle/list/own/paging", {
       params: { id: data.lastId },
-      headers: {
-        Authorization: data.token,
-      },
     })
     .then((res) => res.data)
     .catch((err) => {

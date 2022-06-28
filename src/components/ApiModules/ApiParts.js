@@ -14,6 +14,11 @@ export const getRefresh = () => {
   return cookie.get(reqRefresh);
 };
 export const saveAccessToken = (value) => {
+  console.log(reqAccess);
+  console.log(value);
+
+  debugger;
+
   cookie.set(reqAccess, value.substring(7));
 };
 export const sendAccessToken = () => {
