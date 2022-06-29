@@ -1,9 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Switch, Link } from "react-router-dom";
+import {
+  requestByEmployeeLogout,
+  requestByTokenExpired,
+} from "../../../components/ApiModules/ApiHandler";
 
 export default function EmpMainPage() {
   return (
     <>
+      <button onClick={requestByEmployeeLogout}>임시 로그아웃 버튼</button>
+      <button onClick={async () => console.log(await requestByTokenExpired())}>
+        {" "}
+        임시 토큰 체크 버튼
+      </button>
       <Switch>
         {/* <PublicRoute
             restricted={true}
