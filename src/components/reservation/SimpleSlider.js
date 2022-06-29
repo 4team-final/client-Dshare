@@ -23,6 +23,7 @@ import "./SimpleSlider.scss";
 export default function SimpleSlider(props) {
   const [total, setTotal] = useState(0);
   const [imgs, setImgs] = useState(props.data);
+  console.log(props);
 
   var settings = {
     arrows: false,
@@ -34,13 +35,14 @@ export default function SimpleSlider(props) {
   };
   return (
     <Slider {...settings} className="slider">
-      {imgs.map((item, i) => {
-        return (
-          <div className="imgsize">
-            <img className="img" src={item.imgPath} />
-          </div>
-        );
-      })}
+      {imgs.length > 0 &&
+        imgs.map((item, i) => {
+          return (
+            <div className="imgsize">
+              <img className="img" src={item?.imgPath} />
+            </div>
+          );
+        })}
     </Slider>
   );
 }

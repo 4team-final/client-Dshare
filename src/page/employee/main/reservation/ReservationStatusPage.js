@@ -3,6 +3,7 @@ import "./ReservationStatusPage.scss";
 import Timer from "../../../../components/timer/Timer.js";
 import MyReservationList from "../../../../components/reservation/MyReservationList.js";
 import ReservationChoice from "../../../../components/reservation/ReservationChoice";
+import MyReservationDetail from "../../../../components/reservation/MyReservationDetail";
 import { BsCalendarDate } from "react-icons/bs";
 
 function ReservationStatusPage() {
@@ -18,7 +19,9 @@ function ReservationStatusPage() {
             시간 선택
             <BsCalendarDate className="CalendarDate" />
           </div>
-          <div className="card">게시물 카드</div>
+          <div className="card">
+            <MyReservationDetail />
+          </div>
         </div>
 
         <div className="right">

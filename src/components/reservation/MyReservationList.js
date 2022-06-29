@@ -11,67 +11,71 @@ import {
   myReservationRoomList,
   myReservationVehicleList,
 } from "../../store/actions/ReservationAction";
+import { ItemChangeSave } from "../../store/actions/ChangeAction";
 import "./MyReservationList.scss";
 import MyReservationCard from "./MyReservationCard";
-import { set } from "lodash";
 
 function MyReservationList() {
   const reservationStore = useSelector((state) => state.reservationReducer);
+  const changeStoreSelect = useSelector(
+    (state) => state.changeReducer.selected
+  );
   const dispatch = useDispatch();
 
-  const [token, setToken] = useState(
-    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTY0MDUzMzUsImV4cCI6MTY1NjQwNzEzNX0.QzqGFjX20uaN_4I-V4hLnbsxphcwl3RVWI3IfEl7LyhLwT08pahunu9XUONlgtpiwHSyc1ihBTPBrr66tMLGsw"
-  );
+  const [reqRoomLastId, setReqRoomLastId] = useState(0);
+  const [reqVehicleLastId, setReqVehicleLastId] = useState(0);
+
   const [reqRoom, setReqRoom] = useState({
-    lastId: 0,
-    token: "",
+    lastId: reqRoomLastId,
     limit: 0,
   });
   const [reqVehicle, setReqVehicle] = useState({
-    lastId: 0,
-    token: "",
+    lastId: reqVehicleLastId,
     limit: 0,
   });
 
   const [resRoomList, setResRoomList] = useState([]);
   const [resVehicleList, setResVehicleList] = useState([]);
 
-  const [reqRoomLastId, setReqRoomLastId] = useState(0);
-  const [reqVehicleLastId, setReqVehicleLastId] = useState(0);
   const [limit, setLimit] = useState(5);
   const [select, isSelect] = useState(0);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    setReqRoom({
-      lastId: 0,
-      token: token,
-      limit: limit,
-    });
-    setReqVehicle({
-      lastId: 0,
-      token: token,
-      limit: limit,
-    });
-  }, []);
+    if (limit > 0) {
+      setReqRoom({
+        lastId: 0,
+        limit: limit,
+      });
+      setReqVehicle({
+        lastId: 0,
+        limit: limit,
+      });
+    }
+  }, [limit]);
+  useEffect(() => {
+    if (changeStoreSelect) {
+      isSelect(changeStoreSelect);
+    }
+  }, [changeStoreSelect]);
 
   useEffect(() => {
-    if (reqRoom.token) {
+    if (reqRoom && select === 0) {
+      console.log(changeStoreSelect);
       dispatch(myReservationRoomList(reqRoom));
       // dispatch(myReservationVehicleList(reqVehicle));
     }
-  }, [reqRoom.token]);
+  }, [reqRoom, select]);
 
   useEffect(() => {
-    if (reqRoom.token) {
+    if (reqVehicle && select === 1) {
       // dispatch(myReservationRoomList(reqRoom));
       dispatch(myReservationVehicleList(reqVehicle));
     }
-  }, [reqVehicle.token]);
+  }, [reqVehicle, select]);
 
   useEffect(() => {
     if (reservationStore?.myReservationRoomList?.data?.value) {
-      // console.log(reservationStore?.myReservationRoomList?.data?.value);
       setResRoomList(
         ...resRoomList,
         reservationStore?.myReservationRoomList?.data?.value
@@ -80,16 +84,36 @@ function MyReservationList() {
   }, [reservationStore?.myReservationRoomList?.data?.value]);
 
   useEffect(() => {
-    if (resRoomList.length > 0) {
-      setTotal(resRoomList[0].total);
+    if (reservationStore?.myReservationVehicleList?.data?.value) {
+      console.log(reservationStore);
+      setResVehicleList(
+        ...resVehicleList,
+        reservationStore?.myReservationVehicleList?.data?.value
+      );
     }
-  }, [resRoomList]);
+  }, [reservationStore?.myReservationVehicleList?.data?.value]);
+
+  useEffect(() => {
+    if (resRoomList.length > 0 && select === 0) {
+      setTotal(resRoomList[0].total);
+    } else if (resVehicleList.length > 0 && select === 1) {
+      setTotal(resVehicleList[0].total);
+    } else {
+      setTotal(0);
+    }
+  }, [resRoomList, resVehicleList]);
 
   // useEffect(() => {
   //   if (reservationStore) {
   //     console.log(reservationStore);
   //   }
   // }, [reservationStore]);
+
+  const handleDetail = (item) => {
+    alert(123);
+    alert(item);
+    dispatch(ItemChangeSave(item));
+  };
 
   return (
     <div className="MyReservatationList">
@@ -100,9 +124,13 @@ function MyReservationList() {
             <>
               {resRoomList.map((item, i) => {
                 return (
-                  <>
+                  <div
+                    onClick={() => {
+                      handleDetail(item);
+                    }}
+                  >
                     <MyReservationCard key={i} data={item} />
-                  </>
+                  </div>
                 );
               })}
             </>
@@ -115,13 +143,17 @@ function MyReservationList() {
       )}
       {select === 1 ? (
         <>
-          {resRoomList.length > 0 ? (
+          {resVehicleList.length > 0 ? (
             <>
-              {resRoomList.map((item, i) => {
+              {resVehicleList.map((item, i) => {
                 return (
-                  <>
+                  <div
+                    onClick={() => {
+                      handleDetail();
+                    }}
+                  >
                     <MyReservationCard key={i} data={item} />
-                  </>
+                  </div>
                 );
               })}
             </>

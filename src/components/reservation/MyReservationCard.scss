@@ -15,18 +15,20 @@
     height: auto;
     margin: 3%;
     padding: 2%;
-    border: 1px solid black;
+    // border: 1px solid black;
+    border-right: 1px solid #d3d3d3;
     .sliderLayout {
       position: relative;
       height: 120px;
       width: 120px;
-      border: 1px solid black;
+      margin-bottom: 2%;
+      // border: 1px solid black;
     }
     .nameLayout {
       position: relative;
       height: 20px;
       width: 120px;
-      border: 1px solid black;
+      // border: 1px solid black;
     }
   }
   .room_reserveLayout {
@@ -36,14 +38,17 @@
     height: auto;
     margin: 3%;
     padding: 2%;
-    border: 1px solid black;
+    // border: 1px solid black;
+
     .roomLayout {
       width: 100%;
       height: 50%;
-      border: 1px solid black;
+      border-bottom: 1px solid #d3d3d3;
+
+      // border: 1px solid black;
       .half {
         height: 50%;
-        border: 1px solid black;
+        // border: 1px solid black;
         span {
           align-self: center;
           font-size: medium;
@@ -62,10 +67,10 @@
     .reserveLayout {
       width: 100%;
       height: 50%;
-      border: 1px solid black;
+      // border: 1px solid black;
       .half {
         height: 50%;
-        border: 1px solid black;
+        // border: 1px solid black;
         font-size: small;
         .float {
           position: relative;
