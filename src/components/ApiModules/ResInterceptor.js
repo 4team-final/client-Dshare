@@ -1,34 +1,37 @@
 import {
-  saveAccessToken,
-  getRefresh,
-  removeCookie,
-  sendAccessToken,
-  reqAccess,
   resAccess,
+  resRefresh,
   urlRefresh,
+  saveToken,
+  getToken,
+  removeToken,
 } from "./ApiParts";
 import { dshareAPI, requestByEmployeeLogout } from "./ApiHandler";
 
-export const resSuccess = (res) => {
-  if (res.headers.authorization) {
-    saveAccessToken(res.headers.authorization);
+export const resSuccess = async (res) => {
+  if (res.headers[resAccess]) {
+    saveToken("access", res.headers[resAccess]);
+  }
+  if (res.headers[resRefresh]) {
+    saveToken("refresh", res.headers[resRefresh]);
   }
   if (
     res.data.message.startsWith("expired_token") ||
     res.data.status === "FORBIDDEN"
   ) {
-    const originalRequest = res.config.baseURL + res.config.url.substring(1);
-    const RefreshToken = getRefresh();
+    console.log(res.config);
+    debugger;
+    const originalRequest = res.config.url;
+    const RefreshToken = getToken("refresh");
     if (RefreshToken) {
-      removeCookie(1);
-      const res = dshareAPI(`/${urlRefresh}`, {
+      removeToken("access");
+      const result = await dshareAPI(urlRefresh, {
         headers: {
           RefreshToken: RefreshToken,
         },
       });
-      saveAccessToken(res.headers[resAccess]);
-      originalRequest.headers[reqAccess] = sendAccessToken();
-      return dshareAPI(originalRequest);
+      saveToken("access", result.headers[resAccess]);
+      return await dshareAPI(originalRequest);
     } else {
       requestByEmployeeLogout();
       alert("토큰이 만료되었습니다. 다시 로그인 해주세요.");
