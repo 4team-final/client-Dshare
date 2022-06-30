@@ -23,9 +23,13 @@ import { style } from "./SimpleSliderStyle";
 
 export default function SimpleSlider(props) {
   const [total, setTotal] = useState(0);
-  const [imgs, setImgs] = useState(props?.data || props);
+  const [imgs, setImgs] = useState([]);
   const [width, setWidth] = useState(props?.style.width);
   const [height, setHeight] = useState(props?.style.height);
+
+  useEffect(() => {
+    setImgs(props.data || props);
+  }, [props]);
 
   var settings = {
     arrows: false,
@@ -42,7 +46,7 @@ export default function SimpleSlider(props) {
           imgs?.map((item, i) => {
             return (
               <WrapperImg key={i} width={width} height={height}>
-                <img className="img" src={item?.imgPath} />
+                <img className="img" src={item?.imgPath || item} />
               </WrapperImg>
             );
           })}

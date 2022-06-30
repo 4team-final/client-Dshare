@@ -32,6 +32,7 @@ import { BsFillHouseDoorFill } from "react-icons/bs";
 import { IoIosPeople } from "react-icons/io";
 import { BsFillSkipEndFill } from "react-icons/bs";
 import { BsAlignEnd } from "react-icons/bs";
+import { AiFillCar } from "react-icons/ai";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -60,9 +61,6 @@ function MyReservationDetail() {
   );
   const dispatch = useDispatch();
 
-  const [resRoomList, setResRoomList] = useState([]);
-  const [empName, setEmpName] = useState("");
-  const [reservedAt, setReservedAt] = useState("");
   const [roomItem, setRoomItem] = useState({});
   const [vehicleItem, setVehicleItem] = useState({});
   const [select, isSelect] = useState(0);
@@ -74,6 +72,7 @@ function MyReservationDetail() {
   }, [changeStoreSelect]);
   useEffect(() => {
     if (changeStoreRoomItem) {
+      console.log("바꿈");
       setRoomItem(changeStoreRoomItem.reservationResDTO);
     }
   }, [changeStoreRoomItem]);
@@ -86,6 +85,9 @@ function MyReservationDetail() {
   }, [changeStoreVehicleItem]);
 
   function convertTime(time) {
+    if (!time) {
+      return;
+    }
     let timeArr = time.split("T");
     return timeArr[0] + " " + timeArr[1];
   }
@@ -103,6 +105,9 @@ function MyReservationDetail() {
   };
 
   const diffDate = (rperiod) => {
+    if (!rperiod) {
+      return;
+    }
     let a = rperiod?.split("T")[1];
     let b = a.split(":");
     return b[0] + "시간 " + b[1] + "분";
@@ -110,7 +115,8 @@ function MyReservationDetail() {
 
   return (
     <>
-      {!roomItem?.id && select === 0 && (
+      {((!roomItem?.id && select === 0) ||
+        (!vehicleItem?.reservationId && select === 1)) && (
         <Card sx={{ width: "100%", height: "100%", borderRadius: "20px" }}>
           <h1 className="center" style={{ textAlign: "center" }}>
             오른쪽 목록에서 선택해주세요.
@@ -235,27 +241,22 @@ function MyReservationDetail() {
           }}
         >
           <CardHeader
-            avatar={
-              <Avatar
-                sx={{}}
-                aria-label="recipe"
-                src={roomItem?.emp?.profileImg}
-              ></Avatar>
-            }
+            avatar={<Avatar sx={{}} aria-label="recipe" src={""}></Avatar>}
             action={
               <IconButton aria-label="settings">
                 <MoreVertIcon />
               </IconButton>
             }
-            title={
-              "예약자 : " + roomItem?.emp?.empNo + " " + roomItem?.emp?.name
+            title={"예약자 : " + vehicleItem?.empNo + " " + vehicleItem?.ename}
+            subheader={
+              "예약 확정 시간 : " +
+              convertTime(vehicleItem?.reservationModifiedAt)
             }
-            subheader={"예약 확정 시간 : " + convertTime(roomItem?.modifiedAt)}
             sx={{ borderBottom: "1px solid #d3d3d3" }}
           />
 
           <SimpleSlider
-            data={roomItem?.room?.roomImgResDTOList}
+            data={vehicleItem?.imgList}
             style={{ width: "95%", height: "200px" }}
           />
 
@@ -270,28 +271,20 @@ function MyReservationDetail() {
                   자원 정보
                 </Typography>
                 <Typography variant="h6" component="div">
-                  {roomItem?.room.categoryName}
+                  {vehicleItem?.vname}
                 </Typography>
                 <Typography
                   sx={{ mb: 1.5, fontSize: "12px" }}
                   color="text.secondary"
                 >
-                  {roomItem?.room.content}
+                  {vehicleItem?.vnumber}
                 </Typography>
-                <Typography
-                  sx={{ mb: 1.5, float: "right" }}
-                  color="text.secondary"
-                >
-                  비치 물품 :
-                  {roomItem?.room?.roomObjectResDTOList.map((item, i) => {
-                    return item.name !== " " && <>{item?.name} </>;
-                  })}
-                </Typography>
+
                 <Typography variant="body2" sx={{ float: "right" }}>
-                  <BsFillHouseDoorFill size={"2em"} />
-                  {roomItem?.room.roomNo}호 {"  "}
+                  <AiFillCar size={"2em"} />
+                  {vehicleItem?.model} 모델 {"  "}
                   <IoIosPeople size={"2em"} />
-                  {roomItem?.room.capacity}인실
+                  {vehicleItem?.capacity}인승
                 </Typography>
               </div>
               <div className="half">
@@ -303,13 +296,13 @@ function MyReservationDetail() {
                   예약 정보
                 </Typography>
                 <Typography variant="h6" component="div">
-                  {roomItem?.title}
+                  {vehicleItem?.title}
                 </Typography>
                 <Typography
                   sx={{ mb: 1.5, fontSize: "12px" }}
                   color="text.secondary"
                 >
-                  {roomItem?.reason}
+                  {vehicleItem?.reason}
                 </Typography>
                 <Typography
                   sx={{ mb: 1.5, float: "right" }}
@@ -320,11 +313,11 @@ function MyReservationDetail() {
                   sx={{ float: "right", fontSize: "12px" }}
                 >
                   <BsFillSkipEndFill size={"1em"} />
-                  시작 {convertDate(roomItem?.startedAt)} {"  "}
+                  시작 {convertDate(vehicleItem?.reservationCreatedAt)} {"  "}
                   <br />
                   <BsAlignEnd size={"1em"} />
-                  종료 {convertDate(roomItem?.endedAt)}
-                  <br />총{diffDate(roomItem?.rperiod)}
+                  종료 {convertDate(vehicleItem?.reservationModifiedAt)}
+                  <br />
                 </Typography>
               </div>
             </div>

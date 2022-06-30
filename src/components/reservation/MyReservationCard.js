@@ -19,23 +19,31 @@ import "slick-carousel/slick/slick-theme.css";
 import SimpleSlider from "./SimpleSlider";
 
 function MyReservationCard(props) {
-  const changeStoreSelect = useSelector((state) => state.changeReducer.select);
+  const changeStoreSelect = useSelector(
+    (state) => state.changeReducer.selected
+  );
   const dispatch = useDispatch();
 
-  const [data, setData] = useState(props?.data?.reservationResDTO);
-  const [data2, setData2] = useState(props);
+  const [data, setData] = useState(null);
+  const [data2, setData2] = useState(null);
 
-  const [total, setTotal] = useState(props?.data?.total);
-  const [roomImgs, setRoomImgs] = useState(
-    props?.data?.reservationResDTO?.room?.roomImgResDTOList
-  );
-  const [vehicleImgs, setVehicleImgs] = useState(props?.data?.vehicleImg);
+  const [roomImgs, setRoomImgs] = useState([]);
+  const [vehicleImgs, setVehicleImgs] = useState([]);
   const [select, isSelect] = useState(0);
 
   useEffect(() => {
-    if (changeStoreSelect) {
+    if (props?.data?.reservationResDTO) {
+      setData(props?.data?.reservationResDTO);
+      setRoomImgs(props?.data?.reservationResDTO?.room?.roomImgResDTOList);
+    } else {
+      setData2(props.data);
+      setVehicleImgs(props?.data?.imgList);
+    }
+  }, [props]);
+
+  useEffect(() => {
+    if (changeStoreSelect === 0 || changeStoreSelect === 1) {
       isSelect(changeStoreSelect);
-      console.log("select " + select);
     }
   }, [changeStoreSelect]);
 
@@ -68,7 +76,7 @@ function MyReservationCard(props) {
             }}
           >
             <div className="slider_nameLayout">
-              {data && roomImgs ? (
+              {data && roomImgs.length ? (
                 <>
                   <div className="sliderLayout">
                     <SimpleSlider
@@ -129,7 +137,7 @@ function MyReservationCard(props) {
             }}
           >
             <div className="slider_nameLayout">
-              {data2 && vehicleImgs ? (
+              {data2 && vehicleImgs.length ? (
                 <>
                   <div className="sliderLayout">
                     <SimpleSlider
@@ -151,6 +159,8 @@ function MyReservationCard(props) {
                 <div className="half">
                   <span>
                     <span className="float">
+                      {data2.vnumber}
+                      <br />
                       {data2.color} 색깔 - {data2.capacity}인승
                     </span>
                   </span>

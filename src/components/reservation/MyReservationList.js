@@ -58,24 +58,27 @@ function MyReservationList() {
   }, [limit]);
   useEffect(() => {
     if (changeStoreSelect === 0 || changeStoreSelect === 1) {
-      console.log(changeStoreSelect);
       isSelect(changeStoreSelect);
     }
   }, [changeStoreSelect]);
 
   useEffect(() => {
     if (reqRoom && select === 0) {
-      setLoading(true);
-      dispatch(myReservationRoomList(reqRoom));
-      setLoading(false);
+      if (resRoomList.length === 0) {
+        setLoading(true);
+        dispatch(myReservationRoomList(reqRoom));
+        setLoading(false);
+      }
     }
   }, [reqRoom, select]);
 
   useEffect(() => {
     if (reqVehicle && select === 1) {
-      setLoading(true);
-      dispatch(myReservationVehicleList(reqVehicle));
-      setLoading(false);
+      if (resVehicleList.length === 0) {
+        setLoading(true);
+        dispatch(myReservationVehicleList(reqVehicle));
+        setLoading(false);
+      }
     }
   }, [reqVehicle, select]);
 
