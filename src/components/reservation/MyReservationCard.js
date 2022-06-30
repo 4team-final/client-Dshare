@@ -35,7 +35,7 @@ function MyReservationCard(props) {
   useEffect(() => {
     if (changeStoreSelect) {
       isSelect(changeStoreSelect);
-      console.log(select);
+      console.log("select " + select);
     }
   }, [changeStoreSelect]);
 
@@ -71,7 +71,10 @@ function MyReservationCard(props) {
               {data && roomImgs ? (
                 <>
                   <div className="sliderLayout">
-                    <SimpleSlider data={roomImgs} />
+                    <SimpleSlider
+                      data={roomImgs}
+                      style={{ width: "100px", height: "100px" }}
+                    />
                   </div>
                 </>
               ) : (
@@ -129,7 +132,10 @@ function MyReservationCard(props) {
               {data2 && vehicleImgs ? (
                 <>
                   <div className="sliderLayout">
-                    <SimpleSlider data={vehicleImgs} />
+                    <SimpleSlider
+                      data={vehicleImgs}
+                      style={{ width: "100px", height: "100px" }}
+                    />
                   </div>
                 </>
               ) : (

@@ -14,6 +14,8 @@ import {
 import { ItemChangeSave } from "../../store/actions/ChangeAction";
 import "./MyReservationList.scss";
 import MyReservationCard from "./MyReservationCard";
+import Loading from "../Loading";
+import "../Loading.css";
 
 function MyReservationList() {
   const reservationStore = useSelector((state) => state.reservationReducer);
@@ -40,6 +42,7 @@ function MyReservationList() {
   const [limit, setLimit] = useState(5);
   const [select, isSelect] = useState(0);
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (limit > 0) {
@@ -54,23 +57,25 @@ function MyReservationList() {
     }
   }, [limit]);
   useEffect(() => {
-    if (changeStoreSelect) {
+    if (changeStoreSelect === 0 || changeStoreSelect === 1) {
+      console.log(changeStoreSelect);
       isSelect(changeStoreSelect);
     }
   }, [changeStoreSelect]);
 
   useEffect(() => {
     if (reqRoom && select === 0) {
-      console.log(changeStoreSelect);
+      setLoading(true);
       dispatch(myReservationRoomList(reqRoom));
-      // dispatch(myReservationVehicleList(reqVehicle));
+      setLoading(false);
     }
   }, [reqRoom, select]);
 
   useEffect(() => {
     if (reqVehicle && select === 1) {
-      // dispatch(myReservationRoomList(reqRoom));
+      setLoading(true);
       dispatch(myReservationVehicleList(reqVehicle));
+      setLoading(false);
     }
   }, [reqVehicle, select]);
 
@@ -103,67 +108,63 @@ function MyReservationList() {
     }
   }, [resRoomList, resVehicleList]);
 
-  // useEffect(() => {
-  //   if (reservationStore) {
-  //     console.log(reservationStore);
-  //   }
-  // }, [reservationStore]);
-
-  const handleDetail = (item) => {
-    alert(123);
-    alert(item);
+  async function handleDetail(item) {
     dispatch(ItemChangeSave(item));
-  };
+  }
 
   return (
     <div className="MyReservatationList">
       <div className="title">내 예약 현황 목록 / Total - {total}</div>
-      {select === 0 ? (
+
+      {!loading && (
         <>
-          {resRoomList.length > 0 ? (
+          {select === 0 && (
             <>
-              {resRoomList.map((item, i) => {
-                return (
-                  <div
-                    onClick={() => {
-                      handleDetail(item);
-                    }}
-                  >
-                    <MyReservationCard key={i} data={item} />
-                  </div>
-                );
-              })}
+              {resRoomList.length > 0 ? (
+                <>
+                  {resRoomList.map((item, i) => {
+                    return (
+                      <div
+                        key={i}
+                        onClick={() => {
+                          handleDetail(item);
+                        }}
+                      >
+                        <MyReservationCard data={item} />
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
             </>
-          ) : (
-            <></>
+          )}
+          {select === 1 && (
+            <>
+              {resVehicleList.length > 0 ? (
+                <>
+                  {resVehicleList.map((item, i) => {
+                    return (
+                      <div
+                        key={i}
+                        onClick={() => {
+                          handleDetail(item);
+                        }}
+                      >
+                        <MyReservationCard data={item} />
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
+            </>
           )}
         </>
-      ) : (
-        <></>
       )}
-      {select === 1 ? (
-        <>
-          {resVehicleList.length > 0 ? (
-            <>
-              {resVehicleList.map((item, i) => {
-                return (
-                  <div
-                    onClick={() => {
-                      handleDetail();
-                    }}
-                  >
-                    <MyReservationCard key={i} data={item} />
-                  </div>
-                );
-              })}
-            </>
-          ) : (
-            <></>
-          )}
-        </>
-      ) : (
-        <></>
-      )}
+      {loading && <Loading text={"불러오는중 ..."} />}
     </div>
   );
 }

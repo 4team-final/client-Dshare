@@ -1,0 +1,17 @@
+.content_layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1%;
+  padding: 1%;
+  .half {
+    padding: 1%;
+    margin: 2%;
+    width: 45%;
+    height: 100%;
+  }
+  .line {
+    border-right: 1px solid #d3d3d3;
+  }
+}

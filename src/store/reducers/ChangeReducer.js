@@ -5,15 +5,21 @@ import {
 
 const initialState = {
   selected: 0,
-  item: {},
+  roomItem: {},
+  vehicleItem: {},
 };
 
-export default function searchReducer(state = initialState, action) {
+export default function changeReducer(state = initialState, action) {
   switch (action.type) {
     case SELECTED_CHANGE_SAVE:
-      return { selected: action.selected };
+      return { ...state, selected: action.selected };
     case ITEM_CHANGE_SAVE:
-      return { item: action.item };
+      if (action.item && state.selected === 0) {
+        return { ...state, roomItem: action.item };
+      } else if (action.item && state.selected === 1) {
+        return { ...state, vehicleItem: action.item };
+      }
+      return state;
     default:
       return state;
   }

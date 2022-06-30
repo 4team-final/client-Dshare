@@ -1,5 +1,5 @@
 export const SELECTED_CHANGE_SAVE = "SELECTED_CHANGE_SAVE";
-export const ITEM_CHANGE_SAVE = "SELECTED_CHANGE_SAVE";
+export const ITEM_CHANGE_SAVE = "ITEM_CHANGE_SAVE";
 
 export const SelectedChangeSave = (selected) => {
   return async (dispatch) => {
@@ -16,6 +16,7 @@ export const SelectedChangeSave = (selected) => {
 export const ItemChangeSave = (item) => {
   return async (dispatch) => {
     try {
+      console.log(item);
       dispatch({
         type: ITEM_CHANGE_SAVE,
         item: item,

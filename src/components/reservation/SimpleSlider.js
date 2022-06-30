@@ -6,7 +6,6 @@ import React, {
   useMemo,
 } from "react";
 import Slider from "react-slick";
-import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
   soonIngTimeRoom,
@@ -20,10 +19,13 @@ import "slick-carousel/slick/slick-theme.css";
 import CardMedia from "@mui/material/CardMedia";
 import "./SimpleSlider.scss";
 
+import { style } from "./SimpleSliderStyle";
+
 export default function SimpleSlider(props) {
   const [total, setTotal] = useState(0);
-  const [imgs, setImgs] = useState(props.data);
-  console.log(props);
+  const [imgs, setImgs] = useState(props?.data || props);
+  const [width, setWidth] = useState(props?.style.width);
+  const [height, setHeight] = useState(props?.style.height);
 
   var settings = {
     arrows: false,
@@ -34,15 +36,19 @@ export default function SimpleSlider(props) {
     slidesToScroll: 1,
   };
   return (
-    <Slider {...settings} className="slider">
-      {imgs.length > 0 &&
-        imgs.map((item, i) => {
-          return (
-            <div className="imgsize">
-              <img className="img" src={item?.imgPath} />
-            </div>
-          );
-        })}
-    </Slider>
+    <Wrapper width={width} height={height}>
+      <Slider {...settings} className="slider">
+        {imgs?.length > 0 &&
+          imgs?.map((item, i) => {
+            return (
+              <WrapperImg key={i} width={width} height={height}>
+                <img className="img" src={item?.imgPath} />
+              </WrapperImg>
+            );
+          })}
+      </Slider>
+    </Wrapper>
   );
 }
+
+const { Wrapper, WrapperImg } = style;

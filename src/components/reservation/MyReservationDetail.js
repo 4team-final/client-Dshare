@@ -28,10 +28,14 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { mdiBookmark } from "@mdi/js";
-import { mdiLeadPencil } from "@mdi/js";
-import { mdiClock } from "@mdi/js";
-import Icon from "@mdi/react";
+import { BsFillHouseDoorFill } from "react-icons/bs";
+import { IoIosPeople } from "react-icons/io";
+import { BsFillSkipEndFill } from "react-icons/bs";
+import { BsAlignEnd } from "react-icons/bs";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import SimpleSlider from "./SimpleSlider";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -45,109 +49,289 @@ const ExpandMore = styled((props) => {
 }));
 
 function MyReservationDetail() {
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  const reservationStore = useSelector((state) => state.reservationReducer);
-  const changeStoreitem = useSelector((state) => state.changeReducer.item);
-
+  const changeStoreRoomItem = useSelector(
+    (state) => state.changeReducer.roomItem
+  );
+  const changeStoreVehicleItem = useSelector(
+    (state) => state.changeReducer.vehicleItem
+  );
+  const changeStoreSelect = useSelector(
+    (state) => state.changeReducer.selected
+  );
   const dispatch = useDispatch();
 
   const [resRoomList, setResRoomList] = useState([]);
   const [empName, setEmpName] = useState("");
   const [reservedAt, setReservedAt] = useState("");
-  const [item, setItem] = useState({});
+  const [roomItem, setRoomItem] = useState({});
+  const [vehicleItem, setVehicleItem] = useState({});
+  const [select, isSelect] = useState(0);
 
   useEffect(() => {
-    if (reservationStore?.myReservationRoomList?.data?.value) {
-      setResRoomList(
-        ...resRoomList,
-        reservationStore?.myReservationRoomList?.data?.value
-      );
+    if (changeStoreSelect === 0 || changeStoreSelect === 1) {
+      isSelect(changeStoreSelect);
     }
-  }, [reservationStore?.myReservationRoomList?.data?.value]);
-
+  }, [changeStoreSelect]);
   useEffect(() => {
-    if (changeStoreitem) {
-      setItem(changeStoreitem);
+    if (changeStoreRoomItem) {
+      setRoomItem(changeStoreRoomItem.reservationResDTO);
     }
-  }, [changeStoreitem]);
+  }, [changeStoreRoomItem]);
+  useEffect(() => {
+    if (changeStoreVehicleItem) {
+      console.log(222);
+      console.log(changeStoreVehicleItem);
+      setVehicleItem(changeStoreVehicleItem);
+    }
+  }, [changeStoreVehicleItem]);
+
+  function convertTime(time) {
+    let timeArr = time.split("T");
+    return timeArr[0] + " " + timeArr[1];
+  }
+  const convertDate = (time) => {
+    if (!time && time == null) {
+      return;
+    }
+
+    let a = time?.split("T")[0]?.split("-");
+    let b = time?.split("T")[1]?.split(":");
+
+    return (
+      a[0] + "년 " + a[1] + "월 " + +a[2] + "일 " + b[0] + "시 " + b[1] + "분 "
+    );
+  };
+
+  const diffDate = (rperiod) => {
+    let a = rperiod?.split("T")[1];
+    let b = a.split(":");
+    return b[0] + "시간 " + b[1] + "분";
+  };
 
   return (
-    <Card sx={{ width: "100%", height: "100%", borderRadius: "20px" }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{}} aria-label="recipe" src={""}>
-            사진
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={empName}
-        subheader={reservedAt}
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites"></IconButton>
-        <IconButton aria-label="share"></IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
+    <>
+      {!roomItem?.id && select === 0 && (
+        <Card sx={{ width: "100%", height: "100%", borderRadius: "20px" }}>
+          <h1 className="center" style={{ textAlign: "center" }}>
+            오른쪽 목록에서 선택해주세요.
+          </h1>
+        </Card>
+      )}
+      {roomItem?.id && select === 0 && (
+        <Card
+          sx={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "20px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+          <CardHeader
+            avatar={
+              <Avatar
+                sx={{}}
+                aria-label="recipe"
+                src={roomItem?.emp?.profileImg}
+              ></Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={
+              "예약자 : " + roomItem?.emp?.empNo + " " + roomItem?.emp?.name
+            }
+            subheader={"예약 확정 시간 : " + convertTime(roomItem?.modifiedAt)}
+            sx={{ borderBottom: "1px solid #d3d3d3" }}
+          />
+
+          <SimpleSlider
+            data={roomItem?.room?.roomImgResDTOList}
+            style={{ width: "95%", height: "200px" }}
+          />
+
+          <CardContent>
+            <div className="content_layout">
+              <div className="half line">
+                <Typography
+                  sx={{ fontSize: 12 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  자원 정보
+                </Typography>
+                <Typography variant="h6" component="div">
+                  {roomItem?.room.categoryName}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, fontSize: "12px" }}
+                  color="text.secondary"
+                >
+                  {roomItem?.room.content}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, float: "right" }}
+                  color="text.secondary"
+                >
+                  비치 물품 :
+                  {roomItem?.room?.roomObjectResDTOList.map((item, i) => {
+                    return item.name !== " " && <>{item?.name} </>;
+                  })}
+                </Typography>
+                <Typography variant="body2" sx={{ float: "right" }}>
+                  <BsFillHouseDoorFill size={"2em"} />
+                  {roomItem?.room.roomNo}호 {"  "}
+                  <IoIosPeople size={"2em"} />
+                  {roomItem?.room.capacity}인실
+                </Typography>
+              </div>
+              <div className="half">
+                <Typography
+                  sx={{ fontSize: 12 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  예약 정보
+                </Typography>
+                <Typography variant="h6" component="div">
+                  {roomItem?.title}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, fontSize: "12px" }}
+                  color="text.secondary"
+                >
+                  {roomItem?.reason}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, float: "right" }}
+                  color="text.secondary"
+                ></Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ float: "right", fontSize: "12px" }}
+                >
+                  <BsFillSkipEndFill size={"1em"} />
+                  시작 {convertDate(roomItem?.startedAt)} {"  "}
+                  <br />
+                  <BsAlignEnd size={"1em"} />
+                  종료 {convertDate(roomItem?.endedAt)}
+                  <br />총{diffDate(roomItem?.rperiod)}
+                </Typography>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      {vehicleItem.reservationId && select === 1 && (
+        <Card
+          sx={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "20px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CardHeader
+            avatar={
+              <Avatar
+                sx={{}}
+                aria-label="recipe"
+                src={roomItem?.emp?.profileImg}
+              ></Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={
+              "예약자 : " + roomItem?.emp?.empNo + " " + roomItem?.emp?.name
+            }
+            subheader={"예약 확정 시간 : " + convertTime(roomItem?.modifiedAt)}
+            sx={{ borderBottom: "1px solid #d3d3d3" }}
+          />
+
+          <SimpleSlider
+            data={roomItem?.room?.roomImgResDTOList}
+            style={{ width: "95%", height: "200px" }}
+          />
+
+          <CardContent>
+            <div className="content_layout">
+              <div className="half line">
+                <Typography
+                  sx={{ fontSize: 12 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  자원 정보
+                </Typography>
+                <Typography variant="h6" component="div">
+                  {roomItem?.room.categoryName}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, fontSize: "12px" }}
+                  color="text.secondary"
+                >
+                  {roomItem?.room.content}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, float: "right" }}
+                  color="text.secondary"
+                >
+                  비치 물품 :
+                  {roomItem?.room?.roomObjectResDTOList.map((item, i) => {
+                    return item.name !== " " && <>{item?.name} </>;
+                  })}
+                </Typography>
+                <Typography variant="body2" sx={{ float: "right" }}>
+                  <BsFillHouseDoorFill size={"2em"} />
+                  {roomItem?.room.roomNo}호 {"  "}
+                  <IoIosPeople size={"2em"} />
+                  {roomItem?.room.capacity}인실
+                </Typography>
+              </div>
+              <div className="half">
+                <Typography
+                  sx={{ fontSize: 12 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  예약 정보
+                </Typography>
+                <Typography variant="h6" component="div">
+                  {roomItem?.title}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, fontSize: "12px" }}
+                  color="text.secondary"
+                >
+                  {roomItem?.reason}
+                </Typography>
+                <Typography
+                  sx={{ mb: 1.5, float: "right" }}
+                  color="text.secondary"
+                ></Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ float: "right", fontSize: "12px" }}
+                >
+                  <BsFillSkipEndFill size={"1em"} />
+                  시작 {convertDate(roomItem?.startedAt)} {"  "}
+                  <br />
+                  <BsAlignEnd size={"1em"} />
+                  종료 {convertDate(roomItem?.endedAt)}
+                  <br />총{diffDate(roomItem?.rperiod)}
+                </Typography>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </>
   );
 }
 export default MyReservationDetail;

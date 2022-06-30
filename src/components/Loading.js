@@ -1,7 +1,7 @@
 //CustomLoading.js
 import React from "react";
 // import ReactLoading from 'react-loading';
-import "./loading.css";
+import "./Loading.css";
 import "react-spinner-animated/dist/index.css";
 import { Spinner } from "react-spinner-animated";
 

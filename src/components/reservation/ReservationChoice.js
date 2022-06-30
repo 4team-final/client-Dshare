@@ -12,11 +12,9 @@ import { MdMeetingRoom } from "react-icons/md";
 import { SelectedChangeSave } from "../../store/actions/ChangeAction";
 
 function ReservationChoice() {
-  const reservationStore = useSelector((state) => state.reservationReducer);
   const dispatch = useDispatch();
 
   const handle = (data) => {
-    alert("ss");
     dispatch(SelectedChangeSave(data));
   };
 

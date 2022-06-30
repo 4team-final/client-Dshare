@@ -20,7 +20,6 @@ export const resSuccess = async (res) => {
     res.data.status === "FORBIDDEN"
   ) {
     console.log(res.config);
-    debugger;
     const originalRequest = res.config.url;
     const RefreshToken = getToken("refresh");
     if (RefreshToken) {
