@@ -2,8 +2,6 @@ import { Cookies } from "react-cookie";
 
 const cookie = new Cookies();
 export const baseUrl = process.env.REACT_APP_BASE_URL;
-// export const baseUrl = "http://52.79.75.97:8082/";
-// export const baseUrl = "http://localhost:8082/";
 export const reqAccess = process.env.REACT_APP_ACCESS_REQ;
 export const resAccess = process.env.REACT_APP_ACCESS_RES;
 export const reqRefresh = process.env.REACT_APP_REFRESH_REQ;
