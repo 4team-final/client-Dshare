@@ -2,17 +2,37 @@ import React, { useEffect, useRef, useState } from "react";
 import { Switch, Link } from "react-router-dom";
 import {
   requestByEmployeeLogout,
-  requestByTokenExpired,
+  requestByTokenExpiredGET,
+  requestByTokenExpiredGETAndParam,
+  requestByTokenExpiredPOSTAndBody,
 } from "../../../components/ApiModules/ApiHandler";
 
 export default function EmpMainPage() {
   return (
     <>
-      <button onClick={requestByEmployeeLogout}>임시 로그아웃 버튼</button>
-      <button onClick={async () => console.log(await requestByTokenExpired())}>
-        {" "}
-        임시 토큰 체크 버튼
-      </button>
+      <div>
+        <button onClick={requestByEmployeeLogout}>임시 로그아웃 버튼</button>
+        <button
+          onClick={async () => console.log(await requestByTokenExpiredGET())}
+        >
+          임시 토큰 체크 버튼
+        </button>
+        <button
+          onClick={async () =>
+            console.log(await requestByTokenExpiredGETAndParam())
+          }
+        >
+          임시 파람 체크 버튼
+        </button>
+        <button
+          onClick={async () =>
+            console.log(await requestByTokenExpiredPOSTAndBody())
+          }
+        >
+          임시 바디 체크 버튼
+        </button>
+      </div>
+
       <Switch>
         {/* <PublicRoute
             restricted={true}

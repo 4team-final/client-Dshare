@@ -39,9 +39,31 @@ export const requestByEmployeeLogout = async () => {
     return;
   }
 };
-
-export const requestByTokenExpired = async () => {
+export const requestByTokenExpiredGET = async () => {
   return await dshareAPI("emp/vehicle/list/reservation")
+    .then((res) => res.data)
+    .catch((e) => console.log(e));
+};
+export const requestByTokenExpiredGETAndParam = async () => {
+  return await dshareAPI("emp/vehicle/list/own/paging", {
+    params: {
+      id: 0,
+    },
+  })
+    .then((res) => res.data)
+    .catch((e) => console.log(e));
+};
+export const requestByTokenExpiredPOSTAndBody = async () => {
+  return await dshareAPI
+    .post("emp/vehicle/list/reservation/various", {
+      vehicleId: 1,
+      capacity: null,
+      positionId: null,
+      teamId: null,
+      empNo: null,
+      startedAt: null,
+      endedAt: null,
+    })
     .then((res) => res.data)
     .catch((e) => console.log(e));
 };

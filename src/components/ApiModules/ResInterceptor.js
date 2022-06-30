@@ -19,8 +19,7 @@ export const resSuccess = async (res) => {
     res.data.message.startsWith("expired_token") ||
     res.data.status === "FORBIDDEN"
   ) {
-    console.log(res.config);
-    debugger;
+    const dataMethod = res.config.method;
     const originalRequest = res.config.url;
     const RefreshToken = getToken("refresh");
     if (RefreshToken) {
@@ -31,7 +30,42 @@ export const resSuccess = async (res) => {
         },
       });
       saveToken("access", result.headers[resAccess]);
-      return await dshareAPI(originalRequest);
+
+      switch (dataMethod) {
+        case "post":
+          return await dshareAPI.post(
+            originalRequest,
+            res.config.data ? res.config.data : null,
+            {
+              params: res.config.params ? res.config.params : null,
+            }
+          );
+        case "put":
+          return await dshareAPI.put(
+            originalRequest,
+            res.config.data ? res.config.data : null,
+            {
+              params: res.config.params ? res.config.params : null,
+            }
+          );
+        case "patch":
+          return await dshareAPI.patch(
+            originalRequest,
+            res.config.data ? res.config.data : null,
+            {
+              params: res.config.params ? res.config.params : null,
+            }
+          );
+        case "delete":
+          return await dshareAPI.delete(originalRequest, {
+            params: res.config.params ? res.config.params : null,
+          });
+        case "get":
+        default:
+          return await dshareAPI(originalRequest, {
+            params: res.config.params ? res.config.params : null,
+          });
+      }
     } else {
       requestByEmployeeLogout();
       alert("토큰이 만료되었습니다. 다시 로그인 해주세요.");
