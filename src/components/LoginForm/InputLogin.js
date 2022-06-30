@@ -7,6 +7,7 @@ import { requestByEmployeeLogin } from "../ApiModules/ApiHandler";
 export default function InputLogin() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [disabledBtn, setDisabledBtn] = useState(false);
 
   const idHandler = (e) => {
     setId(e.target.value);
@@ -18,7 +19,9 @@ export default function InputLogin() {
     setId("");
     setPassword("");
   };
+
   const onClickLogin = async (e) => {
+    setDisabledBtn(true);
     if (e) e.preventDefault();
     if (id === "" || password === "") {
       alert("사번과 비밀번호는 필수 입력 사항입니다.");
@@ -31,6 +34,7 @@ export default function InputLogin() {
     } else {
       alert("사번 혹은 비밀번호가 틀렸습니다.");
     }
+    setDisabledBtn(false);
   };
 
   return (
@@ -38,7 +42,11 @@ export default function InputLogin() {
       <form className="inputLoginForm" onSubmit={onClickLogin}>
         <div className="input-container">
           <FaRegUser className="i" />
-          <input type="text" placeholder="사원번호 입력" onChange={idHandler} />
+          <input
+            type="number"
+            placeholder="사원번호 입력"
+            onChange={idHandler}
+          />
         </div>
         <div className="input-container">
           <IoIosLock className="i lock" />
@@ -49,7 +57,9 @@ export default function InputLogin() {
           />
         </div>
         <div className="input-container">
-          <button type="submit">Log In</button>
+          <button type="submit" disabled={disabledBtn}>
+            Log In
+          </button>
         </div>
       </form>
     </div>
