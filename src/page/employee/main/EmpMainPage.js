@@ -6,6 +6,7 @@ import {
   requestByTokenExpiredGETAndParam,
   requestByTokenExpiredPOSTAndBody,
 } from "../../../components/ApiModules/ApiHandler";
+import CalendarFrame from "../../../components/Calendar/index";
 
 export default function EmpMainPage() {
   return (
@@ -32,6 +33,8 @@ export default function EmpMainPage() {
           임시 바디 체크 버튼
         </button>
       </div>
+
+      <CalendarFrame />
 
       <Switch>
         {/* <PublicRoute
