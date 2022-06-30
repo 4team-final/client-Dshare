@@ -1,15 +1,15 @@
 @font-face {
-  font-family: "BMHannaAir";
-  src: url("./fonts/BMHANNAAir_ttf.ttf");
+    font-family: 'BMHannaAir';
+    src: url('./fonts/BMHANNAAir_ttf.ttf');
 }
 @media screen and (max-width: 1300px) {
-  .App {
-    min-width: 1300px;
-    heght: 600px;
-    overflow-x: auto;
-  }
+    .App {
+        min-width: 1300px;
+        heght: 600px;
+        overflow-x: auto;
+    }
 }
 .App {
-  font-family: BMHannaAir;
-  height: 100vh;
+    font-family: BMHannaAir;
+    height: 100vh;
 }

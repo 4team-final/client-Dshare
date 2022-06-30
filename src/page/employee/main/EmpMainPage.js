@@ -1,20 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Switch, Link } from "react-router-dom";
-import {
-  requestByEmployeeLogout,
-  requestByTokenExpired,
-} from "../../../components/ApiModules/ApiHandler";
+import React, { useEffect, useRef, useState } from 'react';
+import { Switch, Link } from 'react-router-dom';
+import { requestByEmployeeLogout, requestByTokenExpired } from '../../../components/ApiModules/ApiHandler';
 
 export default function EmpMainPage() {
-  return (
-    <>
-      <button onClick={requestByEmployeeLogout}>임시 로그아웃 버튼</button>
-      <button onClick={async () => console.log(await requestByTokenExpired())}>
-        {" "}
-        임시 토큰 체크 버튼
-      </button>
-      <Switch>
-        {/* <PublicRoute
+    return (
+        <>
+            <button onClick={requestByEmployeeLogout}>임시 로그아웃 버튼</button>
+            <button onClick={async () => console.log(await requestByTokenExpired())}> 임시 토큰 체크 버튼</button>
+            <Switch>
+                {/* <PublicRoute
             restricted={true}
             component={SignUp}
             path="/signup"
@@ -37,7 +31,7 @@ export default function EmpMainPage() {
           <PrivateRoute component={Refrigerator} path="/refrigerator" exact />
           <PrivateRoute component={BoardDetail} path="/board/:id" exact />
           <PrivateRoute component={Cart} path="/cart" exact /> */}
-      </Switch>
-    </>
-  );
+            </Switch>
+        </>
+    );
 }

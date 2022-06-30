@@ -1,22 +1,22 @@
 .FormMain {
-  //   z-index: -1;
-  position: relative;
-  background-color: #1296ec;
-  padding: 10% 10% 10%;
-  height: 100%;
-  text-align: center;
-  .head {
-    margin: auto;
-    h2 {
-      font-size: 2em;
-      margin: 0 0 10% 0;
+    //   z-index: -1;
+    position: relative;
+    background-color: #1296ec;
+    padding: 10% 10% 10%;
+    height: 100%;
+    text-align: center;
+    .head {
+        margin: auto;
+        h2 {
+            font-size: 2em;
+            margin: 0 0 10% 0;
+        }
     }
-  }
-  .contents {
-    font-size: 1em;
-    margin-bottom: 7%;
-  }
-  .MainWord {
-    font-size: 1.3em;
-  }
+    .contents {
+        font-size: 1em;
+        margin-bottom: 7%;
+    }
+    .MainWord {
+        font-size: 1.3em;
+    }
 }
