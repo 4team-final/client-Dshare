@@ -10,6 +10,7 @@ import Header from "./components/Outlet/Header";
 import reset from "styled-reset";
 import QuickMenu from "./components/Outlet/QuickMenu";
 import PublicRoute from "./components/Route/Public";
+import ReservationPage from "./page/employee/main/vehicle/index";
 //store
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -22,6 +23,11 @@ function App() {
       <QuickMenu />
       <Switch>
         <PublicRoute path={"/login"} restricted={true} component={LoginPage} />
+        <PublicRoute
+          path={"/test"}
+          restricted={true}
+          component={ReservationPage}
+        />
         {/* <Route path={"/"} component={Header} /> */}
         {/* <Route path={"/"}  component={Footer} /> */}
         <Route path={"/"} component={EmpMain} />
