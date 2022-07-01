@@ -36,4 +36,15 @@
     border-radius: 2px;
     background: #ccc;
   }
+  .centerLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .absoluteLoading {
+    position: absolute;
+    bottom: 10px;
+    bottom: 10px;
+    z-index: 5;
+  }
 }

@@ -13,9 +13,7 @@ function ReservationStatusPage() {
       <div className="layout">
         <div className="left">
           <Timer />
-          <div className="calendar">
-            <CalendarFrame />
-          </div>
+          <div className="calendar">{/* <CalendarFrame /> */}</div>
         </div>
         <div className="middle">
           <div className="date">

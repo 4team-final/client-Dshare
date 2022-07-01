@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
-import styled from "styled-components";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   myReservationRoomList,
@@ -24,16 +17,6 @@ function MyReservationList() {
     (state) => state.changeReducer.selected
   );
 
-  // const changeStoreRoomItem = useSelector(
-  //   (state) => state.changeReducer.roomItem
-  // );
-  // const changeStoreVehicleItem = useSelector(
-  //   (state) => state.changeReducer.vehicleItem
-  // );
-
-  // const changeStoreRoomItem = useSelector(
-  //   (state) => state.changeReducer.roomItem
-  // );
   const roomDeleteId = useSelector((state) => state.changeReducer.deleteRoomId);
   const vehicleDeleteId = useSelector(
     (state) => state.changeReducer.deleteVehicleId
@@ -60,6 +43,7 @@ function MyReservationList() {
   const [select, isSelect] = useState(0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
 
   useEffect(() => {
     if (limit > 0) {
@@ -80,21 +64,33 @@ function MyReservationList() {
   }, [changeStoreSelect]);
 
   useEffect(() => {
-    if (reqRoom && select === 0) {
+    if (reqRoom.lastId > 0 && select === 0) {
       if (resRoomList.length === 0) {
         setLoading(true);
         dispatch(myReservationRoomList(reqRoom));
         setLoading(false);
+      } else {
+        dispatch(myReservationRoomList(reqRoom));
+        setLoading2(false);
+        document.getElementById("MyReservatationList").style.overflowY =
+          "scroll";
+        window.addEventListener("scroll", handleScroll, true);
       }
     }
   }, [reqRoom, select]);
 
   useEffect(() => {
-    if (reqVehicle && select === 1) {
+    if (reqVehicle.lastId > 0 && select === 1) {
       if (resVehicleList.length === 0) {
         setLoading(true);
         dispatch(myReservationVehicleList(reqVehicle));
         setLoading(false);
+      } else {
+        dispatch(myReservationVehicleList(reqVehicle));
+        setLoading2(false);
+        document.getElementById("MyReservatationList").style.overflowY =
+          "scroll";
+        window.addEventListener("scroll", handleScroll, true);
       }
     }
   }, [reqVehicle, select]);
@@ -111,13 +107,27 @@ function MyReservationList() {
   //
   useEffect(() => {
     if (reservationStore?.myReservationVehicleList?.data?.value) {
-      console.log(reservationStore);
       setResVehicleList(
         ...resVehicleList,
         reservationStore?.myReservationVehicleList?.data?.value
       );
     }
   }, [reservationStore?.myReservationVehicleList?.data?.value]);
+
+  useEffect(() => {
+    if (resRoomList[resRoomList.length - 1]) {
+      setReqRoomLastId(
+        resRoomList[resRoomList.length - 1].reservationResDTO.id
+      );
+    }
+  }, [resRoomList]);
+  useEffect(() => {
+    if (resVehicleList[resVehicleList.length - 1]) {
+      setReqVehicleLastId(
+        resVehicleList[resVehicleList.length - 1].reservationId
+      );
+    }
+  }, [resVehicleList]);
 
   useEffect(() => {
     if (roomDeleteId >= 0) {
@@ -131,8 +141,6 @@ function MyReservationList() {
 
   useEffect(() => {
     if (vehicleDeleteId >= 0) {
-      console.log(vehicleDeleteId);
-      console.log(resVehicleList[0]);
       const index = resVehicleList.findIndex(
         (item) => item.reservationId === vehicleDeleteId
       );
@@ -140,18 +148,6 @@ function MyReservationList() {
       setResVehicleList([...resVehicleList]);
     }
   }, [vehicleDeleteId]);
-
-  console.log(resVehicleList);
-
-  // useEffect(() => {
-  //   if (reservationStore?.myReservationVehicleList?.data?.value) {
-  //     console.log(reservationStore);
-  //     setResVehicleList(
-  //       ...resVehicleList,
-  //       reservationStore?.myReservationVehicleList?.data?.value
-  //     );
-  //   }
-  // }, [reservationStore?.myReservationVehicleList?.data?.value]);
 
   useEffect(() => {
     if (resRoomList.length > 0 && select === 0) {
@@ -166,12 +162,73 @@ function MyReservationList() {
   async function handleDetail(item) {
     dispatch(ItemChangeSave(item));
   }
+  console.log(resVehicleList);
+
+  const container = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  const handleScroll = useCallback(async () => {
+    // const { innerHeight } = window ;
+    const innerHeight = document
+      .getElementById("MyReservatationList")
+      .getBoundingClientRect().width;
+    // 브라우저창 내용의 크기 (스크롤을 포함하지 않음)
+
+    const scrollHeight = container.current.scrollHeight;
+    // 브라우저 총 내용의 크기 (스크롤을 포함한다)
+
+    const scrollTop = container.current.scrollTop;
+
+    // 현재 스크롤바의 위치
+
+    if (
+      Math.round(scrollTop + innerHeight) >= Math.round(scrollHeight * 0.75)
+    ) {
+      window.removeEventListener("scroll", handleScroll, true);
+      // scrollTop과 innerHeight를 더한 값이 scrollHeight보다 크다면, 가장 아래에 도달했다는 의미이다.
+      setLoading2(true);
+      document.getElementById("MyReservatationList").style.overflowY = "hidden";
+      if (select === 0 && reqRoomLastId) {
+        setReqRoom({
+          lastId: reqRoomLastId,
+          limit: limit,
+        });
+      } else if (select === 1 && reqVehicleLastId) {
+        setReqVehicle({
+          lastId: reqVehicleLastId,
+          limit: limit,
+        });
+      }
+    }
+  }, [
+    resRoomList,
+    reqRoomLastId,
+    reqRoom,
+    resVehicleList,
+    reqVehicle,
+    select,
+    limit,
+  ]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, true);
+    // 스크롤이 발생할때마다 handleScroll 함수를 호출하도록 추가합니다.
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, true);
+      // 해당 컴포넌트가 언마운트 될때, 스크롤 이벤트를 제거합니다.
+    };
+  }, [handleScroll]);
 
   return (
-    <div className="MyReservatationList">
+    <div
+      className="MyReservatationList"
+      id="MyReservatationList"
+      ref={container}
+    >
       <div className="title">내 예약 현황 목록 / Total - {total}</div>
 
-      {!loading && (
+      {!loading ? (
         <>
           {select === 0 && (
             <>
@@ -189,6 +246,13 @@ function MyReservationList() {
                       </div>
                     );
                   })}
+                  {loading2 ? (
+                    <div className="absoluteLoading">
+                      <Loading text={"불러오는중 ..."} />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </>
               ) : (
                 <></>
@@ -211,6 +275,13 @@ function MyReservationList() {
                       </div>
                     );
                   })}
+                  {!loading2 ? (
+                    <>
+                      <Loading text={"불러오는중 ..."} />
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </>
               ) : (
                 <></>
@@ -218,8 +289,13 @@ function MyReservationList() {
             </>
           )}
         </>
+      ) : (
+        <>
+          <div className="centerLoading">
+            <Loading text={"불러오는중 ..."} />
+          </div>
+        </>
       )}
-      {loading && <Loading text={"불러오는중 ..."} />}
     </div>
   );
 }
