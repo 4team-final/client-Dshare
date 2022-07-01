@@ -13,6 +13,10 @@ import {
   myReservationDeleteRoom,
   myReservationDeleteVehicle,
 } from "../../store/actions/ReservationAction";
+import {
+  RoomItemDelete,
+  VehicleItemDelete,
+} from "../../store/actions/ChangeAction";
 import "./MyReservationDetail.scss";
 
 import { styled } from "@mui/material/styles";
@@ -138,10 +142,12 @@ function MyReservationDetail() {
     let isSure = window.confirm("정말 해당 예약을 삭제하시겠습니까?");
     if (isSure && select === 0) {
       dispatch(myReservationDeleteRoom(id));
+      dispatch(RoomItemDelete(id));
       setRoomItem(null);
     }
     if (isSure && select === 1) {
       dispatch(myReservationDeleteVehicle(id));
+      dispatch(VehicleItemDelete(id));
       setVehicleItem(null);
     }
   };
@@ -281,7 +287,7 @@ function MyReservationDetail() {
           </CardContent>
         </Card>
       )}
-      {vehicleItem.reservationId && select === 1 && (
+      {vehicleItem?.reservationId && select === 1 && (
         <Card
           sx={{
             width: "100%",
@@ -307,8 +313,20 @@ function MyReservationDetail() {
           />
           {toggle && (
             <div className="which">
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleUpdate();
+                }}
+              >
+                수정
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleDelete(vehicleItem?.reservationId);
+                }}
+              >
+                삭제
+              </MenuItem>
             </div>
           )}
           <SimpleSlider

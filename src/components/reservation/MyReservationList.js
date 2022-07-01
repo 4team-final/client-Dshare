@@ -24,12 +24,21 @@ function MyReservationList() {
     (state) => state.changeReducer.selected
   );
 
-  const changeStoreRoomItem = useSelector(
-    (state) => state.changeReducer.roomItem
+  // const changeStoreRoomItem = useSelector(
+  //   (state) => state.changeReducer.roomItem
+  // );
+  // const changeStoreVehicleItem = useSelector(
+  //   (state) => state.changeReducer.vehicleItem
+  // );
+
+  // const changeStoreRoomItem = useSelector(
+  //   (state) => state.changeReducer.roomItem
+  // );
+  const roomDeleteId = useSelector((state) => state.changeReducer.deleteRoomId);
+  const vehicleDeleteId = useSelector(
+    (state) => state.changeReducer.deleteVehicleId
   );
-  const changeStoreVehicleItem = useSelector(
-    (state) => state.changeReducer.vehicleItem
-  );
+
   const dispatch = useDispatch();
 
   const [reqRoomLastId, setReqRoomLastId] = useState(0);
@@ -110,15 +119,29 @@ function MyReservationList() {
     }
   }, [reservationStore?.myReservationVehicleList?.data?.value]);
 
-  // useEffect(() => {
-  //   if (reservationStore?.myReservationVehicleList?.data?.value) {
-  //     console.log(reservationStore);
-  //     setResVehicleList(
-  //       ...resVehicleList,
-  //       reservationStore?.myReservationVehicleList?.data?.value
-  //     );
-  //   }
-  // }, [reservationStore?.myReservationVehicleList?.data?.value]);
+  useEffect(() => {
+    if (roomDeleteId >= 0) {
+      const index = resRoomList.findIndex(
+        (item) => item.reservationResDTO.id === roomDeleteId
+      );
+      resRoomList.splice(index, 1);
+      setResRoomList([...resRoomList]);
+    }
+  }, [roomDeleteId]);
+
+  useEffect(() => {
+    if (vehicleDeleteId >= 0) {
+      console.log(vehicleDeleteId);
+      console.log(resVehicleList[0]);
+      const index = resVehicleList.findIndex(
+        (item) => item.reservationId === vehicleDeleteId
+      );
+      resVehicleList.splice(index, 1);
+      setResVehicleList([...resVehicleList]);
+    }
+  }, [vehicleDeleteId]);
+
+  console.log(resVehicleList);
 
   // useEffect(() => {
   //   if (reservationStore?.myReservationVehicleList?.data?.value) {
@@ -133,7 +156,7 @@ function MyReservationList() {
   useEffect(() => {
     if (resRoomList.length > 0 && select === 0) {
       setTotal(resRoomList[0].total);
-    } else if (resVehicleList.length > 0 && select === 1) {
+    } else if (resVehicleList?.length > 0 && select === 1) {
       setTotal(resVehicleList[0].total);
     } else {
       setTotal(0);
