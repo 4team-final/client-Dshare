@@ -1,2 +1,2 @@
-import { SelectTableFrame } from "./SelectTableController";
+import { SelectTableFrame } from './SelectTableController';
 export default SelectTableFrame;
