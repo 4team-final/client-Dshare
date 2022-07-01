@@ -1,62 +1,62 @@
 $tl: 0.6s; // transition length
 .search-container {
-  height: 3rem;
-  margin-left: 12%;
-  position: relative;
+    height: 3rem;
+    margin-left: 12%;
+    position: relative;
 }
 
 .search-box {
-  position: relative;
-  top: -30px;
-  transition: width $tl, border-radius $tl, background $tl, box-shadow $tl;
-  width: 25px;
-  height: 25px;
-  font-size: 0.8rem;
-  border-radius: 20px;
-  border: none;
-  font-family: "AppleSDGothicNeoL";
-  cursor: pointer;
-  background: rgb(235, 235, 235);
-  & + label .search-icon {
-    color: black;
-  }
-  &:hover {
-    color: white;
-    background: rgb(200, 200, 200);
-    box-shadow: 0 0 0 5px rgb(61, 71, 82);
-    & + label .search-icon {
-      color: white;
-    }
-  }
-  &:focus {
+    position: relative;
+    top: -30px;
+    transition: width $tl, border-radius $tl, background $tl, box-shadow $tl;
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+    border-radius: 20px;
     border: none;
-    outline: none;
-    box-shadow: none;
-    padding-left: 15px;
-    cursor: text;
-    width: 500px;
-    border-radius: auto;
+    font-family: 'AppleSDGothicNeoL';
+    cursor: pointer;
     background: rgb(235, 235, 235);
-    color: black;
     & + label .search-icon {
-      color: black;
+        color: black;
     }
-  }
-  &:not(:focus) {
-    text-indent: -5000px;
-  } // for more-graceful falling back (:not browsers likely support indent)
+    &:hover {
+        color: white;
+        background: rgb(200, 200, 200);
+        box-shadow: 0 0 0 5px rgb(61, 71, 82);
+        & + label .search-icon {
+            color: white;
+        }
+    }
+    &:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding-left: 15px;
+        cursor: text;
+        width: 500px;
+        border-radius: auto;
+        background: rgb(235, 235, 235);
+        color: black;
+        & + label .search-icon {
+            color: black;
+        }
+    }
+    &:not(:focus) {
+        text-indent: -5000px;
+    } // for more-graceful falling back (:not browsers likely support indent)
 }
 
 #search-submit {
-  position: relative;
-  left: -5000px;
+    position: relative;
+    left: -5000px;
 }
 
 .search-icon {
-  font-size: 10px;
-  position: relative;
-  left: -17px;
-  bottom: 26px;
-  color: white;
-  cursor: pointer;
+    font-size: 10px;
+    position: relative;
+    left: -17px;
+    bottom: 26px;
+    color: white;
+    cursor: pointer;
 }

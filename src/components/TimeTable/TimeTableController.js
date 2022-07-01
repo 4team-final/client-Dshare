@@ -1,12 +1,12 @@
-import { FullWidthFrame, ComponentFrame } from "./TimeTableStyle";
-import { TimeTableContent } from "./TimeTableService";
+import { FullWidthFrame, ComponentFrame } from './TimeTableStyle';
+import { TimeTableContent } from './TimeTableService';
 
 export const TimeTableFrame = () => {
-  return (
-    <FullWidthFrame>
-      <ComponentFrame>
-        <TimeTableContent />
-      </ComponentFrame>
-    </FullWidthFrame>
-  );
+    return (
+        <FullWidthFrame>
+            <ComponentFrame>
+                <TimeTableContent />
+            </ComponentFrame>
+        </FullWidthFrame>
+    );
 };
