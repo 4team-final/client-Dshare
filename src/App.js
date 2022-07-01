@@ -2,10 +2,8 @@ import React, { useContext } from 'react';
 import './App.scss';
 //redux
 //Main
-import EmpMainPage from './page/employee/main/EmpMainPage';
 import ReservationStatusPage from './page/employee/main/reservation/ReservationStatusPage';
-import Header from './components/Outlet/Header';
-import reset from 'styled-reset';
+
 import QuickMenu from './components/Outlet/QuickMenu';
 import PublicRoute from './components/Route/Public';
 import ReservationPage from './page/employee/main/vehicle/index';

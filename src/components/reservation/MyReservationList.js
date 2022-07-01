@@ -5,8 +5,8 @@ import { myReservationRoomList, myReservationVehicleList } from '../../store/act
 import { ItemChangeSave } from '../../store/actions/ChangeAction';
 import './MyReservationList.scss';
 import MyReservationCard from './MyReservationCard';
-import Loading from '../Loading';
-import '../Loading.css';
+import Loading from 'components/Loading';
+// import 'src/components/loading.css';
 
 function MyReservationList() {
     const reservationStore = useSelector((state) => state.reservationReducer);
