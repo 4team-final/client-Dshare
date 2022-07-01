@@ -10,9 +10,8 @@ import { Link } from "react-router-dom";
 // import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  soonIngTimeRoom,
-  soonTimeVehicle,
-  ingTimeVehicle,
+  myReservationDeleteRoom,
+  myReservationDeleteVehicle,
 } from "../../store/actions/ReservationAction";
 import "./MyReservationDetail.scss";
 
@@ -28,11 +27,19 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 import { BsFillHouseDoorFill } from "react-icons/bs";
 import { IoIosPeople } from "react-icons/io";
 import { BsFillSkipEndFill } from "react-icons/bs";
 import { BsAlignEnd } from "react-icons/bs";
 import { AiFillCar } from "react-icons/ai";
+
+import ImageRight from "../../assets/image/right.JPG";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -50,6 +57,8 @@ const ExpandMore = styled((props) => {
 }));
 
 function MyReservationDetail() {
+  const [toggle, isToggle] = useState(false);
+
   const changeStoreRoomItem = useSelector(
     (state) => state.changeReducer.roomItem
   );
@@ -59,6 +68,8 @@ function MyReservationDetail() {
   const changeStoreSelect = useSelector(
     (state) => state.changeReducer.selected
   );
+  const ground = useRef();
+
   const dispatch = useDispatch();
 
   const [roomItem, setRoomItem] = useState({});
@@ -72,14 +83,11 @@ function MyReservationDetail() {
   }, [changeStoreSelect]);
   useEffect(() => {
     if (changeStoreRoomItem) {
-      console.log("바꿈");
       setRoomItem(changeStoreRoomItem.reservationResDTO);
     }
   }, [changeStoreRoomItem]);
   useEffect(() => {
     if (changeStoreVehicleItem) {
-      console.log(222);
-      console.log(changeStoreVehicleItem);
       setVehicleItem(changeStoreVehicleItem);
     }
   }, [changeStoreVehicleItem]);
@@ -113,14 +121,36 @@ function MyReservationDetail() {
     return b[0] + "시간 " + b[1] + "분";
   };
 
+  const handleDrop = () => {
+    isToggle(!toggle);
+  };
+  const handleDrop2 = () => {
+    if (toggle) {
+      isToggle(false);
+    }
+  };
+
+  const handleUpdate = () => {
+    //
+    window.confirm("수정 날짜방으로 이동하시겠습니까?");
+  };
+  const handleDelete = (id) => {
+    let isSure = window.confirm("정말 해당 예약을 삭제하시겠습니까?");
+    if (isSure && select === 0) {
+      dispatch(myReservationDeleteRoom(id));
+      setRoomItem(null);
+    }
+    if (isSure && select === 1) {
+      dispatch(myReservationDeleteVehicle(id));
+      setVehicleItem(null);
+    }
+  };
   return (
     <>
       {((!roomItem?.id && select === 0) ||
         (!vehicleItem?.reservationId && select === 1)) && (
         <Card sx={{ width: "100%", height: "100%", borderRadius: "20px" }}>
-          <h1 className="center" style={{ textAlign: "center" }}>
-            오른쪽 목록에서 선택해주세요.
-          </h1>
+          <img style={{ width: "100%", height: "100%" }} src={ImageRight}></img>
         </Card>
       )}
       {roomItem?.id && select === 0 && (
@@ -132,6 +162,9 @@ function MyReservationDetail() {
             justifyContent: "center",
             alignItems: "center",
           }}
+          onClick={() => {
+            handleDrop2();
+          }}
         >
           <CardHeader
             avatar={
@@ -142,7 +175,7 @@ function MyReservationDetail() {
               ></Avatar>
             }
             action={
-              <IconButton aria-label="settings">
+              <IconButton onClick={handleDrop} aria-label="settings">
                 <MoreVertIcon />
               </IconButton>
             }
@@ -152,6 +185,24 @@ function MyReservationDetail() {
             subheader={"예약 확정 시간 : " + convertTime(roomItem?.modifiedAt)}
             sx={{ borderBottom: "1px solid #d3d3d3" }}
           />
+          {toggle && (
+            <div className="which">
+              <MenuItem
+                onClick={() => {
+                  handleUpdate();
+                }}
+              >
+                수정
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleDelete(roomItem.id);
+                }}
+              >
+                삭제
+              </MenuItem>
+            </div>
+          )}
 
           <SimpleSlider
             data={roomItem?.room?.roomImgResDTOList}
@@ -244,7 +295,7 @@ function MyReservationDetail() {
             avatar={<Avatar sx={{}} aria-label="recipe" src={""}></Avatar>}
             action={
               <IconButton aria-label="settings">
-                <MoreVertIcon />
+                <MoreVertIcon onClick={handleDrop} />
               </IconButton>
             }
             title={"예약자 : " + vehicleItem?.empNo + " " + vehicleItem?.ename}
@@ -254,7 +305,12 @@ function MyReservationDetail() {
             }
             sx={{ borderBottom: "1px solid #d3d3d3" }}
           />
-
+          {toggle && (
+            <div className="which">
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+            </div>
+          )}
           <SimpleSlider
             data={vehicleItem?.imgList}
             style={{ width: "95%", height: "200px" }}

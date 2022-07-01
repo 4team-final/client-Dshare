@@ -19,8 +19,16 @@ import "../Loading.css";
 
 function MyReservationList() {
   const reservationStore = useSelector((state) => state.reservationReducer);
+
   const changeStoreSelect = useSelector(
     (state) => state.changeReducer.selected
+  );
+
+  const changeStoreRoomItem = useSelector(
+    (state) => state.changeReducer.roomItem
+  );
+  const changeStoreVehicleItem = useSelector(
+    (state) => state.changeReducer.vehicleItem
   );
   const dispatch = useDispatch();
 
@@ -91,6 +99,7 @@ function MyReservationList() {
     }
   }, [reservationStore?.myReservationRoomList?.data?.value]);
 
+  //
   useEffect(() => {
     if (reservationStore?.myReservationVehicleList?.data?.value) {
       console.log(reservationStore);
@@ -100,6 +109,26 @@ function MyReservationList() {
       );
     }
   }, [reservationStore?.myReservationVehicleList?.data?.value]);
+
+  // useEffect(() => {
+  //   if (reservationStore?.myReservationVehicleList?.data?.value) {
+  //     console.log(reservationStore);
+  //     setResVehicleList(
+  //       ...resVehicleList,
+  //       reservationStore?.myReservationVehicleList?.data?.value
+  //     );
+  //   }
+  // }, [reservationStore?.myReservationVehicleList?.data?.value]);
+
+  // useEffect(() => {
+  //   if (reservationStore?.myReservationVehicleList?.data?.value) {
+  //     console.log(reservationStore);
+  //     setResVehicleList(
+  //       ...resVehicleList,
+  //       reservationStore?.myReservationVehicleList?.data?.value
+  //     );
+  //   }
+  // }, [reservationStore?.myReservationVehicleList?.data?.value]);
 
   useEffect(() => {
     if (resRoomList.length > 0 && select === 0) {

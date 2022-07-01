@@ -4,6 +4,7 @@ import Timer from "../../../../components/timer/Timer.js";
 import MyReservationList from "../../../../components/reservation/MyReservationList.js";
 import ReservationChoice from "../../../../components/reservation/ReservationChoice";
 import MyReservationDetail from "../../../../components/reservation/MyReservationDetail";
+import { CalendarFrame } from "../../../../components/Calendar/CalendarFrame";
 import { BsCalendarDate } from "react-icons/bs";
 
 function ReservationStatusPage() {
@@ -12,7 +13,9 @@ function ReservationStatusPage() {
       <div className="layout">
         <div className="left">
           <Timer />
-          <div className="calendar">달력</div>
+          <div className="calendar">
+            <CalendarFrame />
+          </div>
         </div>
         <div className="middle">
           <div className="date">

@@ -15,3 +15,11 @@
     border-right: 1px solid #d3d3d3;
   }
 }
+.which {
+  position: absolute;
+  right: 0;
+  top: 10%;
+  z-index: 3;
+  border: 1px solid #d3d3d3;
+  background-color: white;
+}

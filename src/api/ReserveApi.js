@@ -61,3 +61,27 @@ export const findMyReservationVehiclePage = async (data) => {
     });
   return result;
 };
+
+//reservation API - 나의 예약 현황 삭제 (회의실)
+//- /emp/room/reservation/delete/{id}
+export const deleteMyReservationRoom = async (id) => {
+  const result = dshareAPI
+    .delete(`/emp/room/reservation/delete/${id}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//reservation API - 나의 예약 현황 삭제 (차량)
+//- /emp/vehicle/elimination
+export const deleteMyReservationVehicle = async (id) => {
+  const result = dshareAPI
+    .delete("emp/vehicle/list/own/paging", {
+      params: { id: id },
+    })
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+};
