@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Switch, Link } from 'react-router-dom';
 import { requestByEmployeeLogout, requestByTokenExpired } from '../../../components/ApiModules/ApiHandler';

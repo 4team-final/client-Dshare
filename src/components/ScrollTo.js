@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Icon from '@mdi/react';
-import './scroll_to.css';
+import './ScrollTo.css';
 import { mdiArrowUpDropCircle } from '@mdi/js';
 import { mdiArrowDownDropCircle } from '@mdi/js';
 import $ from 'jquery';
@@ -88,8 +88,8 @@ function ScrollTo() {
         <Icon path={mdiArrowDownDropCircle} title="search" size={2} />
       </div> */}
             {/* <!--TO TOP BUTTON--> */}
-            <div onClick={onTop} ref={toBottom} id="to-top">
-                <Icon path={mdiArrowUpDropCircle} title="search" size={2} />
+            <div id="to-top">
+                <Icon onClick={onTop} ref={toBottom} path={mdiArrowUpDropCircle} title="search" size={2} />
             </div>
         </>
     );

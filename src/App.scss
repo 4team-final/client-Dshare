@@ -2,14 +2,22 @@
     font-family: 'BMHannaAir';
     src: url('./fonts/BMHANNAAir_ttf.ttf');
 }
+@font-face {
+    font-family: 'BMDOHYEON';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 @media screen and (max-width: 1300px) {
     .App {
-        min-width: 1300px;
-        heght: 600px;
+        min-width: 1500px;
+        height: 600px;
         overflow-x: auto;
+        background-color: #fafafa;
     }
 }
 .App {
     font-family: BMHannaAir;
     height: 100vh;
+    background-color: #fafafa;
 }

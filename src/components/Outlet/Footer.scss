@@ -7,6 +7,14 @@ footer {
     background-color: rgb(255, 255, 255);
     justify-content: space-around;
     font-family: BMHannaAir;
+    // display: flex !important;
+    width: 100%;
+    padding: 1.5%;
+    min-width: 1000px;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: space-around;
+    font-family: BMHannaAir;
 }
 .main {
     margin-right: 10% !important;

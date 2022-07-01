@@ -1,9 +1,10 @@
 //CustomLoading.js
 import React from 'react';
 // import ReactLoading from 'react-loading';
-import './loading.css';
+
+import './Loading.css';
 import 'react-spinner-animated/dist/index.css';
-import { BarLoader, DoubleBubble, SlidingPebbles, Spinner } from 'react-spinner-animated';
+import { Spinner } from 'react-spinner-animated';
 
 const Loading = ({ type, color, text }) => (
     <>
