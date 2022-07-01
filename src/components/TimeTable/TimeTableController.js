@@ -5,7 +5,7 @@ export const TimeTableFrame = () => {
     return (
         <FullWidthFrame>
             <ComponentFrame>
-                <TimeTableContent />
+                <TimeTableContent value={0} />
             </ComponentFrame>
         </FullWidthFrame>
     );

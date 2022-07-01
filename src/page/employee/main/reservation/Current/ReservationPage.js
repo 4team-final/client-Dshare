@@ -1,6 +1,6 @@
-import CalendarFrame from '../../../../components/Calendar/index';
-import SelectTableFrame from '../../../../components/SelectTable/index';
-import TimeTableFrame from '../../../../components/TimeTable/index';
+import CalendarFrame from '../../../../../components/Calendar/index';
+import SelectTableFrame from '../../../../../components/SelectTable/index';
+import TimeTableFrame from '../../../../../components/TimeTable/index';
 import { ComponentFrame, ContentFrame, FullWidthFrame } from './ReservationPageStyle';
 
 export const ReservationPage = () => {

@@ -1,35 +1,38 @@
-import { CardFrame } from './TimeTableStyle';
-import { Card, List } from 'antd';
-import 'antd/dist/antd.css';
-const data = [
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0
-];
+import { useEffect, useState } from 'react';
+import { CardFrame, ItemFrame, ListFrame } from './TimeTableStyle';
+import { dataVehicle, dataRoom } from './TimeModel';
 
-export const TimeTableContent = () => {
+const TimeCard = (props) => {
+    const [lock, setLock] = useState(false);
+    const [used, setUsed] = useState('fff');
+    useEffect(() => {
+        setLock(props === 1 ? true : false);
+    }, [props]);
+    useEffect(() => {
+        setUsed(lock ? '1296ec' : 'fff');
+    }, [lock]);
+    return <CardFrame props={used} />;
+};
+
+export const TimeTableContent = (props) => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        setData(props.value === 1 ? dataVehicle : dataRoom);
+    }, [props]);
     return (
-        <List
-            grid={{
-                gutter: 4,
-                xs: 48,
-                sm: 48,
-                md: 48,
-                lg: 48,
-                xl: 48,
-                xxl: 48
-            }}
-            dataSource={data}
-            renderItem={(item, i) => (
-                <List.Item>
-                    <CardFrame>
-                        <Card
-                            style={{
-                                height: `${i === 0 || i === 47 ? 50 : i % 2 === 0 ? 35 : 25}px`
-                            }}
-                        />
-                    </CardFrame>
-                </List.Item>
+        <ListFrame>
+            {data ? (
+                data.map((item) => {
+                    return (
+                        <ItemFrame>
+                            {item.k}
+                            <TimeCard props={item.v}>시발</TimeCard>
+                        </ItemFrame>
+                    );
+                })
+            ) : (
+                <></>
             )}
-        />
+        </ListFrame>
     );
 };

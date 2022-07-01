@@ -2,103 +2,55 @@ import { Badge, Calendar } from 'antd';
 import { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { ContentNote, ContentNoteSection, ContentFrame, ContentBadge } from './CalendarStyles';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectRoomDateCalendar, selectVehicleDateCalendar } from 'store/actions/CalendarAction';
 
-const ManageByData = () => {
+const ManageByData = (value) => {
+    const calendarRoom = useSelector((state) => state.calendarReducer.calendarRoom);
+    const calendarVehicle = useSelector((state) => state.calendarReducer.calendarVehicle);
+    const dispatch = useDispatch();
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        setList();
-    }, [list]);
+        selectList();
+    }, [calendarRoom, calendarVehicle]);
+
+    const selectList = (value) => {
+        if (value === 0) {
+            dispatch(selectRoomDateCalendar());
+            setList(calendarRoom);
+        } else {
+            dispatch(selectVehicleDateCalendar());
+            setList(calendarVehicle);
+        }
+    };
+    console.log(list);
+    return list;
 };
 
-const getListData = (value) => {
-    let listData;
+const GetListData = (value) => {
+    const [listData, setListData] = useState([]);
 
-    switch (value.date()) {
-        case 8:
-            listData = [
-                {
-                    type: 'warning',
-                    content: 'This is warning event.'
-                },
-                {
-                    type: 'success',
-                    content: 'This is usual event.'
-                }
-            ];
-            break;
-
-        case 10:
-            listData = [
-                {
-                    type: 'warning',
-                    content: 'This is warning event.'
-                },
-                {
-                    type: 'success',
-                    content: 'This is usual event.'
-                },
-                {
-                    type: 'error',
-                    content: 'This is error event.'
-                }
-            ];
-            break;
-
-        case 15:
-            listData = [
-                {
-                    type: 'warning',
-                    content: 'This is warning event'
-                },
-                {
-                    type: 'success',
-                    content: 'This is very long usual event。。....'
-                },
-                {
-                    type: 'error',
-                    content: 'This is error event 1.'
-                },
-                {
-                    type: 'error',
-                    content: 'This is error event 2.'
-                },
-                {
-                    type: 'error',
-                    content: 'This is error event 3.'
-                },
-                {
-                    type: 'error',
-                    content: 'This is error event 4.'
-                }
-            ];
-            break;
-
-        default:
-    }
-
+    useEffect(() => {
+        setListData();
+    }, [listData]);
     return listData || [];
 };
 
-const getMonthData = (value) => {
-    if (value.month() === 8) {
-        return 1394;
-    }
-};
+const GetMonthData = (value) => {};
 
 export const CalendarContent = () => {
     const monthCellRender = (value) => {
-        const num = getMonthData(value);
+        const num = GetMonthData(value);
         return num ? (
             <ContentNote>
                 <ContentNoteSection>{num}</ContentNoteSection>
-                <span>Backlog number</span>
             </ContentNote>
         ) : null;
     };
 
     const dateCellRender = (value) => {
-        const listData = getListData(value);
+        const listData = GetListData(value);
         return (
             <ContentFrame>
                 {listData.map((item) => (
