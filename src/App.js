@@ -2,6 +2,12 @@ import React, { useContext } from 'react';
 import './App.scss';
 //redux
 //Main
+import EmpMain from "./page/employee/main/EmpMainPage";
+import Header from "./components/Outlet/Header";
+import reset from "styled-reset";
+import QuickMenu from "./components/Outlet/QuickMenu";
+import PublicRoute from "./components/Route/Public";
+import ReservationPage from "./page/employee/main/vehicle/index";
 //store
 import { useSelector } from 'react-redux';
 

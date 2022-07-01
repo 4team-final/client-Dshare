@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Switch, Link } from 'react-router-dom';
 import { requestByEmployeeLogout, requestByTokenExpired } from '../../../components/ApiModules/ApiHandler';
@@ -19,6 +19,7 @@ import {
   requestByTokenExpiredGETAndParam,
   requestByTokenExpiredPOSTAndBody,
 } from "../../../components/ApiModules/ApiHandler";
+import CalendarFrame from "../../../components/Calendar/index";
 
 export default function EmpMainPage() {
   return (
@@ -46,9 +47,10 @@ export default function EmpMainPage() {
         </button>
       </div>
 
+      <CalendarFrame />
+
       <Switch>
         {/* <PublicRoute
->>>>>>> upstream/dev
             restricted={true}
             component={SignUp}
             path="/signup"
