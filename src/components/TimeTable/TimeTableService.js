@@ -26,7 +26,6 @@ export const TimeTableContent = () => {
                             style={{
                                 height: `${i === 0 || i === 47 ? 50 : i % 2 === 0 ? 35 : 25}px`
                             }}
-                            bodyStyle={{ backgroundColor: '#1296ec' }}
                         />
                     </CardFrame>
                 </List.Item>
