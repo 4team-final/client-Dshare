@@ -1,6 +1,24 @@
 // ===========================|| DASHBOARD - TOTAL GROWTH BAR CHART ||=========================== //
-
-const chartData = {
+import { ThirteenMp } from '@mui/icons-material';
+import { useState, useEffect } from 'react';
+export const roomCnt = {
+    one: 0,
+    two: 0,
+    three: 0,
+    four: 0,
+    five: 0,
+    six: 0,
+    seven: 0,
+    eight: 0,
+    nine: 0,
+    ten: 0,
+    eleven: 0,
+    twelve: 0,
+    thirteen: 0,
+    fourteen: 0,
+    fifteen: 0
+};
+export const chartData = {
     height: 480,
     type: 'bar',
     options: {
@@ -34,7 +52,7 @@ const chartData = {
         },
         xaxis: {
             type: 'category',
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: ['101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115']
         },
         legend: {
             show: true,
@@ -64,24 +82,5 @@ const chartData = {
         grid: {
             show: true
         }
-    },
-    series: [
-        {
-            name: 'Investment',
-            data: [35, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
-        },
-        {
-            name: 'Loss',
-            data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
-        },
-        {
-            name: 'Profit',
-            data: [35, 145, 35, 35, 20, 105, 100, 10, 65, 45, 30, 10]
-        },
-        {
-            name: 'Maintenance',
-            data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
-        }
-    ]
+    }
 };
-export default chartData;

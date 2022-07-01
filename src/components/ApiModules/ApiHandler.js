@@ -29,7 +29,7 @@ export const requestByEmployeeLogout = async () => {
     if (response === 0) {
         removeToken('two');
         alert('정상적으로 로그아웃되었습니다.');
-        window.location.href = '/login';
+        window.location.href = '/';
         return;
     } else {
         alert('비정상적으로 로그아웃 처리되었습니다.');
@@ -37,9 +37,40 @@ export const requestByEmployeeLogout = async () => {
         return;
     }
 };
-
-export const requestByTokenExpired = async () => {
+export const requestByTokenExpiredGET = async () => {
     return await dshareAPI('emp/vehicle/list/reservation')
         .then((res) => res.data)
         .catch((e) => console.log(e));
+};
+export const requestByTokenExpiredGETAndParam = async () => {
+    return await dshareAPI('emp/vehicle/list/own/paging', {
+        params: {
+            id: 0
+        }
+    })
+        .then((res) => res.data)
+        .catch((e) => console.log(e));
+};
+
+export const requestByTokenExpiredPOSTAndBody = async () => {
+    return await dshareAPI
+        .post('emp/vehicle/list/reservation/various', {
+            vehicleId: 1,
+            capacity: null,
+            positionId: null,
+            teamId: null,
+            empNo: null,
+            startedAt: null,
+            endedAt: null
+        })
+        .then((res) => res.data)
+        .catch((e) => console.log(e));
+};
+
+export const getUserProfile = async () => {
+    return await dshareAPI('emp/profile/read').then((res) => res.data.value);
+};
+
+export const getRoomChart = async (days) => {
+    return await dshareAPI(`emp/room/reservation/count/${days}`).then((res) => res.data.value);
 };

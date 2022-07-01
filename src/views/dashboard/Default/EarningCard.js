@@ -169,7 +169,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    사원들이 가장 많이 찾는 차량
                                 </Typography>
                             </Grid>
                         </Grid>

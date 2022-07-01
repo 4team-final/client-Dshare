@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { baseUrl } from 'components/ApiModules/ApiParts';
+import { getUserProfile } from 'components/ApiModules/ApiHandler';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -35,8 +37,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 
-// import User1 from
-
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import { MdSettingsBackupRestore } from 'react-icons/md';
@@ -55,7 +55,8 @@ const ProfileSection = () => {
     const [open, setOpen] = useState(false);
 
     //프로필 조회
-    const [empInfo, setEmpInfo] = useState({});
+    const [empInfo, setEmpInfo] = useState();
+    const [profileImg, setProfileImg] = useState();
 
     /**
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
@@ -94,16 +95,12 @@ const ProfileSection = () => {
     }, [open]);
 
     useEffect(() => {
-        const userInfo = async () => {
-            try {
-                const res = await axios.get('http://15.164.185.111:8082/emp/profile/read');
-                setEmpInfo(res.data.value);
-                console.log(res.data.value);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        userInfo();
+        async function profile() {
+            let emp = await getUserProfile();
+            setEmpInfo(emp);
+            setProfileImg(emp.profileImg);
+        }
+        profile();
     }, []);
 
     return (
@@ -128,20 +125,20 @@ const ProfileSection = () => {
                         lineHeight: 0
                     }
                 }}
-                // icon={
-                //     <Avatar
-                //         src={User1}
-                //         sx={{
-                //             ...theme.typography.mediumAvatar,
-                //             margin: '8px 0 8px 8px !important',
-                //             cursor: 'pointer'
-                //         }}
-                //         ref={anchorRef}
-                //         aria-controls={open ? 'menu-list-grow' : undefined}
-                //         aria-haspopup="true"
-                //         color="inherit"
-                //     />
-                // }
+                icon={
+                    <Avatar
+                        src={profileImg}
+                        sx={{
+                            ...theme.typography.mediumAvatar,
+                            margin: '8px 0 8px 8px !important',
+                            cursor: 'pointer'
+                        }}
+                        ref={anchorRef}
+                        aria-controls={open ? 'menu-list-grow' : undefined}
+                        aria-haspopup="true"
+                        color="inherit"
+                    />
+                }
                 label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
                 variant="outlined"
                 ref={anchorRef}
@@ -178,10 +175,12 @@ const ProfileSection = () => {
                                             <Stack direction="row" spacing={0.5} alignItems="center">
                                                 <Typography variant="h4">Hi Co-Worker,</Typography>
                                                 <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    name
+                                                    {empInfo.name}
                                                 </Typography>
                                             </Stack>
-                                            <Typography variant="subtitle2">부서/ 팀/ 직급 넣기</Typography>
+                                            <Typography variant="subtitle2">
+                                                {empInfo.dept}/ {empInfo.team}/ {empInfo.position}
+                                            </Typography>
                                         </Stack>
                                     </Box>
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
