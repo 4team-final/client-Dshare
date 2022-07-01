@@ -13,7 +13,7 @@ function QuickMenu() {
   });
 
   return (
-    <div class="quickmenu">
+    <div className="quickmenu">
       <ul>
         <li>
           <a href="#">등급별혜택</a>

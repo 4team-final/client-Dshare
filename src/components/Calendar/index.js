@@ -1,2 +1,2 @@
-import { CalendarFrame } from "./CalendarFrame";
+import { CalendarFrame } from "./CalendarController";
 export default CalendarFrame;

@@ -19,8 +19,6 @@ export const resSuccess = async (res) => {
     res.data.message.startsWith("refresh_expired") ||
     res.data.status === "CONFILCT"
   ) {
-    console.log(res.data);
-    debugger;
     requestByEmployeeLogout();
     alert("로그인 시간이 만료되었습니다. 다시 로그인 해주세요.");
     return false;
@@ -28,13 +26,9 @@ export const resSuccess = async (res) => {
     res.data.message.startsWith("expired_token") ||
     res.data.status === "FORBIDDEN"
   ) {
-    console.log(res.data);
-    debugger;
     const dataMethod = res.config.method;
     const originalRequest = res.config.url;
     const RefreshToken = getToken("refresh");
-    console.log(getToken("refresh"));
-    debugger;
     if (RefreshToken) {
       removeToken("access");
       const result = await dshareAPI(urlRefresh, {
@@ -80,8 +74,6 @@ export const resSuccess = async (res) => {
           });
       }
     } else {
-      console.log(res.data);
-      debugger;
       requestByEmployeeLogout();
       alert("토큰이 존재하지 않습니다. 다시 로그인 해주세요.");
       return false;

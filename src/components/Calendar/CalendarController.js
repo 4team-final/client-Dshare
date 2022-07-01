@@ -1,4 +1,4 @@
-import { CalendarContent } from "./CalendarContent";
+import { CalendarContent } from "./CalendarService";
 import { FullWidthFrame, ComponentFrame, TitleFrame } from "./CalendarStyles";
 
 export const CalendarFrame = () => {
