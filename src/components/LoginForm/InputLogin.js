@@ -20,18 +20,23 @@ export default function InputLogin() {
     const inputReset = () => {
         setId('');
         setPassword('');
+        setAlert('');
     };
 
     const onClickLogin = async (e) => {
         setDisabledBtn(true);
         if (e) e.preventDefault();
         if (id === '' || password === '') {
+            inputReset();
             setAlert('사번과 비밀번호는 필수 입력 사항입니다.');
+            setDisabledBtn(false);
             return;
         }
-        let dataSet = { id: id, pw: password };
         inputReset();
-        if ((await requestByEmployeeLogin(dataSet)) === 0) {
+
+        let dataSet = { id: id, pw: password };
+        const check = await requestByEmployeeLogin(dataSet);
+        if (check === 0) {
             window.location.href = '/main/dashboard/default';
         } else {
             setAlert('사번 혹은 비밀번호가 틀렸습니다.');
