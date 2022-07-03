@@ -1,6 +1,7 @@
 let listData;
 
 switch (value.date()) {
+    case 1:
     case 8:
         listData = [
             {

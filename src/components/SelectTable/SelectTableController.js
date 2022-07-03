@@ -1,9 +1,12 @@
-import { ComponentFrame, FullWidthFrame } from './SelectTableStyle';
+import { SelectTableService } from './SelectTableService';
+import { SComponentFrame, SHalfWidthFrame } from './SelectTableStyle';
 
 export const SelectTableFrame = () => {
     return (
-        <FullWidthFrame>
-            <ComponentFrame></ComponentFrame>
-        </FullWidthFrame>
+        <SHalfWidthFrame>
+            <SComponentFrame>
+                <SelectTableService />
+            </SComponentFrame>
+        </SHalfWidthFrame>
     );
 };

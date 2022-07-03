@@ -5,35 +5,9 @@ import { ContentNote, ContentNoteSection, ContentFrame, ContentBadge } from './C
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRoomDateCalendar, selectVehicleDateCalendar } from 'store/actions/CalendarAction';
 
-const ManageByData = (value) => {
-    const calendarRoom = useSelector((state) => state.calendarReducer.calendarRoom);
-    const calendarVehicle = useSelector((state) => state.calendarReducer.calendarVehicle);
-    const dispatch = useDispatch();
-    const [list, setList] = useState([]);
-
-    useEffect(() => {
-        selectList();
-    }, [calendarRoom, calendarVehicle]);
-
-    const selectList = (value) => {
-        if (value === 0) {
-            dispatch(selectRoomDateCalendar());
-            setList(calendarRoom);
-        } else {
-            dispatch(selectVehicleDateCalendar());
-            setList(calendarVehicle);
-        }
-    };
-    console.log(list);
-    return list;
-};
-
 const GetListData = (value) => {
-    const [listData, setListData] = useState([]);
+    let listData;
 
-    useEffect(() => {
-        setListData();
-    }, [listData]);
     return listData || [];
 };
 
@@ -54,9 +28,9 @@ export const CalendarContent = () => {
         return (
             <ContentFrame>
                 {listData.map((item) => (
-                    <li key={item.content}>
+                    <li key={item}>
                         <ContentBadge>
-                            <Badge sty status={item.type} text={item.content} />
+                            <Badge status={item.type} text={item.content} />
                         </ContentBadge>
                     </li>
                 ))}
