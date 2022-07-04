@@ -55,7 +55,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
 
     useEffect(() => {
         async function getRoom() {
-            let data = await getRoomChart(value);
+            // let data = await getRoomChart(value);
         }
         getRoom();
         let chartData2 = {

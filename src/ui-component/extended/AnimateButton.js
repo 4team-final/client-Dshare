@@ -30,10 +30,11 @@ const AnimateButton = forwardRef(({ children, type, direction, offset, scale }, 
             return (
                 <motion.div
                     ref={ref}
-                    animate={{ rotate: 360 }}
+                    initial={{ opacity: 0.3 }}
+                    animate={{ opacity: 1 }}
                     transition={{
                         repeat: Infinity,
-                        repeatType: 'loop',
+                        repeatType: 'mirror',
                         duration: 2,
                         repeatDelay: 0
                     }}
