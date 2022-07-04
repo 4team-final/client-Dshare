@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ReservationStatusPage.scss';
-import Timer from 'components/Timer/Timer';
-import MyReservationList from 'components/reservation/MyReservationList.js';
-import ReservationChoice from 'components/reservation/ReservationChoice';
-import MyReservationDetail from 'components/reservation/MyReservationDetail';
+import Timer from '../../../../components/Timer/Timer.js';
+import MyReservationList from '../../../../components/reservation/MyReservationList.js';
+import ReservationChoice from '../../../../components/reservation/ReservationChoice';
+import MyReservationDetail from '../../../../components/reservation/MyReservationDetail';
+import CalendarFrame from '../../../../components/Calendar/index';
 import { BsCalendarDate } from 'react-icons/bs';
 
 function ReservationStatusPage() {
@@ -12,9 +13,7 @@ function ReservationStatusPage() {
             <div className="layout">
                 <div className="left">
                     <Timer />
-                    <div className="calendar">
-                        <CalendarFrame />
-                    </div>
+                    <div className="calendar">{/* <CalendarFrame /> */}</div>
                 </div>
                 <div className="middle">
                     <div className="date">

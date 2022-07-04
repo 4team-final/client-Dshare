@@ -77,7 +77,7 @@ export const deleteMyReservationRoom = async (id) => {
 //- /emp/vehicle/elimination
 export const deleteMyReservationVehicle = async (id) => {
     const result = dshareAPI
-        .delete('emp/vehicle/list/own/paging', {
+        .delete('/emp/vehicle/elimination', {
             params: { id: id }
         })
         .then((res) => res.data)
