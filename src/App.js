@@ -1,46 +1,43 @@
-import React, { useContext } from "react";
-import { createGlobalStyle } from "styled-components";
-import "./App.scss";
+import React, { useContext } from 'react';
+import './App.scss';
 //redux
-import { Switch, Route } from "react-router-dom";
-import LoginPage from "./page/login/LoginPage";
 //Main
-import EmpMainPage from "./page/employee/main/EmpMainPage";
-import ReservationStatusPage from "./page/employee/main/reservation/ReservationStatusPage";
-import Header from "./components/Outlet/Header";
-import reset from "styled-reset";
-import QuickMenu from "./components/Outlet/QuickMenu";
-import PublicRoute from "./components/Route/Public";
-import ReservationPage from "./page/employee/main/vehicle/index";
+import ReservationStatusPage from './page/employee/main/reservation/ReservationStatusPage';
+
+import QuickMenu from './components/Outlet/QuickMenu';
+import PublicRoute from './components/Route/Public';
+import ReservationPage from './page/employee/main/vehicle/index';
 //store
-const GlobalStyle = createGlobalStyle`
-${reset}
-`;
+import { useSelector } from 'react-redux';
+
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, StyledEngineProvider } from '@mui/material';
+
+// routing
+import Routes from 'routes';
+
+// defaultTheme
+import themes from 'themes';
+
+// project imports
+import NavigationScroll from 'layout/NavigationScroll';
+
 //최상위 컴포넌트 App
 function App() {
-  return (
-    <div className="App">
-      <GlobalStyle />
-      {/* <QuickMenu /> */}
-      <Switch>
-        <PublicRoute path={"/login"} restricted={true} component={LoginPage} />
-        <PublicRoute
-          path={"/test"}
-          restricted={true}
-          component={ReservationPage}
-        />
-        {/* <Route path={"/"} component={Header} /> */}
-        <Route path={"/login"} component={LoginPage} />
-        {/* <Route path={"/login"}  component={Footer} /> */}
-        <Route exact path={"/"} component={EmpMainPage} />
-        <Route
-          exact
-          path={"/reservation/status"}
-          component={ReservationStatusPage}
-        />
-      </Switch>
-    </div>
-  );
+    const customization = useSelector((state) => state.customization);
+
+    return (
+        <div className="App">
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={themes(customization)}>
+                    <CssBaseline />
+                    <NavigationScroll>
+                        <Routes />
+                    </NavigationScroll>
+                </ThemeProvider>
+            </StyledEngineProvider>
+        </div>
+    );
 }
 
 export default App;

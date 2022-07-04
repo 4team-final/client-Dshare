@@ -1,2 +1,2 @@
-import { TimeTableFrame } from "./TimeTableController";
+import { TimeTableFrame } from './TimeTableController';
 export default TimeTableFrame;
