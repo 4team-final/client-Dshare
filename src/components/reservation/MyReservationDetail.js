@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 // import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { myReservationDeleteRoom, myReservationDeleteVehicle } from '../../store/actions/ReservationAction';
+import { RoomItemDelete, VehicleItemDelete } from '../../store/actions/ChangeAction';
 import './MyReservationDetail.scss';
 
 import { styled } from '@mui/material/styles';
@@ -121,10 +122,12 @@ function MyReservationDetail() {
         let isSure = window.confirm('정말 해당 예약을 삭제하시겠습니까?');
         if (isSure && select === 0) {
             dispatch(myReservationDeleteRoom(id));
+            dispatch(RoomItemDelete(id));
             setRoomItem(null);
         }
         if (isSure && select === 1) {
             dispatch(myReservationDeleteVehicle(id));
+            dispatch(VehicleItemDelete(id));
             setVehicleItem(null);
         }
     };
@@ -132,7 +135,7 @@ function MyReservationDetail() {
         <>
             {((!roomItem?.id && select === 0) || (!vehicleItem?.reservationId && select === 1)) && (
                 <Card sx={{ width: '100%', height: '100%', borderRadius: '20px' }}>
-                    <img style={{ width: '100%', height: '100%' }} src={ImageRight} alt=""></img>
+                    <img style={{ width: '100%', height: '100%' }} src={ImageRight} alt="img"></img>
                 </Card>
             )}
             {roomItem?.id && select === 0 && (
@@ -229,7 +232,8 @@ function MyReservationDetail() {
                     </CardContent>
                 </Card>
             )}
-            {vehicleItem.reservationId && select === 1 && (
+
+            {vehicleItem?.reservationId && select === 1 && (
                 <Card
                     sx={{
                         width: '100%',
@@ -252,8 +256,20 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem
+                                onClick={() => {
+                                    handleUpdate();
+                                }}
+                            >
+                                수정
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => {
+                                    handleDelete(vehicleItem?.reservationId);
+                                }}
+                            >
+                                삭제
+                            </MenuItem>
                         </div>
                     )}
                     <SimpleSlider data={vehicleItem?.imgList} style={{ width: '95%', height: '200px' }} />
