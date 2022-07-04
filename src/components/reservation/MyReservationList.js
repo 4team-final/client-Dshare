@@ -28,35 +28,23 @@ function MyReservationList() {
   const [reqVehicleLastId, setReqVehicleLastId] = useState(0);
 
   const [reqRoom, setReqRoom] = useState({
-    lastId: reqRoomLastId,
-    limit: 0,
+    lastId: 0,
+    limit: 5,
   });
   const [reqVehicle, setReqVehicle] = useState({
     lastId: reqVehicleLastId,
-    limit: 0,
+    limit: 5,
   });
 
   const [resRoomList, setResRoomList] = useState([]);
   const [resVehicleList, setResVehicleList] = useState([]);
 
-  const [limit, setLimit] = useState(5);
   const [select, isSelect] = useState(0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [flag, setFlag] = useState(false);
   const [loading2, setLoading2] = useState(false);
 
-  useEffect(() => {
-    if (limit > 0) {
-      setReqRoom({
-        lastId: 0,
-        limit: limit,
-      });
-      setReqVehicle({
-        lastId: 0,
-        limit: limit,
-      });
-    }
-  }, [limit]);
   useEffect(() => {
     if (changeStoreSelect === 0 || changeStoreSelect === 1) {
       isSelect(changeStoreSelect);
@@ -64,65 +52,85 @@ function MyReservationList() {
   }, [changeStoreSelect]);
 
   useEffect(() => {
-    if (reqRoom.lastId > 0 && select === 0) {
+    if (reqRoom.lastId >= 0 && select === 0) {
       if (resRoomList.length === 0) {
-        setLoading(true);
-        dispatch(myReservationRoomList(reqRoom));
+        function fetchList() {
+          setLoading(true);
+          dispatch(myReservationRoomList(reqRoom));
+        }
+        fetchList();
         setLoading(false);
-      } else {
-        dispatch(myReservationRoomList(reqRoom));
-        setLoading2(false);
-        document.getElementById("MyReservatationList").style.overflowY =
-          "scroll";
-        window.addEventListener("scroll", handleScroll, true);
       }
     }
   }, [reqRoom, select]);
 
   useEffect(() => {
-    if (reqVehicle.lastId > 0 && select === 1) {
+    if (reqVehicle.lastId >= 0 && select === 1) {
       if (resVehicleList.length === 0) {
-        setLoading(true);
-        dispatch(myReservationVehicleList(reqVehicle));
+        function fetchList() {
+          setLoading(true);
+          dispatch(myReservationVehicleList(reqVehicle));
+        }
+        fetchList();
         setLoading(false);
-      } else {
-        dispatch(myReservationVehicleList(reqVehicle));
-        setLoading2(false);
-        document.getElementById("MyReservatationList").style.overflowY =
-          "scroll";
-        window.addEventListener("scroll", handleScroll, true);
       }
     }
   }, [reqVehicle, select]);
 
   useEffect(() => {
-    if (reservationStore?.myReservationRoomList?.data?.value) {
-      setResRoomList(
+    if (flag) {
+      document.getElementById("MyReservatationList").style.overflowY = "hidden";
+    } else if (!flag) {
+      document.getElementById("MyReservatationList").style.overflowY = "scroll";
+    }
+  }, [flag]);
+
+  useEffect(() => {
+    if (
+      reservationStore?.myReservationRoomList?.data?.value &&
+      reservationStore?.myReservationRoomList?.data?.value[
+        reservationStore?.myReservationRoomList?.data?.value?.length - 1
+      ]?.reservationResDTO?.id !==
+        resRoomList[resRoomList?.length - 1]?.reservationResDTO?.id
+    ) {
+      setResRoomList([
         ...resRoomList,
-        reservationStore?.myReservationRoomList?.data?.value
-      );
+        ...reservationStore?.myReservationRoomList?.data?.value,
+      ]);
+      setLoading2(false);
+      setFlag(false);
     }
   }, [reservationStore?.myReservationRoomList?.data?.value]);
 
-  //
   useEffect(() => {
-    if (reservationStore?.myReservationVehicleList?.data?.value) {
-      setResVehicleList(
+    if (
+      reservationStore?.myReservationVehicleList?.data?.value &&
+      reservationStore?.myReservationVehicleList?.data?.value[
+        reservationStore?.myReservationVehicleList?.data?.value?.length - 1
+      ]?.reservationId !==
+        resVehicleList[resVehicleList?.length - 1]?.reservationId
+    ) {
+      setResVehicleList([
         ...resVehicleList,
-        reservationStore?.myReservationVehicleList?.data?.value
-      );
+        ...reservationStore?.myReservationVehicleList?.data?.value,
+      ]);
+      setLoading2(false);
+      setFlag(false);
     }
   }, [reservationStore?.myReservationVehicleList?.data?.value]);
 
   useEffect(() => {
-    if (resRoomList[resRoomList.length - 1]) {
+    if (resRoomList[resRoomList.length - 1] && resRoomList.length > 0) {
       setReqRoomLastId(
         resRoomList[resRoomList.length - 1].reservationResDTO.id
       );
     }
   }, [resRoomList]);
   useEffect(() => {
-    if (resVehicleList[resVehicleList.length - 1]) {
+    if (
+      resVehicleList[resVehicleList.length - 1] &&
+      resVehicleList.length > 0
+    ) {
       setReqVehicleLastId(
         resVehicleList[resVehicleList.length - 1].reservationId
       );
@@ -162,42 +170,51 @@ function MyReservationList() {
   async function handleDetail(item) {
     dispatch(ItemChangeSave(item));
   }
-  console.log(resVehicleList);
 
   const container = useRef(null);
-  const [height, setHeight] = useState(0);
 
   const handleScroll = useCallback(async () => {
     // const { innerHeight } = window ;
+    // 브라우저창 내용의 크기 (스크롤을 포함하지 않음)
     const innerHeight = document
       .getElementById("MyReservatationList")
       .getBoundingClientRect().width;
-    // 브라우저창 내용의 크기 (스크롤을 포함하지 않음)
 
-    const scrollHeight = container.current.scrollHeight;
     // 브라우저 총 내용의 크기 (스크롤을 포함한다)
-
-    const scrollTop = container.current.scrollTop;
+    const scrollHeight = container.current.scrollHeight;
 
     // 현재 스크롤바의 위치
+    const scrollTop = container.current.scrollTop;
 
+    if (!flag) {
+      document.getElementById("MyReservatationList").style.overflowY = "scroll";
+    }
+    // scrollTop과 innerHeight를 더한 값이 scrollHeight보다 크다면, 가장 아래에 도달했다는 의미이다.
     if (
       Math.round(scrollTop + innerHeight) >= Math.round(scrollHeight * 0.75)
     ) {
-      window.removeEventListener("scroll", handleScroll, true);
-      // scrollTop과 innerHeight를 더한 값이 scrollHeight보다 크다면, 가장 아래에 도달했다는 의미이다.
-      setLoading2(true);
-      document.getElementById("MyReservatationList").style.overflowY = "hidden";
       if (select === 0 && reqRoomLastId) {
         setReqRoom({
           lastId: reqRoomLastId,
-          limit: limit,
+          limit: 5,
         });
+        setLoading2(true);
+        setFlag(true);
+        function fetch() {
+          dispatch(myReservationRoomList(reqRoom));
+        }
+        fetch();
       } else if (select === 1 && reqVehicleLastId) {
         setReqVehicle({
           lastId: reqVehicleLastId,
-          limit: limit,
+          limit: 5,
         });
+        setLoading2(true);
+        setFlag(true);
+        function fetch() {
+          dispatch(myReservationVehicleList(reqVehicle));
+        }
+        fetch();
       }
     }
   }, [
@@ -205,9 +222,9 @@ function MyReservationList() {
     reqRoomLastId,
     reqRoom,
     resVehicleList,
+    reqVehicleLastId,
     reqVehicle,
     select,
-    limit,
   ]);
 
   useEffect(() => {
@@ -275,9 +292,11 @@ function MyReservationList() {
                       </div>
                     );
                   })}
-                  {!loading2 ? (
+                  {loading2 ? (
                     <>
-                      <Loading text={"불러오는중 ..."} />
+                      <div className="absoluteLoading">
+                        <Loading text={"불러오는중 ..."} />
+                      </div>
                     </>
                   ) : (
                     <></>
