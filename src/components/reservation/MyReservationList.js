@@ -5,7 +5,6 @@ import { ItemChangeSave } from '../../store/actions/ChangeAction';
 import './MyReservationList.scss';
 import MyReservationCard from './MyReservationCard';
 import Loading from '../Loading';
-import '../Loading.css';
 
 function MyReservationList() {
     const reservationStore = useSelector((state) => state.reservationReducer);

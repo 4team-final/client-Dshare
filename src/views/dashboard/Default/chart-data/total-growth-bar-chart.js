@@ -52,7 +52,7 @@ export const chartData = {
         },
         xaxis: {
             type: 'category',
-            categories: ['101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115']
+            categories: [1, 2, 3, 4, 5, 6, 7, 8, 9]
         },
         legend: {
             show: true,
@@ -82,5 +82,23 @@ export const chartData = {
         grid: {
             show: true
         }
-    }
+    },
+    series: [
+        {
+            name: '회의실',
+            data: [10, 20, 30, 40]
+        },
+        {
+            name: '차량',
+            data: [10, 20, 30, 40]
+        },
+        {
+            name: '물품',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+            name: 'Total',
+            data: [10, 20, 30, 40]
+        }
+    ]
 };
