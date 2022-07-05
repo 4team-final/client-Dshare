@@ -63,12 +63,9 @@
         "sass": "^1.50.0",
         "sass-loader": "^12.6.0",
         "slick-carousel": "^1.8.1",
-<<<<<<< HEAD
         "socket.io-client": "^4.5.1",
         "sockjs-client": "^1.6.1",
-=======
         "style-loader": "^3.3.1",
->>>>>>> upstream/dev
         "styled-components": "^5.3.5",
         "websocket": "^1.0.34",
         "yup": "^0.32.9"
