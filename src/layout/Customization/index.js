@@ -215,39 +215,47 @@ const Customization = () => {
     ];
     const getPositionId = ['회장', '사장', '부사장', '전무', '상무', '이사', '부장', '차장', '과장', '대리', '주임', '사원', '인턴'];
     const [id, setId] = useState('');
-    useEffect(
-        () => {
-            async function profile() {
-                let emp = await getUserProfile();
-                setBirthDay(emp.birthday.split('T', 1)[0]);
-                setEmail(emp.email);
-                setName(emp.name);
-                setTel(emp.tel);
-                setProfileImg(emp.profileImg);
-                setEmpInfo(emp);
-                setId(emp.empNo.slice(-2));
-                for (var i = 0; i < getDeptId.length; i++) {
-                    if (getDeptId[i] == emp.dept) {
-                        setDeptId(i + 1);
-                    }
+
+    const [emp, setEmp] = useState(null);
+
+    useEffect(() => {
+        if (!emp) {
+            setEmp(getUserProfile());
+        }
+    }, [emp]);
+
+    useEffect(() => {
+        async function profile() {
+            // let emp = await getUserProfile();
+            console.log(emp);
+            setBirthDay(emp.birthday.split('T', 1)[0]);
+            setEmail(emp.email);
+            setName(emp.name);
+            setTel(emp.tel);
+            setProfileImg(emp.profileImg);
+            setEmpInfo(emp);
+            setId(emp.empNo.slice(-2));
+            for (var i = 0; i < getDeptId.length; i++) {
+                if (getDeptId[i] == emp.dept) {
+                    setDeptId(i + 1);
                 }
-                for (var i = 0; i < getTeamId.length; i++) {
-                    if (getTeamId[i] == emp.team + '(' + emp.dept + ')') {
-                        setTeamId(i + 1);
-                    }
-                }
-                for (var i = 0; i < getPositionId.length; i++) {
-                    if (getPositionId[i] == emp.position) {
-                        setPositionId(i + 1);
-                    }
-                }
-                console.log(emp);
             }
+            for (var i = 0; i < getTeamId.length; i++) {
+                if (getTeamId[i] == emp.team + '(' + emp.dept + ')') {
+                    setTeamId(i + 1);
+                }
+            }
+            for (var i = 0; i < getPositionId.length; i++) {
+                if (getPositionId[i] == emp.position) {
+                    setPositionId(i + 1);
+                }
+            }
+            console.log(emp);
+        }
+        if (emp) {
             profile();
-        },
-        [],
-        [name, email, tel, birthday, positionId, teamId, deptId]
-    );
+        }
+    }, [emp]);
 
     //부서 팀 포지션 리스트
     const [liOpen, setLiOpen] = useState(false);

@@ -22,7 +22,22 @@ import { getRoomChart } from 'components/ApiModules/ApiHandler';
 import {
     OnedayfindRoomReservationCount,
     ThreedayfindRoomReservationCount,
-    SevendayfindRoomReservationCount
+    SevendayfindRoomReservationCount,
+    OnedayfindRoomReservationTime,
+    ThreedayfindRoomReservationTime,
+    SevendayfindRoomReservationTime,
+    OnedayfindRoomMeetTime,
+    ThreedayfindRoomMeetTime,
+    SevendayfindRoomMeetTime,
+    OnedayfindVehicleReservationCount,
+    ThreedayfindVehicleReservationCount,
+    SevendayfindVehicleReservationCount,
+    OnedayfindVehicleReservationTime,
+    ThreedayfindVehicleReservationTime,
+    SevendayfindVehicleReservationTime,
+    OnedayfindVehicleStartTime,
+    ThreedayfindVehicleStartTime,
+    SevendayfindVehicleStartTime
 } from 'store/actions/DashboardActions';
 
 const status = [
@@ -80,6 +95,26 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         dispatch(OnedayfindRoomReservationCount(1));
         dispatch(ThreedayfindRoomReservationCount(3));
         dispatch(SevendayfindRoomReservationCount(7));
+
+        dispatch(OnedayfindRoomReservationTime(1));
+        dispatch(ThreedayfindRoomReservationTime(3));
+        dispatch(SevendayfindRoomReservationTime(7));
+
+        dispatch(OnedayfindRoomMeetTime(1));
+        dispatch(ThreedayfindRoomMeetTime(3));
+        dispatch(SevendayfindRoomMeetTime(7));
+
+        dispatch(OnedayfindVehicleReservationCount(1));
+        dispatch(ThreedayfindVehicleReservationCount(3));
+        dispatch(SevendayfindVehicleReservationCount(7));
+
+        dispatch(OnedayfindVehicleReservationTime(1));
+        dispatch(ThreedayfindVehicleReservationTime(3));
+        dispatch(SevendayfindVehicleReservationTime(7));
+
+        dispatch(OnedayfindVehicleStartTime(1));
+        dispatch(ThreedayfindVehicleStartTime(3));
+        dispatch(SevendayfindVehicleStartTime(7));
     }, []);
 
     useEffect(() => {
@@ -125,7 +160,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         };
 
         setOneDayList(
-            onedayList.sort(function (a, b) {
+            onedayList?.sort(function (a, b) {
                 if (a.roomId > b.roomId) {
                     return 1;
                 }
@@ -138,18 +173,18 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             })
         );
 
-        loop: for (let i = 0; i < roomdataArr.length; i++) {
-            for (let j = 0; j < onedayList.length; j++) {
-                if (i + 1 === onedayList[j].roomId) {
-                    setoneData([...oneData, onedayList[j].count]);
-                    continue loop;
-                }
-            }
-            setoneData(oneData.concat(1));
-        }
+        // loop: for (let i = 0; i < roomdataArr.length; i++) {
+        //     for (let j = 0; j < onedayList.length; j++) {
+        //         if (i + 1 === onedayList[j].roomId) {
+        //             setoneData([...oneData, onedayList[j].count]);
+        //             continue loop;
+        //         }
+        //     }
+        //     setoneData(oneData.concat(1));
+        // }
 
         setThreeDayList(
-            threedayList.sort(function (a, b) {
+            threedayList?.sort(function (a, b) {
                 if (a.roomId > b.roomId) {
                     return 1;
                 }
@@ -161,17 +196,17 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 }
             })
         );
-        loop: for (let i = 0; i < roomdataArr.length; i++) {
-            for (let j = 0; j < threedayList.length; j++) {
-                if (i + 1 === threedayList[j].roomId) {
-                    setThreeData([...threeData, threedayList[j].count]);
-                    continue loop;
-                }
-            }
-            setThreeData(threeData.concat(1));
-        }
+        // loop: for (let i = 0; i < roomdataArr.length; i++) {
+        //     for (let j = 0; j < threedayList.length; j++) {
+        //         if (i + 1 === threedayList[j].roomId) {
+        //             setThreeData([...threeData, threedayList[j].count]);
+        //             continue loop;
+        //         }
+        //     }
+        //     setThreeData(threeData.concat(1));
+        // }
         setSevenDayList(
-            sevendayList.sort(function (a, b) {
+            sevendayList?.sort(function (a, b) {
                 if (a.roomId > b.roomId) {
                     return 1;
                 }
@@ -183,15 +218,15 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 }
             })
         );
-        loop: for (let i = 0; i < roomdataArr.length; i++) {
-            for (let j = 0; j < sevendayList.length; j++) {
-                if (i + 1 === sevendayList[j].roomId) {
-                    setSevenData([...sevenData, sevendayList[j].count]);
-                    continue loop;
-                }
-            }
-            setSevenData(sevenData.concat(1));
-        }
+        // loop: for (let i = 0; i < roomdataArr.length; i++) {
+        //     for (let j = 0; j < sevendayList.length; j++) {
+        //         if (i + 1 === sevendayList[j].roomId) {
+        //             setSevenData([...sevenData, sevendayList[j].count]);
+        //             continue loop;
+        //         }
+        //     }
+        //     setSevenData(sevenData.concat(1));
+        // }
 
         if (select === 0) {
             console.log(oneData);

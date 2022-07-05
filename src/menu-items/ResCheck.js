@@ -15,19 +15,20 @@ const other = {
             id: 'Room-Reserve',
             title: '나의 회의실 예약 현황',
             type: 'item',
-            url: '/',
+            url: 'main/my/reservation/status',
             icon: icons.IconHelp,
             breadcrumbs: false
-        },
-        {
-            id: 'Vehicle-Reserve',
-            title: '나의 차량 예약 현황',
-            type: 'item',
-            url: '/',
-            icon: icons.IconHelp,
-            external: true,
-            target: true
         }
+
+        // {
+        //     id: 'Vehicle-Reserve',
+        //     title: '나의 차량 예약 현황',
+        //     type: 'item',
+        //     url: '/',
+        //     icon: icons.IconHelp,
+        //     external: true,
+        //     target: true
+        // }
     ]
 };
 

@@ -98,7 +98,7 @@ const ProfileSection = () => {
         async function profile() {
             let emp = await getUserProfile();
             setEmpInfo(emp);
-            setProfileImg(emp.profileImg);
+            setProfileImg(emp?.profileImg);
         }
         profile();
     }, []);
