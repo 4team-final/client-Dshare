@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import ReservationPage from 'page/employee/main/reservation/Current/index';
 
 // my reservation routing
 
@@ -18,7 +19,6 @@ const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
-
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -35,11 +35,11 @@ const MainRoutes = {
         },
         {
             path: '/room/room-reserve',
-            element: <UtilsTypography />
+            element: <ReservationPage />
         },
         {
             path: '/reserve/vehicle-reserve',
-            element: <UtilsColor />
+            element: <ReservationPage />
         },
         {
             path: '/utils/util-shadow',
