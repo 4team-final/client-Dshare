@@ -70,13 +70,13 @@ function MyReservationList() {
         }
     }, [reqVehicle, select]);
 
-    useEffect(() => {
-        if (flag) {
-            document.getElementById('MyReservatationList').style.overflowY = 'hidden';
-        } else if (!flag) {
-            document.getElementById('MyReservatationList').style.overflowY = 'scroll';
-        }
-    }, [flag]);
+    // useEffect(() => {
+    //     if (flag) {
+    //         document.getElementById('MyReservatationList').style.overflowY = 'hidden';
+    //     } else if (!flag) {
+    //         document.getElementById('MyReservatationList').style.overflowY = 'scroll';
+    //     }
+    // }, [flag]);
 
     useEffect(() => {
         if (
@@ -85,8 +85,6 @@ function MyReservationList() {
                 ?.reservationResDTO?.id !== resRoomList[resRoomList?.length - 1]?.reservationResDTO?.id
         ) {
             setResRoomList([...resRoomList, ...reservationStore?.myReservationRoomList?.data?.value]);
-            setLoading2(false);
-            setFlag(false);
         }
     }, [reservationStore?.myReservationRoomList?.data?.value]);
 
@@ -97,8 +95,6 @@ function MyReservationList() {
                 ?.reservationId !== resVehicleList[resVehicleList?.length - 1]?.reservationId
         ) {
             setResVehicleList([...resVehicleList, ...reservationStore?.myReservationVehicleList?.data?.value]);
-            setLoading2(false);
-            setFlag(false);
         }
     }, [reservationStore?.myReservationVehicleList?.data?.value]);
 
@@ -139,7 +135,8 @@ function MyReservationList() {
         }
     }, [resRoomList, resVehicleList]);
 
-    async function handleDetail(item) {
+    function handleDetail(item) {
+        console.log(item);
         dispatch(ItemChangeSave(item));
     }
 
@@ -158,10 +155,12 @@ function MyReservationList() {
 
         if (!flag) {
             document.getElementById('MyReservatationList').style.overflowY = 'scroll';
+        } else if (flag) {
+            document.getElementById('MyReservatationList').style.overflowY = 'hidden';
         }
         // scrollTop과 innerHeight를 더한 값이 scrollHeight보다 크다면, 가장 아래에 도달했다는 의미이다.
         if (Math.round(scrollTop + innerHeight) >= Math.round(scrollHeight * 0.75)) {
-            if (select === 0 && reqRoomLastId) {
+            if (select === 0 && reqRoomLastId && resRoomList.length !== total) {
                 setReqRoom({
                     lastId: reqRoomLastId,
                     limit: 5
@@ -170,6 +169,8 @@ function MyReservationList() {
                 setFlag(true);
                 function fetch() {
                     dispatch(myReservationRoomList(reqRoom));
+                    setLoading2(false);
+                    setFlag(false);
                 }
                 fetch();
             } else if (select === 1 && reqVehicleLastId) {
@@ -181,6 +182,8 @@ function MyReservationList() {
                 setFlag(true);
                 function fetch() {
                     dispatch(myReservationVehicleList(reqVehicle));
+                    setLoading2(false);
+                    setFlag(false);
                 }
                 fetch();
             }
@@ -207,19 +210,11 @@ function MyReservationList() {
                         <>
                             {resRoomList.length > 0 ? (
                                 <>
-                                    {resRoomList.map((item, i) => {
-                                        return (
-                                            <div>
-                                                <MyReservationCard
-                                                    key={i}
-                                                    data={item}
-                                                    onClick={() => {
-                                                        handleDetail(item);
-                                                    }}
-                                                />
-                                            </div>
-                                        );
-                                    })}
+                                    {resRoomList.map((item) => (
+                                        <div onClick={() => handleDetail(item)}>
+                                            <MyReservationCard key={item.reservationResDTO.id} data={item} />
+                                        </div>
+                                    ))}
                                     {loading2 ? (
                                         <div className="absoluteLoading">
                                             <Loading text={'불러오는중 ...'} />
@@ -239,14 +234,8 @@ function MyReservationList() {
                                 <>
                                     {resVehicleList.map((item, i) => {
                                         return (
-                                            <div>
-                                                <MyReservationCard
-                                                    data={item}
-                                                    key={i}
-                                                    onClick={() => {
-                                                        handleDetail(item);
-                                                    }}
-                                                />
+                                            <div onClick={() => handleDetail(item)}>
+                                                <MyReservationCard data={item} key={item.reservationId}></MyReservationCard>
                                             </div>
                                         );
                                     })}

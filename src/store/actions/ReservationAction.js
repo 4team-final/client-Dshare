@@ -1,4 +1,3 @@
-//BoardAction.js
 import * as ReserveApi from '../../api/ReserveApi';
 import { createPromiseThunk } from '../../api/AsyncUtil';
 

@@ -3,6 +3,10 @@
     "version": "3.0.1",
     "private": true,
     "dependencies": {
+        "@babel/core": "^7.14.8",
+        "@babel/eslint-parser": "^7.15.8",
+        "@babel/node": "^7.16.8",
+        "@babel/preset-env": "^7.16.11",
         "@emotion/cache": "^11.4.0",
         "@emotion/react": "^11.4.0",
         "@emotion/styled": "^11.3.0",

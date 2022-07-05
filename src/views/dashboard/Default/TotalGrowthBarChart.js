@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -19,18 +19,20 @@ import { gridSpacing } from 'store/actions/DashboardConstant';
 import { roomCnt, chartData } from './chart-data/total-growth-bar-chart';
 import { getRoomChart } from 'components/ApiModules/ApiHandler';
 
+import {
+    OnedayfindRoomReservationCount,
+    ThreedayfindRoomReservationCount,
+    SevendayfindRoomReservationCount
+} from 'store/actions/DashboardActions';
+
 const status = [
     {
         value: '1',
-        label: 'Today'
+        label: '회의실'
     },
     {
-        value: '3',
-        label: '3Days'
-    },
-    {
-        value: '7',
-        label: '7Days'
+        value: '2',
+        label: '차량'
     }
 ];
 
@@ -40,6 +42,11 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const [value, setValue] = useState('1');
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
+    const changeStoreSelect = useSelector((state) => state.changeReducer.selected);
+
+    const oneDayRoomReservaionCount = useSelector((state) => state.dashboardReducer.oneDayRoomReservationCount);
+    const threeDayRoomReservationCount = useSelector((state) => state.dashboardReducer.threeDayRoomReservationCount);
+    const sevenDayRoomReservationCount = useSelector((state) => state.dashboardReducer.sevenDayRoomReservationCount);
 
     const { navType } = customization;
     const { primary } = theme.palette.text;
@@ -51,108 +58,172 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const primaryDark = theme.palette.primary.dark;
     const secondaryMain = theme.palette.secondary.main;
     const secondaryLight = theme.palette.secondary.light;
-    // const [chartData2, setChartData2] = useState({});
-    const [tmpRoomCnt, setTmpRoomCnt] = useState({
-        one: 0,
-        two: 0,
-        three: 0,
-        four: 0,
-        five: 0,
-        six: 0,
-        seven: 0,
-        eight: 0,
-        nine: 0,
-        ten: 0,
-        eleven: 0,
-        twelve: 0,
-        thirteen: 0,
-        fourteen: 0,
-        fifteen: 0
-    });
-    const tmpCharData = {
-        ...chartData,
-        series: [
-            {
-                name: '회의실',
-                data: [
-                    tmpRoomCnt.one,
-                    tmpRoomCnt.two,
-                    tmpRoomCnt.three,
-                    tmpRoomCnt.four,
-                    tmpRoomCnt.five,
-                    tmpRoomCnt.six,
-                    tmpRoomCnt.seven,
-                    tmpRoomCnt.eight,
-                    tmpRoomCnt.nine,
-                    tmpRoomCnt.ten,
-                    tmpRoomCnt.eleven,
-                    tmpRoomCnt.twelve,
-                    tmpRoomCnt.thirteen,
-                    tmpRoomCnt.fourteen,
-                    tmpRoomCnt.fifteen
-                ]
-            },
-            {
-                name: '차량',
-                data: [35, 15, 15, 35, 65, 40, 80, 25, 15, 85, 25, 75]
-            },
-            {
-                name: '물품',
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            },
-            {
-                name: 'Total',
-                data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0]
+    const [thisChartData, setThisChartData] = useState();
+
+    const dispatch = useDispatch();
+
+    const [onedayList, setOneDayList] = useState([]);
+    const [threedayList, setThreeDayList] = useState([]);
+    const [sevendayList, setSevenDayList] = useState([]);
+    const [oneData, setoneData] = useState([]);
+    const [threeData, setThreeData] = useState([]);
+    const [sevenData, setSevenData] = useState([]);
+    const [select, isSelect] = useState(0);
+
+    useEffect(() => {
+        if (changeStoreSelect) {
+            isSelect(changeStoreSelect);
+        }
+    }, [changeStoreSelect]);
+
+    useEffect(() => {
+        dispatch(OnedayfindRoomReservationCount(1));
+        dispatch(ThreedayfindRoomReservationCount(3));
+        dispatch(SevendayfindRoomReservationCount(7));
+    }, []);
+
+    useEffect(() => {
+        if (oneDayRoomReservaionCount.data) {
+            setOneDayList(oneDayRoomReservaionCount.data);
+        }
+        if (threeDayRoomReservationCount.data) {
+            setThreeDayList(threeDayRoomReservationCount.data.value);
+        }
+        if (sevenDayRoomReservationCount.data) {
+            setSevenDayList(sevenDayRoomReservationCount.data.value);
+        }
+    }, [oneDayRoomReservaionCount, threeDayRoomReservationCount, sevenDayRoomReservationCount]);
+
+    const [roomArr, setroomArr] = useState([101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 113, 113, 114, 115]);
+
+    const [vehicleArr, setvehicleArr] = useState([
+        '벤츠 e-class',
+        '벤츠 c-class',
+        '벤츠 s-class',
+        '벤츠 a-class',
+        '벤츠 b-class',
+        'BMW 3시리즈',
+        'BMW 5시리즈',
+        'BMW 7시리즈',
+        '쌍용 토레스',
+        '현대 아반떼 cn7'
+    ]);
+
+    const [roomdataArr, setroomdataArr] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const [vehicledataArr, setvehicledataArr] = useState(['', '', '', '', '', '', '', '', '', '']);
+
+    useEffect(() => {
+        async function getRoom() {
+            // let data = await getRoomChart(value);
+        }
+        getRoom();
+        let chartDataRoomCount = {
+            height: chartData.height,
+            type: chartData.type,
+            options: chartData.options,
+            series: chartData.series
+        };
+
+        setOneDayList(
+            onedayList.sort(function (a, b) {
+                if (a.roomId > b.roomId) {
+                    return 1;
+                }
+                if (a.roomId === b.roomId) {
+                    return 0;
+                }
+                if (a.roomId < b.roomId) {
+                    return -1;
+                }
+            })
+        );
+
+        loop: for (let i = 0; i < roomdataArr.length; i++) {
+            for (let j = 0; j < onedayList.length; j++) {
+                if (i + 1 === onedayList[j].roomId) {
+                    setoneData([...oneData, onedayList[j].count]);
+                    continue loop;
+                }
             }
-        ]
+            setoneData(oneData.concat(1));
+        }
+
+        setThreeDayList(
+            threedayList.sort(function (a, b) {
+                if (a.roomId > b.roomId) {
+                    return 1;
+                }
+                if (a.roomId === b.roomId) {
+                    return 0;
+                }
+                if (a.roomId < b.roomId) {
+                    return -1;
+                }
+            })
+        );
+        loop: for (let i = 0; i < roomdataArr.length; i++) {
+            for (let j = 0; j < threedayList.length; j++) {
+                if (i + 1 === threedayList[j].roomId) {
+                    setThreeData([...threeData, threedayList[j].count]);
+                    continue loop;
+                }
+            }
+            setThreeData(threeData.concat(1));
+        }
+        setSevenDayList(
+            sevendayList.sort(function (a, b) {
+                if (a.roomId > b.roomId) {
+                    return 1;
+                }
+                if (a.roomId === b.roomId) {
+                    return 0;
+                }
+                if (a.roomId < b.roomId) {
+                    return -1;
+                }
+            })
+        );
+        loop: for (let i = 0; i < roomdataArr.length; i++) {
+            for (let j = 0; j < sevendayList.length; j++) {
+                if (i + 1 === sevendayList[j].roomId) {
+                    setSevenData([...sevenData, sevendayList[j].count]);
+                    continue loop;
+                }
+            }
+            setSevenData(sevenData.concat(1));
+        }
+
+        if (select === 0) {
+            console.log(oneData);
+            console.log(threeData);
+            console.log(sevenData);
+
+            chartDataRoomCount.options.xaxis = { type: 'category', categories: roomArr };
+            chartDataRoomCount.series = [
+                {
+                    name: '1일',
+                    data: oneData
+                },
+                {
+                    name: '3일',
+                    data: threeData
+                },
+                {
+                    name: '7일',
+                    data: sevenData
+                }
+            ];
+        } else if (select === 1) {
+            chartDataRoomCount.options.xaxis = { type: 'category', categories: vehicleArr };
+        }
+        // console.log(chartData);
+        setThisChartData(chartDataRoomCount);
+    }, [onedayList, threedayList, sevendayList]);
+
+    const changeChart = (e) => {
+        let days = e.target.value;
+        setValue(days);
     };
-
-    // useEffect(() => {
-    //     async function InputData() {
-    //         let data = await getRoomChart(value);
-    //         console.log(value);
-    //         console.log(data);
-
-    //         data.map((data) =>
-    //             data.roomNo == '101'
-    //                 ? setTmpRoomCnt((tmpRoomCnt.one = data.count))
-    //                 : data.roomNo == '102'
-    //                 ? (tmpRoomCnt.two = data.count)
-    //                 : data.roomNo == '103'
-    //                 ? (tmpRoomCnt.three = data.count)
-    //                 : data.roomNo == '104'
-    //                 ? (tmpRoomCnt.four = data.count)
-    //                 : data.roomNo == '105'
-    //                 ? (tmpRoomCnt.five = data.count)
-    //                 : data.roomNo == '106'
-    //                 ? (tmpRoomCnt.six = data.count)
-    //                 : data.roomNo == '107'
-    //                 ? (tmpRoomCnt.seven = data.count)
-    //                 : data.roomNo == '108'
-    //                 ? (tmpRoomCnt.eight = data.count)
-    //                 : data.roomNo == '109'
-    //                 ? (tmpRoomCnt.nine = data.count)
-    //                 : data.roomNo == '110'
-    //                 ? (tmpRoomCnt.ten = data.count)
-    //                 : data.roomNo == '111'
-    //                 ? (tmpRoomCnt.eleven = data.count)
-    //                 : data.roomNo == '112'
-    //                 ? (tmpRoomCnt.twelve = data.count)
-    //                 : data.roomNo == '113'
-    //                 ? (tmpRoomCnt.thirteen = data.count)
-    //                 : data.roomNo == '114'
-    //                 ? (tmpRoomCnt.fourteen = data.count)
-    //                 : data.roomNo == '115'
-    //                 ? (tmpRoomCnt.fifteen = data.count)
-    //                 : ''
-    //         );
-    //         console.log(tmpRoomCnt);
-    //     }
-
-    //     setTmpRoomCnt(tmpRoomCnt);
-    //     setTmpChartData(tmpChardata);
-    //     InputData();
-    // }, [value]);
 
     useEffect(() => {
         const newChartData = {
@@ -184,12 +255,13 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 }
             }
         };
-
         // do not load chart when loading
         if (!isLoading) {
             ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
         }
-    }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500]);
+    }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500, value]);
+
+    const [message, setMessage] = useState('');
 
     return (
         <>
@@ -203,10 +275,18 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                 <Grid item>
                                     <Grid container direction="column" spacing={1}>
                                         <Grid item>
-                                            <Typography variant="subtitle2">Total Growth</Typography>
+                                            <Typography variant="subtitle2">예약현황 조회</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="h3">$2,324.00</Typography>
+                                            <Typography variant="h3">
+                                                {value}일간 많이 예약 확정된 {select ? <>회의실 개수</> : <>차량 개수</>} 조회
+                                            </Typography>
+                                            <Typography variant="h3">
+                                                {value}일간 많이 예약 확정된 {select ? <>회의실 시간대</> : <>차량 시간대</>} 조회
+                                            </Typography>
+                                            <Typography variant="h3">
+                                                {value}일간 많이 예약이 시작된 {select ? <>회의실 시간대</> : <>차량 시간대</>} 조회
+                                            </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -227,7 +307,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            {/* <Chart {...chartData} /> */}
+                            <Chart {...thisChartData} />
                         </Grid>
                     </Grid>
                 </MainCard>
