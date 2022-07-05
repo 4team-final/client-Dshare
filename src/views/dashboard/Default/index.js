@@ -11,12 +11,23 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/actions/DashboardConstant';
-
+import { getVBookmark, getUserProfile, getRBookmark } from 'components/ApiModules/ApiHandler';
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
+    const [vehicleBookmark, setVehicleBookmark] = useState([]);
+    const [roomBookmark, setRoomBookmark] = useState([]);
+    //차량 즐겨찾기 조회
     useEffect(() => {
+        async function VBookmark() {
+            let data = await getVBookmark();
+            setVehicleBookmark(data);
+            let Rdata = await getRBookmark();
+            setRoomBookmark(Rdata);
+            console.log(Rdata);
+        }
+        VBookmark();
         setLoading(false);
     }, []);
 
@@ -33,10 +44,10 @@ const Dashboard = () => {
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeDarkCard isLoading={isLoading} />
+                                <TotalIncomeDarkCard isLoading={isLoading} vehicleBookmark={vehicleBookmark} />
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeLightCard isLoading={isLoading} />
+                                <TotalIncomeLightCard isLoading={isLoading} roomBookmark={roomBookmark} />
                             </Grid>
                         </Grid>
                     </Grid>

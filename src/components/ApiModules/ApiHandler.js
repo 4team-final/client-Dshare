@@ -88,3 +88,18 @@ export const updateEmpInfo = async (id, teamId, positionId, name, email, tel, bi
         .then((res) => res.data)
         .catch((e) => console.log(e));
 };
+
+export const getVBookmark = async () => {
+    return await dshareAPI(`emp/vehicle/list/own/mark`).then((res) => res.data.value);
+};
+export const getRBookmark = async () => {
+    return await dshareAPI(`emp/my/bookmark`).then((res) => res.data.value);
+};
+export const delRBookmark = async (id) => {
+    await dshareAPI.post(`emp/room/bookmark/${id}`).then((res) => res.data);
+    return getRBookmark();
+};
+export const delVBookmark = async (id) => {
+    await dshareAPI.delete(`emp/vehicle/elimination/mark?id=${id}`).then((res) => res.data);
+    return getVBookmark();
+};

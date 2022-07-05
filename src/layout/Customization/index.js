@@ -76,6 +76,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DatePicker from 'react-datepicker';
+import ImageUploader from 'react-images-upload';
 
 // ==============================|| LIVE CUSTOMIZATION ||============================== //
 
@@ -148,7 +149,7 @@ const Customization = () => {
     //프로필 조회
     const [empInfo, setEmpInfo] = useState({});
 
-    const [profileImg, setProfileImg] = useState();
+    const [profileImg, setProfileImg] = useState([]);
     const getDeptId = [
         '관리부',
         '기획부',
@@ -223,9 +224,12 @@ const Customization = () => {
                 setEmail(emp.email);
                 setName(emp.name);
                 setTel(emp.tel);
-                setProfileImg(emp.profileImg);
-                setEmpInfo(emp);
-                setId(emp.empNo.slice(-2));
+                let tmpId = emp.empNo.slice(-5).replace('0', '');
+                tmpId = tmpId.replace('0', '');
+                tmpId = tmpId.replace('0', '');
+                tmpId = tmpId.replace('0', '');
+                console.log(tmpId);
+                setId(tmpId);
                 for (var i = 0; i < getDeptId.length; i++) {
                     if (getDeptId[i] == emp.dept) {
                         setDeptId(i + 1);
@@ -432,7 +436,42 @@ const Customization = () => {
         alert(value.message);
         window.location.href = '/main/dashboard/default';
     };
+    const [imgUpdate, setImgUpdate] = useState(false);
 
+    const updateImg = () => {
+        setImgUpdate(!imgUpdate);
+    };
+    const [pictures, setPictures] = useState([]);
+
+    const onDrop = (picture) => {
+        setPictures(...pictures, picture);
+    };
+
+    const updateSuccessImg = async () => {
+        let frm = new FormData();
+        frm.enctype = 'multipart/form-data';
+        let pic = pictures[0];
+        console.log(pictures[0]);
+        console.log(pic);
+        frm.append('files', pic);
+        frm.append('TargetEmpId', id);
+        let value = await dshareAPI
+            .post(`emp/image/upload`, frm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((res) => res.data)
+            .catch((e) => console.log(e));
+        console.log(value);
+        setPictures([]);
+        if (value.value == 1) {
+            // alert('프로필 수정에 성공했습니다!');
+            // window.location.href = '/main/dashboard/default';
+        } else {
+            alert('프로필 수정에 실패했습니다!');
+        }
+    };
     return (
         <>
             {/* toggle button */}
@@ -556,18 +595,22 @@ const Customization = () => {
                                             </ListItemIcon>
                                             <ListItemText primary={empInfo.tel} />
                                         </ListItemButton>
-                                        <ListItemButton onClick={updateProfile}>
-                                            <ListItemIcon>
-                                                <Fab
-                                                    color="secondary"
-                                                    aria-label="edit"
-                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
-                                                >
-                                                    <EditIcon style={{ width: '18px', height: '18px' }} />
-                                                </Fab>
-                                            </ListItemIcon>
-                                            <ListItemText primary="수정" />
-                                        </ListItemButton>
+                                        {id == '1' ? (
+                                            <ListItemButton onClick={updateProfile}>
+                                                <ListItemIcon>
+                                                    <Fab
+                                                        color="secondary"
+                                                        aria-label="edit"
+                                                        style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                    >
+                                                        <EditIcon style={{ width: '18px', height: '18px' }} />
+                                                    </Fab>
+                                                </ListItemIcon>
+                                                <ListItemText primary="수정" />
+                                            </ListItemButton>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </List>
                                 ) : (
                                     <>
@@ -716,11 +759,64 @@ const Customization = () => {
                             {/* border radius */}
                             <Divider />
                             <SubCard title="프로필 사진">
-                                <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
-                                    <Grid item>
-                                        <img src={profileImg} alt="" style={{ borderRadius: '10px', width: '190px' }} />
-                                    </Grid>
-                                </Grid>
+                                {!imgUpdate ? (
+                                    <>
+                                        <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
+                                            <Grid item>
+                                                <img src={profileImg} alt="" style={{ borderRadius: '10px', width: '190px' }} />
+                                            </Grid>
+                                        </Grid>
+                                        <ListItemButton onClick={updateImg} style={{}}>
+                                            <ListItemIcon>
+                                                <Fab
+                                                    color="secondary"
+                                                    aria-label="edit"
+                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                >
+                                                    <EditIcon style={{ width: '18px', height: '18px' }} />
+                                                </Fab>
+                                            </ListItemIcon>
+                                            <ListItemText primary="프로필 사진 수정하기" />
+                                        </ListItemButton>
+                                    </>
+                                ) : (
+                                    <>
+                                        <ImageUploader
+                                            singleImage={true}
+                                            withIcon={true}
+                                            buttonText="이미지를 선택하세요"
+                                            label="5mb 이하, jpg, gif, png, gif 가능"
+                                            onChange={onDrop}
+                                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                            maxFileSize={5242880}
+                                            withPreview={true}
+                                        />
+                                        <ListItemButton onClick={updateSuccessImg} style={{}}>
+                                            <ListItemIcon>
+                                                <Fab
+                                                    color="primary"
+                                                    aria-label="edit"
+                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                >
+                                                    <CheckCircleOutlinedIcon style={{ width: '18px', height: '18px' }} />
+                                                </Fab>
+                                            </ListItemIcon>
+                                            <ListItemText primary="프로필 사진 수정 완료" />
+                                        </ListItemButton>
+                                        <ListItemButton onClick={updateImg} style={{}}>
+                                            <ListItemIcon>
+                                                <Fab
+                                                    color="secondary"
+                                                    aria-label="edit"
+                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                >
+                                                    <CancelOutlinedIcon style={{ width: '18px', height: '18px' }} />
+                                                </Fab>
+                                            </ListItemIcon>
+                                            <ListItemText primary="프로필 사진 수정 취소" />
+                                        </ListItemButton>
+                                    </>
+                                )}
                             </SubCard>
                         </Grid>
                     </Grid>
