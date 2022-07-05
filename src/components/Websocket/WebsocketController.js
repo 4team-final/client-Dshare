@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { validIsSeat, socketMsgByReservation, selectByEmpNo } from 'store/actions/WebsocketAction';
+import {
+    validIsSeat,
+    socketMsgByReservation,
+    selectByEmpNo,
+    selectByVId,
+    selectByRId,
+    selectByUId,
+    selectByType,
+    convertToTime
+} from 'store/actions/WebsocketAction';
 import { SocketConnection } from './WebsocketService';
+import { useNavigate } from 'react-router-dom';
 
 export const WebsocketController = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [vid, setVid] = useState(0);
     const [rid, setRid] = useState(0);
@@ -38,7 +49,6 @@ export const WebsocketController = () => {
                 ? socketMsgByReservation('R_QUIT', { rid: rid, uid: uid, empno: empNo })
                 : socketMsgByReservation('QUIT', { vid: vid, uid: uid, empno: empNo })
         );
-        window.location.reload;
     };
     const SetTimeHandler = () => {
         dispatch(
