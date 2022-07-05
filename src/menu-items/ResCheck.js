@@ -1,8 +1,8 @@
 // assets
-import { IconBrandChrome, IconHelp } from '@tabler/icons';
+import { IconBrandChrome, IconHelp, IconBellRinging } from '@tabler/icons';
 
 // constant
-const icons = { IconBrandChrome, IconHelp };
+const icons = { IconBrandChrome, IconHelp, IconBellRinging };
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
@@ -16,7 +16,7 @@ const other = {
             title: '나의 회의실 예약 현황',
             type: 'item',
             url: 'main/my/reservation/status',
-            icon: icons.IconHelp,
+            icon: icons.IconBellRinging,
             breadcrumbs: false
         }
 

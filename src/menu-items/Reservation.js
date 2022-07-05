@@ -34,14 +34,6 @@ const Reservation = {
             url: '/main/reserve/vehicle-reserve',
             icon: icons.AiFillCar,
             breadcrumbs: false
-        },
-        {
-            id: 'equipment',
-            title: '물품 예약',
-            type: 'item',
-            url: '',
-            icon: icons.IconShadow,
-            breadcrumbs: false
         }
     ]
 };
