@@ -12,3 +12,9 @@ export const selectByVehicleNonReservation = async () => {
 export const findAllByVehicle = async () => {
     return await dshareAPI('emp/vehicle/list/vehicle/all');
 };
+export const findAllByRoom = async () => {
+    return await dshareAPI('emp/room/list/meeting/room/all');
+};
+export const selectByEmpNoAPI = async () => {
+    return await dshareAPI('emp/ws/validation');
+};

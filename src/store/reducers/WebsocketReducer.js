@@ -1,23 +1,85 @@
-import { MSG_TALK, MSG_DUAL, MSG_QUIT, MSG_DATA, SET_UIDANDVID } from 'store/actions/WebsocketAction';
+import {
+    MSG_ENTER,
+    ROOM_ENTER,
+    MSG_TALK,
+    MSG_DUAL,
+    MSG_QUIT,
+    ROOM_TALK,
+    ROOM_QUIT,
+    MSG_DATA,
+    SET_UID,
+    SET_VID,
+    SET_RID,
+    SET_EMPNO,
+    SET_PRODUCT,
+    VALID_IS_SEAT,
+    CONVERT_TO_TIME,
+    SOCKET_MESSAGE
+} from 'store/actions/WebsocketAction';
 
 const initialMsg = {
     ready: false,
     data: { type: '', vehicleId: '', uid: '', time: '', empNo: '', message: '' }
+};
+const initialMsgRoom = {
+    ready: false,
+    data: { type: '', uid: '', time: '', empNo: '', roomId: '' }
 };
 const initialSet = {
     loading: false,
     data: null
 };
 const initialState = {
+    enter: initialMsg,
+    roomenter: initialMsgRoom,
     talk: initialMsg,
     dual: initialMsg,
     quit: initialMsg,
+    rommtalk: initialMsgRoom,
+    roomquit: initialMsgRoom,
     isSeatData: initialSet,
-    userId: initialSet
+    uid: initialSet,
+    vid: initialSet,
+    rid: initialSet,
+    empno: initialSet,
+    product: initialSet,
+    validisseat: { ready: false },
+    converttotime: initialSet,
+    socketmessage: initialSet
 };
 
 export default function WebsocketReducer(state = initialState, action) {
     switch (action.type) {
+        case MSG_ENTER:
+            let enter = {
+                ready: true,
+                data: {
+                    type: 'ENTER',
+                    vehicleId: action.data.vid,
+                    uid: action.data.uid,
+                    time: [],
+                    empNo: action.data.empno,
+                    message: ''
+                }
+            };
+            return {
+                ...state,
+                enter: enter
+            };
+        case ROOM_ENTER:
+            let roomenter = {
+                ready: true,
+                data: {
+                    type: 'ENTER',
+                    uid: action.data.uid,
+                    empNo: action.data.empno,
+                    roomId: action.data.rid
+                }
+            };
+            return {
+                ...state,
+                roomenter: roomenter
+            };
         case MSG_TALK:
             let talk = {
                 ready: true,
@@ -66,6 +128,36 @@ export default function WebsocketReducer(state = initialState, action) {
                 ...state,
                 quit: quit
             };
+        case ROOM_TALK:
+            let roomtalk = {
+                ready: true,
+                data: {
+                    type: 'TALK',
+                    uid: action.data.uid,
+                    time: action.data.time,
+                    empNo: action.data.empno,
+                    roomId: action.data.roomId
+                }
+            };
+            return {
+                ...state,
+                roomtalk: roomtalk
+            };
+        case ROOM_QUIT:
+            let roomquit = {
+                ready: true,
+                data: {
+                    type: 'QUIT',
+                    uid: action.data.uid,
+                    time: [],
+                    empNo: action.data.empno,
+                    roomId: action.data.roomId
+                }
+            };
+            return {
+                ...state,
+                roomquit: roomquit
+            };
         case MSG_DATA:
             return {
                 ...state,
@@ -74,15 +166,67 @@ export default function WebsocketReducer(state = initialState, action) {
                     data: action.data
                 }
             };
-        case SET_UIDANDVID:
+        case SET_UID:
             return {
                 ...state,
-                userId: {
+                uid: {
                     loading: true,
-                    data: {
-                        uid: action.uid,
-                        vid: action.vid
-                    }
+                    data: action.uid
+                }
+            };
+        case SET_VID:
+            return {
+                ...state,
+                vid: {
+                    loading: true,
+                    data: action.vid
+                }
+            };
+        case SET_RID:
+            return {
+                ...state,
+                rid: {
+                    loading: true,
+                    data: action.rid
+                }
+            };
+        case SET_EMPNO:
+            return {
+                ...state,
+                empno: {
+                    loading: true,
+                    data: action.empno
+                }
+            };
+        case SET_PRODUCT:
+            return {
+                ...state,
+                product: {
+                    loading: true,
+                    data: action.product
+                }
+            };
+        case VALID_IS_SEAT:
+            return {
+                ...state,
+                validisseat: {
+                    ready: action.ready
+                }
+            };
+        case CONVERT_TO_TIME:
+            return {
+                ...state,
+                converttotime: {
+                    loading: true,
+                    data: action.data
+                }
+            };
+        case SOCKET_MESSAGE:
+            return {
+                ...state,
+                socketmessage: {
+                    loading: true,
+                    data: action.data
                 }
             };
         default:

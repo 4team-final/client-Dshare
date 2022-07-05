@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SHalfWidthFrame = styled.div`
+export const HalfWidthFrame = styled.div`
     max-width: 800px;
     height: ${(props) => props.height}px;
     background-color: #1296ec;
@@ -11,7 +11,7 @@ export const SHalfWidthFrame = styled.div`
     align-items: center;
 `;
 
-export const SComponentFrame = styled.div`
+export const ComponentFrame = styled.div`
     width: 97%;
     height: ${(props) => props.height}px;
     overflow-y: none;
@@ -20,7 +20,7 @@ export const SComponentFrame = styled.div`
     padding-bottom: 3%;
 `;
 
-export const SCardFrame = styled.div`
+export const CardFrame = styled.div`
     margin: auto;
     padding: 0;
     display: block;
@@ -32,7 +32,7 @@ export const SCardFrame = styled.div`
     background-color: #${(props) => props.props};
 `;
 
-export const SListFrame = styled.ul`
+export const ListFrame = styled.ul`
     list-style: none;
     margin: 0;
     padding: 0;
@@ -41,7 +41,7 @@ export const SListFrame = styled.ul`
     overflow-x: scroll;
 `;
 
-export const SItemFrame = styled.li`
+export const ItemFrame = styled.li`
     margin: 0;
     padding: 0;
     color: #fff;
@@ -49,7 +49,7 @@ export const SItemFrame = styled.li`
     text-align: center;
 `;
 
-export const SImgCard = styled.img`
+export const ImgCard = styled.img`
     alt: ${(props) => props};
     src: ${(props) => props};
     height: 50px;

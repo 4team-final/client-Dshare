@@ -1,2 +1,2 @@
-import { DateTableFrame } from '../DateTimeTableController';
+import { DateTableFrame } from './DateTableService';
 export default DateTableFrame;

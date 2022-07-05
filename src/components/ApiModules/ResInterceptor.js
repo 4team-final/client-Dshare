@@ -12,19 +12,21 @@ export const resSuccess = async (res) => {
         requestByEmployeeLogout();
         alert('로그인 시간이 만료되었습니다. 다시 로그인 해주세요.');
         return false;
-    } else if (res.data.message.startsWith('expired_token') || res.data.status === 'FORBIDDEN') {
+    }
+    if (res.data.message.startsWith('expired_token') || res.data.status === 'FORBIDDEN') {
         const dataMethod = res.config.method;
         const originalRequest = res.config.url;
         const RefreshToken = getToken('refresh');
-        if (RefreshToken) {
+        if (RefreshToken && RefreshToken !== undefined && RefreshToken !== null) {
             removeToken('access');
             const result = await dshareAPI(urlRefresh, {
                 headers: {
                     RefreshToken: RefreshToken
                 }
             });
-            saveToken('access', result.headers[resAccess]);
-
+            if (result.headers[resAccess]) {
+                saveToken('access', result.headers[resAccess]);
+            }
             switch (dataMethod) {
                 case 'post':
                     return await dshareAPI.post(originalRequest, res.config.data ? res.config.data : null, {

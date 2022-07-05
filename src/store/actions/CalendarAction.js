@@ -17,7 +17,12 @@ export const FIND_ALL_VEHICLE = 'FIND_ALL_VEHICLE';
 export const FIND_ALL_VEHICLE_SUCCESS = 'FIND_ALL_VEHICLE_SUCCESS';
 export const FIND_ALL_VEHICLE_ERROR = 'FIND_ALL_VEHICLE_ERROR';
 
+export const FIND_ALL_ROOM = 'FIND_ALL_ROOM';
+export const FIND_ALL_ROOM_SUCCESS = 'FIND_ALL_ROOM_SUCCESS';
+export const FIND_ALL_ROOM_ERROR = 'FIND_ALL_ROOM_ERROR';
+
 export const selectByRoomDateCalendar = createPromiseThunk(SELECT_ROOM_DATE_CALENDAR, CalendarApi.selectByRoomDateCalendar);
 export const selectByVehicleDateCalendar = createPromiseThunk(SELECT_VEHICLE_DATE_CALENDAR, CalendarApi.selectByVehicleDateCalendar);
 export const selectByVehicleNonReservation = createPromiseThunk(SELECT_VEHILCE_NON_RESERVATION, CalendarApi.selectByVehicleNonReservation);
 export const findAllByVehicle = createPromiseThunk(FIND_ALL_VEHICLE, CalendarApi.findAllByVehicle);
+export const findAllByRoom = createPromiseThunk(FIND_ALL_ROOM, CalendarApi.findAllByRoom);

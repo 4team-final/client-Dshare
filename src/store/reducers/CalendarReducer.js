@@ -11,14 +11,18 @@ import {
     SELECT_VEHILCE_NON_RESERVATION_ERROR,
     FIND_ALL_VEHICLE,
     FIND_ALL_VEHICLE_SUCCESS,
-    FIND_ALL_VEHICLE_ERROR
+    FIND_ALL_VEHICLE_ERROR,
+    FIND_ALL_ROOM,
+    FIND_ALL_ROOM_SUCCESS,
+    FIND_ALL_ROOM_ERROR
 } from 'store/actions/CalendarAction';
 
 const initialState = {
     calendarRoom: reducerUtils.initial(),
     calendarVehicle: reducerUtils.initial(),
     selectTableVehicle: reducerUtils.initial(),
-    allVehicle: reducerUtils.initial()
+    allVehicle: reducerUtils.initial(),
+    allRoom: reducerUtils.initial()
 };
 
 export default function CalendarReducer(state = initialState, action) {
@@ -39,6 +43,10 @@ export default function CalendarReducer(state = initialState, action) {
         case FIND_ALL_VEHICLE_SUCCESS:
         case FIND_ALL_VEHICLE_ERROR:
             return handleAsyncActions(FIND_ALL_VEHICLE, 'allVehicle')(state, action);
+        case FIND_ALL_ROOM:
+        case FIND_ALL_ROOM_SUCCESS:
+        case FIND_ALL_ROOM_ERROR:
+            return handleAsyncActions(FIND_ALL_ROOM, 'allRoom')(state, action);
         default:
             return state;
     }
