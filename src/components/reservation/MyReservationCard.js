@@ -97,6 +97,7 @@ function MyReservationCard(props) {
                                 </div>
                                 <div className="half">
                                     <span>
+                                        <div>예약 확정 {convertDate(data?.createdAt)}</div>
                                         <span className="reserveTitle">{data?.title}</span>
                                     </span>
                                 </div>

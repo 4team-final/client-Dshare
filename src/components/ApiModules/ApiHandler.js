@@ -76,3 +76,17 @@ export const getUserProfile = async () => {
 export const getRoomChart = async (days) => {
     return await dshareAPI(`emp/room/reservation/count/${days}`).then((res) => res.data.value);
 };
+
+export const updateEmpInfo = async (id, teamId, positionId, name, email, tel, birthday) => {
+    return await dshareAPI
+        .post(`admin/update/${id}`, {
+            teamId: teamId,
+            positionId: positionId,
+            name: name,
+            email: email,
+            tel: tel,
+            birthday: birthday
+        })
+        .then((res) => res.data)
+        .catch((e) => console.log(e));
+};

@@ -6,11 +6,11 @@ import calendarReducer from './CalendarReducer';
 import websocketReducer from './WebsocketReducer';
 
 const rootReducer = combineReducers({
-    customization,
     reservationReducer,
     changeReducer,
     calendarReducer,
-    websocketReducer
+    websocketReducer,
+    customization
 });
 
 export default rootReducer;

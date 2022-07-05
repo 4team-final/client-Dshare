@@ -18,6 +18,14 @@ const dashboard = {
             url: '/main/dashboard/default',
             icon: icons.IconDashboard,
             breadcrumbs: false
+        },
+        {
+            id: 'default',
+            title: '내 예약 현황',
+            type: 'item',
+            url: '/main/my/reservation/status',
+            icon: icons.IconDashboard,
+            breadcrumbs: false
         }
     ]
 };

@@ -5,6 +5,10 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 import ReservationPage from 'page/employee/main/reservation/Current/index';
 
+// my reservation routing
+
+const MyReservationDefault = Loadable(lazy(() => import('page/employee/main/reservation/ReservationStatusPage')));
+
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
@@ -44,6 +48,10 @@ const MainRoutes = {
         {
             path: '/sample-page',
             element: <SamplePage />
+        },
+        {
+            path: '/my/reservation/status',
+            element: <MyReservationDefault />
         }
     ]
 };

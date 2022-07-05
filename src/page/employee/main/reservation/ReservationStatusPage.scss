@@ -1,79 +1,80 @@
 .layout {
-  margin: 0 10px 10px 10px;
-  display: flex;
-  flex-direction: row;
-
-  height: 100vh;
-  //   width: 100vh;
-  .left {
-    margin: 1%;
-    height: auto;
-    width: 25%;
-    position: relative;
+    margin: 0 10px 10px 10px;
     display: flex;
-    flex-direction: column;
-    .calendar {
-      margin: 13% 0 0 0;
-      height: 700px;
-      width: 100%;
-      background-color: white;
-      border: 1px solid #d3d3d3;
-      border-radius: 20px;
-      padding: 1% 1%;
+    flex-direction: row;
+
+    // height: 100vh;
+    height: 100vh;
+    //   width: 100vh;
+    .left {
+        margin: 1%;
+        height: auto;
+        width: 25%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        .calendar {
+            margin: 13% 0 0 0;
+            height: 62%;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #d3d3d3;
+            border-radius: 20px;
+            padding: 1% 1%;
+        }
     }
-  }
-  .middle {
-    margin: 1%;
-    width: 35%;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    .date {
-      height: 20%;
-      width: 100%;
-      position: relative;
-      margin-bottom: 10%;
+    .middle {
+        margin: 1%;
+        width: 35%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        .date {
+            height: 20%;
+            width: 100%;
+            position: relative;
+            margin-bottom: 10%;
 
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-self: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-self: center;
 
-      background-color: white;
-      border: 1px solid #1296ec;
-      border-radius: 20px;
-      .CalendarDate {
-        background-color: white;
-        font-size: 3em;
-        position: absolute;
-        right: -10px;
-        top: -10px;
-        z-index: 2;
-      }
+            background-color: white;
+            border: 1px solid #1296ec;
+            border-radius: 20px;
+            .CalendarDate {
+                background-color: white;
+                font-size: 3em;
+                position: absolute;
+                right: -10px;
+                top: -10px;
+                z-index: 2;
+            }
+        }
+        .card {
+            height: 75%;
+            width: 100%;
+            position: relative;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-self: center;
+
+            background-color: white;
+            border: 1px solid #1296ec;
+
+            border-radius: 20px;
+
+            font-size: large;
+        }
     }
-    .card {
-      height: 75%;
-      width: 100%;
-      position: relative;
 
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-self: center;
-
-      background-color: white;
-      border: 1px solid #1296ec;
-
-      border-radius: 20px;
-
-      font-size: large;
+    .right {
+        margin: 1%;
+        height: 90%;
+        width: 30%;
+        position: relative;
     }
-  }
-
-  .right {
-    margin: 1%;
-    height: 90%;
-    width: 30%;
-    position: relative;
-  }
 }
