@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { HalfWidthFrame, ComponentFrame, ListFrame, ItemFrame, CardFrame } from './TimeTableStyle';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { convertToTime } from 'store/actions/WebsocketAction';
 
 const TimeTableCard = (v) => {
@@ -17,6 +17,7 @@ const TimeTableCard = (v) => {
 };
 
 const TimeTable = () => {
+    const dispatch = useDispatch();
     const [dataList, setDataList] = useState([]);
     const [sendData, setSendData] = useState([]);
     const timeStore = useSelector((state) => state.websocketReducer.isSeatData);
@@ -29,9 +30,13 @@ const TimeTable = () => {
         for (let i = 0; i < dataList.length; i++) {
             copyList.push(dataList[i].isSeat);
         }
-        setSendData(copyList);
-        dispatch(convertToTime(sendData));
+        setSendData([...copyList]);
     };
+    useEffect(() => {
+        if (sendData.length > 0) {
+            dispatch(convertToTime(sendData));
+        }
+    }, [sendData]);
 
     useEffect(() => {
         if (timeStore && timeStore.data) {
@@ -53,7 +58,6 @@ const TimeTable = () => {
                 )}
             </ListFrame>
             <button onClick={setTimeTable}>선택</button>
-            <button>선택</button>
         </div>
     );
 };

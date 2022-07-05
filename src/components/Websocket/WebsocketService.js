@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { alertToSocketMessage, selectIsSeatByUIdAndVId } from 'store/actions/WebsocketAction';
 import { getAccess } from '../ApiModules/ApiParts';
 
 export const SocketConnection = (props) => {
+    const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [socketMsg, setSocketMsg] = useState();
     const dispatch = useDispatch();
@@ -87,17 +89,18 @@ export const SocketConnection = (props) => {
             socket.onmessage = (e) => {
                 console.log('메시지 수신');
                 const msg = JSON.parse(e.data);
-                // console.log(msg);
                 setItems(msg?.results);
                 setSocketMsg(msg?.message);
                 if (msg instanceof String && msg.startsWith('시간')) {
                     setSocketMsg(msg);
-                    window.location.reload;
                 }
             };
         } catch (error) {
             console.log(error);
         }
+    };
+    const returnToMain = (route) => {
+        navigate(route);
     };
     return <></>;
 };
@@ -108,7 +111,7 @@ export const onOpenTable = (socket, enter) => {
     try {
         if (!token) {
             alert('로그인 후 이용해주세요.');
-            window.location.href = '/';
+            returnToMain('/');
             return;
         }
         socket.onopen = () => {
@@ -149,7 +152,7 @@ export const sendMessage = (socket, message) => {
     try {
         if (!token) {
             alert('로그인 후 이용해주세요.');
-            window.location.href = '/';
+            returnToMain('/');
             return;
         }
         const data = message;
