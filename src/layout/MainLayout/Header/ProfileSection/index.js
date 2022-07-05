@@ -53,6 +53,7 @@ const ProfileSection = () => {
     const [notification, setNotification] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
+    const [isAdm, setIsAdm] = useState(false);
 
     //프로필 조회
     const [empInfo, setEmpInfo] = useState();
@@ -99,6 +100,9 @@ const ProfileSection = () => {
             let emp = await getUserProfile();
             setEmpInfo(emp);
             setProfileImg(emp.profileImg);
+            if (emp?.empNo.slice(-5) == '00001') {
+                setIsAdm(true);
+            }
         }
         profile();
     }, []);
@@ -202,16 +206,22 @@ const ProfileSection = () => {
                                                     }
                                                 }}
                                             >
-                                                <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    selected={selectedIndex === 0}
-                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile')}
-                                                >
-                                                    <ListItemIcon>
-                                                        <IconSettings stroke={1.5} size="1.3rem" />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={<Typography variant="body2">View My Profile</Typography>} />
-                                                </ListItemButton>
+                                                {isAdm ? (
+                                                    <ListItemButton
+                                                        sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                        selected={selectedIndex === 0}
+                                                        onClick={(event) => handleListItemClick(event, 0, '/main/admin')}
+                                                    >
+                                                        <ListItemIcon>
+                                                            <IconSettings stroke={1.5} size="1.3rem" />
+                                                        </ListItemIcon>
+                                                        <ListItemText
+                                                            primary={<Typography variant="body2">관리자모드로 이동</Typography>}
+                                                        />
+                                                    </ListItemButton>
+                                                ) : (
+                                                    <></>
+                                                )}
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 4}

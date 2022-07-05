@@ -148,71 +148,71 @@ const TotalIncomeDarkCard = (props) => {
                             style={{ width: '50%', height: '80%', textAlign: 'center', marginBottom: '30px' }}
                         >
                             {/* <Grid container spacing={gridSpacing} sx={{ p: 3 }}> */}
-                            <Grid item xs={6} sm={12}>
-                                {VBookmark.map((v) => (
-                                    <SubCard title={v.name} style={{ width: '100%', marginBottom: '50px' }}>
-                                        <List
-                                            style={{
-                                                width: '100%',
-                                                bgcolor: 'background.paper',
-                                                textAlign: 'center',
-                                                paddingLeft: '100px',
-                                                paddingBottom: '50px'
-                                            }}
-                                            component="nav"
-                                            aria-labelledby="nested-list-subheader"
-                                        >
-                                            <div style={{ display: 'flex' }}>
-                                                <ListItemButton style={{ marginBottom: '10px' }}>
-                                                    <ListItemIcon>
-                                                        <DirectionsCarFilledOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={`${v.number}`} />
-                                                </ListItemButton>
-                                                <ListItemButton>
-                                                    <ListItemIcon>
-                                                        <BadgeOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={`${v.model}`} />
-                                                </ListItemButton>
-                                            </div>
-                                            <div style={{ display: 'flex' }}>
-                                                <ListItemButton style={{ width: '90%', marginBottom: '10px' }}>
-                                                    <ListItemIcon>
-                                                        <ColorLensOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={`${v.color}`} />
-                                                </ListItemButton>
-                                                <ListItemButton style={{ width: '100%', marginBottom: '10px' }}>
-                                                    <ListItemIcon>
-                                                        <PeopleAltOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={`정원 : ${v.capacity} 명`} />
-                                                </ListItemButton>
-                                            </div>
-                                            <div style={{ display: 'flex' }}>
-                                                <ListItemButton style={{ width: '150%', marginBottom: '10px' }}>
-                                                    <ListItemIcon>
-                                                        <BurstModeOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <SimpleSlider data={v.imgList} style={{ width: '280px' }} />
-                                                </ListItemButton>
-                                                <ListItemButton
-                                                    sx={{ width: '100%', marginBottom: '10px' }}
-                                                    onClick={() => {
-                                                        delbm(v.id);
-                                                    }}
-                                                >
-                                                    <ListItemIcon>
-                                                        <GradeOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="즐겨찾기 취소" />
-                                                </ListItemButton>
-                                            </div>
-                                        </List>
-                                    </SubCard>
-                                ))}
-                            </Grid>
+
+                            {VBookmark.map((v) => (
+                                <SubCard title={v.name} style={{ width: '100%', marginBottom: '50px' }}>
+                                    <List
+                                        style={{
+                                            width: '100%',
+                                            bgcolor: 'background.paper',
+                                            textAlign: 'center',
+                                            paddingLeft: '100px',
+                                            paddingBottom: '50px'
+                                        }}
+                                        component="nav"
+                                        aria-labelledby="nested-list-subheader"
+                                    >
+                                        <div style={{ display: 'flex' }}>
+                                            <ListItemButton style={{ width: '62%', marginBottom: '10px' }}>
+                                                <ListItemIcon>
+                                                    <DirectionsCarFilledOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={`${v.number}`} />
+                                            </ListItemButton>
+                                            <ListItemButton style={{ width: '70%', marginBottom: '10px' }}>
+                                                <ListItemIcon>
+                                                    <BadgeOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={`${v.model}`} />
+                                            </ListItemButton>
+                                        </div>
+                                        <div style={{ display: 'flex' }}>
+                                            <ListItemButton style={{ width: '90%', marginBottom: '10px' }}>
+                                                <ListItemIcon>
+                                                    <ColorLensOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={`${v.color}`} />
+                                            </ListItemButton>
+                                            <ListItemButton style={{ width: '100%', marginBottom: '10px' }}>
+                                                <ListItemIcon>
+                                                    <PeopleAltOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={`정원 : ${v.capacity} 명`} />
+                                            </ListItemButton>
+                                        </div>
+                                        <div style={{ display: 'flex' }}>
+                                            <ListItemButton style={{ width: '150%', marginBottom: '10px' }}>
+                                                <ListItemIcon>
+                                                    <BurstModeOutlinedIcon />
+                                                </ListItemIcon>
+                                                <SimpleSlider data={v.imgList} style={{ width: '280px' }} />
+                                            </ListItemButton>
+                                            <ListItemButton
+                                                sx={{ width: '100%', marginBottom: '10px' }}
+                                                onClick={() => {
+                                                    delbm(v.id);
+                                                }}
+                                            >
+                                                <ListItemIcon>
+                                                    <GradeOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="즐겨찾기 취소" />
+                                            </ListItemButton>
+                                        </div>
+                                    </List>
+                                </SubCard>
+                            ))}
+
                             {/* </Grid> */}
                         </MainCard>
                     </Modal>

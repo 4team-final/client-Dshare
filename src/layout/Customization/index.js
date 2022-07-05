@@ -224,6 +224,8 @@ const Customization = () => {
                 setEmail(emp.email);
                 setName(emp.name);
                 setTel(emp.tel);
+                setEmpInfo(emp);
+                setProfileImg(emp.profileImg);
                 let tmpId = emp.empNo.slice(-5).replace('0', '');
                 tmpId = tmpId.replace('0', '');
                 tmpId = tmpId.replace('0', '');
