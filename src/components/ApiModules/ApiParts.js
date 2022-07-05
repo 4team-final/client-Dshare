@@ -47,14 +47,26 @@ export const saveToken = (key, value) => {
 export const removeToken = (key) => {
     switch (key) {
         case 'access':
-            cookie.remove(reqAccess);
+            cookie.remove(reqAccess, {
+                path: '/',
+                secure: true
+            });
             return;
         case 'refresh':
-            cookie.remove(reqRefresh);
+            cookie.remove(reqRefresh, {
+                path: '/',
+                secure: true
+            });
             return;
         case 'two':
-            cookie.remove(reqAccess);
-            cookie.remove(reqRefresh);
+            cookie.remove(reqAccess, {
+                path: '/',
+                secure: true
+            });
+            cookie.remove(reqRefresh, {
+                path: '/',
+                secure: true
+            });
             return;
         default:
             return;

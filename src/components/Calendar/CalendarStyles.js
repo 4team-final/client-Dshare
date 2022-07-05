@@ -21,7 +21,7 @@ export const ComponentFrame = styled.div`
 export const TitleFrame = styled.div`
     text-align: center;
     color: #fff;
-    font-size: 70px;
+    font-size: 5em;
 `;
 
 export const ContentFrame = styled.ul`

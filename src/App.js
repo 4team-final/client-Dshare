@@ -6,7 +6,6 @@ import ReservationStatusPage from './page/employee/main/reservation/ReservationS
 
 import QuickMenu from './components/Outlet/QuickMenu';
 import PublicRoute from './components/Route/Public';
-import ReservationPage from './page/employee/main/vehicle/index';
 //store
 import { useSelector } from 'react-redux';
 
