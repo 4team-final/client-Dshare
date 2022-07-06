@@ -2,83 +2,96 @@ import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import moment from 'moment';
-import { HalfWidthFrame, ComponentFrame, CalendarFrame, CardFrame, ItemFrame, ListFrame } from './DateTableStyle';
+import {
+    HalfWidthFrame,
+    ComponentFrame,
+    CalendarFrame,
+    CardFrame,
+    ItemFrame,
+    ListFrame,
+    ContentFrame,
+    CustomButton
+} from './DateTableStyle';
 import { useDispatch } from 'react-redux';
 import { selectByUId } from 'store/actions/WebsocketAction';
+import { SubContentFrame } from 'components/SelectTableProduct/Table/SelectTableStyle';
+import SelectProductFrame from 'components/SelectTableProduct/Product';
 
-const DateTableCalendar = (v) => {
+const DateTableCalendar = () => {
     const dispatch = useDispatch();
     const [value, setValue] = useState(new Date());
     const [dateTime, setDateTime] = useState();
-    const [type, setType] = useState(0);
     const [disable, setDisable] = useState(false);
 
     useEffect(() => {
         setDisable(false);
     }, []);
     useEffect(() => {
-        setType(v.props.props.props);
-    }, [v]);
-    useEffect(() => {
         setDateTime(moment(value).format('YYYYMMDD'));
     }, [value]);
     return (
         <CalendarFrame>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                    label="대여일 선택"
-                    value={value}
-                    minDate={new Date('2017-01-01')}
-                    onChange={(newValue) => {
-                        setValue(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                />
-            </LocalizationProvider>
-            <button
-                onClick={() => {
-                    setDisable(true);
-                    dispatch(selectByUId(dateTime));
-                }}
-                disabled={disable}
-            >
-                확인
-            </button>
-            <button
-                onClick={() => {
-                    setDisable(false);
-                }}
-            >
-                재입력
-            </button>
+            <ContentFrame>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <StaticDatePicker
+                        displayStaticWrapperAs="desktop"
+                        openTo="day"
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </LocalizationProvider>
+                <SubContentFrame>
+                    <CustomButton
+                        onClick={() => {
+                            setDisable(true);
+                            dispatch(selectByUId(dateTime));
+                        }}
+                        disabled={disable}
+                    >
+                        확인
+                    </CustomButton>
+                    <CustomButton
+                        onClick={() => {
+                            setDisable(false);
+                        }}
+                    >
+                        재입력
+                    </CustomButton>
+                </SubContentFrame>
+            </ContentFrame>
         </CalendarFrame>
     );
 };
 
-const DateTable = (v) => {
+const DateTable = () => {
     return (
-        <div>
-            <DateTableCalendar props={v} />
-        </div>
+        <ContentFrame>
+            <SelectProductFrame />
+            <DateTableCalendar />
+        </ContentFrame>
     );
 };
 
-const DateTableService = (v) => {
+const DateTableService = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(false);
     }, []);
-    return <>{loading ? <></> : <DateTable props={v} />}</>;
+    return <>{loading ? <></> : <DateTable />}</>;
 };
 
-export const DateTableFrame = (v) => {
+export const DateTableFrame = () => {
     return (
-        <HalfWidthFrame height={100}>
-            <ComponentFrame height={80}>
-                <DateTableService props={0} />
+        <HalfWidthFrame height={400}>
+            <ComponentFrame height={400}>
+                <DateTableService />
             </ComponentFrame>
         </HalfWidthFrame>
     );

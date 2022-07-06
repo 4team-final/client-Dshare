@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { selectByType } from 'store/actions/WebsocketAction';
-import { HalfWidthFrame, ComponentFrame, CardFrame, ListFrame } from './SelectProductStyle';
+import { InsideContentFrame, SubContentFrame } from './SelectProductStyle';
+import { AiFillCar } from 'react-icons/ai';
+import { MdMeetingRoom } from 'react-icons/md';
 
 const SelectProductCard = () => {
     return <CardFrame></CardFrame>;
 };
 
-const SelectProduct = () => {
+const SelectProductService = () => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
     const [type, setType] = useState(0);
@@ -19,48 +21,33 @@ const SelectProduct = () => {
         }
     }, [selected]);
     return (
-        <ListFrame>
-            <CardFrame>
-                <SelectProductCard />
-                <button
+        <SubContentFrame>
+            <InsideContentFrame>
+                <MdMeetingRoom
+                    style={{ width: '120px', height: '120px' }}
                     onClick={() => {
                         setType(0);
                         setSelected(true);
                     }}
                 >
                     회의실
-                </button>
-            </CardFrame>
-            <CardFrame>
-                <SelectProductCard />
-                <button
+                </MdMeetingRoom>
+            </InsideContentFrame>
+            <InsideContentFrame>
+                <AiFillCar
+                    style={{ width: '120px', height: '120px' }}
                     onClick={() => {
                         setType(1);
                         setSelected(true);
                     }}
                 >
                     차량
-                </button>
-            </CardFrame>
-        </ListFrame>
+                </AiFillCar>
+            </InsideContentFrame>
+        </SubContentFrame>
     );
-};
-
-const SelectProductService = () => {
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(false);
-    }, []);
-    return <>{loading ? <></> : <SelectProduct />}</>;
 };
 
 export const SelectProductFrame = () => {
-    return (
-        <HalfWidthFrame>
-            <ComponentFrame>
-                <SelectProductService />
-            </ComponentFrame>
-        </HalfWidthFrame>
-    );
+    return <SelectProductService />;
 };

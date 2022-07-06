@@ -1,17 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    validIsSeat,
-    socketMsgByReservation,
-    selectByEmpNo,
-    selectByVId,
-    selectByRId,
-    selectByUId,
-    selectByType,
-    convertToTime
-} from 'store/actions/WebsocketAction';
-import { SocketConnection } from './WebsocketService';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { SocketConnection } from './WebsocketService';
+import { validIsSeat, socketMsgByReservation, selectByEmpNo } from 'store/actions/WebsocketAction';
+import { makeRoomReservation, makeVehicleReservation } from 'store/actions/CalendarAction';
 
 export const WebsocketController = () => {
     const navigate = useNavigate();
@@ -22,18 +14,14 @@ export const WebsocketController = () => {
     const [type, setType] = useState(2);
     const [time, setTime] = useState([]);
     const [empNo, setEmpNo] = useState();
+    const [transTime, setTransTime] = useState();
     const typeStore = useSelector((state) => state.websocketReducer.product);
     const vIdStore = useSelector((state) => state.websocketReducer.vid);
     const rIdStore = useSelector((state) => state.websocketReducer.rid);
     const uIdStore = useSelector((state) => state.websocketReducer.uid);
     const timeStore = useSelector((state) => state.websocketReducer.converttotime);
     const empnoStore = useSelector((state) => state.websocketReducer.empno);
-
-    useEffect(() => {
-        if (timeStore && timeStore.data != null) {
-            setTime(timeStore.data);
-        }
-    }, [timeStore]);
+    const transTimeStore = useSelector((state) => state.websocketReducer.arraytotime);
 
     const ConnectHandler = () => {
         dispatch(validIsSeat());
@@ -55,6 +43,23 @@ export const WebsocketController = () => {
             type === 0
                 ? socketMsgByReservation('R_TALK', { rid: rid, uid: uid, empno: empNo, time: time })
                 : socketMsgByReservation('TALK', { vid: vid, uid: uid, empno: empNo, time: time })
+        );
+        DisconnectHandler();
+
+        let start = transTime.start.replace('T', ' ');
+        let end = transTime.end.replace('T', ' ');
+
+        dispatch(
+            type === 0
+                ? makeRoomReservation({
+                      rid: rid,
+                      empId: empid,
+                      reason: reason,
+                      title: title,
+                      startedAt: transTime.start,
+                      endedAt: transTime.end
+                  })
+                : makeVehicleReservation({ vid: vid, reason: reason, title: title, startedAt: start, endedAt: end })
         );
     };
     useEffect(() => {
@@ -90,6 +95,12 @@ export const WebsocketController = () => {
             setTime(timeStore.data);
         }
     }, [timeStore]);
+    useEffect(() => {
+        if (transTimeStore && transTimeStore.data != null) {
+            setTransTime(transTimeStore.data);
+        }
+    }, [transTimeStore]);
+
     return (
         <div>
             <div>
@@ -101,9 +112,9 @@ export const WebsocketController = () => {
                 <br />
                 <>데이터 : {time ? time.length : '-'}</>
             </div>
-            <button onClick={ConnectHandler}>웹소켓 연결</button>
-            <button onClick={DisconnectHandler}>웹소켓 연결 해제</button>
-            <button onClick={SetTimeHandler}>데이터 전송</button>
+            <button onClick={ConnectHandler}>적용</button>
+            <button onClick={DisconnectHandler}>선택 초기화</button>
+            <button onClick={SetTimeHandler}>예약하기</button>
             <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
         </div>
     );
