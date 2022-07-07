@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+// import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import { useDemoData } from '@mui/x-data-grid-generator';
+// import { useDemoData } from '@mui/x-data-grid-generator';
 import { getUser } from 'components/ApiModules/ApiHandler';
 const VISIBLE_FIELDS = ['name', 'rating', 'country', 'dateCreated', 'isAdmin'];
 

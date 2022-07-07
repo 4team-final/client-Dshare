@@ -7,6 +7,7 @@ import { Grid } from '@mui/material';
 import EarningCard from './EarningCard';
 import PopularCard from './PopularCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
+import TotalOrderLineChartCardTwo from './TotalOrderLineChartCardTwo';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
@@ -35,10 +36,11 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <EarningCard isLoading={isLoading} />
+                        {/* <EarningCard isLoading={isLoading} /> */}
+                        <TotalOrderLineChartCard isLoading={isLoading} text={'가장 즐겨찾는 '} />
                     </Grid>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalOrderLineChartCard isLoading={isLoading} />
+                        <TotalOrderLineChartCardTwo isLoading={isLoading} text={'최근에 예약된 '} />
                     </Grid>
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>

@@ -152,6 +152,12 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         options: chartData.options,
         series: chartData.series
     });
+    const [chartDataResult2, setchartDataResult2] = useState({
+        height: chartData.height,
+        type: chartData.type,
+        options: chartData.options,
+        series: chartData.series
+    });
 
     // 첫 렌더링 1,3,7일 통계 회의실 3개 / 차량 3개 => 총 18개
     useEffect(() => {
@@ -536,7 +542,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const handleChange = (event) => {
         setGraphType(event.target.value);
     };
-    const [tempData, setTempData] = useState({});
     useEffect(() => {
         if (graphType === 'bar') {
             setchartDataResult({
@@ -545,8 +550,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 options: {
                     ...chartData.options,
                     xaxis: {
-                        ...chartDataResult.options.xaxis,
-                        categories: chartDataResult.options.xaxis.categories
+                        type: 'category',
+                        categories: ArrX
                     }
                 },
                 series: [
@@ -571,8 +576,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 options: {
                     ...chartData2.options,
                     xaxis: {
-                        ...chartDataResult.options.xaxis,
-                        categories: chartDataResult.options.xaxis.categories
+                        type: 'category',
+                        categories: ArrX
                     }
                 },
                 series: [
@@ -627,7 +632,20 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         if (!isLoading) {
             ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
         }
-    }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500, value]);
+    }, [
+        navType,
+        primary200,
+        primaryDark,
+        secondaryMain,
+        secondaryLight,
+        primary,
+        darkLight,
+        grey200,
+        isLoading,
+        grey500,
+        value,
+        graphType
+    ]);
 
     const handleSelected2 = (option) => {
         dispatch(Selected2ChangeSave(option));
