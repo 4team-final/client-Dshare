@@ -19,6 +19,7 @@ export const SelectedChangeSave = (selected) => {
 export const Selected2ChangeSave = (selected2) => {
     return async (dispatch) => {
         try {
+            console.log(selected2);
             dispatch({
                 type: SELECTED_CHANGE_SAVE2,
                 selected2: selected2.value

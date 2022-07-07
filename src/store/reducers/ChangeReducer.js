@@ -20,6 +20,7 @@ export default function changeReducer(state = initialState, action) {
         case SELECTED_CHANGE_SAVE:
             return { ...state, selected: action.selected };
         case SELECTED_CHANGE_SAVE2:
+            console.log(action.selected2);
             return { ...state, selected2: action.selected2 };
         case ITEM_CHANGE_SAVE:
             if (action.item && state.selected === 0) {

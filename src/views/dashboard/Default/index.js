@@ -16,10 +16,15 @@ import { gridSpacing } from 'store/actions/DashboardConstant';
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
+    // useEffect(() => {
+    //     const start = setTimeout(() => {
+    //         setLoading(false);
+    //     }, 0);
+    //     return () => clearTimeout(start);
+    // }, []);
     useEffect(() => {
         setLoading(false);
     }, []);
-
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>

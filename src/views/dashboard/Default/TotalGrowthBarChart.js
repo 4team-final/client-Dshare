@@ -16,10 +16,15 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/actions/DashboardConstant';
 
 // chart data
-import { roomCnt, chartData } from './chart-data/total-growth-bar-chart';
+import { roomCnt, chartData, chartData2, chartData3 } from './chart-data/total-growth-bar-chart';
 import { getRoomChart } from 'components/ApiModules/ApiHandler';
 
 import ReservationChoice from 'components/reservation/ReservationChoice';
+
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import {
     OnedayfindRoomReservationCount,
@@ -41,19 +46,22 @@ import {
     ThreedayfindVehicleStartTime,
     SevendayfindVehicleStartTime
 } from 'store/actions/DashboardActions';
+import { Selected2ChangeSave } from 'store/actions/ChangeAction';
+import { useCallback } from 'react';
 
+// 메뉴 바
 const status = [
     {
         value: '1',
-        label: '많이 예약하는 자원의 개수'
+        label: '예약한 개수'
     },
     {
         value: '2',
-        label: '사람들이 자원을 예약하는 시간대'
+        label: '사람들이 예약하는 시간대'
     },
     {
         value: '3',
-        label: '사람들이 자원을 이용하는 시간대'
+        label: '사람들이 이용하는 시간대'
     }
 ];
 
@@ -70,25 +78,25 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const threeDayRoomReservationCount = useSelector((state) => state.dashboardReducer?.threeDayRoomReservationCount);
     const sevenDayRoomReservationCount = useSelector((state) => state.dashboardReducer?.sevenDayRoomReservationCount);
 
-    // const oneDayRoomReservaionTime = useSelector((state) => state.dashboardReducer.oneDayRoomReservationTime);
-    // const threeDayRoomReservationTime = useSelector((state) => state.dashboardReducer.threeDayRoomReservationTime);
-    // const sevenDayRoomReservationTime = useSelector((state) => state.dashboardReducer.sevenDayRoomReservationTime);
+    const oneDayRoomReservaionTime = useSelector((state) => state.dashboardReducer.oneDayRoomReservationTime);
+    const threeDayRoomReservationTime = useSelector((state) => state.dashboardReducer.threeDayRoomReservationTime);
+    const sevenDayRoomReservationTime = useSelector((state) => state.dashboardReducer.sevenDayRoomReservationTime);
 
-    // const oneDayRoomMeetTime = useSelector((state) => state.dashboardReducer.oneDayRoomMeetTime);
-    // const threeDayRoomMeetTime = useSelector((state) => state.dashboardReducer.threeDayRoomMeetTime);
-    // const sevenDayRoomMeetTime = useSelector((state) => state.dashboardReducer.sevenDayRoomMeetTime);
+    const oneDayRoomMeetTime = useSelector((state) => state.dashboardReducer.oneDayRoomMeetTime);
+    const threeDayRoomMeetTime = useSelector((state) => state.dashboardReducer.threeDayRoomMeetTime);
+    const sevenDayRoomMeetTime = useSelector((state) => state.dashboardReducer.sevenDayRoomMeetTime);
 
-    // const oneDayVehicleReservaionCount = useSelector((state) => state.dashboardReducer.oneDayVehicleReservationCount);
-    // const threeDayVehicleReservationCount = useSelector((state) => state.dashboardReducer.threeDayVehicleReservationCount);
-    // const sevenDayVehicleReservationCount = useSelector((state) => state.dashboardReducer.sevenDayVehicleReservationCount);
+    const oneDayVehicleReservaionCount = useSelector((state) => state.dashboardReducer.oneDayVehicleReservationCount);
+    const threeDayVehicleReservationCount = useSelector((state) => state.dashboardReducer.threeDayVehicleReservationCount);
+    const sevenDayVehicleReservationCount = useSelector((state) => state.dashboardReducer.sevenDayVehicleReservationCount);
 
-    // const oneDayVehicleReservaionTime = useSelector((state) => state.dashboardReducer.oneDayVehicleReservationTime);
-    // const threeDayVehicleReservationTime = useSelector((state) => state.dashboardReducer.threeDayVehicleReservationTime);
-    // const sevenDayVehicleReservationTime = useSelector((state) => state.dashboardReducer.sevenDayVehicleReservationTime);
+    const oneDayVehicleReservaionTime = useSelector((state) => state.dashboardReducer.oneDayVehicleReservationTime);
+    const threeDayVehicleReservationTime = useSelector((state) => state.dashboardReducer.threeDayVehicleReservationTime);
+    const sevenDayVehicleReservationTime = useSelector((state) => state.dashboardReducer.sevenDayVehicleReservationTime);
 
-    // const oneDayVehicleStartTime = useSelector((state) => state.dashboardReducer.oneDayVehicleMeetTime);
-    // const threeDayVehicleStartTime = useSelector((state) => state.dashboardReducer.threeDayVehicleMeetTime);
-    // const sevenDayVehicleStartTime = useSelector((state) => state.dashboardReducer.sevenDayVehicleMeetTime);
+    const oneDayVehicleStartTime = useSelector((state) => state.dashboardReducer.oneDayVehicleMeetTime);
+    const threeDayVehicleStartTime = useSelector((state) => state.dashboardReducer.threeDayVehicleMeetTime);
+    const sevenDayVehicleStartTime = useSelector((state) => state.dashboardReducer.sevenDayVehicleMeetTime);
 
     const { navType } = customization;
     const { primary } = theme.palette.text;
@@ -100,7 +108,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const primaryDark = theme.palette.primary.dark;
     const secondaryMain = theme.palette.secondary.main;
     const secondaryLight = theme.palette.secondary.light;
-    const [thisChartData, setThisChartData] = useState();
 
     const dispatch = useDispatch();
 
@@ -128,12 +135,25 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const [threedayList6, setThreeDayList6] = useState([]);
     const [sevendayList6, setSevenDayList6] = useState([]);
 
-    const [oneData, setoneData] = useState([]);
+    const [oneData, setOneData] = useState([]);
     const [threeData, setThreeData] = useState([]);
     const [sevenData, setSevenData] = useState([]);
-    const [select, isSelect] = useState(0);
-    const [select2, isSelect2] = useState(0);
 
+    const [select, isSelect] = useState(0);
+    const [select2, isSelect2] = useState(1);
+
+    const [graphType, setGraphType] = useState('bar');
+
+    const [ArrX, setArrX] = useState([]);
+
+    const [chartDataResult, setchartDataResult] = useState({
+        height: chartData.height,
+        type: chartData.type,
+        options: chartData.options,
+        series: chartData.series
+    });
+
+    // 첫 렌더링 1,3,7일 통계 회의실 3개 / 차량 3개 => 총 18개
     useEffect(() => {
         dispatch(OnedayfindRoomReservationCount(1));
         dispatch(ThreedayfindRoomReservationCount(3));
@@ -160,202 +180,410 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         dispatch(SevendayfindVehicleStartTime(7));
     }, []);
 
+    // 차량 /  회의실 선택 => 회의실 0, 차량 1
     useEffect(() => {
-        if (changeStoreSelect === 0 || changeStoreSelect === 1) {
+        if (changeStoreSelect == 0 || changeStoreSelect == 1) {
+            console.log(changeStoreSelect);
             isSelect(changeStoreSelect);
         }
     }, [changeStoreSelect]);
+
+    // 통계 3개 선택  => 1,2,3
     useEffect(() => {
         if (changeStoreSelect2 >= 1 && changeStoreSelect2 <= 3) {
+            console.log(changeStoreSelect2);
             isSelect2(changeStoreSelect2);
         }
     }, [changeStoreSelect2]);
 
+    //sort
+    function sort1(a, b) {
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return 0;
+        }
+        if (a < b) {
+            return -1;
+        }
+    }
+    //---------------------------------------------------------------------------------------------
+    //1,3,7 일간 많이 예약된 회의실
     useEffect(() => {
         if (oneDayRoomReservaionCount?.data?.value) {
-            setOneDayList1(oneDayRoomReservaionCount.data.value);
+            setOneDayList1(oneDayRoomReservaionCount.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
         }
         if (threeDayRoomReservationCount?.data?.value) {
-            setThreeDayList1(threeDayRoomReservationCount.data.value);
+            setThreeDayList1(threeDayRoomReservationCount.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
         }
         if (sevenDayRoomReservationCount?.data?.value) {
-            setSevenDayList1(sevenDayRoomReservationCount.data.value);
+            setSevenDayList1(sevenDayRoomReservationCount.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
         }
     }, [oneDayRoomReservaionCount, threeDayRoomReservationCount, sevenDayRoomReservationCount]);
+    //1,3,7 일간 많이 회의실 예약한 시간대
+    useEffect(() => {
+        if (oneDayRoomReservaionTime?.data?.value) {
+            setOneDayList2(oneDayRoomReservaionTime.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
+        }
+        if (threeDayRoomReservationTime?.data?.value) {
+            setThreeDayList2(threeDayRoomReservationTime.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
+        }
+        if (sevenDayRoomReservationTime?.data?.value) {
+            setSevenDayList2(sevenDayRoomReservationTime.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
+        }
+    }, [oneDayRoomReservaionTime, threeDayRoomReservationTime, sevenDayRoomReservationTime]);
 
-    // const [roomArr, setroomArr] = useState([101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 113, 113, 114, 115]);
+    //1,3,7 일간 많이 회의실을 이용 시작 시간대
+    useEffect(() => {
+        if (oneDayRoomMeetTime?.data?.value) {
+            setOneDayList3(oneDayRoomMeetTime.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
+        }
+        if (threeDayRoomMeetTime?.data?.value) {
+            setThreeDayList3(threeDayRoomMeetTime.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
+        }
+        if (sevenDayRoomMeetTime?.data?.value) {
+            setSevenDayList3(sevenDayRoomMeetTime.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
+        }
+    }, [oneDayRoomMeetTime, threeDayRoomMeetTime, sevenDayRoomMeetTime]);
 
-    // const [vehicleArr, setvehicleArr] = useState([
-    //     '벤츠 e-class',
-    //     '벤츠 c-class',
-    //     '벤츠 s-class',
-    //     '벤츠 a-class',
-    //     '벤츠 b-class',
-    //     'BMW 3시리즈',
-    //     'BMW 5시리즈',
-    //     'BMW 7시리즈',
-    //     '쌍용 토레스',
-    //     '현대 아반떼 cn7'
-    // ]);
-    const [roomArr, setroomArr] = useState([]);
-    // const [threeroomArr, setthreeroomArr] = useState([]);
-    // const [sevenroomArr, setsevenroomArr] = useState([]);
-    // const [onevehicleArr, setonevehicleArr] = useState([]);
-    // const [threevehicleArr, setthreevehicleArr] = useState([]);
-    // const [sevenvehicleArr, setsevenvehicleArr] = useState([]);
+    //1,3,7 일간 많이 예약된 차량
+    useEffect(() => {
+        if (oneDayVehicleReservaionCount?.data?.value) {
+            console.log(oneDayVehicleReservaionCount);
+
+            setOneDayList4(oneDayVehicleReservaionCount.data.value.sort((a, b) => sort1(a.vehicle.id, b.vehicle.id)));
+        }
+        if (threeDayVehicleReservationCount?.data?.value) {
+            setThreeDayList4(threeDayVehicleReservationCount.data.value.sort((a, b) => sort1(a.vehicle.id, b.vehicle.id)));
+        }
+        if (sevenDayVehicleReservationCount?.data?.value) {
+            setSevenDayList4(sevenDayVehicleReservationCount.data.value.sort((a, b) => sort1(a.vehicle.id, b.vehicle.id)));
+        }
+    }, [oneDayVehicleReservaionCount, threeDayVehicleReservationCount, sevenDayVehicleReservationCount]);
+
+    //1,3,7 일간 많이 예약한 차량 시간대
+    useEffect(() => {
+        if (oneDayVehicleReservaionTime?.data?.value) {
+            console.log(oneDayVehicleReservaionTime);
+            setOneDayList5(oneDayVehicleReservaionTime.data.value.sort((a, b) => sort1(a.id, b.id)));
+        }
+        if (threeDayVehicleReservationTime?.data?.value) {
+            setThreeDayList5(threeDayVehicleReservationTime.data.value.sort((a, b) => sort1(a.id, b.id)));
+        }
+        if (sevenDayVehicleReservationTime?.data?.value) {
+            setSevenDayList5(sevenDayVehicleReservationTime.data.value.sort((a, b) => sort1(a.id, b.id)));
+        }
+    }, [oneDayVehicleReservaionTime, threeDayVehicleReservationTime, sevenDayVehicleReservationTime]);
+
+    //1,3,7 일간 많이 차량을 이용 시작 시간대
+    useEffect(() => {
+        if (oneDayVehicleStartTime?.data?.value) {
+            console.log(oneDayVehicleStartTime);
+
+            setOneDayList6(oneDayVehicleStartTime.data.value.sort((a, b) => sort1(a.reservationId, b.reservationId)));
+        }
+        if (threeDayVehicleStartTime?.data?.value) {
+            setThreeDayList6(threeDayVehicleStartTime.data.value.sort((a, b) => sort1(a.reservationId, b.reservationId)));
+        }
+        if (sevenDayVehicleStartTime?.data?.value) {
+            setSevenDayList6(sevenDayVehicleStartTime.data.value.sort((a, b) => sort1(a.reservationId, b.reservationId)));
+        }
+    }, [oneDayVehicleStartTime, threeDayVehicleStartTime, sevenDayVehicleStartTime]);
+    //---------------------------------------------------------------------------------------------
+    useEffect(() => {
+        // 첫번째 회의실 리스트 렌더링
+        if (select == 0 && select2 == 1 && onedayList1.length > 0 && threedayList1.length > 0 && sevendayList1.length > 0) {
+            categoriesName(onedayList1, threedayList1, sevendayList1);
+            dataCount(onedayList1, threedayList1, sevendayList1);
+        }
+    }, [onedayList1, threedayList1, sevendayList1, select, select2]);
 
     useEffect(() => {
-        let chartDataRoomCount = {
-            height: chartData.height,
-            type: chartData.type,
-            options: chartData.options,
-            series: chartData.series
-        };
-
-        // if (onedayList1.length > 0 && threedayList1.length > 0 && sevendayList1.length > 0) {
-        //     setOneDayList1(
-        //         onedayList1?.sort(function (a, b) {
-        //             if (a.roomId > b.roomId) {
-        //                 return 1;
-        //             }
-        //             if (a.roomId === b.roomId) {
-        //                 return 0;
-        //             }
-        //             if (a.roomId < b.roomId) {
-        //                 return -1;
-        //             }
-        //         })
-        //     );
-        //     setThreeDayList1(
-        //         threedayList1?.sort(function (a, b) {
-        //             if (a.roomId > b.roomId) {
-        //                 return 1;
-        //             }
-        //             if (a.roomId === b.roomId) {
-        //                 return 0;
-        //             }
-        //             if (a.roomId < b.roomId) {
-        //                 return -1;
-        //             }
-        //         })
-        //     );
-        //     setSevenDayList1(
-        //         sevendayList1?.sort(function (a, b) {
-        //             if (a.roomId > b.roomId) {
-        //                 return 1;
-        //             }
-        //             if (a.roomId === b.roomId) {
-        //                 return 0;
-        //             }
-        //             if (a.roomId < b.roomId) {
-        //                 return -1;
-        //             }
-        //         })
-        //     );
-        // }
-        if (select === 0 && onedayList1 && threedayList1 && sevendayList1) {
-            console.log(onedayList1);
-            console.log(threedayList1);
-            console.log(sevendayList1);
-
-            // roomArr.map((item, index) => {
-            //     setroomArr([...roomArr, item.roomNo]);
-            // });
-
-            yes(onedayList1, threedayList1, sevendayList1);
-
-            if (roomArr.length > 0) {
-                chartDataRoomCount.options.xaxis = { type: 'category', categories: roomArr };
+        //두번째 회의실 리스트 렌더링
+        if (select == 0 && select2 == 2 && onedayList2.length > 0 && threedayList2.length > 0 && sevendayList2.length > 0) {
+            async function fetch() {
+                const List = await categoriesTime(onedayList2, threedayList2, sevendayList2);
+                setArrX(List);
+                await dataTimeCount(onedayList2, threedayList2, sevendayList2, List);
             }
-            chartDataRoomCount.series = [
-                {
-                    name: '1일',
-                    data: onedayList1
-                },
-                {
-                    name: '3일',
-                    data: threedayList1
-                },
-                {
-                    name: '7일',
-                    data: sevendayList1
-                }
-            ];
-        } else if (select === 1) {
-            chartDataRoomCount.options.xaxis = { type: 'category', categories: vehicleArr };
-            chartDataRoomCount.series = [
-                {
-                    name: '1일',
-                    data: onedayList4
-                },
-                {
-                    name: '3일',
-                    data: threedayList4
-                },
-                {
-                    name: '7일',
-                    data: sevendayList4
-                }
-            ];
+            fetch();
         }
-        // console.log(chartData);
-        setThisChartData(chartDataRoomCount);
-    }, [
-        onedayList1,
-        threedayList1,
-        sevendayList1,
-        onedayList2,
-        threedayList2,
-        sevendayList2,
-        onedayList3,
-        threedayList3,
-        sevendayList3,
-        onedayList4,
-        threedayList4,
-        sevendayList4,
-        onedayList5,
-        threedayList5,
-        sevendayList5,
-        onedayList6,
-        threedayList6,
-        sevendayList6
-    ]);
+    }, [onedayList2, threedayList2, sevendayList2, select, select2]);
 
-    function yes(onedayList1, threedayList1, sevendayList1) {
+    useEffect(() => {
+        if (select == 0 && select2 == 3 && onedayList3.length > 0 && threedayList3.length > 0 && sevendayList3.length > 0) {
+            async function fetch() {
+                const List = categoriesTime(onedayList3, threedayList3, sevendayList3);
+                setArrX(List);
+                await dataTimeCount(onedayList3, threedayList3, sevendayList3, List);
+            }
+            fetch();
+        }
+    }, [onedayList3, threedayList3, sevendayList3, select, select2]);
+    useEffect(() => {
+        if (select == 1 && select2 == 1 && onedayList4.length > 0 && threedayList4.length > 0 && sevendayList4.length > 0) {
+            console.log(select);
+            console.log(select2);
+            categoriesName(onedayList4, threedayList4, sevendayList4);
+            dataCount(onedayList3, threedayList3, sevendayList3);
+        }
+    }, [onedayList4, threedayList4, sevendayList4, select, select2]);
+    useEffect(() => {
+        if (select == 1 && select2 == 2 && onedayList5.length > 0 && threedayList5.length > 0 && sevendayList5.length > 0) {
+            console.log(select);
+            console.log(select2);
+            categoriesTime(onedayList5, threedayList5, sevendayList5);
+            dataCount(onedayList3, threedayList3, sevendayList3);
+        }
+    }, [onedayList5, threedayList5, sevendayList5, select, select2]);
+    useEffect(() => {
+        if (select == 1 && select2 == 3 && threedayList6.length > 0 && sevendayList6.length > 0 && sevendayList6.length > 0) {
+            categoriesTime(onedayList6, threedayList6, sevendayList6);
+            dataCount(onedayList6, threedayList6, sevendayList6);
+        }
+    }, [onedayList6, threedayList6, sevendayList6, select, select2]);
+
+    // x축 카테고리 설정 - 회의실/차량 이름
+    const categoriesName = useCallback((onedayList11, threedayList11, sevendayList11) => {
         let copyList = [];
 
-        onedayList1.map((item) => {
-            copyList.push(item.roomNo);
+        onedayList11.map((item) => {
+            copyList.push(item?.roomNo || item?.vehicle?.name || item?.vname);
         });
-        threedayList1.map((item) => {
-            copyList.push(item.roomNo);
+        threedayList11.map((item) => {
+            copyList.push(item?.roomNo || item?.vehicle?.name || item?.vname);
         });
-        sevendayList1.map((item) => {
-            copyList.push(item.roomNo);
+        sevendayList11.map((item) => {
+            copyList.push(item?.roomNo || item?.vehicle?.name || item?.vname);
         });
 
         copyList = copyList.filter((item, i) => copyList.indexOf(item) === i);
 
-        copyList.sort(function (a, b) {
-            if (a > b) {
-                return 1;
-            }
-            if (a === b) {
-                return 0;
-            }
-            if (a < b) {
-                return -1;
-            }
+        copyList.sort((a, b) => sort1(a, b));
+        setArrX(copyList);
+    }, []);
+    // x축 카테고리 설정 - 시간
+    const categoriesTime = useCallback((onedayList11, threedayList11, sevendayList11) => {
+        let copyList = [];
+
+        onedayList11.map((item) => {
+            copyList.push(item?.hour);
+        });
+        threedayList11.map((item) => {
+            copyList.push(item?.hour);
+        });
+        sevendayList11.map((item) => {
+            copyList.push(item?.hour);
         });
 
-        setroomArr(copyList);
-    }
-    useEffect(() => {}, [roomArr]);
+        copyList = copyList.filter((item, i) => copyList.indexOf(item) === i);
 
-    // const changeChart = (e) => {
-    //     let days = e.target.value;
-    //     setValue(days);
-    // };
+        copyList.sort((a, b) => sort1(a, b));
+        return copyList;
+        // setArrX(copyList);
+    }, []);
+
+    // y축 데이터 - 회의실 별 개수
+    const dataCount = useCallback((onedayList11, threedayList11, sevendayList11) => {
+        console.log(onedayList1);
+        console.log(threedayList1);
+        console.log(sevendayList1);
+        let oneList = [];
+        let threeList = [];
+        let sevenList = [];
+
+        onedayList11.map((item) => {
+            oneList.push(item?.count || item?.vcount || item?.hcount);
+        });
+        threedayList11.map((item) => {
+            threeList.push(item?.count || item?.vcount || item?.hcount);
+        });
+        sevendayList11.map((item) => {
+            sevenList.push(item?.count || item?.vcount || item?.hcount);
+        });
+        setOneData(oneList);
+        setThreeData(threeList);
+        setSevenData(sevenList);
+    }, []);
+
+    // y축  데이터 - 시간 별
+    const dataTimeCount = useCallback(async (onedayList11, threedayList11, sevendayList11, List) => {
+        console.log(onedayList11);
+        console.log(threedayList11);
+        console.log(sevendayList11);
+        console.log(List);
+        let oneList = [...List];
+        oneList.fill(0);
+        let threeList = [...List];
+        threeList.fill(0);
+        let sevenList = [...List];
+        sevenList.fill(0);
+        let tempX = [...List];
+        console.log(tempX);
+        console.log(oneList);
+        console.log(threeList);
+        console.log(sevenList);
+
+        for (let i = 0; i < onedayList11.length; i++) {
+            let item = onedayList11[i].hour;
+
+            // 몇시인지 인덱스를 찾음
+            let key = tempX.findIndex((i) => i == item);
+            if (key != -1) {
+                // 원래 있던 갯수
+                let beforeCount = oneList[key];
+                // 이번 개수
+                let Count = onedayList11[i].count;
+                oneList.splice(key, 1, beforeCount + Count);
+            }
+        }
+        for (let i = 0; i < threedayList11.length; i++) {
+            let item = threedayList11[i].hour;
+            // 몇시인지 인덱스를 찾음
+            let key = tempX.findIndex((i) => i == item);
+            if (key != -1) {
+                // 원래 있던 갯수
+                let beforeCount = threeList[key];
+                // 이번 개수
+                let Count = threedayList11[i].count;
+                threeList.splice(key, 1, beforeCount + Count);
+            }
+        }
+        for (let i = 0; i < sevendayList11.length; i++) {
+            let item = sevendayList11[i].hour;
+            // 몇시인지 인덱스를 찾음
+            let key = tempX.findIndex((i) => i == item);
+            if (key != -1) {
+                // 원래 있던 갯수
+                let beforeCount = sevenList[key];
+                // 이번 개수
+                let Count = sevendayList11[i].count;
+                sevenList.splice(key, 1, beforeCount + Count);
+            }
+        }
+
+        setOneData(oneList);
+        setThreeData(threeList);
+        setSevenData(sevenList);
+    }, []);
+
+    // x축 카테고리와 y축 데이터를 넣어서 렌더링
+    useEffect(() => {
+        if (ArrX.length > 0 && oneData.length > 0 && threeData.length > 0 && sevenData.length > 0) {
+            function fetch() {
+                setchartDataResult({
+                    ...chartDataResult,
+                    options: {
+                        ...chartDataResult.options,
+                        xaxis: {
+                            type: 'category',
+                            categories: ArrX
+                        }
+                    },
+                    series: [
+                        {
+                            name: '1일',
+                            data: oneData
+                        },
+                        {
+                            name: '3일',
+                            data: threeData
+                        },
+                        {
+                            name: '7일',
+                            data: sevenData
+                        }
+                    ]
+                });
+            }
+
+            fetch();
+        }
+    }, [ArrX, oneData, threeData, sevenData]);
+
+    const handleChange = (event) => {
+        setGraphType(event.target.value);
+    };
+    useEffect(() => {
+        if (graphType === 'bar') {
+            setchartDataResult({
+                height: 480,
+                type: 'bar',
+                options: {
+                    ...chartData.options,
+                    xaxis: {
+                        ...chartDataResult.options.xaxis,
+                        categories: chartDataResult.options.xaxis.categories
+                    }
+                },
+                series: [
+                    {
+                        name: '1일',
+                        data: oneData
+                    },
+                    {
+                        name: '3일',
+                        data: threeData
+                    },
+                    {
+                        name: '7일',
+                        data: sevenData
+                    }
+                ]
+            });
+        } else if (graphType === 'heatmap') {
+            // setchartDataRoomCount({ ...chartDataRoomCount });
+            setchartDataResult({
+                type: 'heatmap',
+                options: {
+                    ...chartData2.options,
+                    xaxis: {
+                        ...chartDataResult.options.xaxis,
+                        categories: chartDataResult.options.xaxis.categories
+                    }
+                },
+                series: [
+                    {
+                        name: '1일',
+                        data: oneData
+                    },
+                    {
+                        name: '3일',
+                        data: threeData
+                    },
+                    {
+                        name: '7일',
+                        data: sevenData
+                    }
+                ]
+            });
+        } else if (graphType === 'line') {
+            setchartDataResult({
+                type: 'line',
+                options: {
+                    ...chartData3.options,
+                    xaxis: {
+                        categories: chartDataResult.options.xaxis.categories
+                    }
+                },
+                series: [
+                    {
+                        name: '1일',
+                        data: oneData
+                    },
+                    {
+                        name: '3일',
+                        data: threeData
+                    },
+                    {
+                        name: '7일',
+                        data: sevenData
+                    }
+                ]
+            });
+        }
+    }, [graphType]);
 
     useEffect(() => {
         const newChartData = {
@@ -383,7 +611,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             },
             legend: {
                 labels: {
-                    colors: grey500
+                    colors: '#000000'
                 }
             }
         };
@@ -394,7 +622,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     }, [navType, primary200, primaryDark, secondaryMain, secondaryLight, primary, darkLight, grey200, isLoading, grey500, value]);
 
     const handleSelected2 = (option) => {
-        console.log(option);
         dispatch(Selected2ChangeSave(option));
     };
 
@@ -412,17 +639,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                         <Grid item>
                                             <Typography variant="subtitle2">예약현황 조회</Typography>
                                         </Grid>
-                                        {/* <Grid item>
-                                            <Typography variant="h3">
-                                                {value}일간 많이 예약 확정된 {select ? <>회의실 개수</> : <>차량 개수</>} 조회
-                                            </Typography>
-                                            <Typography variant="h3">
-                                                {value}일간 많이 예약 확정된 {select ? <>회의실 시간대</> : <>차량 시간대</>} 조회
-                                            </Typography>
-                                            <Typography variant="h3">
-                                                {value}일간 많이 예약이 시작된 {select ? <>회의실 시간대</> : <>차량 시간대</>} 조회
-                                            </Typography>
-                                        </Grid> */}
+
                                         <Grid item>
                                             <TextField
                                                 id="standard-select-currency"
@@ -438,21 +655,43 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                                         key={option.value}
                                                         value={option.value}
                                                     >
+                                                        {!select ? <>회의실을 </> : <>차량을 </>}
                                                         {option.label}
                                                     </MenuItem>
                                                 ))}
                                             </TextField>
                                         </Grid>
+
+                                        <Grid item>
+                                            <Box sx={{ minWidth: 60, width: 100 }}>
+                                                <FormControl fullWidth>
+                                                    <InputLabel id="demo-simple-select-label">그래프</InputLabel>
+                                                    <Select
+                                                        labelId="demo-simple-select-label"
+                                                        id="demo-simple-select"
+                                                        value={graphType}
+                                                        label="그래프"
+                                                        onChange={handleChange}
+                                                    >
+                                                        <MenuItem value={'bar'}>bar</MenuItem>
+                                                        <MenuItem value={'heatmap'}>heatmap</MenuItem>
+                                                        <MenuItem value={'line'}>line</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                            </Box>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-
+                                <Grid item>
+                                    <h1>{!select ? <>회의실</> : <>차량</>}</h1>
+                                </Grid>
                                 <Grid item>
                                     <ReservationChoice />
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <Chart {...thisChartData} />
+                            <Chart {...chartDataResult} />
                         </Grid>
                     </Grid>
                 </MainCard>
