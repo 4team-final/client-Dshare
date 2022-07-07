@@ -77,7 +77,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DatePicker from 'react-datepicker';
 import ImageUploader from 'react-images-upload';
-
 //헤더 이미지 바꾸는 함수
 import checkProfImg from 'layout/MainLayout/Header/ProfileSection/index';
 

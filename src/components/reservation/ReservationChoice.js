@@ -15,21 +15,11 @@ function ReservationChoice() {
     return (
         <div className="choice">
             <div className="good">
-                <MdMeetingRoom
-                    onClick={() => {
-                        handle(0);
-                    }}
-                    className="car"
-                />
+                <MdMeetingRoom onClick={() => handle(0)} className="car" />
                 회의실
             </div>
             <div className="good">
-                <AiFillCar
-                    onClick={() => {
-                        handle(1);
-                    }}
-                    className="room"
-                />
+                <AiFillCar onClick={() => handle(1)} className="room" />
                 차량
             </div>
         </div>

@@ -5,7 +5,7 @@ import { resError, resSuccess } from './ResInterceptor';
 
 export const dshareAPI = axios.create({
     baseURL: baseUrl,
-    timeout: 5000,
+    timeout: 10000,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json; charset=utf-8',

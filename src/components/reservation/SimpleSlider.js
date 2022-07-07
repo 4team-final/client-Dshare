@@ -35,7 +35,7 @@ export default function SimpleSlider(props) {
                 {imgs?.length > 0 &&
                     imgs?.map((item, i) => {
                         return (
-                            <WrapperImg key={i} width={width} height={height}>
+                            <WrapperImg key={item.imgId} width={width} height={height}>
                                 <img className="img" src={item?.imgPath || item} alt="" />
                             </WrapperImg>
                         );

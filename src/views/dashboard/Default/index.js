@@ -18,7 +18,7 @@ const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
     const [vehicleBookmark, setVehicleBookmark] = useState([]);
     const [roomBookmark, setRoomBookmark] = useState([]);
-    //차량 즐겨찾기 조회
+
     useEffect(() => {
         async function VBookmark() {
             let data = await getVBookmark();
@@ -30,7 +30,6 @@ const Dashboard = () => {
         VBookmark();
         setLoading(false);
     }, []);
-
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>

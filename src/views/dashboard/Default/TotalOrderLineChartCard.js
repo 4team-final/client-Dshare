@@ -152,7 +152,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    가장 최근에 예약된 회의실/차량
                                                 </Typography>
                                             </Grid>
                                         </Grid>

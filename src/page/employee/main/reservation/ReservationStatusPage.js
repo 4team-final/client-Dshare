@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ReservationStatusPage.scss';
-import Timer from '../../../../components/Timer/Timer.js';
+import Timer from '../../../../components/timer/Timer.js';
 import MyReservationList from '../../../../components/reservation/MyReservationList.js';
 import ReservationChoice from '../../../../components/reservation/ReservationChoice';
 import MyReservationDetail from '../../../../components/reservation/MyReservationDetail';
