@@ -105,3 +105,40 @@ export const delVBookmark = async (id) => {
     await dshareAPI.delete(`emp/vehicle/elimination/mark?id=${id}`).then((res) => res.data);
     return getVBookmark();
 };
+export const regUpProImg = async (Img, id) => {
+    let frm = new FormData();
+    frm.enctype = 'multipart/form-data';
+    let pic = Img[0];
+    frm.append('files', pic);
+    frm.append('TargetEmpId', id);
+    await dshareAPI
+        .post(`emp/image/upload`, frm, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                RefreshToken: ''
+            }
+        })
+        .then((res) => {
+            res.data;
+        })
+        .catch((e) => console.log(e));
+};
+export const RegistWorker = async (teamId, positionId, password, name, email, tel, birthday, profileImg) => {
+    console.log(profileImg);
+    return await dshareAPI
+        .post(`admin/register`, {
+            teamId: teamId,
+            positionId: positionId,
+            password: password,
+            name: name,
+            email: email,
+            tel: tel,
+            birthday: birthday
+        })
+        .then((res) => {
+            let empId = res.data.value;
+            console.log(profileImg);
+            console.log(empId);
+            regUpProImg(profileImg, empId);
+        });
+};

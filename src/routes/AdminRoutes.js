@@ -5,21 +5,15 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
 // Admin
-const AdminMainPage = Loadable(lazy(() => import('page/admin/main/AdminMainPage')));
-const Paperbase = Loadable(lazy(() => import('page/admin/main/Paperbase')));
-const AdminNavigator = Loadable(lazy(() => import('page/admin/main/AdminNavigator')));
-
+// 사원등록
+const AdminRegister = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
 const AdminRoutes = {
-    path: '/admin',
-    element: <Paperbase />,
+    path: '/main/admin',
+    element: <MainLayout />,
     children: [
         {
-            path: '/main',
-            element: <AdminMainPage />
-        },
-        {
-            path: '/navi',
-            element: <AdminNavigator />
+            path: '/CEmp',
+            element: <AdminRegister />
         }
     ]
 };

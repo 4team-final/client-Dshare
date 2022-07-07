@@ -1,11 +1,20 @@
-import { SELECTED_CHANGE_SAVE, ITEM_CHANGE_SAVE, LIST_ITEM_ROOM_DELETE, LIST_ITEM_VEHICLE_DELETE } from '../actions/ChangeAction';
+import {
+    SELECTED_CHANGE_SAVE,
+    ITEM_CHANGE_SAVE,
+    LIST_ITEM_ROOM_DELETE,
+    LIST_ITEM_VEHICLE_DELETE,
+    PROFILE_CHANGE_SAVE,
+    GO_ADMIN_PAGE
+} from '../actions/ChangeAction';
 
 const initialState = {
     selected: 0,
     roomItem: {},
     vehicleItem: {},
     deleteRoomId: -1,
-    deleteVehicleId: -1
+    deleteVehicleId: -1,
+    profileChange: {},
+    adminPage: false
 };
 
 export default function changeReducer(state = initialState, action) {
@@ -29,6 +38,11 @@ export default function changeReducer(state = initialState, action) {
                 return { ...state, deleteVehicleId: action.deleteId };
             }
             return state;
+        case PROFILE_CHANGE_SAVE:
+            console.log(action.data);
+            return { ...state, profileChange: action.data };
+        case GO_ADMIN_PAGE:
+            return { ...state, adminPage: !state.adminPage };
         default:
             return state;
     }

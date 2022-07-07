@@ -5,7 +5,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Button, Modal, Grid, Link } from '@mui/material';
 import { getVBookmark, getUserProfile, getRBookmark, delRBookmark, delVBookmark } from 'components/ApiModules/ApiHandler';
 import MuiTypography from '@mui/material/Typography';
-
+import StarsIcon from '@mui/icons-material/Stars';
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
@@ -190,23 +190,30 @@ const TotalIncomeDarkCard = (props) => {
                                                 <ListItemText primary={`정원 : ${v.capacity} 명`} />
                                             </ListItemButton>
                                         </div>
-                                        <div style={{ display: 'flex' }}>
-                                            <ListItemButton style={{ width: '150%', marginBottom: '10px' }}>
+                                        <div style={{ width: '100%', display: 'flex' }}>
+                                            <ListItemButton style={{ width: '100%', marginBottom: '10px' }}>
                                                 <ListItemIcon>
                                                     <BurstModeOutlinedIcon />
                                                 </ListItemIcon>
-                                                <SimpleSlider data={v.imgList} style={{ width: '280px' }} />
+                                                <SimpleSlider data={v.imgList} style={{ width: '65%' }} />
                                             </ListItemButton>
                                             <ListItemButton
-                                                sx={{ width: '100%', marginBottom: '10px' }}
+                                                style={{
+                                                    position: 'absolute',
+                                                    zIndex: '999',
+                                                    top: '-19%',
+                                                    right: '30%',
+                                                    width: '10%',
+                                                    marginBottom: '10px',
+                                                    borderRadius: '10px'
+                                                }}
                                                 onClick={() => {
                                                     delbm(v.id);
                                                 }}
                                             >
-                                                <ListItemIcon>
-                                                    <GradeOutlinedIcon />
+                                                <ListItemIcon style={{ color: '#1296ec' }}>
+                                                    <StarsIcon style={{}} />
                                                 </ListItemIcon>
-                                                <ListItemText primary="즐겨찾기 취소" />
                                             </ListItemButton>
                                         </div>
                                     </List>
