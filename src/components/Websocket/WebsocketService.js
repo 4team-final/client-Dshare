@@ -9,7 +9,7 @@ export const SocketConnection = (props) => {
     const [items, setItems] = useState([]);
     const [socketMsg, setSocketMsg] = useState();
     const dispatch = useDispatch();
-    const vehicleURL = 'ws://localhost:8082/emp/vehicle/chat';
+    const vehicleURL = 'ws://15.164.185.111:8082/emp/vehicle/chat';
     const roomURL = 'ws://localhost:8082/ws/room';
     const enterState = useSelector((state) => state.websocketReducer.enter);
     const roomEnterState = useSelector((state) => state.websocketReducer.roomenter);

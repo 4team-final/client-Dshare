@@ -1,38 +1,38 @@
 // assets
-import { IconKey } from '@tabler/icons';
+import { IconKey, IconEye } from '@tabler/icons';
 
 // constant
 const icons = {
-    IconKey
+    IconKey,
+    IconEye
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
 
 const MyPage = {
     id: 'pages',
-    title: 'MyPage',
-    caption: 'logout & mypage',
+    title: '미리보기',
     type: 'group',
     children: [
         {
             id: 'authentication',
-            title: 'Authentication',
+            title: '회의실/차량 보기',
             type: 'collapse',
-            icon: icons.IconKey,
+            icon: icons.IconEye,
 
             children: [
                 {
-                    id: 'logout',
-                    title: 'Logout',
+                    id: 'room',
+                    title: '회의실 보기',
                     type: 'item',
-                    url: '/logout',
+                    url: '/main/room/list',
                     target: true
                 },
                 {
-                    id: 'Mypage',
-                    title: 'Mypage',
+                    id: 'vehicle',
+                    title: '차량 보기',
                     type: 'item',
-                    url: '/main/mypage',
+                    url: '/main/vehicle/list',
                     target: true
                 }
             ]

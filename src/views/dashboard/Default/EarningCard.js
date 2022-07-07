@@ -169,7 +169,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    사원들이 가장 많이 찾는 차량
+                                    사원들이 가장 즐겨찾는 회의실/차량 TOP3
                                 </Typography>
                             </Grid>
                         </Grid>

@@ -52,7 +52,7 @@ export const chartData = {
         },
         xaxis: {
             type: 'category',
-            categories: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            categories: ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '01:00', '01:30']
         },
         legend: {
             show: true,
@@ -85,20 +85,90 @@ export const chartData = {
     },
     series: [
         {
-            name: '회의실',
-            data: [10, 20, 30, 40]
+            name: '1일',
+            data: []
         },
         {
-            name: '차량',
-            data: [10, 20, 30, 40]
+            name: '3일',
+            data: []
         },
         {
-            name: '물품',
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        },
-        {
-            name: 'Total',
-            data: [10, 20, 30, 40]
+            name: '7일',
+            data: []
         }
     ]
+};
+
+export const chartData2 = {
+    series: [
+        {
+            name: '1일',
+            data: []
+        },
+        {
+            name: '3일',
+            data: []
+        },
+        {
+            name: '7일',
+            data: []
+        }
+    ],
+    options: {
+        chart: {
+            height: 450,
+            type: 'heatmap'
+        },
+        dataLabels: {
+            enabled: false
+        },
+        colors: '#d3d3d3',
+        xaxis: {
+            type: 'category',
+            categories: ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '01:00', '01:30']
+        },
+        plotOptions: {
+            heatmap: {
+                shadeIntensity: 0.5,
+                radius: 0,
+                useFillColorAsStroke: true,
+                colorScale: {
+                    ranges: [
+                        {
+                            from: 0,
+                            to: 20,
+                            name: '0~20',
+                            color: '#00A100'
+                        },
+                        {
+                            from: 21,
+                            to: 40,
+                            name: '21~40',
+                            color: '#128FD9'
+                        },
+                        {
+                            from: 41,
+                            to: 60,
+                            name: '41~60',
+                            color: '#FFB200'
+                        },
+                        {
+                            from: 61,
+                            to: 150,
+                            name: '61~150',
+                            color: '#FF0000'
+                        }
+                    ]
+                }
+            }
+        },
+        title: {
+            text: ''
+        },
+        grid: {
+            padding: {
+                right: 20
+            }
+        }
+    }
 };

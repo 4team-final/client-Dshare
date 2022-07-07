@@ -8,22 +8,14 @@ const icons = { IconDashboard };
 
 const dashboard = {
     id: 'dashboard',
-    title: 'Dashboard',
+    title: '대시보드',
     type: 'group',
     children: [
         {
             id: 'default',
-            title: 'MainPage',
+            title: '통계 대시보드',
             type: 'item',
             url: '/main/dashboard/default',
-            icon: icons.IconDashboard,
-            breadcrumbs: false
-        },
-        {
-            id: 'default',
-            title: '내 예약 현황',
-            type: 'item',
-            url: '/main/my/reservation/status',
             icon: icons.IconDashboard,
             breadcrumbs: false
         }
