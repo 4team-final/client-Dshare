@@ -3,9 +3,9 @@ import { baseUrl } from 'components/ApiModules/ApiParts';
 import { getUserProfile } from 'components/ApiModules/ApiHandler';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-
+import { goAdminPage } from 'store/actions/ChangeAction';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -44,19 +44,31 @@ import { MdSettingsBackupRestore } from 'react-icons/md';
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
+    const dispatch = useDispatch();
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
     const navigate = useNavigate();
+
+    const newProfile = useSelector((state) => state.changeReducer.profileChange);
+    const AdminChk = useSelector((state) => state.changeReducer.adminPage);
 
     const [sdm, setSdm] = useState(true);
     const [value, setValue] = useState('');
     const [notification, setNotification] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
+    const [isAdm, setIsAdm] = useState(false);
 
     //프로필 조회
     const [empInfo, setEmpInfo] = useState();
     const [profileImg, setProfileImg] = useState();
+
+    useEffect(() => {
+        if (newProfile) {
+            setEmpInfo(newProfile);
+            setProfileImg(profileImg);
+        }
+    }, [newProfile]);
 
     /**
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
@@ -73,13 +85,16 @@ const ProfileSection = () => {
         setOpen(false);
     };
 
-    const handleListItemClick = (event, index, route = '') => {
+    const handleListItemClick = async (event, index, route = '') => {
         setSelectedIndex(index);
         handleClose(event);
 
         if (route && route !== '') {
             navigate(route);
         }
+        console.log(empInfo.id);
+
+        dispatch(goAdminPage());
     };
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -94,11 +109,21 @@ const ProfileSection = () => {
         prevOpen.current = open;
     }, [open]);
 
+    const checkProfImg = (ImgUrl) => {
+        setProfileImg(ImgUrl);
+    };
+
     useEffect(() => {
         async function profile() {
             let emp = await getUserProfile();
             setEmpInfo(emp);
-            setProfileImg(emp?.profileImg);
+            if (emp.id == 1) {
+                dispatch(goAdminPage());
+            }
+            setProfileImg(emp.profileImg);
+            if (emp?.empNo.slice(-5) == '00001') {
+                setIsAdm(true);
+            }
         }
         profile();
     }, []);
@@ -202,16 +227,33 @@ const ProfileSection = () => {
                                                     }
                                                 }}
                                             >
-                                                <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    selected={selectedIndex === 0}
-                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile')}
-                                                >
-                                                    <ListItemIcon>
-                                                        <IconSettings stroke={1.5} size="1.3rem" />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={<Typography variant="body2">View My Profile</Typography>} />
-                                                </ListItemButton>
+                                                {AdminChk ? (
+                                                    <ListItemButton
+                                                        sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                        selected={selectedIndex === 0}
+                                                        onClick={(event) => handleListItemClick(event, 0, '/main/dashboard/default')}
+                                                    >
+                                                        <ListItemIcon>
+                                                            <IconSettings stroke={1.5} size="1.3rem" />
+                                                        </ListItemIcon>
+                                                        <ListItemText
+                                                            primary={<Typography variant="body2">사용자모드로 이동</Typography>}
+                                                        />
+                                                    </ListItemButton>
+                                                ) : (
+                                                    <ListItemButton
+                                                        sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                        selected={selectedIndex === 0}
+                                                        onClick={(event) => handleListItemClick(event, 0, '/main/dashboard/default')}
+                                                    >
+                                                        <ListItemIcon>
+                                                            <IconSettings stroke={1.5} size="1.3rem" />
+                                                        </ListItemIcon>
+                                                        <ListItemText
+                                                            primary={<Typography variant="body2">관리자모드로 이동</Typography>}
+                                                        />
+                                                    </ListItemButton>
+                                                )}
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 4}

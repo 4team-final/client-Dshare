@@ -7,22 +7,28 @@ import { Grid } from '@mui/material';
 import EarningCard from './EarningCard';
 import PopularCard from './PopularCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
+import TotalOrderLineChartCardTwo from './TotalOrderLineChartCardTwo';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/actions/DashboardConstant';
-
+import { getVBookmark, getUserProfile, getRBookmark } from 'components/ApiModules/ApiHandler';
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
-    // useEffect(() => {
-    //     const start = setTimeout(() => {
-    //         setLoading(false);
-    //     }, 0);
-    //     return () => clearTimeout(start);
-    // }, []);
+    const [vehicleBookmark, setVehicleBookmark] = useState([]);
+    const [roomBookmark, setRoomBookmark] = useState([]);
+
     useEffect(() => {
+        async function VBookmark() {
+            let data = await getVBookmark();
+            setVehicleBookmark(data);
+            let Rdata = await getRBookmark();
+            setRoomBookmark(Rdata);
+            console.log(Rdata);
+        }
+        VBookmark();
         setLoading(false);
     }, []);
     return (
@@ -30,18 +36,19 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <EarningCard isLoading={isLoading} />
+                        {/* <EarningCard isLoading={isLoading} /> */}
+                        <TotalOrderLineChartCard isLoading={isLoading} text={'가장 즐겨찾는 '} />
                     </Grid>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalOrderLineChartCard isLoading={isLoading} />
+                        <TotalOrderLineChartCardTwo isLoading={isLoading} text={'최근에 예약된 '} />
                     </Grid>
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeDarkCard isLoading={isLoading} />
+                                <TotalIncomeDarkCard isLoading={isLoading} vehicleBookmark={vehicleBookmark} />
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeLightCard isLoading={isLoading} />
+                                <TotalIncomeLightCard isLoading={isLoading} roomBookmark={roomBookmark} />
                             </Grid>
                         </Grid>
                     </Grid>

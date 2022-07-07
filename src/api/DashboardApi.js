@@ -68,3 +68,52 @@ export const findVehicleStartTime = async (datetime) => {
         });
     return result;
 };
+
+//dashboard API - 즐겨찾기 많은 회의실 TOP3
+//- /emp/room/reservation/bookmark/top/{limit}
+export const findRoomBookMarkTop = async (limit) => {
+    const result = dshareAPI
+        .get(`emp/room/reservation/bookmark/top/${limit}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err);
+        });
+    return result;
+};
+
+//dashboard API - 즐겨찾기 많은 차량 TOP3
+//- /emp/vehicle/best/mark
+export const findVehicleBookMarkTop = async () => {
+    const result = dshareAPI
+        .get(`emp/vehicle/best/mark`)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err);
+        });
+    return result;
+};
+
+//dashboard API - 최근 예약된 회의실
+//- /emp/room/reservation/recent
+export const findRecentReservationRoom = async (limit) => {
+    const result = dshareAPI
+        .get(`emp/room/reservation/recent`, {
+            params: { limit: limit }
+        })
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err);
+        });
+    return result;
+};
+//dashboard API - 최근 예약된 차량
+//- /emp/room/reservation/recent
+export const findRecentReservationVehicle = async () => {
+    const result = dshareAPI
+        .get(`emp/vehicle/list/recent`)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err);
+        });
+    return result;
+};

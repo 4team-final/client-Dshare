@@ -88,6 +88,26 @@ export const SEVENDAY_VEHICLE_MEET_TIME_LIST_GET = 'SEVENDAY_VEHICLE_MEET_TIME_L
 export const SEVENDAY_VEHICLE_MEET_TIME_LIST_GET_SUCCESS = 'SEVENDAY_VEHICLE_MEET_TIME_LIST_GET_SUCCESS';
 export const SEVENDAY_VEHICLE_MEET_TIME_LIST_GET_ERROR = 'SEVENDAY_VEHICLE_MEET_TIME_LIST_GET_ERROR';
 
+// //---------------------------------------------------------------------------------------------------
+
+// 즐겨찾기 TOP3 회의실
+export const BOOKMARK_ROOM_TOP_GET = 'BOOKMARK_ROOM_TOP_GET';
+export const BOOKMARK_ROOM_TOP_GET_SUCCESS = 'BOOKMARK_ROOM_TOP_GET_SUCCESS';
+export const BOOKMARK_ROOM_TOP_GET_ERROR = 'BOOKMARK_ROOM_TOP_GET_ERROR';
+// 즐겨찾기 TOP3 차량
+export const BOOKMARK_VEHICLE_TOP_GET = 'BOOKMARK_VEHICLE_TOP_GET';
+export const BOOKMARK_VEHICLE_TOP_GET_SUCCESS = 'BOOKMARK_VEHICLE_TOP_GET_SUCCESS';
+export const BOOKMARK_VEHICLE_TOP_GET_ERROR = 'BOOKMARK_VEHICLE_TOP_GET_ERROR';
+
+//최근 예약된 회의실
+export const RECENT_ROOM_RESERVATION_GET = 'RECENT_ROOM_RESERVATION_GET';
+export const RECENT_ROOM_RESERVATION_GET_SUCCESS = 'RECENT_ROOM_RESERVATION_GET_SUCCESS';
+export const RECENT_ROOM_RESERVATION_GET_ERROR = 'RECENT_ROOM_RESERVATION_GET_ERROR';
+//최근 예약된 차량
+export const RECENT_VEHICLE_RESERVATION_GET = 'RECENT_VEHICLE_RESERVATION_GET';
+export const RECENT_VEHICLE_RESERVATION_GET_SUCCESS = 'RECENT_VEHICLE_RESERVATION_GET_SUCCESS';
+export const RECENT_VEHICLE_RESERVATION_GET_ERROR = 'RECENT_VEHICLE_RESERVATION_GET_ERROR';
+// //---------------------------------------------------------------------------------------------------
 export const OnedayfindRoomReservationCount = createPromiseThunk(ONEDAY_ROOM_RESERVATION_LIST_GET, DashboardApi.findRoomReservationCount);
 export const ThreedayfindRoomReservationCount = createPromiseThunk(
     THREEDAY_ROOM_RESERVATION_LIST_GET,
@@ -144,3 +164,10 @@ export const SevendayfindVehicleReservationTime = createPromiseThunk(
 export const OnedayfindVehicleStartTime = createPromiseThunk(ONEDAY_VEHICLE_MEET_TIME_LIST_GET, DashboardApi.findVehicleStartTime);
 export const ThreedayfindVehicleStartTime = createPromiseThunk(THREEDAY_VEHICLE_MEET_TIME_LIST_GET, DashboardApi.findVehicleStartTime);
 export const SevendayfindVehicleStartTime = createPromiseThunk(SEVENDAY_VEHICLE_MEET_TIME_LIST_GET, DashboardApi.findVehicleStartTime);
+// //---------------------------------------------------------------------------------------------------
+
+export const RoomBookmarkTop = createPromiseThunk(BOOKMARK_ROOM_TOP_GET, DashboardApi.findRoomBookMarkTop);
+export const VehicleBookmarkTop = createPromiseThunk(BOOKMARK_VEHICLE_TOP_GET, DashboardApi.findVehicleBookMarkTop);
+
+export const recentRoomRervation = createPromiseThunk(RECENT_ROOM_RESERVATION_GET, DashboardApi.findRecentReservationRoom);
+export const recentVehicleRervation = createPromiseThunk(RECENT_VEHICLE_RESERVATION_GET, DashboardApi.findRecentReservationVehicle);

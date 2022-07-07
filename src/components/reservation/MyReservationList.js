@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { myReservationRoomList, myReservationVehicleList } from '../../store/actions/ReservationAction';
-import { ItemChangeSave } from '../../store/actions/ChangeAction';
+import { myReservationRoomList, myReservationVehicleList } from 'store/actions/ReservationAction';
+import { ItemChangeSave } from 'store/actions/ChangeAction';
 import './MyReservationList.scss';
 import MyReservationCard from './MyReservationCard';
 import Loading from '../Loading';
