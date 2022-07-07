@@ -5,10 +5,7 @@ import {
     LIST_ITEM_VEHICLE_DELETE,
     PROFILE_CHANGE_SAVE,
     GO_ADMIN_PAGE,
-    SELECTED_CHANGE_SAVE2,
-    ITEM_CHANGE_SAVE,
-    LIST_ITEM_ROOM_DELETE,
-    LIST_ITEM_VEHICLE_DELETE
+    SELECTED_CHANGE_SAVE2
 } from '../actions/ChangeAction';
 
 const initialState = {

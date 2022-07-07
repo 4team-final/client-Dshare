@@ -72,6 +72,9 @@ export const requestByTokenExpiredPOSTAndBody = async () => {
 export const getUserProfile = async () => {
     return await dshareAPI('emp/profile/read').then((res) => res.data.value);
 };
+export const getUser = async () => {
+    return await dshareAPI('emp/profile/all/read').then((res) => res.data.value);
+};
 
 export const getRoomChart = async (days) => {
     return await dshareAPI(`emp/room/reservation/count/${days}`).then((res) => res.data.value);

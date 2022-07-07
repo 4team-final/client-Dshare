@@ -235,11 +235,6 @@ const FirebaseRegister = ({ ...others }) => {
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
                     </Box>
                 </Grid>
-                <Grid item xs={12} container alignItems="center" justifyContent="center">
-                    <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Register Co-Worker</Typography>
-                    </Box>
-                </Grid>
             </Grid>
 
             <Formik
@@ -282,18 +277,23 @@ const FirebaseRegister = ({ ...others }) => {
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <>
                         <form noValidate onSubmit={handleSubmit} {...others}>
-                            <Grid item xs={12} sm={6} style={{ marginLeft: '25%' }}>
-                                <ImageUploader
-                                    singleImage={true}
-                                    withIcon={true}
-                                    buttonText="이미지를 선택하세요"
-                                    label="5mb 이하, jpg, gif, png, gif 가능"
-                                    onChange={onDrop}
-                                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                    maxFileSize={5242880}
-                                    withPreview={true}
-                                    size="small"
-                                />
+                            <Grid item xs={12} container alignItems="center" justifyContent="center">
+                                <Box sx={{ mb: 2 }}></Box>
+                            </Grid>
+                            <Grid item xs={12} container alignItems="center" justifyContent="center">
+                                <Box sx={{ mb: 2 }}>
+                                    <ImageUploader
+                                        singleImage={true}
+                                        withIcon={true}
+                                        buttonText="이미지를 선택하세요"
+                                        label="5mb 이하, jpg, gif, png, gif 가능"
+                                        onChange={onDrop}
+                                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                        maxFileSize={5242880}
+                                        withPreview={true}
+                                        size="small"
+                                    />
+                                </Box>
                             </Grid>
 
                             <Grid container spacing={matchDownSM ? 0 : 2}>
