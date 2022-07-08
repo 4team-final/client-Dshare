@@ -156,7 +156,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             border={false}
                             content={false}
                             sx={{
-                                height: '270px',
+                                height: '250px',
                                 backgroundImage: `url(${selectImg})`,
                                 backgroundSize: '100%',
                                 opacity: '1'

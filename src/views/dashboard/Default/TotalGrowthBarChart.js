@@ -545,7 +545,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     useEffect(() => {
         if (graphType === 'bar') {
             setchartDataResult({
-                height: 480,
+                height: 450,
                 type: 'bar',
                 options: {
                     ...chartData.options,
