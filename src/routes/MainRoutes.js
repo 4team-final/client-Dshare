@@ -17,8 +17,6 @@ const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')
 const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 
-// sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -44,10 +42,6 @@ const MainRoutes = {
         {
             path: '/utils/util-shadow',
             element: <UtilsShadow />
-        },
-        {
-            path: '/sample-page',
-            element: <SamplePage />
         },
         {
             path: '/my/reservation/status',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from '../../store/actions/ReservationAction';
+import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from 'store/actions/ReservationAction';
 import './Timer.scss';
 import { FcAlarmClock } from 'react-icons/fc';
 import Alert from '@mui/material/Alert';

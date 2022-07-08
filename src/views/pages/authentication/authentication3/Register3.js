@@ -9,7 +9,7 @@ import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from 'ui-component/Logo';
 import AuthRegister from '../auth-forms/AuthRegister';
-import AuthFooter from 'ui-component/cards/AuthFooter';
+import DatePicker from 'react-datepicker';
 
 // assets
 
@@ -18,10 +18,21 @@ import AuthFooter from 'ui-component/cards/AuthFooter';
 const Register = () => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+    const bgColor = theme.palette.secondary.main;
+
+    // {
+    // "teamId":1,
+    // "positionId":1,
+    // "deptId":1,
+    // "password":"1234",
+    // "name":"정재빈",
+    // "email":"test@naver.com",
+    // "tel":"01025867126",
+    // "birthday":"2022-06-13T07:10:04"
 
     return (
         <AuthWrapper1>
-            <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
+            <Grid container direction="column" justifyContent="flex-end" style={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
@@ -46,14 +57,14 @@ const Register = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Sign up
+                                                        Register Our New-Worker
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"
                                                         fontSize="16px"
                                                         textAlign={matchDownSM ? 'center' : 'inherit'}
                                                     >
-                                                        Enter your credentials to continue
+                                                        Enter Worker credentials to continue
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
@@ -72,9 +83,7 @@ const Register = () => {
                                                 to="/pages/login/login3"
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
-                                            >
-                                                Already have an account?
-                                            </Typography>
+                                            ></Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -82,9 +91,7 @@ const Register = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
-                </Grid>
+                <Grid item xs={12} sx={{ m: 3, mt: 1 }}></Grid>
             </Grid>
         </AuthWrapper1>
     );

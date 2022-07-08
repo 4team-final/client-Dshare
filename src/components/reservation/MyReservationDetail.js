@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 // import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
-import { myReservationDeleteRoom, myReservationDeleteVehicle } from '../../store/actions/ReservationAction';
-import { RoomItemDelete, VehicleItemDelete } from '../../store/actions/ChangeAction';
+import { myReservationDeleteRoom, myReservationDeleteVehicle } from 'store/actions/ReservationAction';
+import { RoomItemDelete, VehicleItemDelete } from 'store/actions/ChangeAction';
 import './MyReservationDetail.scss';
 
 import { styled } from '@mui/material/styles';
@@ -31,7 +31,7 @@ import { BsFillSkipEndFill } from 'react-icons/bs';
 import { BsAlignEnd } from 'react-icons/bs';
 import { AiFillCar } from 'react-icons/ai';
 
-import ImageRight from '../../assets/image/right.JPG';
+import ImageRight from 'assets/image/right.JPG';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

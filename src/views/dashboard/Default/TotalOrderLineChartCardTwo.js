@@ -80,72 +80,71 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 const TotalOrderLineChartCard = ({ isLoading, text }) => {
     const dispatch = useDispatch();
     const theme = useTheme();
-    const bookmarkRoomTopStore = useSelector((state) => state.dashboardReducer.bookmarkRoomTop);
-    const bookmarkVehicleTopStore = useSelector((state) => state.dashboardReducer.bookmarkVehicleTop);
+    const recentReservationRoomStore = useSelector((state) => state.dashboardReducer.recentReservationRoom);
+    const recentReservationVehicleStore = useSelector((state) => state.dashboardReducer.recentReservationVehicle);
 
     const [message, setMessage] = useState(text);
     const [timeValue, setTimeValue] = useState(false);
 
-    const [roomBookmarkData, setRoomBookmarkData] = useState([]);
-    const [vehicleBookmarkData, setVehicleBookmarkData] = useState([]);
+    const [roomRecentData, setRoomRecentData] = useState([]);
+    const [vehicleRecentData, setVehicleRecentData] = useState([]);
 
     const [selectData, setselectData] = useState({});
     const [rank, setRank] = useState(1);
-
-    // const [roomBookmarkimgs, setroomBookmarkImgs] = useState([]);
-    // const [vehicleBookmarkimgs, setvehicleBookmarkImgs] = useState([]);
     const [selectImg, setSelectImg] = useState('');
 
     useEffect(() => {
-        dispatch(RoomBookmarkTop(3));
-        dispatch(VehicleBookmarkTop());
+        dispatch(recentRoomRervation(5));
+        dispatch(recentVehicleRervation());
     }, []);
 
     useEffect(() => {
-        if (bookmarkRoomTopStore?.data?.value) {
-            setRoomBookmarkData(bookmarkRoomTopStore?.data?.value);
+        if (recentReservationRoomStore?.data?.value) {
+            setRoomRecentData(recentReservationRoomStore?.data?.value);
         }
-    }, [bookmarkRoomTopStore]);
+    }, [recentReservationRoomStore]);
     useEffect(() => {
-        if (bookmarkVehicleTopStore?.data?.value) {
-            setVehicleBookmarkData(bookmarkVehicleTopStore?.data?.value);
+        if (recentReservationVehicleStore?.data?.value) {
+            setVehicleRecentData(recentReservationVehicleStore?.data?.value);
         }
-    }, [bookmarkVehicleTopStore]);
+    }, [recentReservationVehicleStore]);
 
     useEffect(() => {
-        if (vehicleBookmarkData?.length > 0) {
+        if (vehicleRecentData?.length > 0) {
             setRank(1);
-            setselectData(vehicleBookmarkData[0]);
-            setSelectImg(vehicleBookmarkData[0]?.imgList[0]);
+            setselectData(vehicleRecentData[0]);
+            setSelectImg(vehicleRecentData[0]?.imgList[0]);
         }
-    }, [vehicleBookmarkData]);
+    }, [vehicleRecentData]);
 
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
     };
     useEffect(() => {
         if (timeValue) {
-            setselectData(roomBookmarkData[rank - 1]);
-            setSelectImg(roomBookmarkData[rank - 1]?.roomImgResDTOList[0]?.imgPath);
+            setselectData(roomRecentData[rank - 1]);
+            setSelectImg(roomRecentData[rank - 1]?.room?.roomImgResDTOList[0]?.imgPath);
         } else {
-            setselectData(vehicleBookmarkData[rank - 1]);
-            setSelectImg(vehicleBookmarkData[rank - 1]?.imgList[0]);
+            setselectData(vehicleRecentData[rank - 1]);
+            setSelectImg(vehicleRecentData[rank - 1]?.imgList[0]);
         }
     }, [timeValue]);
+    console.log(roomRecentData);
+    console.log(vehicleRecentData);
 
     const handleClick = (item, i) => {
         if (timeValue) {
             console.log(item);
             setRank(i + 1);
             setselectData(item);
-            setSelectImg(item?.roomImgResDTOList[0]?.imgPath);
+            setSelectImg(item?.room?.roomImgResDTOList[0]?.imgPath);
         } else {
-            console.log(item);
             setRank(i + 1);
             setselectData(item);
             setSelectImg(item?.imgList[0]);
         }
     };
+
     return (
         <>
             {isLoading ? (
@@ -177,13 +176,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                         color: '#fff',
                                                         mt: 1
                                                     }}
-                                                >
-                                                    {!timeValue ? (
-                                                        <DirectionsCarFilledOutlinedIcon fontSize="inherit" />
-                                                    ) : (
-                                                        <StorefrontTwoToneIcon fontSize="inherit" />
-                                                    )}
-                                                </Avatar>
+                                                ></Avatar>
                                             </Grid> */}
                                             <Grid item>
                                                 <Button
@@ -208,9 +201,9 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
 
                                             <>
                                                 {timeValue ? (
-                                                    <Grid item>
+                                                    <Grid item sx={{}}>
                                                         <Stack direction="row" spacing={1}>
-                                                            {roomBookmarkData?.map((item, i) => {
+                                                            {roomRecentData?.map((item, i) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
@@ -230,7 +223,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                 ) : (
                                                     <Grid item>
                                                         <Stack direction="row" spacing={1}>
-                                                            {vehicleBookmarkData?.map((item, i) => {
+                                                            {vehicleRecentData?.map((item, i) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
@@ -264,7 +257,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     textShadow: '2px 2px 2px gray'
                                                                 }}
                                                             >
-                                                                {rank}위: {selectData?.categoryName}
+                                                                {rank}위: {selectData?.room?.categoryName}
                                                             </Typography>
                                                         ) : (
                                                             <Typography
@@ -277,7 +270,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     textShadow: '2px 2px 2px gray'
                                                                 }}
                                                             >
-                                                                {rank}위: {selectData?.name}
+                                                                {rank}위: {selectData?.vehicle?.name}
                                                             </Typography>
                                                         )}
                                                     </Grid>
@@ -296,8 +289,8 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                             >
                                                                 <br />
                                                                 <BsFillHouseDoorFill size={'2em'} />
-                                                                {selectData?.roomNo}호 <IoIosPeople size={'2em'} />
-                                                                {selectData?.capacity}인실
+                                                                {selectData?.room?.roomNo}호 <IoIosPeople size={'2em'} />
+                                                                {selectData?.room?.capacity}인실
                                                             </Typography>
                                                         ) : (
                                                             <Typography
@@ -310,12 +303,12 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     textShadow: '2px 2px 2px gray'
                                                                 }}
                                                             >
-                                                                차량번호 : {selectData?.number}
+                                                                차량번호 : {selectData?.vehicle?.number}
                                                                 <br />
                                                                 <AiFillCar size={'2em'} />
-                                                                모델{selectData?.model} {' / '}
+                                                                모델{selectData?.vehicle?.model} {' / '}
                                                                 <IoIosPeople size={'2em'} />
-                                                                {selectData?.capacity}인승
+                                                                {selectData?.vehicle?.capacity}인승
                                                             </Typography>
                                                         )}
                                                     </Grid>

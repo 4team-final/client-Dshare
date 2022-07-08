@@ -5,6 +5,7 @@ import axios from 'axios';
 import { baseUrl } from '../../components/ApiModules/ApiParts';
 import { request } from '../../components/ApiModules/ReqInterceptor';
 import { resError, resSuccess } from '../../components/ApiModules/ResInterceptor';
+import { ProfileChangeSave } from 'store/actions/ChangeAction';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -38,7 +39,6 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -76,6 +76,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DatePicker from 'react-datepicker';
+import ImageUploader from 'react-images-upload';
+//헤더 이미지 바꾸는 함수
+import checkProfImg from 'layout/MainLayout/Header/ProfileSection/index';
 
 // ==============================|| LIVE CUSTOMIZATION ||============================== //
 
@@ -148,72 +151,8 @@ const Customization = () => {
     //프로필 조회
     const [empInfo, setEmpInfo] = useState({});
 
-    const [profileImg, setProfileImg] = useState();
-    const getDeptId = [
-        '관리부',
-        '기획부',
-        '영업부',
-        '마케팅부',
-        '인사부',
-        '경영부',
-        '회계부',
-        '개발부-erp10',
-        '개발부-amaranth10',
-        '개발부-wehago',
-        '개발부-nahago',
-        '총무부',
-        '보안부',
-        '네트워크부'
-    ];
-    const getTeamId = [
-        '1cell(관리부)',
-        '1cell(기획부)',
-        '2cell(기획부)',
-        '3cell(기획부)',
-        '1cell(영업부)',
-        '2cell(영업부)',
-        '3cell(영업부)',
-        '4cell(영업부)',
-        '5cell(영업부)',
-        '1cell(마케팅부)',
-        '2cell(마케팅부)',
-        '3cell(마케팅부)',
-        '4cell(마케팅부)',
-        '1cell(인사부)',
-        '2cell(인사부)',
-        '3cell(인사부)',
-        '4cell(인사부)',
-        '1cell(경영부)',
-        '2cell(경영부)',
-        '3cell(경영부)',
-        '1cell(회계부)',
-        '2cell(회계부)',
-        '1cell(개발부-erp10)',
-        '2cell(개발부-erp10)',
-        '3cell(개발부-erp10)',
-        '4cell(개발부-erp10)',
-        '5cell(개발부-erp10)',
-        '1cell(개발부-amaranth10)',
-        '2cell(개발부-amaranth10)',
-        '3cell(개발부-amaranth10)',
-        '4cell(개발부-amaranth10)',
-        '5cell(개발부-amaranth10)',
-        '1cell(개발부-wehago)',
-        '2cell(개발부-wehago)',
-        '3cell(개발부-wehago)',
-        '1cell(개발부-nahago)',
-        '2cell(개발부-nahago)',
-        '3cell(개발부-nahago)',
-        '1cell(총무부)',
-        '2cell(총무부)',
-        '3cell(총무부)',
-        '3cell(보안부)',
-        '4cell(보안부)',
-        '1cell(네트워크부)',
-        '2cell(네트워크부)',
-        '3cell(네트워크부)'
-    ];
-    const getPositionId = ['회장', '사장', '부사장', '전무', '상무', '이사', '부장', '차장', '과장', '대리', '주임', '사원', '인턴'];
+    const [profileImg, setProfileImg] = useState([]);
+
     const [id, setId] = useState('');
     useEffect(
         () => {
@@ -223,24 +162,15 @@ const Customization = () => {
                 setEmail(emp.email);
                 setName(emp.name);
                 setTel(emp.tel);
+                setTeam(emp.team);
+                setPosition(emp.position);
+                setdept(emp.dept);
                 setProfileImg(emp.profileImg);
+                setId(emp.id);
+                setTeamId(emp.teamId);
+                setDeptId(emp.deptId);
+                setPositionId(emp.positionId);
                 setEmpInfo(emp);
-                setId(emp.empNo.slice(-2));
-                for (var i = 0; i < getDeptId.length; i++) {
-                    if (getDeptId[i] == emp.dept) {
-                        setDeptId(i + 1);
-                    }
-                }
-                for (var i = 0; i < getTeamId.length; i++) {
-                    if (getTeamId[i] == emp.team + '(' + emp.dept + ')') {
-                        setTeamId(i + 1);
-                    }
-                }
-                for (var i = 0; i < getPositionId.length; i++) {
-                    if (getPositionId[i] == emp.position) {
-                        setPositionId(i + 1);
-                    }
-                }
                 console.log(emp);
             }
             profile();
@@ -261,18 +191,10 @@ const Customization = () => {
         setUpdate(!update);
     };
 
-    // body{
-    //     "teamId":1,
-    //     "positionId":1,
-    //     "deptId":1,
-    //     "password":"1234",
-    //     "name":"정재빈1121221",
-    //     "email":"test@naver.com",
-    //     "tel":"01025867126",
-    //     "birthday":"2022-06-13T07:10:04"
-    // }
-
     //변수
+    const [team, setTeam] = useState('');
+    const [dept, setdept] = useState('');
+    const [position, setPosition] = useState('');
     const [teamId, setTeamId] = useState('');
     const [positionId, setPositionId] = useState('');
     const [deptId, setDeptId] = useState('');
@@ -375,8 +297,8 @@ const Customization = () => {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value
         );
-        for (var i = 0; i < getPositionId.length; i++) {
-            if (getPositionId[i] == value) {
+        for (var i = 0; i < positions.length; i++) {
+            if (positions[i] == value) {
                 setPositionId(i + 1);
             }
         }
@@ -405,7 +327,8 @@ const Customization = () => {
         timeout: 5000,
         withCredentials: true,
         headers: {
-            'Content-Type': 'application/json; charset=utf-8'
+            'Content-Type': 'application/json; charset=utf-8',
+            RefreshToken: ''
         }
     });
     dshareAPI.interceptors.request.use(request);
@@ -421,18 +344,80 @@ const Customization = () => {
                 tel: tel,
                 birthday: birthday + 'T00:00:00'
             })
-            .then((res) => res.data)
+            .then((res) => {
+                let emp = getUserProfile();
+                return emp;
+            })
             .catch((e) => console.log(e));
     };
 
     const updateEmp = async () => {
-        let value = await updateEmpInfo();
-        console.log(value);
-        console.log(id, teamId, positionId, name, email, tel, birthday);
-        alert(value.message);
-        window.location.href = '/main/dashboard/default';
+        let emp = await updateEmpInfo();
+        console.log(emp);
+        dispatch(ProfileChangeSave(emp));
+        // console.log(id, teamId, positionId, name, email, tel, birthday);
+        setBirthDay(emp.birthday.split('T', 1)[0]);
+        setEmail(emp.email);
+        setName(emp.name);
+        setTel(emp.tel);
+        setTeam(emp.team);
+        setPosition(emp.position);
+        setdept(emp.dept);
+        setProfileImg(emp.profileImg);
+        setId(emp.id);
+        setTeamId(emp.teamId);
+        setDeptId(emp.deptId);
+        setPositionId(emp.positionId);
+        setEmpInfo(emp);
+        alert('사원수정에 성공하였습니다!');
+    };
+    const [imgUpdate, setImgUpdate] = useState(false);
+
+    const updateImg = () => {
+        setImgUpdate(!imgUpdate);
+    };
+    const [pictures, setPictures] = useState([]);
+
+    const onDrop = (picture) => {
+        setPictures(...pictures, picture);
     };
 
+    const updateSuccessImg = async () => {
+        let frm = new FormData();
+        frm.enctype = 'multipart/form-data';
+        let pic = pictures[0];
+        console.log(pictures[0]);
+        console.log(pic);
+        frm.append('files', pic);
+        frm.append('TargetEmpId', id);
+        await dshareAPI
+            .post(`emp/image/upload`, frm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    RefreshToken: ''
+                }
+            })
+            .then((res) => {
+                alertUpdateImg(res.data);
+            })
+            .catch((e) => console.log(e));
+        setPictures([]);
+    };
+
+    const alertUpdateImg = (value) => {
+        if (value) {
+            async function profile() {
+                let emp = await getUserProfile();
+                setProfileImg(emp.profileImg);
+                alert(value.message);
+            }
+            profile();
+            setImgUpdate(!imgUpdate);
+            // window.location.href = '/main/dashboard/default';
+        } else {
+            alert(value.message);
+        }
+    };
     return (
         <>
             {/* toggle button */}
@@ -499,7 +484,7 @@ const Customization = () => {
                                         aria-labelledby="nested-list-subheader"
                                         subheader={
                                             <ListSubheader component="div" id="nested-list-subheader">
-                                                {empInfo.name}님, 반갑습니다!
+                                                {name}님, 반갑습니다!
                                             </ListSubheader>
                                         }
                                     >
@@ -540,7 +525,7 @@ const Customization = () => {
                                             <ListItemIcon>
                                                 <EmailOutlinedIcon />
                                             </ListItemIcon>
-                                            <ListItemText id="email" primary={empInfo.email} />
+                                            <ListItemText id="email" primary={email} />
                                         </ListItemButton>
                                         {/* birthday */}
                                         <ListItemButton>
@@ -556,18 +541,22 @@ const Customization = () => {
                                             </ListItemIcon>
                                             <ListItemText primary={empInfo.tel} />
                                         </ListItemButton>
-                                        <ListItemButton onClick={updateProfile}>
-                                            <ListItemIcon>
-                                                <Fab
-                                                    color="secondary"
-                                                    aria-label="edit"
-                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
-                                                >
-                                                    <EditIcon style={{ width: '18px', height: '18px' }} />
-                                                </Fab>
-                                            </ListItemIcon>
-                                            <ListItemText primary="수정" />
-                                        </ListItemButton>
+                                        {id == '1' ? (
+                                            <ListItemButton onClick={updateProfile}>
+                                                <ListItemIcon>
+                                                    <Fab
+                                                        color="secondary"
+                                                        aria-label="edit"
+                                                        style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                    >
+                                                        <EditIcon style={{ width: '18px', height: '18px' }} />
+                                                    </Fab>
+                                                </ListItemIcon>
+                                                <ListItemText primary="수정" />
+                                            </ListItemButton>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </List>
                                 ) : (
                                     <>
@@ -592,7 +581,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="이메일"
-                                            defaultValue={empInfo.email}
+                                            defaultValue={email}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -625,7 +614,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="전화번호"
-                                            defaultValue={empInfo.tel}
+                                            defaultValue={tel}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -650,9 +639,9 @@ const Customization = () => {
                                                 MenuProps={MenuProps}
                                                 style={{ marginBottom: '15px' }}
                                             >
-                                                <MenuItem value={empInfo.dept} style={getStyles(name, tdName, theme)}>
+                                                <MenuItem value={dept} style={getStyles(dept, tdName, theme)}>
                                                     <em>
-                                                        {empInfo.dept} - {empInfo.team}
+                                                        {dept} - {team}
                                                     </em>
                                                 </MenuItem>
                                                 {names.map((name) => (
@@ -674,8 +663,8 @@ const Customization = () => {
                                                 input={<OutlinedInput label="Name" />}
                                                 MenuProps={MenuProps}
                                             >
-                                                <MenuItem value={empInfo.position} style={getStyles(name, pName, theme)}>
-                                                    <em>{empInfo.position}</em>
+                                                <MenuItem value={position} style={getStyles(name, pName, theme)}>
+                                                    <em>{position}</em>
                                                 </MenuItem>
                                                 {positions.map((name) => (
                                                     <MenuItem key={name} value={name} style={getStyles(name, pName, theme)}>
@@ -716,11 +705,64 @@ const Customization = () => {
                             {/* border radius */}
                             <Divider />
                             <SubCard title="프로필 사진">
-                                <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
-                                    <Grid item>
-                                        <img src={profileImg} alt="" style={{ borderRadius: '10px', width: '190px' }} />
-                                    </Grid>
-                                </Grid>
+                                {!imgUpdate ? (
+                                    <>
+                                        <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
+                                            <Grid item>
+                                                <img src={profileImg} alt="" style={{ borderRadius: '10px', width: '190px' }} />
+                                            </Grid>
+                                        </Grid>
+                                        <ListItemButton onClick={updateImg} style={{}}>
+                                            <ListItemIcon>
+                                                <Fab
+                                                    color="secondary"
+                                                    aria-label="edit"
+                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                >
+                                                    <EditIcon style={{ width: '18px', height: '18px' }} />
+                                                </Fab>
+                                            </ListItemIcon>
+                                            <ListItemText primary="프로필 사진 수정하기" />
+                                        </ListItemButton>
+                                    </>
+                                ) : (
+                                    <>
+                                        <ImageUploader
+                                            singleImage={true}
+                                            withIcon={true}
+                                            buttonText="이미지를 선택하세요"
+                                            label="5mb 이하, jpg, gif, png, gif 가능"
+                                            onChange={onDrop}
+                                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                            maxFileSize={5242880}
+                                            withPreview={true}
+                                        />
+                                        <ListItemButton onClick={updateSuccessImg} style={{}}>
+                                            <ListItemIcon>
+                                                <Fab
+                                                    color="primary"
+                                                    aria-label="edit"
+                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                >
+                                                    <CheckCircleOutlinedIcon style={{ width: '18px', height: '18px' }} />
+                                                </Fab>
+                                            </ListItemIcon>
+                                            <ListItemText primary="프로필 사진 수정 완료" />
+                                        </ListItemButton>
+                                        <ListItemButton onClick={updateImg} style={{}}>
+                                            <ListItemIcon>
+                                                <Fab
+                                                    color="secondary"
+                                                    aria-label="edit"
+                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                >
+                                                    <CancelOutlinedIcon style={{ width: '18px', height: '18px' }} />
+                                                </Fab>
+                                            </ListItemIcon>
+                                            <ListItemText primary="프로필 사진 수정 취소" />
+                                        </ListItemButton>
+                                    </>
+                                )}
                             </SubCard>
                         </Grid>
                     </Grid>

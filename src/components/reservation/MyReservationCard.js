@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from '../../store/actions/ReservationAction';
+import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from 'store/actions/ReservationAction';
 import './MyReservationCard.scss';
 import Card from '@mui/material/Card';
 import 'slick-carousel/slick/slick.css';
