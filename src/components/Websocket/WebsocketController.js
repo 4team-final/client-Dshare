@@ -1,9 +1,13 @@
+// Install
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// User
 import { SocketConnection } from './WebsocketService';
+import ReservationModal from 'components/SelectTableProduct/Modal';
 import { validIsSeat, socketMsgByReservation, selectByEmpNo } from 'store/actions/WebsocketAction';
 import { makeRoomReservation, makeVehicleReservation } from 'store/actions/CalendarAction';
+import { useNavigate } from 'react-router';
+import { CustomButton, CardFrame, HalfWidthFrame } from './WebSocketStyle';
 
 export const WebsocketController = () => {
     const navigate = useNavigate();
@@ -15,6 +19,9 @@ export const WebsocketController = () => {
     const [time, setTime] = useState([]);
     const [empNo, setEmpNo] = useState();
     const [transTime, setTransTime] = useState();
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [reserved, setReserved] = useState(false);
     const typeStore = useSelector((state) => state.websocketReducer.product);
     const vIdStore = useSelector((state) => state.websocketReducer.vid);
     const rIdStore = useSelector((state) => state.websocketReducer.rid);
@@ -22,7 +29,8 @@ export const WebsocketController = () => {
     const timeStore = useSelector((state) => state.websocketReducer.converttotime);
     const empnoStore = useSelector((state) => state.websocketReducer.empno);
     const transTimeStore = useSelector((state) => state.websocketReducer.arraytotime);
-
+    const titleStore = useSelector((state) => state.websocketReducer.title);
+    const contentStore = useSelector((state) => state.websocketReducer.content);
     const ConnectHandler = () => {
         dispatch(validIsSeat());
         dispatch(
@@ -37,8 +45,34 @@ export const WebsocketController = () => {
                 ? socketMsgByReservation('R_QUIT', { rid: rid, uid: uid, empno: empNo })
                 : socketMsgByReservation('QUIT', { vid: vid, uid: uid, empno: empNo })
         );
+        navigate('/main/dashboard/default');
+        location.reload();
     };
     const SetTimeHandler = () => {
+        if (type === 0 && rid === 0) {
+            alert('대여할 회의실을 선택해주세요.');
+            return;
+        }
+        if (type === 1 && vid === 0) {
+            alert('대여할 차량을 선택해주세요.');
+            return;
+        }
+        if (uid === 0) {
+            alert('자원을 대여할 날짜를 선택해주세요.');
+            return;
+        }
+        if (time.length < 1) {
+            alert('자원을 대여할 시간을 선택해주세요.');
+            return;
+        }
+        if (title === '' || title === null || title === undefined) {
+            alert('예약에 대한 제목을 입력해주세요.');
+            return;
+        }
+        if (content === '' || content === null || content === undefined) {
+            alert('예약에 관한 사유를 입력해주세요.');
+            return;
+        }
         dispatch(
             type === 0
                 ? socketMsgByReservation('R_TALK', { rid: rid, uid: uid, empno: empNo, time: time })
@@ -48,19 +82,18 @@ export const WebsocketController = () => {
 
         let start = transTime.start.replace('T', ' ');
         let end = transTime.end.replace('T', ' ');
-
         dispatch(
             type === 0
                 ? makeRoomReservation({
                       rid: rid,
-                      empId: empid,
-                      reason: reason,
+                      reason: content,
                       title: title,
                       startedAt: transTime.start,
                       endedAt: transTime.end
                   })
-                : makeVehicleReservation({ vid: vid, reason: reason, title: title, startedAt: start, endedAt: end })
+                : makeVehicleReservation({ vid: vid, reason: content, title: title, startedAt: start, endedAt: end })
         );
+        setReserved(true);
     };
     useEffect(() => {
         dispatch(selectByEmpNo());
@@ -101,21 +134,26 @@ export const WebsocketController = () => {
         }
     }, [transTimeStore]);
 
+    useEffect(() => {
+        if (titleStore && titleStore.data != null) {
+            setTitle(titleStore.data);
+        }
+    }, [titleStore]);
+    useEffect(() => {
+        if (contentStore && contentStore.data != null) {
+            setContent(contentStore.data);
+        }
+    }, [contentStore]);
+
     return (
-        <div>
-            <div>
-                <span>사번 : {empNo ? empNo : '-'}</span>
-                <br />
-                <span>날짜 : {uid ? uid : '-'}</span>
-                <br />
-                <>{type === 0 ? <span>회의실 : {rid ? rid : '-'}</span> : <span>차량 : {vid ? vid : '-'}</span>}</>
-                <br />
-                <>데이터 : {time ? time.length : '-'}</>
-            </div>
-            <button onClick={ConnectHandler}>적용</button>
-            <button onClick={DisconnectHandler}>선택 초기화</button>
-            <button onClick={SetTimeHandler}>예약하기</button>
-            <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
-        </div>
+        <HalfWidthFrame>
+            <CardFrame>
+                <CustomButton onClick={ConnectHandler}>적용</CustomButton>
+                <CustomButton onClick={DisconnectHandler}>예약 취소</CustomButton>
+                <CustomButton onClick={SetTimeHandler}>예약하기</CustomButton>
+                <ReservationModal type={type} open={reserved} />
+                <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
+            </CardFrame>
+        </HalfWidthFrame>
     );
 };

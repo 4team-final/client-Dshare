@@ -15,7 +15,9 @@ import {
     VALID_IS_SEAT,
     CONVERT_TO_TIME,
     SOCKET_MESSAGE,
-    ARRAY_TO_TIMETABLE
+    ARRAY_TO_TIMETABLE,
+    SET_TITLE,
+    SET_CONTENT
 } from 'store/actions/WebsocketAction';
 
 const initialMsg = {
@@ -47,7 +49,9 @@ const initialState = {
     validisseat: { ready: false },
     converttotime: initialSet,
     socketmessage: initialSet,
-    arraytotime: initialSet
+    arraytotime: initialSet,
+    title: initialSet,
+    content: initialSet
 };
 
 export default function WebsocketReducer(state = initialState, action) {
@@ -235,6 +239,22 @@ export default function WebsocketReducer(state = initialState, action) {
             return {
                 ...state,
                 arraytotime: {
+                    loading: true,
+                    data: action.data
+                }
+            };
+        case SET_TITLE:
+            return {
+                ...state,
+                title: {
+                    loading: true,
+                    data: action.data
+                }
+            };
+        case SET_CONTENT:
+            return {
+                ...state,
+                content: {
                     loading: true,
                     data: action.data
                 }

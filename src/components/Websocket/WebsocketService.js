@@ -1,6 +1,8 @@
+// Install
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// User
 import { alertToSocketMessage, selectIsSeatByUIdAndVId } from 'store/actions/WebsocketAction';
 import { getAccess } from '../ApiModules/ApiParts';
 

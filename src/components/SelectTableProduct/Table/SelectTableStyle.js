@@ -2,19 +2,19 @@ import styled from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
     max-width: 800px;
-    height: 400px;
-    background-color: #673ab7;
+    height: 600px;
+    background-color: #fff;
     text-align: center;
     margin: 15px auto;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    box-shadow: inset 0 0 8px #fafafa;
+    box-shadow: inset 0 0 5px #673ab7;
 `;
 
 export const ComponentFrame = styled.div`
     width: 97%;
-    height: 380px;
+    height: 580px;
     overflow-x: auto;
     overflow-y: auto;
     margin: auto;
@@ -23,6 +23,7 @@ export const ComponentFrame = styled.div`
     &::-webkit-scrollbar {
         width: 10px;
         height: 10px;
+        cursor: pointer;
     }
     &::-webkit-scrollbar-thumb {
         background-color: #673ab7;
@@ -37,13 +38,13 @@ export const ComponentFrame = styled.div`
 `;
 
 export const CardFrame = styled.div`
-    margin: 0;
+    margin: 5px 0;
     padding: 0;
     width: 740px;
     height: 160px;
     color: #673ab7;
     display: flex;
-    border: #673ab7 1px solid;
+    box-shadow: inset 0 0 5px #673ab7;
     border-radius: 20px;
     background-color: #${(props) => props.props};
 `;
@@ -61,14 +62,14 @@ export const ListFrame = styled.ul`
 export const ItemFrame = styled.li`
     margin: 0;
     padding: 0;
-    color: #fff;
+    color: #673ab7;
     font-size: medium;
     text-align: center;
 `;
 
 export const ImgCard = styled.div`
-    height: 157px;
-    width: 320px;
+    height: ${(props) => props.height}px;
+    width: ${(props) => props.width}px;
     border-radius: 20px;
 `;
 
@@ -112,6 +113,7 @@ export const SubContentFrame = styled.div`
 
 export const CustomButton = styled.button`
     color: #fff;
+    margin-right: 3px;
     margin-top: 10px;
     background-color: #673ab7;
     opacity: 0.7;
@@ -119,16 +121,20 @@ export const CustomButton = styled.button`
     border-radius: 20px;
     width: 60px;
     height: 60px;
+    transition: all 0.3s;
+    cursor: pointer;
     &:hover {
         box-shadow: inset 0 0 5px white;
+        opacity: 1;
         width: 65px;
         height: 65px;
+        transition: all 0.3s;
     }
 `;
 
 export const TextSubTitle = styled.div`
     font-weight: bold;
     font-size: ${(props) => props.props}px;
-    color: #fafafa;
+    color: #673ab7;
     margin-top: 10%;
 `;

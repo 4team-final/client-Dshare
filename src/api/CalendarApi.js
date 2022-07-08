@@ -22,11 +22,10 @@ export const makeRoomReservationAPI = async (data) => {
     return await dshareAPI
         .post('emp/room/regist', {
             roomId: data.rid,
-            empId: data.empid,
             reason: data.reason,
             title: data.title,
-            startedAt: data.start,
-            endedAt: data.end
+            startedAt: data.startedAt,
+            endedAt: data.endedAt
         })
         .catch((error) => console.log(error));
 };
@@ -36,8 +35,8 @@ export const makeVehicleReservationAPI = async (data) => {
             vehicleId: data.vid,
             reason: data.reason,
             title: data.title,
-            startedAt: data.start,
-            endedAt: data.end
+            startedAt: data.startedAt,
+            endedAt: data.endedAt
         })
         .catch((error) => console.log(error));
 };
@@ -48,8 +47,8 @@ export const modifyRoomReservationAPI = async (data) => {
             empId: data.empid,
             reason: data.reason,
             title: data.title,
-            startedAt: data.start,
-            endedAt: data.end
+            startedAt: data.startedAt,
+            endedAt: data.endedAt
         })
         .catch((error) => console.log(error));
 };
@@ -60,8 +59,18 @@ export const modifyVehicleReservationAPI = async (data) => {
             vehicleId: data.vid,
             reason: data.reason,
             title: data.title,
-            startedAt: data.start,
-            endedAt: data.end
+            startedAt: data.startedAt,
+            endedAt: data.endedAt
         })
+        .catch((error) => console.log(error));
+};
+export const selectCompleteRoomReservationAPI = async () => {
+    return await dshareAPI('emp/room/reservation/my/0/1', {})
+        .then((res) => res.data)
+        .catch((error) => console.log(error));
+};
+export const selectCompleteVehicleReservationAPI = async () => {
+    return await dshareAPI('emp/vehicle/list/own/paging', { params: { id: 0 } })
+        .then((res) => res.data)
         .catch((error) => console.log(error));
 };

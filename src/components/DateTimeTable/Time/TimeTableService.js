@@ -1,7 +1,10 @@
+// Install
 import { useState, useEffect } from 'react';
-import { HalfWidthFrame, ComponentFrame, ListFrame, ItemFrame, CardFrame, CustomButton, TextTitle } from './TimeTableStyle';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
+// User
 import { convertArrayToTimeTable, convertToTime } from 'store/actions/WebsocketAction';
+import { HalfWidthFrame, ComponentFrame, ListFrame, ItemFrame, CardFrame, CustomButton, TextTitle } from './TimeTableStyle';
 
 const TimeTableCard = (v) => {
     const [lock, setLock] = useState(false);
@@ -30,14 +33,27 @@ const TimeTable = () => {
     const setTimeTable = () => {
         let copyList = [];
         for (let i = 0; i < dataList.length; i++) {
-            copyList.push(dataList[i].isSeat);
+            copyList.push(dataList[i]);
         }
         setSendData([...copyList]);
-
-        const filterCopyData = dataList.filter((v, i) => v.isSeat !== copyList[i].isSeat && v.isSeat !== 0);
-        let start = filterCopyData[0];
-        let end = filterCopyData[filterCopyData.length - 1];
-        setTransData({ start: start.uid + 'T' + start.time, end: end.uid + 'T' + end.time });
+        const fliterDataList = copyList.map((v, i) => (v.isSeat === 1 && v.isSeat === defaultList[i].isSeat ? { ...v, isSeat: 0 } : v));
+        const filterCopyData = fliterDataList.filter((v) => v.isSeat === 1);
+        let startUid = moment(filterCopyData[0].uid).format('YYYY-MM-DD');
+        let endUid = moment(filterCopyData[filterCopyData.length - 1].uid).format('YYYY-MM-DD');
+        let start = filterCopyData[0].time.length < 5 ? '0' + filterCopyData[0].time : filterCopyData[0].time;
+        let endTime =
+            filterCopyData[filterCopyData.length - 1].time === filterCopyData[0].time
+                ? filterCopyData[0].time.substring(3) === '00'
+                    ? filterCopyData[0].time.substring(0, 3) + '30'
+                    : filterCopyData[0].time.substring(0, 2) === '23'
+                    ? '00:00'
+                    : Number(filterCopyData[0].time.substring(0, 2)) + 1 + ':00'
+                : filterCopyData[filterCopyData.length - 1].time;
+        let end = filterCopyData[filterCopyData.length - 1].time.length < 5 ? '0' + endTime : endTime;
+        setTransData({
+            start: startUid + 'T' + start + ':00',
+            end: endUid + 'T' + end + ':00'
+        });
     };
     const resetTimeTable = () => {
         setDataList(defaultList);
@@ -92,7 +108,7 @@ const TimeTableService = () => {
 
 export const TimeTableFrame = () => {
     return (
-        <HalfWidthFrame height={120}>
+        <HalfWidthFrame height={150}>
             <ComponentFrame height={100}>
                 <TimeTableService />
             </ComponentFrame>

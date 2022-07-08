@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
-    box-shadow: inset 0 0 8px #fafafa;
+    box-shadow: inset 0 0 8px #fff;
+    border: 1px solid #1296ec;
     max-width: 800px;
     height: ${(props) => props.height}px;
-    background-color: #1296ec;
+    background-color: #fff;
     text-align: center;
     margin: 15px auto;
     border-radius: 30px;
@@ -17,7 +18,7 @@ export const ComponentFrame = styled.div`
     height: ${(props) => props.height}px;
     overflow-y: none;
     margin: auto;
-    padding-top: 1%;
+    padding-top: 0;
     padding-bottom: 3%;
 `;
 
@@ -39,6 +40,7 @@ export const ListFrame = styled.ul`
     overflow-x: scroll;
     &::-webkit-scrollbar {
         height: 10px;
+        cursor: pointer;
     }
     &::-webkit-scrollbar-thumb {
         background-color: #1296ec;
@@ -55,23 +57,27 @@ export const ListFrame = styled.ul`
 export const ItemFrame = styled.li`
     margin: 0;
     padding: 0;
-    color: #fff;
+    color: #1296ec;
     font-size: medium;
     text-align: center;
 `;
 export const CustomButton = styled.button`
-    color: #fff;
+    color: #fafafa;
     margin-top: 10px;
-    background-color: #673ab7;
+    background-color: #1296ec;
     opacity: 0.7;
     border: none;
     border-radius: 20px;
     width: 60px;
     height: 25px;
+    transition: all 0.3s;
+    cursor: pointer;
     &:hover {
-        box-shadow: inset 0 0 5px white;
+        box-shadow: inset 0 0 5px #fff;
+        transition: all 0.3s;
+        opacity: 1;
         width: 65px;
-        height: 65px;
+        height: 30px;
     }
 `;
 
@@ -79,5 +85,5 @@ export const TextTitle = styled.div`
     margin-top: 15px;
     font-weight: bold;
     font-size: ${(props) => props.props}px;
-    color: #fff;
+    color: #1296ec;
 `;

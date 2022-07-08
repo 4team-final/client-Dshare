@@ -1,10 +1,14 @@
+// Install
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import moment from 'moment';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import moment from 'moment';
+// User
+import { selectByUId } from 'store/actions/WebsocketAction';
+import SelectProductFrame from 'components/SelectTableProduct/Product';
 import {
     HalfWidthFrame,
     ComponentFrame,
@@ -13,12 +17,10 @@ import {
     ItemFrame,
     ListFrame,
     ContentFrame,
-    CustomButton
+    CustomButton,
+    SubContentFrame,
+    AllContentFrame
 } from './DateTableStyle';
-import { useDispatch } from 'react-redux';
-import { selectByUId } from 'store/actions/WebsocketAction';
-import { SubContentFrame } from 'components/SelectTableProduct/Table/SelectTableStyle';
-import SelectProductFrame from 'components/SelectTableProduct/Product';
 
 const DateTableCalendar = () => {
     const dispatch = useDispatch();
@@ -37,13 +39,14 @@ const DateTableCalendar = () => {
             <ContentFrame>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <StaticDatePicker
+                        disabled={disable}
                         displayStaticWrapperAs="desktop"
                         openTo="day"
                         value={value}
                         onChange={(newValue) => {
                             setValue(newValue);
                         }}
-                        renderInput={(params) => <TextField {...params} />}
+                        renderInput={(params) => <TextField fullWidth {...params} />}
                     />
                 </LocalizationProvider>
                 <SubContentFrame>
@@ -71,10 +74,10 @@ const DateTableCalendar = () => {
 
 const DateTable = () => {
     return (
-        <ContentFrame>
+        <AllContentFrame>
             <SelectProductFrame />
             <DateTableCalendar />
-        </ContentFrame>
+        </AllContentFrame>
     );
 };
 
@@ -89,8 +92,8 @@ const DateTableService = () => {
 
 export const DateTableFrame = () => {
     return (
-        <HalfWidthFrame height={400}>
-            <ComponentFrame height={400}>
+        <HalfWidthFrame height={650}>
+            <ComponentFrame height={650}>
                 <DateTableService />
             </ComponentFrame>
         </HalfWidthFrame>

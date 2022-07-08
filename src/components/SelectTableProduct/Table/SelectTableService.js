@@ -1,5 +1,10 @@
+// Install
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+// User
 import { findAllByRoom, findAllByVehicle } from 'store/actions/CalendarAction';
 import { selectByVId, selectByRId } from 'store/actions/WebsocketAction';
 import {
@@ -18,11 +23,8 @@ import {
     CustomButton,
     TextSubTitle
 } from './SelectTableStyle';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
 
-function ImgCardList(props) {
+export function ImgCardList(props) {
     const [imgs, setImgs] = useState([]);
 
     useEffect(() => {
@@ -38,12 +40,12 @@ function ImgCardList(props) {
         slidesToScroll: 1
     };
     return (
-        <ImgCard>
+        <ImgCard width={props.width} height={props.height}>
             <Slider {...settings}>
                 {imgs?.length > 0 &&
-                    imgs?.map((item) => {
+                    imgs?.map((item, i) => {
                         return (
-                            <ImgCard>
+                            <ImgCard key={i} width={props.width} height={props.height}>
                                 <img
                                     src={item?.imgPath || item}
                                     alt="자원이미지"
@@ -61,7 +63,7 @@ const RoomTableCard = (item) => {
     return (
         <div>
             <InsideFrame>
-                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} /> : <></>}
+                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'320'} height={'157'} /> : <></>}
                 <TextFrame>
                     <TextTitle props={'25'}>{item.props.content}</TextTitle>
                     <ContentFrame>
@@ -83,7 +85,7 @@ const VehicleTableCard = (item) => {
     return (
         <div>
             <InsideFrame>
-                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} /> : <></>}
+                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'320'} height={'157'} /> : <></>}
                 <TextFrame>
                     <TextTitle props={'30'}>{item.props.name}</TextTitle>
                     <ContentFrame>

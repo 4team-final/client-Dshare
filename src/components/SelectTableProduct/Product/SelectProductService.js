@@ -1,18 +1,16 @@
+// Install
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { selectByType } from 'store/actions/WebsocketAction';
-import { InsideContentFrame, SubContentFrame } from './SelectProductStyle';
 import { AiFillCar } from 'react-icons/ai';
 import { MdMeetingRoom } from 'react-icons/md';
-
-const SelectProductCard = () => {
-    return <CardFrame></CardFrame>;
-};
+// User
+import { selectByType } from 'store/actions/WebsocketAction';
+import { InsideContentFrame, SubContentFrame } from './SelectProductStyle';
 
 const SelectProductService = () => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
-    const [type, setType] = useState(0);
+    const [type, setType] = useState(2);
 
     useEffect(() => {
         if (selected) {
@@ -22,9 +20,9 @@ const SelectProductService = () => {
     }, [selected]);
     return (
         <SubContentFrame>
-            <InsideContentFrame>
+            <InsideContentFrame props={type === 0 ? '1565c0' : 'fff'}>
                 <MdMeetingRoom
-                    style={{ width: '120px', height: '120px' }}
+                    style={{ width: '100px', height: '100px' }}
                     onClick={() => {
                         setType(0);
                         setSelected(true);
@@ -33,9 +31,9 @@ const SelectProductService = () => {
                     회의실
                 </MdMeetingRoom>
             </InsideContentFrame>
-            <InsideContentFrame>
+            <InsideContentFrame props={type === 1 ? '1565c0' : 'fff'}>
                 <AiFillCar
-                    style={{ width: '120px', height: '120px' }}
+                    style={{ width: '100px', height: '100px' }}
                     onClick={() => {
                         setType(1);
                         setSelected(true);

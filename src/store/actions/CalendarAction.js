@@ -37,6 +37,14 @@ export const MODIFY_VEHICLE_RESERVATION = 'MODIFY_VEHICLE_RESERVATION';
 export const MODIFY_VEHICLE_RESERVATION_SUCCESS = 'MODIFY_VEHICLE_RESERVATION_SUCCESS';
 export const MODIFY_VEHICLE_RESERVATION_ERROR = 'MODIFY_VEHICLE_RESERVATION_ERROR';
 
+export const SELECT_COMPLETE_ROOM_RESERVATION = 'SELECT_COMPLETE_ROOM_RESERVATION';
+export const SELECT_COMPLETE_ROOM_RESERVATION_SUCCESS = 'SELECT_COMPLETE_ROOM_RESERVATION_SUCCESS';
+export const SELECT_COMPLETE_ROOM_RESERVATION_ERROR = 'SELECT_COMPLETE_ROOM_RESERVATION_ERROR';
+
+export const SELECT_COMPLETE_VEHICLE_RESERVATION = 'SELECT_COMPLETE_VEHICLE_RESERVATION';
+export const SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS = 'SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS';
+export const SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR = 'SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR';
+
 export const selectByRoomDateCalendar = createPromiseThunk(SELECT_ROOM_DATE_CALENDAR, CalendarApi.selectByRoomDateCalendar);
 export const selectByVehicleDateCalendar = createPromiseThunk(SELECT_VEHICLE_DATE_CALENDAR, CalendarApi.selectByVehicleDateCalendar);
 export const selectByVehicleNonReservation = createPromiseThunk(SELECT_VEHILCE_NON_RESERVATION, CalendarApi.selectByVehicleNonReservation);
@@ -46,3 +54,11 @@ export const makeRoomReservation = createPromiseThunk(MAKE_ROOM_RESERVATION, Cal
 export const makeVehicleReservation = createPromiseThunk(MAKE_VEHICLE_RESERVATION, CalendarApi.makeVehicleReservationAPI);
 export const modifyRoomReservation = createPromiseThunk(MODIFY_ROOM_RESERVATION, CalendarApi.modifyRoomReservationAPI);
 export const modifyVehicleReservation = createPromiseThunk(MODIFY_VEHICLE_RESERVATION, CalendarApi.modifyVehicleReservationAPI);
+export const selectCompleteRoomReservation = createPromiseThunk(
+    SELECT_COMPLETE_ROOM_RESERVATION,
+    CalendarApi.selectCompleteRoomReservationAPI
+);
+export const selectCompleteVehicleReservation = createPromiseThunk(
+    SELECT_COMPLETE_VEHICLE_RESERVATION,
+    CalendarApi.selectCompleteVehicleReservationAPI
+);
