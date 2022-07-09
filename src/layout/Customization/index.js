@@ -171,7 +171,6 @@ const Customization = () => {
                 setDeptId(emp.deptId);
                 setPositionId(emp.positionId);
                 setEmpInfo(emp);
-                console.log(emp);
             }
             profile();
         },
@@ -313,7 +312,6 @@ const Customization = () => {
         );
         setDeptId(value.split('-', 1));
         if (names == value) {
-            console.log(names.length);
         }
         for (var i = 0; i < names.length; i++) {
             if (names[i] == value) {
@@ -353,7 +351,6 @@ const Customization = () => {
 
     const updateEmp = async () => {
         let emp = await updateEmpInfo();
-        console.log(emp);
         dispatch(ProfileChangeSave(emp));
         // console.log(id, teamId, positionId, name, email, tel, birthday);
         setBirthDay(emp.birthday.split('T', 1)[0]);
@@ -386,8 +383,6 @@ const Customization = () => {
         let frm = new FormData();
         frm.enctype = 'multipart/form-data';
         let pic = pictures[0];
-        console.log(pictures[0]);
-        console.log(pic);
         frm.append('files', pic);
         frm.append('TargetEmpId', id);
         await dshareAPI

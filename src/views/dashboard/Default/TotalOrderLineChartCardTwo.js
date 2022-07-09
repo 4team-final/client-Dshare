@@ -129,12 +129,9 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
             setSelectImg(vehicleRecentData[rank - 1]?.imgList[0]);
         }
     }, [timeValue]);
-    console.log(roomRecentData);
-    console.log(vehicleRecentData);
 
     const handleClick = (item, i) => {
         if (timeValue) {
-            console.log(item);
             setRank(i + 1);
             setselectData(item);
             setSelectImg(item?.room?.roomImgResDTOList[0]?.imgPath);
@@ -145,6 +142,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
         }
     };
 
+    console.log(vehicleRecentData);
     return (
         <>
             {isLoading ? (
@@ -156,7 +154,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             border={false}
                             content={false}
                             sx={{
-                                height: '270px',
+                                height: '250px',
                                 backgroundImage: `url(${selectImg})`,
                                 backgroundSize: '100%',
                                 opacity: '1'
@@ -207,6 +205,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
+                                                                            key={i}
                                                                             label={i + 1 + '위'}
                                                                             variant="outlined"
                                                                             sx={{
@@ -227,6 +226,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
+                                                                            key={i}
                                                                             label={i + 1 + '위'}
                                                                             variant="outlined"
                                                                             sx={{ color: '#ffffff', textShadow: '2px 2px 2px gray' }}

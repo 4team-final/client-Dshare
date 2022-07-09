@@ -135,7 +135,6 @@ function MyReservationList() {
     }, [resRoomList, resVehicleList]);
 
     function handleDetail(item) {
-        console.log(item);
         dispatch(ItemChangeSave(item));
     }
 
@@ -210,7 +209,7 @@ function MyReservationList() {
                             {resRoomList.length > 0 ? (
                                 <>
                                     {resRoomList.map((item) => (
-                                        <div onClick={() => handleDetail(item)}>
+                                        <div key={item.reservationId} onClick={() => handleDetail(item)}>
                                             <MyReservationCard key={item.reservationResDTO.id} data={item} />
                                         </div>
                                     ))}
@@ -233,7 +232,7 @@ function MyReservationList() {
                                 <>
                                     {resVehicleList.map((item, i) => {
                                         return (
-                                            <div onClick={() => handleDetail(item)}>
+                                            <div key={item.reservationId} onClick={() => handleDetail(item)}>
                                                 <MyReservationCard data={item} key={item.reservationId}></MyReservationCard>
                                             </div>
                                         );

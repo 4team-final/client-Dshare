@@ -89,7 +89,7 @@ const TotalIncomeLightCard = (props) => {
         if (check) {
             let Rdata = await delRBookmark(id);
             setRBookmark(Rdata);
-            console.log(Rdata);
+            // console.log(Rdata);
         }
     };
     return (
@@ -147,7 +147,7 @@ const TotalIncomeLightCard = (props) => {
                         >
                             {/* <Grid container spacing={gridSpacing} sx={{ p: 3 }}> */}
                             {RBookmark.map((r) => (
-                                <SubCard title={r.name} style={{ width: '100%', marginBottom: '50px' }}>
+                                <SubCard key={r.roomId} title={r.name} style={{ width: '100%', marginBottom: '50px' }}>
                                     <List
                                         style={{
                                             width: '100%',
@@ -211,6 +211,7 @@ const TotalIncomeLightCard = (props) => {
                                         {r.roomObjectResDTOList.map((object) =>
                                             object.name != ' ' ? (
                                                 <Chip
+                                                    key={object.imgId}
                                                     label={`${object.name}`}
                                                     variant="outlined"
                                                     style={{ marginTop: '12px', marginRight: '10px' }}

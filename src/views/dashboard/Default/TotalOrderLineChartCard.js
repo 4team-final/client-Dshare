@@ -135,12 +135,10 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
 
     const handleClick = (item, i) => {
         if (timeValue) {
-            console.log(item);
             setRank(i + 1);
             setselectData(item);
             setSelectImg(item?.roomImgResDTOList[0]?.imgPath);
         } else {
-            console.log(item);
             setRank(i + 1);
             setselectData(item);
             setSelectImg(item?.imgList[0]);
@@ -157,7 +155,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             border={false}
                             content={false}
                             sx={{
-                                height: '270px',
+                                height: '250px',
                                 backgroundImage: `url(${selectImg})`,
                                 backgroundSize: '100%',
                                 opacity: '1'
@@ -214,6 +212,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
+                                                                            key={roomBookmarkData.roomId}
                                                                             label={i + 1 + '위'}
                                                                             variant="outlined"
                                                                             sx={{
@@ -234,6 +233,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
+                                                                            key={vehicleBookmarkData.id}
                                                                             label={i + 1 + '위'}
                                                                             variant="outlined"
                                                                             sx={{ color: '#ffffff', textShadow: '2px 2px 2px gray' }}
