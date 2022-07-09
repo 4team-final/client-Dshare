@@ -5,7 +5,8 @@ import {
     LIST_ITEM_VEHICLE_DELETE,
     PROFILE_CHANGE_SAVE,
     GO_ADMIN_PAGE,
-    SELECTED_CHANGE_SAVE2
+    SELECTED_CHANGE_SAVE2,
+    ALL_TIMER_MESSAGE
 } from '../actions/ChangeAction';
 
 const initialState = {
@@ -16,7 +17,13 @@ const initialState = {
     deleteRoomId: -1,
     deleteVehicleId: -1,
     profileChange: {},
-    adminPage: false
+    adminPage: false,
+    allMessage: {
+        message: '',
+        message2: '',
+        message3: '',
+        message4: ''
+    }
 };
 
 export default function changeReducer(state = initialState, action) {
@@ -49,6 +56,12 @@ export default function changeReducer(state = initialState, action) {
             return { ...state, profileChange: action.data };
         case GO_ADMIN_PAGE:
             return { ...state, adminPage: !state.adminPage };
+        case ALL_TIMER_MESSAGE:
+            console.log(action.allMessage);
+            return {
+                ...state,
+                allMessage: action.allMessage
+            };
         default:
             return state;
     }

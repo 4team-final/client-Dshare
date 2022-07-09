@@ -200,7 +200,7 @@ function MyReservationList() {
 
     return (
         <div className="MyReservatationList" id="MyReservatationList" ref={container}>
-            <div className="title">내 예약 현황 목록 / Total - {total}</div>
+            {/* <div className="title">내 예약 현황 목록 / Total - {total}</div> */}
 
             {!loading ? (
                 <>

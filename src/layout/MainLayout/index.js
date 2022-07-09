@@ -16,6 +16,8 @@ import { drawerWidth } from 'store/actions/DashboardConstant';
 import { SET_MENU } from 'store/actions/DashboardActions';
 import { getUserProfile } from 'components/ApiModules/ApiHandler';
 
+import Alert from '@mui/material/Alert';
+
 // assets
 import { IconChevronRight } from '@tabler/icons';
 
@@ -72,6 +74,8 @@ const MainLayout = () => {
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state?.customization?.opened);
     const dispatch = useDispatch();
+    const allMessages = useSelector((state) => state.changeReducer.allMessage);
+    const [messages, setMessages] = useState({});
 
     const handleLeftDrawerToggle = () => {
         dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
@@ -87,6 +91,21 @@ const MainLayout = () => {
         setUser(profile.id);
     }, []);
 
+    useEffect(() => {
+        setMessages(allMessages);
+    }, [allMessages]);
+
+    console.log(allMessages);
+    console.log(messages);
+
+    useEffect(() => {
+        if (messages.message === '' && messages.message2 === '' && messages.message3 === '' && messages.message4 === '') {
+        } else {
+            setTimeout(() => {
+                setMessages({ message: '', message2: '', message3: '', message4: '' });
+            }, 50000);
+        }
+    }, [messages.message, messages.message2, messages.message3, messages.message4]);
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -110,8 +129,134 @@ const MainLayout = () => {
             ) : (
                 <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
             )}
+
             {/* main content */}
             <Main theme={theme} open={leftDrawerOpened}>
+                {messages.message != '' ? (
+                    <>
+                        <>
+                            <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
+                                <div className="memo" style={{ display: 'flex' }}>
+                                    <span>
+                                        {messages.message ? (
+                                            <>
+                                                <div>{messages.message}</div>
+                                            </>
+                                        ) : (
+                                            <div className="memo">{}</div>
+                                        )}
+                                    </span>
+                                    <button
+                                        onClick={() => {
+                                            setMessages({ message: '', message2: '', message3: '', message4: '' });
+                                        }}
+                                        style={{
+                                            zIndex: 80
+                                        }}
+                                    >
+                                        x
+                                    </button>
+                                </div>
+                            </Alert>
+                        </>
+                    </>
+                ) : (
+                    <></>
+                )}
+                {messages.message2 != '' ? (
+                    <>
+                        <>
+                            <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
+                                <div className="memo" style={{ display: 'flex' }}>
+                                    <span>
+                                        {messages.message2 ? (
+                                            <>
+                                                <div>{messages.message2}</div>
+                                            </>
+                                        ) : (
+                                            <div className="memo">{}</div>
+                                        )}
+                                    </span>
+                                    <button
+                                        onClick={() => {
+                                            setMessages({ message: '', message2: '', message3: '', message4: '' });
+                                        }}
+                                        style={{
+                                            zIndex: 80
+                                        }}
+                                    >
+                                        x
+                                    </button>
+                                </div>
+                            </Alert>
+                        </>
+                    </>
+                ) : (
+                    <></>
+                )}
+                {messages.message3 != '' ? (
+                    <>
+                        <>
+                            <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
+                                <div className="memo" style={{ display: 'flex' }}>
+                                    <span>
+                                        {messages.message3 ? (
+                                            <>
+                                                <div>{messages.message3}</div>
+                                            </>
+                                        ) : (
+                                            <div className="memo">{}</div>
+                                        )}
+                                    </span>
+                                    <button
+                                        onClick={() => {
+                                            setMessages({ message: '', message2: '', message3: '', message4: '' });
+                                        }}
+                                        style={{
+                                            zIndex: 80
+                                        }}
+                                    >
+                                        x
+                                    </button>
+                                </div>
+                            </Alert>
+                        </>
+                    </>
+                ) : (
+                    <></>
+                )}
+                {messages.message4 != '' ? (
+                    <>
+                        <>
+                            <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
+                                <div className="memo" style={{ display: 'flex' }}>
+                                    <span>
+                                        {messages.message4 ? (
+                                            <>
+                                                <div>{messages.message4}</div>
+                                            </>
+                                        ) : (
+                                            <div className="memo">{}</div>
+                                        )}
+                                    </span>
+                                    <button
+                                        onClick={() => {
+                                            setMessages({ message: '', message2: '', message3: '', message4: '' });
+                                        }}
+                                        style={{
+                                            zIndex: 80
+                                        }}
+                                    >
+                                        x
+                                    </button>
+                                </div>
+                            </Alert>
+                        </>
+                    </>
+                ) : (
+                    <></>
+                )}
+
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                 <Outlet />

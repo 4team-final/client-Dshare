@@ -12,17 +12,8 @@ function ReservationStatusPage() {
         <>
             <div className="layout">
                 <div className="left">
-                    <Timer />
-                    <div className="calendar">{/* <CalendarFrame /> */}</div>
-                </div>
-                <div className="middle">
-                    <div className="date">
-                        시간 선택
-                        <BsCalendarDate className="CalendarDate" />
-                    </div>
-                    <div className="card">
-                        <MyReservationDetail />
-                    </div>
+                    {/* <Timer /> */}
+                    <MyReservationDetail />
                 </div>
 
                 <div className="right">
