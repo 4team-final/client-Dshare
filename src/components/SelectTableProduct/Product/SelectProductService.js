@@ -1,6 +1,6 @@
 // Install
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiFillCar } from 'react-icons/ai';
 import { MdMeetingRoom } from 'react-icons/md';
 // User
@@ -11,6 +11,12 @@ const SelectProductService = () => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
     const [type, setType] = useState(2);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setType(2);
+        }
+    }, [resetStore]);
 
     useEffect(() => {
         if (selected) {

@@ -1,6 +1,6 @@
 // Install
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // User
 import {
     TextFrame,
@@ -38,6 +38,7 @@ const BoardTableContentBar = () => {
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [disabled, setDisabled] = useState(false);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
     const contentHandler = (e) => {
         setContent(e.target.value);
     };
@@ -53,6 +54,11 @@ const BoardTableContentBar = () => {
             return false;
         }
     };
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setDisabled(false);
+        }
+    }, [resetStore]);
     useEffect(() => {
         if (disabled) {
             dispatch(selectByContent(content));

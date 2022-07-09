@@ -1,6 +1,6 @@
 // Install
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -27,7 +27,13 @@ const DateTableCalendar = () => {
     const [value, setValue] = useState(new Date());
     const [dateTime, setDateTime] = useState();
     const [disable, setDisable] = useState(false);
-
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setDisable(false);
+            setDateTime();
+        }
+    }, [resetStore]);
     useEffect(() => {
         setDisable(false);
     }, []);

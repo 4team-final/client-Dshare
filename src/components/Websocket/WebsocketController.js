@@ -1,10 +1,10 @@
 // Install
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // User
 import { SocketConnection } from './WebsocketService';
 import ReservationModal from 'components/SelectTableProduct/Modal';
-import { validIsSeat, socketMsgByReservation, selectByEmpNo } from 'store/actions/WebsocketAction';
+import { validIsSeat, socketMsgByReservation, selectByEmpNo, initSocketData } from 'store/actions/WebsocketAction';
 import { makeRoomReservation, makeVehicleReservation } from 'store/actions/CalendarAction';
 import { useNavigate } from 'react-router';
 import { CustomButton, CardFrame, HalfWidthFrame } from './WebSocketStyle';
@@ -54,8 +54,12 @@ export const WebsocketController = () => {
     };
     const DisconnectHandler = () => {
         QuitSocket();
+        dispatch(initSocketData());
         navigate('/main/dashboard/default');
-        location.reload();
+    };
+    const UnselectHandler = () => {
+        QuitSocket();
+        dispatch(initSocketData());
     };
     const SetTimeHandler = () => {
         if (type === 0 && rid === 0) {
@@ -103,6 +107,7 @@ export const WebsocketController = () => {
                 : makeVehicleReservation({ vid: vid, reason: content, title: title, startedAt: start, endedAt: end })
         );
         setReserved(true);
+        dispatch(initSocketData());
     };
     useEffect(() => {
         dispatch(selectByEmpNo());
@@ -164,6 +169,9 @@ export const WebsocketController = () => {
     }, [alertMsg]);
     useEffect(() => {
         if (socketMsgStore && socketMsgStore.data != null) {
+            if (socketMsgStore.data.includes('null')) {
+                QuitSocket();
+            }
             setSocketMsg(socketMsgStore.data);
         }
     }, [socketMsgStore]);
@@ -182,6 +190,7 @@ export const WebsocketController = () => {
             <AlertModule status={socketFlag} notice={'info'} font={'17'} contents={socketMsg} />
             <AlertModule status={alertFlag} notice={'error'} font={'22'} contents={alertMsg} />
             <CardFrame>
+                <CustomButton onClick={UnselectHandler}>선택 취소</CustomButton>
                 <CustomButton onClick={ConnectHandler}>적용</CustomButton>
                 <CustomButton onClick={DisconnectHandler}>예약 취소</CustomButton>
                 <CustomButton onClick={SetTimeHandler}>예약하기</CustomButton>

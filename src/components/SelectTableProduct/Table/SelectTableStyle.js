@@ -80,7 +80,7 @@ export const InsideFrame = styled.div`
 `;
 export const TextFrame = styled.div`
     height: 100%;
-    width: 370px;
+    width: 350px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -114,20 +114,20 @@ export const SubContentFrame = styled.div`
 export const CustomButton = styled.button`
     color: #fff;
     margin-right: 3px;
-    margin-top: 10px;
+    margin-top: 80px;
     background-color: #673ab7;
     opacity: 0.7;
     border: none;
     border-radius: 20px;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 30px;
     transition: all 0.3s;
     cursor: pointer;
     &:hover {
         box-shadow: inset 0 0 5px white;
         opacity: 1;
-        width: 65px;
-        height: 65px;
+        width: 85px;
+        height: 30px;
         transition: all 0.3s;
     }
 `;

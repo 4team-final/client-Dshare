@@ -65,7 +65,7 @@ const RoomTableCard = (item) => {
             <InsideFrame>
                 {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'320'} height={'157'} /> : <></>}
                 <TextFrame>
-                    <TextTitle props={'25'}>{item.props.content}</TextTitle>
+                    <TextTitle props={'22'}>{item.props.content}</TextTitle>
                     <ContentFrame>
                         <SubContentFrame>
                             <TextContent props={'20'}>{item.props.categoryName}</TextContent>
@@ -106,6 +106,12 @@ const SelectRoomTable = (item) => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
     const [rid, setRId] = useState(0);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setRId(0);
+        }
+    }, [resetStore]);
     useEffect(() => {
         if (selected) {
             dispatch(selectByRId(rid));
@@ -141,6 +147,12 @@ const SelectVehicleTable = (item) => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
     const [vid, setVId] = useState(0);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setVId(0);
+        }
+    }, [resetStore]);
     useEffect(() => {
         if (selected) {
             dispatch(selectByVId(vid));
@@ -183,6 +195,12 @@ const SelectTableService = () => {
     const [loading, setLoading] = useState(true);
     const [item, setItem] = useState([]);
     const [type, setType] = useState(null);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setLoading(true);
+        }
+    }, [resetStore]);
 
     useEffect(() => {
         if (productTypeStore && productTypeStore.data != null) {

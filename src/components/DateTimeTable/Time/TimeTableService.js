@@ -26,6 +26,7 @@ const TimeTable = () => {
     const [sendData, setSendData] = useState([]);
     const [transData, setTransData] = useState();
     const timeStore = useSelector((state) => state.websocketReducer.isSeatData);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
     const convertDataList = (i) => {
         const filterData = dataList.map((v, index) => (i === index ? { ...v, isSeat: 1 } : v));
         setDataList(filterData);
@@ -44,13 +45,11 @@ const TimeTable = () => {
         let endUid = moment(filterCopyData[filterCopyData.length - 1].uid).format('YYYY-MM-DD');
         let start = filterCopyData[0].time.length < 5 ? '0' + filterCopyData[0].time : filterCopyData[0].time;
         let endTime =
-            filterCopyData[filterCopyData.length - 1].time === filterCopyData[0].time
-                ? filterCopyData[0].time.substring(3) === '00'
-                    ? filterCopyData[0].time.substring(0, 3) + '30'
-                    : filterCopyData[0].time.substring(0, 2) === '23'
-                    ? '00:00'
-                    : Number(filterCopyData[0].time.substring(0, 2)) + 1 + ':00'
-                : filterCopyData[filterCopyData.length - 1].time;
+            filterCopyData[0].time.substring(3) === '00'
+                ? filterCopyData[0].time.substring(0, 3) + '30'
+                : filterCopyData[0].time.substring(0, 2) === '23'
+                ? '00:00'
+                : Number(filterCopyData[0].time.substring(0, 2)) + 1 + ':00';
         let end = filterCopyData[filterCopyData.length - 1].time.length < 5 ? '0' + endTime : endTime;
         setTransData({
             start: startUid + 'T' + start + ':00',
@@ -60,6 +59,12 @@ const TimeTable = () => {
     const resetTimeTable = () => {
         setDataList(defaultList);
     };
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setSendData([]);
+            setDataList([]);
+        }
+    }, [resetStore]);
     useEffect(() => {
         if (sendData.length > 0) {
             dispatch(convertToTime(sendData));
@@ -99,6 +104,13 @@ const TimeTable = () => {
 const TimeTableService = () => {
     const isSeatStore = useSelector((state) => state.websocketReducer.validisseat);
     const [loading, setLoading] = useState(true);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setLoading(true);
+        }
+    }, [resetStore]);
 
     useEffect(() => {
         if (isSeatStore && isSeatStore.ready) {

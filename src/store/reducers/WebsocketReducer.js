@@ -17,7 +17,8 @@ import {
     SOCKET_MESSAGE,
     ARRAY_TO_TIMETABLE,
     SET_TITLE,
-    SET_CONTENT
+    SET_CONTENT,
+    INIT_DATA
 } from 'store/actions/WebsocketAction';
 
 const initialMsg = {
@@ -51,7 +52,8 @@ const initialState = {
     socketmessage: initialSet,
     arraytotime: initialSet,
     title: initialSet,
-    content: initialSet
+    content: initialSet,
+    resetdata: { ready: false }
 };
 
 export default function WebsocketReducer(state = initialState, action) {
@@ -258,6 +260,23 @@ export default function WebsocketReducer(state = initialState, action) {
                     loading: true,
                     data: action.data
                 }
+            };
+        case INIT_DATA:
+            return {
+                ...state,
+                resetdata: { ready: true },
+                isSeatData: initialSet,
+                uid: initialSet,
+                vid: initialSet,
+                rid: initialSet,
+                empno: initialSet,
+                product: initialSet,
+                socketmessage: initialSet,
+                arraytotime: initialSet,
+                title: initialSet,
+                content: initialSet,
+                validisseat: { ready: false },
+                converttotime: initialSet
             };
         default:
             return state;

@@ -19,6 +19,7 @@ export const SOCKET_MESSAGE = 'SOCKET_MESSAGE';
 export const ARRAY_TO_TIMETABLE = 'ARRAY_TO_TIMETABLE';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_CONTENT = 'SET_CONTENT';
+export const INIT_DATA = 'INIT_DATA';
 
 export const socketMsgByReservation = (type, set) => {
     return (dispatch) => {
@@ -169,6 +170,16 @@ export const selectByContent = (data) => {
     return (dispatch) => {
         try {
             dispatch({ type: SET_CONTENT, data: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const initSocketData = () => {
+    return (dispatch) => {
+        try {
+            dispatch({ type: INIT_DATA });
         } catch (error) {
             console.log(error);
         }
