@@ -142,7 +142,7 @@ export default function WebsocketReducer(state = initialState, action) {
                     uid: action.data.uid,
                     time: action.data.time,
                     empNo: action.data.empno,
-                    roomId: action.data.roomId
+                    roomId: action.data.rid
                 }
             };
             return {

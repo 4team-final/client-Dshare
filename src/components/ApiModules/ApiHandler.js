@@ -28,13 +28,8 @@ export const requestByEmployeeLogin = async (dataSet) => {
 export const requestByEmployeeLogout = async () => {
     const response = await dshareAPI('logout').then((res) => (res.data.status === 'OK' ? 0 : 1));
     if (response === 0) {
-        console.log('alert 전');
         alert('정상적으로 로그아웃되었습니다.');
-        console.log('alert 후');
-        debugger;
         removeToken('two');
-        console.log('토큰삭제 진행');
-        debugger;
         window.location.href = '/';
         return;
     } else {

@@ -9,11 +9,11 @@ export const resSuccess = async (res) => {
         saveToken('refresh', res.headers[resRefresh]);
     }
     if (res.data.message.startsWith('refresh_expired') || res.data.status === 'CONFILCT') {
-        console.log('resInterceptor alert 전');
-        alert('로그인 시간이 만료되었습니다. 다시 로그인 해주세요.');
-        console.log('resInterceptor alert 후');
-        requestByEmployeeLogout();
-        debugger;
+        if (confirm('로그인 시간이 만료되었습니다. 다시 로그인 해주세요.')) {
+            requestByEmployeeLogout();
+        } else {
+            requestByEmployeeLogout();
+        }
         return;
     }
     if (res.data.message.startsWith('expired_token') || res.data.status === 'FORBIDDEN') {
@@ -54,12 +54,14 @@ export const resSuccess = async (res) => {
                     });
             }
         } else {
-            alert('토큰이 존재하지 않습니다. 다시 로그인 해주세요.');
-            requestByEmployeeLogout();
+            if (confirm('토큰이 존재하지 않습니다. 다시 로그인 해주세요.')) {
+                requestByEmployeeLogout();
+            } else {
+                requestByEmployeeLogout();
+            }
             return;
         }
     }
-    debugger;
     return res;
 };
 export const resError = (err) => {

@@ -45,12 +45,15 @@ export const WebsocketController = () => {
                 : socketMsgByReservation('ENTER', { vid: vid, uid: uid, empno: empNo })
         );
     };
-    const DisconnectHandler = () => {
+    const QuitSocket = () => {
         dispatch(
             type === 0
                 ? socketMsgByReservation('R_QUIT', { rid: rid, uid: uid, empno: empNo })
                 : socketMsgByReservation('QUIT', { vid: vid, uid: uid, empno: empNo })
         );
+    };
+    const DisconnectHandler = () => {
+        QuitSocket();
         navigate('/main/dashboard/default');
         location.reload();
     };
@@ -84,7 +87,7 @@ export const WebsocketController = () => {
                 ? socketMsgByReservation('R_TALK', { rid: rid, uid: uid, empno: empNo, time: time })
                 : socketMsgByReservation('TALK', { vid: vid, uid: uid, empno: empNo, time: time })
         );
-        DisconnectHandler();
+        QuitSocket();
 
         let start = transTime.start.replace('T', ' ');
         let end = transTime.end.replace('T', ' ');

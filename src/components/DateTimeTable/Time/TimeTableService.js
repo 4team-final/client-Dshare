@@ -32,10 +32,12 @@ const TimeTable = () => {
     };
     const setTimeTable = () => {
         let copyList = [];
+        let copyList2 = [];
         for (let i = 0; i < dataList.length; i++) {
             copyList.push(dataList[i]);
+            copyList2.push(dataList[i].isSeat);
         }
-        setSendData([...copyList]);
+        setSendData([...copyList2]);
         const fliterDataList = copyList.map((v, i) => (v.isSeat === 1 && v.isSeat === defaultList[i].isSeat ? { ...v, isSeat: 0 } : v));
         const filterCopyData = fliterDataList.filter((v) => v.isSeat === 1);
         let startUid = moment(filterCopyData[0].uid).format('YYYY-MM-DD');
