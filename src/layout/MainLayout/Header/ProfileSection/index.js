@@ -92,7 +92,6 @@ const ProfileSection = () => {
         if (route && route !== '') {
             navigate(route);
         }
-        console.log(empInfo.id);
 
         dispatch(goAdminPage());
     };

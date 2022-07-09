@@ -32,7 +32,13 @@ import {
     SELECT_COMPLETE_ROOM_RESERVATION_ERROR,
     SELECT_COMPLETE_VEHICLE_RESERVATION,
     SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS,
-    SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR
+    SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR,
+    RESERVATION_TIME_ROOM_GET,
+    RESERVATION_TIME_ROOM_GET_SUCCESS,
+    RESERVATION_TIME_ROOM_GET_ERROR,
+    RESERVATION_TIME_VEHICLE_GET,
+    RESERVATION_TIME_VEHICLE_GET_SUCCESS,
+    RESERVATION_TIME_VEHICLE_GET_ERROR
 } from 'store/actions/CalendarAction';
 
 const initialState = {
@@ -44,7 +50,9 @@ const initialState = {
     roomReservation: reducerUtils.initial(),
     vehicleReservation: reducerUtils.initial(),
     completeRoomReservation: reducerUtils.initial(),
-    completeVehicleReservation: reducerUtils.initial()
+    completeVehicleReservation: reducerUtils.initial(),
+    timeRoomReservation: reducerUtils.initial(),
+    timeVehicleReservation: reducerUtils.initial()
 };
 
 export default function CalendarReducer(state = initialState, action) {
@@ -93,6 +101,14 @@ export default function CalendarReducer(state = initialState, action) {
         case SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS:
         case SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR:
             return handleAsyncActions(SELECT_COMPLETE_VEHICLE_RESERVATION, 'completeVehicleReservation')(state, action);
+        case RESERVATION_TIME_ROOM_GET:
+        case RESERVATION_TIME_ROOM_GET_SUCCESS:
+        case RESERVATION_TIME_ROOM_GET_ERROR:
+            return handleAsyncActions(RESERVATION_TIME_ROOM_GET, 'timeRoomReservation')(state, action);
+        case RESERVATION_TIME_VEHICLE_GET:
+        case RESERVATION_TIME_VEHICLE_GET_SUCCESS:
+        case RESERVATION_TIME_VEHICLE_GET_ERROR:
+            return handleAsyncActions(RESERVATION_TIME_VEHICLE_GET, 'timeVehicleReservation')(state, action);
         default:
             return state;
     }

@@ -74,3 +74,27 @@ export const selectCompleteVehicleReservationAPI = async () => {
         .then((res) => res.data)
         .catch((error) => console.log(error));
 };
+//dashboard API - 특정 일시 회의실 예약 현황 조회
+//- /emp/room/reservation/time/{startTime}/{endTime}
+//localhost:8082/emp/room/reservation/time2
+export const findReservationRoomTime = async (data) => {
+    console.log(data);
+    const result = dshareAPI
+        .get(`emp/room/reservation/time2/${data.startTime}/${data.endTime}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err);
+        });
+    return result;
+};
+//dashboard API - 특정 일시 차량 예약 현황 조회
+//- /emp/vehicle/list/time/{start}/{end}
+export const findReservationVehicleTime = async (data) => {
+    const result = dshareAPI
+        .get(`emp/vehicle/list/time2/${data.startTime}/${data.endTime}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err);
+        });
+    return result;
+};

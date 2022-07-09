@@ -139,8 +139,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const [threeData, setThreeData] = useState([]);
     const [sevenData, setSevenData] = useState([]);
 
-    const [select, isSelect] = useState(0);
-    const [select2, isSelect2] = useState(1);
+    const [select, isSelect] = useState();
+    const [select2, isSelect2] = useState();
 
     const [graphType, setGraphType] = useState('bar');
 
@@ -205,7 +205,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         if (a > b) {
             return 1;
         }
-        if (a === b) {
+        if (a == b) {
             return 0;
         }
         if (a < b) {
@@ -214,6 +214,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     }
     //---------------------------------------------------------------------------------------------
     //1,3,7 일간 많이 예약된 회의실
+
     useEffect(() => {
         if (oneDayRoomReservaionCount?.data?.value) {
             setOneDayList1(oneDayRoomReservaionCount.data.value.sort((a, b) => sort1(a.roomId, b.roomId)));
@@ -267,7 +268,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     //1,3,7 일간 많이 예약한 차량 시간대
     useEffect(() => {
         if (oneDayVehicleReservaionTime?.data?.value) {
-            console.log(oneDayVehicleReservaionCount);
             setOneDayList5(oneDayVehicleReservaionTime.data.value.sort((a, b) => sort1(a.id, b.id)));
         }
         if (threeDayVehicleReservationTime?.data?.value) {
@@ -301,7 +301,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [onedayList1, threedayList1, sevendayList1, select, select2]);
+    }, [select, select2, onedayList1, threedayList1, sevendayList1]);
 
     useEffect(() => {
         //두번째 회의실 리스트 렌더링
@@ -313,7 +313,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [onedayList2, threedayList2, sevendayList2, select, select2]);
+    }, [select, select2, onedayList2, threedayList2, sevendayList2]);
 
     useEffect(() => {
         if (select == 0 && select2 == 3 && onedayList3.length > 0 && threedayList3.length > 0 && sevendayList3.length > 0) {
@@ -324,9 +324,11 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [onedayList3, threedayList3, sevendayList3, select, select2]);
+    }, [select, select2, onedayList3, threedayList3, sevendayList3]);
     useEffect(() => {
         if (select == 1 && select2 == 1 && onedayList4.length > 0 && threedayList4.length > 0 && sevendayList4.length > 0) {
+            console.log(111111);
+
             async function fetch() {
                 const List = await categoriesName(onedayList4, threedayList4, sevendayList4);
                 setArrX(List);
@@ -334,7 +336,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [onedayList4, threedayList4, sevendayList4, select, select2]);
+    }, [select, select2, onedayList4, threedayList4, sevendayList4]);
     useEffect(() => {
         if (select == 1 && select2 == 2 && onedayList5.length > 0 && threedayList5.length > 0 && sevendayList5.length > 0) {
             async function fetch() {
@@ -344,7 +346,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [onedayList5, threedayList5, sevendayList5, select, select2]);
+    }, [select, select2, onedayList5, threedayList5, sevendayList5]);
     useEffect(() => {
         if (select == 1 && select2 == 3 && threedayList6.length > 0 && sevendayList6.length > 0 && sevendayList6.length > 0) {
             async function fetch() {
@@ -354,10 +356,10 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [onedayList6, threedayList6, sevendayList6, select, select2]);
+    }, [select, select2, onedayList6, threedayList6, sevendayList6]);
 
     // x축 카테고리 설정 - 회의실/차량 이름
-    const categoriesName = useCallback((onedayList11, threedayList11, sevendayList11) => {
+    const categoriesName = useCallback(async (onedayList11, threedayList11, sevendayList11) => {
         let copyList = [];
 
         onedayList11.map((item) => {
@@ -370,14 +372,14 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             copyList.push(item?.roomNo || item?.vehicle?.name || item?.vname);
         });
 
-        copyList = copyList.filter((item, i) => copyList.indexOf(item) === i);
+        copyList = copyList.filter((item, i) => copyList.indexOf(item) == i);
 
         copyList.sort((a, b) => sort1(a, b));
         return copyList;
         // setArrX(copyList);
     }, []);
     // x축 카테고리 설정 - 시간
-    const categoriesTime = useCallback((onedayList11, threedayList11, sevendayList11) => {
+    const categoriesTime = useCallback(async (onedayList11, threedayList11, sevendayList11) => {
         let copyList = [];
 
         onedayList11.map((item) => {
@@ -390,7 +392,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             copyList.push(item?.hour || item?.htime);
         });
 
-        copyList = copyList.filter((item, i) => copyList.indexOf(item) === i);
+        copyList = copyList.filter((item, i) => copyList.indexOf(item) == i);
 
         copyList.sort((a, b) => sort1(a, b));
         return copyList;
@@ -398,7 +400,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     }, []);
 
     // y축 데이터 - 회의실/차량 별 개수
-    const dataCount = useCallback((onedayList11, threedayList11, sevendayList11, List) => {
+    const dataCount = useCallback(async (onedayList11, threedayList11, sevendayList11, List) => {
         let oneList = [...List];
         oneList.fill(0);
         let threeList = [...List];
@@ -446,10 +448,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
 
     // y축  데이터 - 시간 별
     const dataTimeCount = useCallback(async (onedayList11, threedayList11, sevendayList11, List) => {
-        console.log(onedayList11);
-        console.log(threedayList11);
-        console.log(sevendayList11);
-        console.log(List);
         let oneList = [...List];
         oneList.fill(0);
         let threeList = [...List];
@@ -457,10 +455,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         let sevenList = [...List];
         sevenList.fill(0);
         let tempX = [...List];
-        console.log(tempX);
-        console.log(oneList);
-        console.log(threeList);
-        console.log(sevenList);
 
         for (let i = 0; i < onedayList11.length; i++) {
             let item = onedayList11[i]?.hour || onedayList11[i]?.htime;
@@ -543,9 +537,9 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         setGraphType(event.target.value);
     };
     useEffect(() => {
-        if (graphType === 'bar') {
+        if (graphType == 'bar') {
             setchartDataResult({
-                height: 480,
+                height: 450,
                 type: 'bar',
                 options: {
                     ...chartData.options,
@@ -569,7 +563,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                     }
                 ]
             });
-        } else if (graphType === 'heatmap') {
+        } else if (graphType == 'heatmap') {
             // setchartDataRoomCount({ ...chartDataRoomCount });
             setchartDataResult({
                 type: 'heatmap',
@@ -660,58 +654,69 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>
                             <Grid container alignItems="center" justifyContent="space-between">
-                                <Grid item>
-                                    <Grid container direction="column" spacing={1}>
+                                <Grid item xs={12} md={4}>
+                                    <Grid
+                                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                        container
+                                        direction="column"
+                                        spacing={1}
+                                    >
                                         <Grid item>
-                                            <Typography variant="subtitle2">예약현황 조회</Typography>
+                                            <Typography variant="subtitle2">예약 통계 현황 조회</Typography>
                                         </Grid>
 
-                                        <Grid item>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                value={value}
-                                                onChange={(e) => setValue(e.target.value)}
-                                            >
-                                                {status.map((option) => (
-                                                    <MenuItem
-                                                        onClick={() => {
-                                                            handleSelected2(option);
-                                                        }}
-                                                        key={option.value}
-                                                        value={option.value}
-                                                    >
-                                                        {!select ? <>회의실을 </> : <>차량을 </>}
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </TextField>
-                                        </Grid>
+                                        <Grid item spacing={2} columnSpacing={2}>
+                                            <Grid item>
+                                                <TextField
+                                                    id="standard-select-currency"
+                                                    select
+                                                    value={value}
+                                                    onChange={(e) => setValue(e.target.value)}
+                                                >
+                                                    {status.map((option) => (
+                                                        <MenuItem
+                                                            onClick={() => {
+                                                                handleSelected2(option);
+                                                            }}
+                                                            key={option.value}
+                                                            value={option.value}
+                                                        >
+                                                            {!select ? <>회의실을 </> : <>차량을 </>}
+                                                            {option.label}
+                                                        </MenuItem>
+                                                    ))}
+                                                </TextField>
+                                            </Grid>
 
-                                        <Grid item>
-                                            <Box sx={{ minWidth: 60, width: 100 }}>
-                                                <FormControl fullWidth>
-                                                    <InputLabel id="demo-simple-select-label">그래프</InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-label"
-                                                        id="demo-simple-select"
-                                                        value={graphType}
-                                                        label="그래프"
-                                                        onChange={handleChange}
-                                                    >
-                                                        <MenuItem value={'bar'}>bar</MenuItem>
-                                                        <MenuItem value={'heatmap'}>heatmap</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </Box>
+                                            <Grid item>
+                                                <Box sx={{ minWidth: 60, width: 100 }}>
+                                                    <FormControl fullWidth>
+                                                        <InputLabel id="demo-simple-select-label">그래프</InputLabel>
+                                                        <Select
+                                                            labelId="demo-simple-select-label"
+                                                            id="demo-simple-select"
+                                                            value={graphType}
+                                                            label="그래프"
+                                                            onChange={handleChange}
+                                                        >
+                                                            <MenuItem value={'bar'}>bar</MenuItem>
+                                                            <MenuItem value={'heatmap'}>heatmap</MenuItem>
+                                                        </Select>
+                                                    </FormControl>
+                                                </Box>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <h1>{!select ? <>회의실</> : <>차량</>}</h1>
+                                <Grid item xs={12} md={4}>
+                                    <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        {!select ? <>회의실 통계</> : <>차량 통계</>}
+                                    </h1>
                                 </Grid>
-                                <Grid item>
-                                    <ReservationChoice />
+                                <Grid item xs={12} md={4}>
+                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        <ReservationChoice />
+                                    </div>
                                 </Grid>
                             </Grid>
                         </Grid>

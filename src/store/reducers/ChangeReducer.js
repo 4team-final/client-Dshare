@@ -22,6 +22,7 @@ const initialState = {
 export default function changeReducer(state = initialState, action) {
     switch (action.type) {
         case SELECTED_CHANGE_SAVE:
+            console.log(action.selected);
             return { ...state, selected: action.selected };
         case SELECTED_CHANGE_SAVE2:
             console.log(action.selected2);

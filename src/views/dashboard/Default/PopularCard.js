@@ -17,6 +17,8 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
+import CalendarFrame from 'components/Calendar';
+
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ isLoading }) => {
@@ -39,7 +41,8 @@ const PopularCard = ({ isLoading }) => {
             ) : (
                 <MainCard content={false}>
                     <CardContent>
-                        <Grid container spacing={gridSpacing}>
+                        <CalendarFrame />
+                        {/* <Grid container spacing={gridSpacing}>
                             <Grid item xs={12}>
                                 <Grid container alignContent="center" justifyContent="space-between">
                                     <Grid item>
@@ -288,14 +291,14 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </CardContent>
-                    <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
+                    {/* <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
                         <Button size="small" disableElevation>
                             View All
                             <ChevronRightOutlinedIcon />
                         </Button>
-                    </CardActions>
+                    </CardActions> */}
                 </MainCard>
             )}
         </>

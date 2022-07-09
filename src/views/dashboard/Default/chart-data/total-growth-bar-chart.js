@@ -116,7 +116,7 @@ export const chartData2 = {
     ],
     options: {
         chart: {
-            height: 450,
+            height: 480,
             type: 'heatmap'
         },
         dataLabels: {

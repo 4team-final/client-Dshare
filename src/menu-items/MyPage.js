@@ -25,15 +25,17 @@ const MyPage = {
                     id: 'room',
                     title: '회의실 보기',
                     type: 'item',
-                    url: '/main/room/list',
-                    target: true
+                    url: '/main/room/list'
+                    // ,
+                    // target: true
                 },
                 {
                     id: 'vehicle',
                     title: '차량 보기',
                     type: 'item',
-                    url: '/main/vehicle/list',
-                    target: true
+                    url: '/main/vehicle/list'
+                    // ,
+                    // target: true
                 }
             ]
         }

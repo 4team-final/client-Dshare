@@ -44,6 +44,14 @@ export const SELECT_COMPLETE_ROOM_RESERVATION_ERROR = 'SELECT_COMPLETE_ROOM_RESE
 export const SELECT_COMPLETE_VEHICLE_RESERVATION = 'SELECT_COMPLETE_VEHICLE_RESERVATION';
 export const SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS = 'SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS';
 export const SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR = 'SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR';
+//특정 일시 회의실 예약 현황 조회
+export const RESERVATION_TIME_ROOM_GET = 'RESERVATION_TIME_ROOM_GET';
+export const RESERVATION_TIME_ROOM_GET_SUCCESS = 'RESERVATION_TIME_ROOM_GET_SUCCESS';
+export const RESERVATION_TIME_ROOM_GET_ERROR = 'RESERVATION_TIME_ROOM_GET_ERROR';
+//특정 일시 차량 예약 현황 조회
+export const RESERVATION_TIME_VEHICLE_GET = 'RESERVATION_TIME_VEHICLE_GET';
+export const RESERVATION_TIME_VEHICLE_GET_SUCCESS = 'RESERVATION_TIME_VEHICLE_GET_SUCCESS';
+export const RESERVATION_TIME_VEHICLE_GET_ERROR = 'RESERVATION_TIME_VEHICLE_GET_ERROR';
 
 export const selectByRoomDateCalendar = createPromiseThunk(SELECT_ROOM_DATE_CALENDAR, CalendarApi.selectByRoomDateCalendar);
 export const selectByVehicleDateCalendar = createPromiseThunk(SELECT_VEHICLE_DATE_CALENDAR, CalendarApi.selectByVehicleDateCalendar);
@@ -62,3 +70,5 @@ export const selectCompleteVehicleReservation = createPromiseThunk(
     SELECT_COMPLETE_VEHICLE_RESERVATION,
     CalendarApi.selectCompleteVehicleReservationAPI
 );
+export const reservationRoomTime = createPromiseThunk(RESERVATION_TIME_ROOM_GET, CalendarApi.findReservationRoomTime);
+export const reservationVehicleTime = createPromiseThunk(RESERVATION_TIME_VEHICLE_GET, CalendarApi.findReservationVehicleTime);

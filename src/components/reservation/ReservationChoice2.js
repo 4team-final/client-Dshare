@@ -3,14 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import './ReservationChoice.scss';
 import { AiFillCar } from 'react-icons/ai';
 import { MdMeetingRoom } from 'react-icons/md';
-import { SelectedChangeSave } from 'store/actions/ChangeAction';
+import { SelectedChangeSave3 } from 'store/actions/ChangeAction';
 
 function ReservationChoice() {
     const dispatch = useDispatch();
 
     const handle = (data) => {
-        console.log(data);
-        dispatch(SelectedChangeSave(data));
+        dispatch(SelectedChangeSave3(data));
     };
 
     return (
