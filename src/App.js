@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import './App.scss';
 //redux
@@ -23,9 +23,11 @@ import themes from 'themes';
 
 // project imports
 import NavigationScroll from 'layout/NavigationScroll';
+import EmpCustomization from 'layout/Customization/EmpCustomization';
 
 //최상위 컴포넌트 App
 function App() {
+    const [empId, setEmpId] = useState(0);
     const customization = useSelector((state) => state.customization);
     const dispatch = useDispatch();
     // useEffect(async () => {
@@ -34,12 +36,15 @@ function App() {
     //         dispatch(goAdminPage());
     //     }
     // }, []);
+
     return (
         <div className="App">
+            {empId !== 0 && <EmpCustomization empId={empId}></EmpCustomization>}
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={themes(customization)}>
                     <CssBaseline />
                     <NavigationScroll>
+                        {/* <Routes giveEmpId={giveEmpId} /> */}
                         <CustomRoutes />
                     </NavigationScroll>
                 </ThemeProvider>

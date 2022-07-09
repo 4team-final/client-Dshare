@@ -16,7 +16,7 @@ const admin = {
     children: [
         {
             id: 'RoomResInfo',
-            title: '전사원 회의실 예약 현황',
+            title: '회의실 예약 현황',
             type: 'item',
             url: '/main/admin/RoomResInfo',
             icon: icons.StorefrontTwoToneIcon,
@@ -24,7 +24,7 @@ const admin = {
         },
         {
             id: 'VehicleResInfo',
-            title: '전사원 차량 예약 현황',
+            title: '차량 예약 현황',
             type: 'item',
             url: '/main/admin/VehicleResInfo',
             icon: icons.DirectionsCarFilledOutlinedIcon,

@@ -8,6 +8,8 @@ import Loadable from 'ui-component/Loadable';
 // 사원등록
 const AdminRegister = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
 const AdminEmpInfo = Loadable(lazy(() => import('page/admin/main/AdminEmpInfo')));
+const AdminRoomResInfo = Loadable(lazy(() => import('page/admin/main/AdminRoomResInfo')));
+const AdminVehicleResInfo = Loadable(lazy(() => import('page/admin/main/AdminVehicleResInfo')));
 const AdminRoutes = {
     path: '/main/admin',
     element: <MainLayout />,
@@ -19,6 +21,14 @@ const AdminRoutes = {
         {
             path: '/REmp',
             element: <AdminEmpInfo />
+        },
+        {
+            path: '/RoomResInfo',
+            element: <AdminRoomResInfo />
+        },
+        {
+            path: '/VehicleResInfo',
+            element: <AdminVehicleResInfo />
         }
     ]
 };
