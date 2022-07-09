@@ -3,10 +3,24 @@ export const SELECTED_CHANGE_SAVE2 = 'SELECTED_CHANGE_SAVE2';
 export const ITEM_CHANGE_SAVE = 'ITEM_CHANGE_SAVE';
 export const LIST_ITEM_ROOM_DELETE = 'LIST_ITEM_ROOM_DELETE';
 export const LIST_ITEM_VEHICLE_DELETE = 'LIST_ITEM_VEHICLE_DELETE';
+export const ALL_TIMER_MESSAGE = 'ALL_TIMER_MESSAGE';
 
 //오윤성
 export const PROFILE_CHANGE_SAVE = 'PROFILE_CHANGE_SAVE';
 export const GO_ADMIN_PAGE = 'GO_ADMIN_PAGE';
+
+export const AllTimerMessage = (message) => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: ALL_TIMER_MESSAGE,
+                allMessage: message
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
 
 export const SelectedChangeSave = (selected) => {
     return async (dispatch) => {

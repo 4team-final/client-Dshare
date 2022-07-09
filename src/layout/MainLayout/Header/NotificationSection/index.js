@@ -31,6 +31,7 @@ import NotificationList from './NotificationList';
 
 // assets
 import { IconBell } from '@tabler/icons';
+import Timer from 'components/Timer/Timer.js';
 
 // notification status options
 const status = [
@@ -151,29 +152,37 @@ const NotificationSection = () => {
                                             <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>
                                                 <Grid item>
                                                     <Stack direction="row" spacing={2}>
-                                                        <Typography variant="subtitle1">All Notification</Typography>
-                                                        <Chip
+                                                        <Typography variant="subtitle1">남은 예약 시간 / 반납시간 </Typography>
+                                                        {/* <Chip
                                                             size="small"
                                                             label="01"
                                                             sx={{
                                                                 color: theme.palette.background.default,
                                                                 bgcolor: theme.palette.warning.dark
                                                             }}
-                                                        />
+                                                        /> */}
                                                     </Stack>
                                                 </Grid>
-                                                <Grid item>
+                                                {/* <Grid item>
                                                     <Typography component={Link} to="#" variant="subtitle2" color="primary">
                                                         Mark as all read
                                                     </Typography>
-                                                </Grid>
+                                                </Grid> */}
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12}>
                                             <PerfectScrollbar
-                                                style={{ height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden' }}
+                                                style={{
+                                                    width: '30em',
+                                                    height: '100%',
+                                                    maxHeight: 'calc(100vh - 205px)',
+                                                    overflowX: 'hidden',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center'
+                                                }}
                                             >
-                                                <Grid container direction="column" spacing={2}>
+                                                {/* <Grid container direction="column" spacing={2}>
                                                     <Grid item xs={12}>
                                                         <Box sx={{ px: 2, pt: 0.25 }}>
                                                             <TextField
@@ -197,17 +206,18 @@ const NotificationSection = () => {
                                                     <Grid item xs={12} p={0}>
                                                         <Divider sx={{ my: 0 }} />
                                                     </Grid>
-                                                </Grid>
-                                                <NotificationList />
+                                                </Grid> */}
+                                                {/* <NotificationList /> */}
+                                                <Timer />
                                             </PerfectScrollbar>
                                         </Grid>
                                     </Grid>
                                     <Divider />
-                                    <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
+                                    {/* <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
                                         <Button size="small" disableElevation>
                                             View All
                                         </Button>
-                                    </CardActions>
+                                    </CardActions> */}
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>

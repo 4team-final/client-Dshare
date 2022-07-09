@@ -6,30 +6,37 @@ import ReservationChoice from 'components/reservation/ReservationChoice';
 import MyReservationDetail from 'components/reservation/MyReservationDetail';
 import CalendarFrame from 'components/Calendar/index';
 import { BsCalendarDate } from 'react-icons/bs';
+import Loading from 'components/Loading';
 
 function ReservationStatusPage() {
+    const [isLoading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 400);
+    }, []);
     return (
         <>
-            <div className="layout">
-                <div className="left">
-                    <Timer />
-                    <div className="calendar">{/* <CalendarFrame /> */}</div>
-                </div>
-                <div className="middle">
-                    <div className="date">
-                        시간 선택
-                        <BsCalendarDate className="CalendarDate" />
-                    </div>
-                    <div className="card">
-                        <MyReservationDetail />
-                    </div>
-                </div>
+            {isLoading ? (
+                <>
+                    <Loading center={true} text={'내 예약 조회중'} />
+                </>
+            ) : (
+                <>
+                    <div className="layout">
+                        <div className="left">
+                            {/* <Timer /> */}
+                            <MyReservationDetail />
+                        </div>
 
-                <div className="right">
-                    <ReservationChoice />
-                    <MyReservationList />
-                </div>
-            </div>
+                        <div className="right">
+                            <ReservationChoice />
+                            <MyReservationList />
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     );
 }
