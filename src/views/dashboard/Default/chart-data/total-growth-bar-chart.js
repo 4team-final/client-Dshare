@@ -116,7 +116,7 @@ export const chartData2 = {
     ],
     options: {
         chart: {
-            height: 450,
+            height: 480,
             type: 'heatmap'
         },
         dataLabels: {
@@ -136,26 +136,26 @@ export const chartData2 = {
                     ranges: [
                         {
                             from: 0,
-                            to: 20,
-                            name: '0~20',
+                            to: 10,
+                            name: '0~10',
                             color: '#00A100'
+                        },
+                        {
+                            from: 11,
+                            to: 20,
+                            name: '11~20',
+                            color: '#128FD9'
                         },
                         {
                             from: 21,
                             to: 40,
                             name: '21~40',
-                            color: '#128FD9'
-                        },
-                        {
-                            from: 41,
-                            to: 60,
-                            name: '41~60',
                             color: '#FFB200'
                         },
                         {
-                            from: 61,
-                            to: 150,
-                            name: '61~150',
+                            from: 41,
+                            to: 100,
+                            name: '41~100',
                             color: '#FF0000'
                         }
                     ]

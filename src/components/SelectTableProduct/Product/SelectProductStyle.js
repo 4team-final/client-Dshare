@@ -1,48 +1,29 @@
 import styled from 'styled-components';
 
-export const HalfWidthFrame = styled.div`
-    max-width: 800px;
-    height: ${(props) => props.height}px;
-    background-color: #fff;
-    text-align: center;
-    margin: 15px auto;
-    border-radius: 30px;
+export const SubContentFrame = styled.div`
+    border-right: solid 3px #1296ec;
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 50px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    border: #1296ec 2px solid;
+    width: 200px;
 `;
 
-export const ComponentFrame = styled.div`
-    width: 97%;
-    height: ${(props) => props.height}px;
-    overflow-y: none;
-    margin: auto;
-    padding-top: 1%;
-    padding-bottom: 3%;
-`;
-
-export const CardFrame = styled.div`
-    margin: auto;
-    padding: 0;
-    display: block;
-    width: 100px;
-    height: auto;
-    color: #1296ec;
-    border: #1296ec 1px solid;
+export const InsideContentFrame = styled.div`
     border-radius: 20px;
+    border: 1px solid #fff;
+    width: 120px;
+    height: auto;
     background-color: #${(props) => props.props};
-`;
-
-export const ImgCard = styled.img`
-    src: ${(props) => props};
-    height: 50px;
-    width: 100px;
-`;
-
-export const ListFrame = styled.ul`
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
+    box-shadow: inset 0 0 5px #fff;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+    &:hover {
+        box-shadow: inset 0 0 8px #1296ec;
+        width: 130px;
+        transition: all 0.3s;
+    }
 `;

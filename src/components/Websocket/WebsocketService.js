@@ -1,16 +1,17 @@
+// Install
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// User
 import { alertToSocketMessage, selectIsSeatByUIdAndVId } from 'store/actions/WebsocketAction';
 import { getAccess } from '../ApiModules/ApiParts';
+import { requestByEmployeeLogout } from '../ApiModules/ApiHandler';
 
 export const SocketConnection = (props) => {
-    const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [socketMsg, setSocketMsg] = useState();
     const dispatch = useDispatch();
-    const vehicleURL = 'ws://15.164.185.111:8082/emp/vehicle/chat';
-    const roomURL = 'ws://15.164.185.111:8082/ws/room';
+    const vehicleURL = process.env.REACT_APP_SOCKET_VEHICLE;
+    const roomURL = process.env.REACT_APP_SOCKET_ROOM;
     const enterState = useSelector((state) => state.websocketReducer.enter);
     const roomEnterState = useSelector((state) => state.websocketReducer.roomenter);
     const talkState = useSelector((state) => state.websocketReducer.talk);
@@ -99,9 +100,6 @@ export const SocketConnection = (props) => {
             console.log(error);
         }
     };
-    const returnToMain = (route) => {
-        navigate(route);
-    };
     return <></>;
 };
 
@@ -111,7 +109,7 @@ export const onOpenTable = (socket, enter) => {
     try {
         if (!token) {
             alert('로그인 후 이용해주세요.');
-            returnToMain('/');
+            requestByEmployeeLogout();
             return;
         }
         socket.onopen = () => {
@@ -152,7 +150,7 @@ export const sendMessage = (socket, message) => {
     try {
         if (!token) {
             alert('로그인 후 이용해주세요.');
-            returnToMain('/');
+            requestByEmployeeLogout();
             return;
         }
         const data = message;

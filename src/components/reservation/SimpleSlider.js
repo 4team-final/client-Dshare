@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import Slider from 'react-slick';
 import { useSelector, useDispatch } from 'react-redux';
-import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from '../../store/actions/ReservationAction';
+import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from 'store/actions/ReservationAction';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

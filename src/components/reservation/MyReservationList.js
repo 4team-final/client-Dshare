@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { myReservationRoomList, myReservationVehicleList } from '../../store/actions/ReservationAction';
-import { ItemChangeSave } from '../../store/actions/ChangeAction';
+import { myReservationRoomList, myReservationVehicleList } from 'store/actions/ReservationAction';
+import { ItemChangeSave } from 'store/actions/ChangeAction';
 import './MyReservationList.scss';
 import MyReservationCard from './MyReservationCard';
 import Loading from '../Loading';
@@ -46,11 +46,9 @@ function MyReservationList() {
     useEffect(() => {
         if (reqRoom.lastId >= 0 && select === 0) {
             if (resRoomList.length === 0) {
-                function fetchList() {
-                    setLoading(true);
-                    dispatch(myReservationRoomList(reqRoom));
-                }
-                fetchList();
+                setLoading(true);
+                dispatch(myReservationRoomList(reqRoom));
+
                 setLoading(false);
             }
         }
@@ -59,11 +57,8 @@ function MyReservationList() {
     useEffect(() => {
         if (reqVehicle.lastId >= 0 && select === 1) {
             if (resVehicleList.length === 0) {
-                function fetchList() {
-                    setLoading(true);
-                    dispatch(myReservationVehicleList(reqVehicle));
-                }
-                fetchList();
+                setLoading(true);
+                dispatch(myReservationVehicleList(reqVehicle));
                 setLoading(false);
             }
         }
@@ -135,8 +130,9 @@ function MyReservationList() {
     }, [resRoomList, resVehicleList]);
 
     function handleDetail(item) {
-        console.log(item);
+        setLoading(true);
         dispatch(ItemChangeSave(item));
+        setLoading(false);
     }
 
     const container = useRef(null);
@@ -201,7 +197,7 @@ function MyReservationList() {
 
     return (
         <div className="MyReservatationList" id="MyReservatationList" ref={container}>
-            <div className="title">내 예약 현황 목록 / Total - {total}</div>
+            {/* <div className="title">내 예약 현황 목록 / Total - {total}</div> */}
 
             {!loading ? (
                 <>
@@ -210,7 +206,7 @@ function MyReservationList() {
                             {resRoomList.length > 0 ? (
                                 <>
                                     {resRoomList.map((item) => (
-                                        <div onClick={() => handleDetail(item)}>
+                                        <div key={item.reservationId} onClick={() => handleDetail(item)}>
                                             <MyReservationCard key={item.reservationResDTO.id} data={item} />
                                         </div>
                                     ))}
@@ -233,7 +229,7 @@ function MyReservationList() {
                                 <>
                                     {resVehicleList.map((item, i) => {
                                         return (
-                                            <div onClick={() => handleDetail(item)}>
+                                            <div key={item.reservationId} onClick={() => handleDetail(item)}>
                                                 <MyReservationCard data={item} key={item.reservationId}></MyReservationCard>
                                             </div>
                                         );

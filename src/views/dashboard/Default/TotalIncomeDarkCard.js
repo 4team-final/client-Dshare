@@ -92,7 +92,7 @@ const TotalIncomeDarkCard = (props) => {
         if (check) {
             let Rdata = await delVBookmark(id);
             setVBookmark(Rdata);
-            console.log(Rdata);
+            // console.log(Rdata);
         }
     };
 
@@ -150,7 +150,7 @@ const TotalIncomeDarkCard = (props) => {
                             {/* <Grid container spacing={gridSpacing} sx={{ p: 3 }}> */}
 
                             {VBookmark.map((v) => (
-                                <SubCard title={v.name} style={{ width: '100%', marginBottom: '50px' }}>
+                                <SubCard key={v.id} title={v.name} style={{ width: '100%', marginBottom: '50px' }}>
                                     <List
                                         style={{
                                             width: '100%',

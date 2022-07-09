@@ -14,7 +14,11 @@ import {
     SET_PRODUCT,
     VALID_IS_SEAT,
     CONVERT_TO_TIME,
-    SOCKET_MESSAGE
+    SOCKET_MESSAGE,
+    ARRAY_TO_TIMETABLE,
+    SET_TITLE,
+    SET_CONTENT,
+    INIT_DATA
 } from 'store/actions/WebsocketAction';
 
 const initialMsg = {
@@ -45,7 +49,11 @@ const initialState = {
     product: initialSet,
     validisseat: { ready: false },
     converttotime: initialSet,
-    socketmessage: initialSet
+    socketmessage: initialSet,
+    arraytotime: initialSet,
+    title: initialSet,
+    content: initialSet,
+    resetdata: { ready: false }
 };
 
 export default function WebsocketReducer(state = initialState, action) {
@@ -136,7 +144,7 @@ export default function WebsocketReducer(state = initialState, action) {
                     uid: action.data.uid,
                     time: action.data.time,
                     empNo: action.data.empno,
-                    roomId: action.data.roomId
+                    roomId: action.data.rid
                 }
             };
             return {
@@ -228,6 +236,47 @@ export default function WebsocketReducer(state = initialState, action) {
                     loading: true,
                     data: action.data
                 }
+            };
+        case ARRAY_TO_TIMETABLE:
+            return {
+                ...state,
+                arraytotime: {
+                    loading: true,
+                    data: action.data
+                }
+            };
+        case SET_TITLE:
+            return {
+                ...state,
+                title: {
+                    loading: true,
+                    data: action.data
+                }
+            };
+        case SET_CONTENT:
+            return {
+                ...state,
+                content: {
+                    loading: true,
+                    data: action.data
+                }
+            };
+        case INIT_DATA:
+            return {
+                ...state,
+                resetdata: { ready: true },
+                isSeatData: initialSet,
+                uid: initialSet,
+                vid: initialSet,
+                rid: initialSet,
+                empno: initialSet,
+                product: initialSet,
+                socketmessage: initialSet,
+                arraytotime: initialSet,
+                title: initialSet,
+                content: initialSet,
+                validisseat: { ready: false },
+                converttotime: initialSet
             };
         default:
             return state;

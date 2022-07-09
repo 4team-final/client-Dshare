@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { baseUrl } from 'components/ApiModules/ApiParts';
-import { getUserProfile } from 'components/ApiModules/ApiHandler';
+import { getUserProfile, requestByEmployeeLogout } from 'components/ApiModules/ApiHandler';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,7 +75,7 @@ const ProfileSection = () => {
      * */
     const anchorRef = useRef(null);
     const handleLogout = async () => {
-        console.log('Logout');
+        requestByEmployeeLogout();
     };
 
     const handleClose = (event) => {

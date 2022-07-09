@@ -6,7 +6,6 @@ import './App.scss';
 import ReservationStatusPage from './page/employee/main/reservation/ReservationStatusPage';
 
 import QuickMenu from './components/Outlet/QuickMenu';
-import PublicRoute from './components/Route/Public';
 //store
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +16,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 
 // routing
-import Routes from 'routes';
+import CustomRoutes from 'routes';
 
 // defaultTheme
 import themes from 'themes';
@@ -38,11 +37,6 @@ function App() {
     //     }
     // }, []);
 
-    const giveEmpId = (id) => {
-        setEmpId(id);
-        console.log(empId);
-    };
-
     return (
         <div className="App">
             {empId !== 0 && <EmpCustomization empId={empId}></EmpCustomization>}
@@ -50,7 +44,8 @@ function App() {
                 <ThemeProvider theme={themes(customization)}>
                     <CssBaseline />
                     <NavigationScroll>
-                        <Routes giveEmpId={giveEmpId} />
+                        {/* <Routes giveEmpId={giveEmpId} /> */}
+                        <CustomRoutes />
                     </NavigationScroll>
                 </ThemeProvider>
             </StyledEngineProvider>

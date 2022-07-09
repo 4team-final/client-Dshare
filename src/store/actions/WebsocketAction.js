@@ -16,6 +16,10 @@ export const SET_PRODUCT = 'SET_PRODUCT';
 export const VALID_IS_SEAT = 'VALID_IS_SEAT';
 export const CONVERT_TO_TIME = 'CONVERT_TO_TIME';
 export const SOCKET_MESSAGE = 'SOCKET_MESSAGE';
+export const ARRAY_TO_TIMETABLE = 'ARRAY_TO_TIMETABLE';
+export const SET_TITLE = 'SET_TITLE';
+export const SET_CONTENT = 'SET_CONTENT';
+export const INIT_DATA = 'INIT_DATA';
 
 export const socketMsgByReservation = (type, set) => {
     return (dispatch) => {
@@ -136,6 +140,46 @@ export const alertToSocketMessage = (data) => {
     return (dispatch) => {
         try {
             dispatch({ type: SOCKET_MESSAGE, data: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const convertArrayToTimeTable = (data) => {
+    return (dispatch) => {
+        try {
+            dispatch({ type: ARRAY_TO_TIMETABLE, data: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const selectByTitle = (data) => {
+    return (dispatch) => {
+        try {
+            dispatch({ type: SET_TITLE, data: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const selectByContent = (data) => {
+    return (dispatch) => {
+        try {
+            dispatch({ type: SET_CONTENT, data: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const initSocketData = () => {
+    return (dispatch) => {
+        try {
+            dispatch({ type: INIT_DATA });
         } catch (error) {
             console.log(error);
         }

@@ -20,21 +20,21 @@ const Reservation = {
     type: 'group',
     children: [
         {
-            id: 'room-reserve',
-            title: '회의실 예약',
+            id: 'reservation',
+            title: '회의실/차량 예약 등록',
             type: 'item',
-            url: '/main/room/room-reserve',
+            url: '/main/emp/reservation',
             icon: icons.MdMeetingRoom,
             breadcrumbs: false
-        },
-        {
-            id: 'vehicle-reserve',
-            title: '차량 예약',
-            type: 'item',
-            url: '/main/reserve/vehicle-reserve',
-            icon: icons.AiFillCar,
-            breadcrumbs: false
         }
+        // {
+        //     id: 'vehicle-reserve',
+        //     title: '차량 예약',
+        //     type: 'item',
+        //     url: '/main/reserve/vehicle-reserve',
+        //     icon: icons.AiFillCar,
+        //     breadcrumbs: false
+        // }
     ]
 };
 
