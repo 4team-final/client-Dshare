@@ -9,6 +9,6 @@ import AdminRoutes from './AdminRoutes';
 
 // ==============================|| ROUTING RENDER ||============================== //
 
-export default function ThemeRoutes() {
+export default function ThemeRoutes(props) {
     return useRoutes([MainRoutes, AuthenticationRoutes, LoginRoutes, AdminRoutes], config.basename);
 }

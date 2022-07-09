@@ -19,7 +19,7 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,react

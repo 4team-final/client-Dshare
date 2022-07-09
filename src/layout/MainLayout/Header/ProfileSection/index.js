@@ -93,8 +93,9 @@ const ProfileSection = () => {
             navigate(route);
         }
         console.log(empInfo.id);
-
-        dispatch(goAdminPage());
+        if (empInfo.id) {
+            dispatch(goAdminPage());
+        }
     };
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -227,32 +228,36 @@ const ProfileSection = () => {
                                                     }
                                                 }}
                                             >
-                                                {AdminChk ? (
-                                                    <ListItemButton
-                                                        sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                        selected={selectedIndex === 0}
-                                                        onClick={(event) => handleListItemClick(event, 0, '/main/dashboard/default')}
-                                                    >
-                                                        <ListItemIcon>
-                                                            <IconSettings stroke={1.5} size="1.3rem" />
-                                                        </ListItemIcon>
-                                                        <ListItemText
-                                                            primary={<Typography variant="body2">사용자모드로 이동</Typography>}
-                                                        />
-                                                    </ListItemButton>
+                                                {empInfo.id == 1 ? (
+                                                    AdminChk ? (
+                                                        <ListItemButton
+                                                            sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                            selected={selectedIndex === 0}
+                                                            onClick={(event) => handleListItemClick(event, 0, '/main/dashboard/default')}
+                                                        >
+                                                            <ListItemIcon>
+                                                                <IconSettings stroke={1.5} size="1.3rem" />
+                                                            </ListItemIcon>
+                                                            <ListItemText
+                                                                primary={<Typography variant="body2">사용자모드로 이동</Typography>}
+                                                            />
+                                                        </ListItemButton>
+                                                    ) : (
+                                                        <ListItemButton
+                                                            sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                            selected={selectedIndex === 0}
+                                                            onClick={(event) => handleListItemClick(event, 0, '/main/dashboard/default')}
+                                                        >
+                                                            <ListItemIcon>
+                                                                <IconSettings stroke={1.5} size="1.3rem" />
+                                                            </ListItemIcon>
+                                                            <ListItemText
+                                                                primary={<Typography variant="body2">관리자모드로 이동</Typography>}
+                                                            />
+                                                        </ListItemButton>
+                                                    )
                                                 ) : (
-                                                    <ListItemButton
-                                                        sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                        selected={selectedIndex === 0}
-                                                        onClick={(event) => handleListItemClick(event, 0, '/main/dashboard/default')}
-                                                    >
-                                                        <ListItemIcon>
-                                                            <IconSettings stroke={1.5} size="1.3rem" />
-                                                        </ListItemIcon>
-                                                        <ListItemText
-                                                            primary={<Typography variant="body2">관리자모드로 이동</Typography>}
-                                                        />
-                                                    </ListItemButton>
+                                                    <></>
                                                 )}
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}

@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDemoData } from '@mui/x-data-grid-generator';
 import { getUser } from 'components/ApiModules/ApiHandler';
 import { getRealGridData, getCommodityColumns } from '@mui/x-data-grid-generator';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Avatar, Button } from 'antd';
-import EmpFilter from './RoomFilter';
 
 import EmpCustomization from 'layout/Customization/EmpCustomization';
 
@@ -31,29 +30,27 @@ export default function BasicExampleDataGrid() {
         {
             field: 'id',
             headerName: '수정',
-            renderCell: (params) => <EmpCustomization tmp={tmp} empId={`${params.value}`} />,
+            renderCell: (params) => <EmpCustomization empId={`${params.value}`} />,
             hide: false,
             sortable: false
         }
     ];
 
-    const tmp = useCallback(async () => {
-        let tmpEmp = await getUser();
-        console.log(tmpEmp);
-        setEmpData(tmpEmp);
-    });
-
     useEffect(() => {
+        async function tmp() {
+            let tmpEmp = await getUser();
+            console.log(tmpEmp);
+            setEmpData(tmpEmp);
+        }
         tmp();
         console.log(empData);
     }, []);
 
     console.log(empData);
+
     return (
-        <>
-            <div style={{ height: '80vh', width: '100%' }}>
-                <DataGrid columns={dataColumns} rows={empData} components={{ Toolbar: GridToolbar }} />
-            </div>
-        </>
+        <div style={{ height: '80vh', width: '100%' }}>
+            <DataGrid columns={dataColumns} rows={empData} components={{ Toolbar: GridToolbar }} />
+        </div>
     );
 }
