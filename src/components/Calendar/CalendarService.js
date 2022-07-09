@@ -5,12 +5,6 @@ import { ContentNote, ContentNoteSection, ContentFrame, ContentBadge } from './C
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRoomDateCalendar, selectVehicleDateCalendar } from 'store/actions/CalendarAction';
 
-const GetListData = (value) => {
-    let listData;
-
-    return listData || [];
-};
-
 const GetMonthData = (value) => {};
 
 export const CalendarContent = () => {
@@ -39,4 +33,14 @@ export const CalendarContent = () => {
     };
 
     return <Calendar fullscreen dateCellRender={dateCellRender} monthCellRender={monthCellRender} />;
+};
+
+const GetListData = (value) => {
+    const [listData, setListData] = useState([]);
+
+    useEffect(() => {
+        setListData([{ type: 'warning', message: 'hihi' }]);
+    }, [value]);
+
+    return listData;
 };

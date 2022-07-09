@@ -8,6 +8,7 @@ import { validIsSeat, socketMsgByReservation, selectByEmpNo } from 'store/action
 import { makeRoomReservation, makeVehicleReservation } from 'store/actions/CalendarAction';
 import { useNavigate } from 'react-router';
 import { CustomButton, CardFrame, HalfWidthFrame } from './WebSocketStyle';
+import AlertModule from 'components/Alerts';
 
 export const WebsocketController = () => {
     const navigate = useNavigate();
@@ -22,6 +23,10 @@ export const WebsocketController = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [reserved, setReserved] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('');
+    const [alertFlag, setAlertFlag] = useState(false);
+    const [socketMsg, setSocketMsg] = useState('');
+    const [socketFlag, setSocketFlag] = useState(false);
     const typeStore = useSelector((state) => state.websocketReducer.product);
     const vIdStore = useSelector((state) => state.websocketReducer.vid);
     const rIdStore = useSelector((state) => state.websocketReducer.rid);
@@ -31,6 +36,7 @@ export const WebsocketController = () => {
     const transTimeStore = useSelector((state) => state.websocketReducer.arraytotime);
     const titleStore = useSelector((state) => state.websocketReducer.title);
     const contentStore = useSelector((state) => state.websocketReducer.content);
+    const socketMsgStore = useSelector((state) => state.websocketReducer.socketmessage);
     const ConnectHandler = () => {
         dispatch(validIsSeat());
         dispatch(
@@ -50,27 +56,27 @@ export const WebsocketController = () => {
     };
     const SetTimeHandler = () => {
         if (type === 0 && rid === 0) {
-            alert('대여할 회의실을 선택해주세요.');
+            setAlertMsg('대여할 회의실을 선택해주세요.');
             return;
         }
         if (type === 1 && vid === 0) {
-            alert('대여할 차량을 선택해주세요.');
+            setAlertMsg('대여할 차량을 선택해주세요.');
             return;
         }
         if (uid === 0) {
-            alert('자원을 대여할 날짜를 선택해주세요.');
+            setAlertMsg('자원을 대여할 날짜를 선택해주세요.');
             return;
         }
         if (time.length < 1) {
-            alert('자원을 대여할 시간을 선택해주세요.');
+            setAlertMsg('자원을 대여할 시간을 선택해주세요.');
             return;
         }
         if (title === '' || title === null || title === undefined) {
-            alert('예약에 대한 제목을 입력해주세요.');
+            setAlertMsg('예약에 대한 제목을 입력해주세요.');
             return;
         }
         if (content === '' || content === null || content === undefined) {
-            alert('예약에 관한 사유를 입력해주세요.');
+            setAlertMsg('예약에 관한 사유를 입력해주세요.');
             return;
         }
         dispatch(
@@ -144,9 +150,34 @@ export const WebsocketController = () => {
             setContent(contentStore.data);
         }
     }, [contentStore]);
+    useEffect(() => {
+        if (alertMsg !== '') {
+            setAlertFlag(true);
+        }
+        setTimeout(() => {
+            setAlertFlag(false);
+            setAlertMsg('');
+        }, 2500);
+    }, [alertMsg]);
+    useEffect(() => {
+        if (socketMsgStore && socketMsgStore.data != null) {
+            setSocketMsg(socketMsgStore.data);
+        }
+    }, [socketMsgStore]);
+    useEffect(() => {
+        if (socketMsg !== '') {
+            setSocketFlag(true);
+        }
+        setTimeout(() => {
+            setSocketFlag(false);
+            setSocketMsg('');
+        }, 2500);
+    }, [socketMsg]);
 
     return (
         <HalfWidthFrame>
+            <AlertModule status={socketFlag} notice={'info'} font={'17'} contents={socketMsg} />
+            <AlertModule status={alertFlag} notice={'error'} font={'22'} contents={alertMsg} />
             <CardFrame>
                 <CustomButton onClick={ConnectHandler}>적용</CustomButton>
                 <CustomButton onClick={DisconnectHandler}>예약 취소</CustomButton>

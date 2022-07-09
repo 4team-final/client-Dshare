@@ -12,13 +12,7 @@ import { ComponentFrame, ContentFrame, FullWidthFrame } from './ReservationPageS
 
 export const ReservationPage = (props) => {
     const [updateData, setUpdateData] = useState(props?.data);
-    const [msg, setMsg] = useState(null);
-    const socketMsgStore = useSelector((state) => state.websocketReducer.socketmessage);
-    useEffect(() => {
-        if (socketMsgStore && socketMsgStore.data != null) {
-            setMsg(socketMsgStore.data);
-        }
-    }, [socketMsgStore]);
+
     return (
         <FullWidthFrame>
             <ComponentFrame>
@@ -30,7 +24,6 @@ export const ReservationPage = (props) => {
                 </ContentFrame>
             </ComponentFrame>
             <ComponentFrame>
-                {msg !== null ? <Alert severity="info">{socketMsgStore.data}</Alert> : <></>}
                 <ContentFrame>
                     <TimeTableFrame />
                 </ContentFrame>

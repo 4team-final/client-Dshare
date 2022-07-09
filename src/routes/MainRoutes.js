@@ -3,10 +3,9 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
-import ReservationPage from 'page/employee/main/reservation/Current/index';
+import ReservationPage from 'page/employee/main/reservation/Current';
 
 // my reservation routing
-
 const MyReservationDefault = Loadable(lazy(() => import('page/employee/main/reservation/ReservationStatusPage')));
 
 // dashboard routing
@@ -32,11 +31,7 @@ const MainRoutes = {
             element: <DashboardDefault />
         },
         {
-            path: '/room/room-reserve',
-            element: <ReservationPage />
-        },
-        {
-            path: '/reserve/vehicle-reserve',
+            path: '/emp/reservation',
             element: <ReservationPage />
         },
         {
