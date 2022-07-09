@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from 'store/actions/ReservationAction';
+import { AllTimerMessage } from 'store/actions/ChangeAction';
 import './Timer.scss';
 import { FcAlarmClock } from 'react-icons/fc';
 import Alert from '@mui/material/Alert';
@@ -29,6 +30,19 @@ function Timer() {
         dispatch(soonTimeVehicle(token));
         dispatch(ingTimeVehicle(token));
     }, []);
+
+    useEffect(() => {
+        if (message != '' || message2 != '' || message3 != '' || message4 != '') {
+            dispatch(
+                AllTimerMessage({
+                    message: message,
+                    message2: message2,
+                    message3: message3,
+                    message4: message4
+                })
+            );
+        }
+    }, [message, message2, message3, message4]);
     useEffect(() => {
         if (_soonTimeRoom === 0) {
             dispatch(soonIngTimeRoom(token));
@@ -60,14 +74,14 @@ function Timer() {
     useEffect(() => {
         const countdown = setInterval(() => {
             if (parseInt(_soonTimeRoom) > 0) {
-                setSoonTimeRoom(parseInt(_soonTimeRoom) - 10);
+                setSoonTimeRoom(parseInt(_soonTimeRoom) - 1000);
             }
-            if (parseInt(_soonTimeRoom) === 60) {
+            if (parseInt(_soonTimeRoom) === 60000) {
                 setMessage('회의시작 1분전! 서두르세요!!');
             } else if (parseInt(_soonTimeRoom) === 0) {
                 setMessage('');
             }
-        }, 10);
+        }, 1000);
         return () => clearInterval(countdown);
     }, [_soonTimeRoom]);
 
@@ -76,40 +90,40 @@ function Timer() {
             if (parseInt(_ingTimeRoom) > 0) {
                 setIngTimeRoom(parseInt(_ingTimeRoom) - 10);
             }
-            if (parseInt(_ingTimeRoom) === 60) {
+            if (parseInt(_ingTimeRoom) === 60000) {
                 setMessage2('회의종료 1분전! 수고하셨습니다!!');
             } else if (parseInt(_ingTimeRoom) === 0) {
                 setMessage2('');
             }
-        }, 10);
+        }, 1000);
         return () => clearInterval(countdown);
     }, [_ingTimeRoom]);
 
     useEffect(() => {
         const countdown = setInterval(() => {
             if (parseInt(_soonTimeVehicle) > 0) {
-                setSoonTimeVehicle(parseInt(_soonTimeVehicle) - 10);
+                setSoonTimeVehicle(parseInt(_soonTimeVehicle) - 1000);
             }
-            if (parseInt(_soonTimeVehicle) === 60) {
+            if (parseInt(_soonTimeVehicle) === 60000) {
                 setMessage3('차량시작 1분전! 안전운전!!');
             } else if (parseInt(_ingTimeVehicle) === 0) {
                 setMessage3('');
             }
-        }, 10);
+        }, 1000);
         return () => clearInterval(countdown);
     }, [_soonTimeVehicle]);
 
     useEffect(() => {
         const countdown = setInterval(() => {
             if (parseInt(_ingTimeVehicle) > 0) {
-                setIngTimeVehicle(parseInt(_ingTimeVehicle) - 10);
+                setIngTimeVehicle(parseInt(_ingTimeVehicle) - 1000);
             }
-            if (parseInt(_ingTimeVehicle) === 60) {
+            if (parseInt(_ingTimeVehicle) === 60000) {
                 setMessage4('차량반납 1분전! 수고하셨습니다!!');
             } else if (parseInt(_ingTimeVehicle) === 0) {
                 setMessage4('');
             }
-        }, 10);
+        }, 1000);
         return () => clearInterval(countdown);
     }, [_ingTimeVehicle]);
 
@@ -140,21 +154,17 @@ function Timer() {
         time = time % 1000;
         const mssecond = time;
 
-        if (!second) {
-            return mssecond;
-        }
-
         if (!minutes) {
-            return second + '초 ' + mssecond;
+            return second + '초 ';
         }
         if (!hours) {
-            return minutes + '분 ' + second + '초 ' + mssecond;
+            return minutes + '분 ' + second + '초 ';
         }
         if (!days) {
-            return hours + '시간 ' + minutes + '분 ' + second + '초 ' + mssecond;
+            return hours + '시간 ' + minutes + '분 ' + second + '초 ';
         }
 
-        return days + '일 ' + hours + '시간 ' + minutes + '분 ' + second + '초 ' + mssecond;
+        return days + '일 ' + hours + '시간 ' + minutes + '분 ' + second + '초 ';
     };
 
     return (

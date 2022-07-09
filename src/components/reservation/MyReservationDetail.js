@@ -181,27 +181,27 @@ function MyReservationDetail() {
                         </div>
                     )}
 
-                    <SimpleSlider data={roomItem?.room?.roomImgResDTOList} style={{ width: '95%', height: '200px' }} />
+                    <SimpleSlider data={roomItem?.room?.roomImgResDTOList} style={{ width: '95%', height: '70em' }} />
 
                     <CardContent>
                         <div className="content_layout">
                             <div className="half line">
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography variant="h6" component="div">
+                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
                                     {roomItem?.room.categoryName}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '12px' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
                                     {roomItem?.room.content}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, float: 'right', fontSize: '3em' }} color="text.secondary">
                                     비치 물품 :
                                     {roomItem?.room?.roomObjectResDTOList.map((item, i) => {
                                         return item.name !== ' ' && <>{item?.name} </>;
                                     })}
                                 </Typography>
-                                <Typography variant="body2" sx={{ float: 'right' }}>
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
                                     <BsFillHouseDoorFill size={'2em'} />
                                     {roomItem?.room.roomNo}호 {'  '}
                                     <IoIosPeople size={'2em'} />
@@ -209,17 +209,17 @@ function MyReservationDetail() {
                                 </Typography>
                             </div>
                             <div className="half">
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography variant="h6" component="div">
+                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
                                     {roomItem?.title}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '12px' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
                                     {roomItem?.reason}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary"></Typography>
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '12px' }}>
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
                                     <BsFillSkipEndFill size={'1em'} />
                                     시작 {convertDate(roomItem?.startedAt)} {'  '}
                                     <br />
@@ -272,22 +272,22 @@ function MyReservationDetail() {
                             </MenuItem>
                         </div>
                     )}
-                    <SimpleSlider data={vehicleItem?.imgList} style={{ width: '95%', height: '200px' }} />
+                    <SimpleSlider data={vehicleItem?.imgList} style={{ width: '95%', height: '70em' }} />
 
                     <CardContent>
                         <div className="content_layout">
                             <div className="half line">
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography variant="h6" component="div">
+                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
                                     {vehicleItem?.vname}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '12px' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
                                     {vehicleItem?.vnumber}
                                 </Typography>
 
-                                <Typography variant="body2" sx={{ float: 'right' }}>
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
                                     <AiFillCar size={'2em'} />
                                     {vehicleItem?.model} 모델 {'  '}
                                     <IoIosPeople size={'2em'} />
@@ -295,17 +295,17 @@ function MyReservationDetail() {
                                 </Typography>
                             </div>
                             <div className="half">
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography variant="h6" component="div">
+                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
                                     {vehicleItem?.title}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '12px' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
                                     {vehicleItem?.reason}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary"></Typography>
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '12px' }}>
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
                                     <BsFillSkipEndFill size={'1em'} />
                                     시작 {convertDate(vehicleItem?.reservationCreatedAt)} {'  '}
                                     <br />
