@@ -46,6 +46,14 @@ const MainRoutes = {
         {
             path: '/my/reservation/status',
             element: <MyReservationDefault />
+        },
+        {
+            path: '/vehicle/list',
+            element: <MyReservationDefault />
+        },
+        {
+            path: '/room/list',
+            element: <MyReservationDefault />
         }
     ]
 };

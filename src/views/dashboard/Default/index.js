@@ -14,6 +14,7 @@ import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/actions/DashboardConstant';
 import { getVBookmark, getUserProfile, getRBookmark } from 'components/ApiModules/ApiHandler';
 import { BsFillCalendarDateFill } from 'react-icons/bs';
+import { AiOutlineBarChart } from 'react-icons/ai';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
@@ -35,7 +36,7 @@ const Dashboard = () => {
             setVehicleBookmark(data);
             let Rdata = await getRBookmark();
             setRoomBookmark(Rdata);
-            console.log(Rdata);
+            // console.log(Rdata);
         }
         VBookmark();
         setLoading(false);
@@ -43,10 +44,17 @@ const Dashboard = () => {
     const handleClick = () => {
         scrollToBottom();
     };
+    const handleClick2 = () => {
+        scrollToBottom2();
+    };
     const scrollToBottom = useCallback(() => {
-        calendarH.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+        calendarH.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }, []);
+    const scrollToBottom2 = useCallback(() => {
+        dashboardX.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }, []);
     const calendarH = useRef();
+    const dashboardX = useRef();
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -68,20 +76,36 @@ const Dashboard = () => {
                                 <TotalIncomeLightCard isLoading={isLoading} roomBookmark={roomBookmark} />
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <Button
-                                    variant="outlined"
-                                    style={{
-                                        borderRadius: '20px',
-                                        border: '1px solid #d3d3d3',
-                                        backgroundColor: '#fafafa',
-                                        justifySelf: 'center',
-                                        alignItems: 'center'
-                                    }}
-                                    onClick={handleClick}
-                                >
-                                    <BsFillCalendarDateFill size={'3em'} style={{ marginRight: '1em' }} />{' '}
-                                    <span style={{ fontWeight: 'bold' }}>월별 현황</span>
-                                </Button>
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Button
+                                        variant="outlined"
+                                        style={{
+                                            borderRadius: '20px',
+                                            border: '1px solid #d3d3d3',
+                                            backgroundColor: '#fafafa',
+                                            justifySelf: 'center',
+                                            alignItems: 'center'
+                                        }}
+                                        onClick={handleClick}
+                                    >
+                                        <BsFillCalendarDateFill size={'2.5em'} style={{ marginRight: '1em' }} />{' '}
+                                        <span style={{ fontWeight: 'bold' }}>월별 현황</span>
+                                    </Button>
+                                    <Button
+                                        variant="outlined"
+                                        style={{
+                                            borderRadius: '20px',
+                                            border: '1px solid #d3d3d3',
+                                            backgroundColor: '#fafafa',
+                                            justifySelf: 'center',
+                                            alignItems: 'center'
+                                        }}
+                                        onClick={scrollToBottom2}
+                                    >
+                                        <AiOutlineBarChart size={'2.5em'} style={{ marginRight: '1em' }} />
+                                        <span style={{ fontWeight: 'bold' }}>통계 현황</span>
+                                    </Button>
+                                </div>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -90,7 +114,9 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12} md={graphInt}>
-                        <TotalGrowthBarChart isLoading={isLoading} />
+                        <div ref={dashboardX}>
+                            <TotalGrowthBarChart isLoading={isLoading} />
+                        </div>
                     </Grid>
                     <Grid item xs={12} md={calendarInt}>
                         <div ref={calendarH}>
