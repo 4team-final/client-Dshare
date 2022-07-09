@@ -23,17 +23,9 @@ const MyPage = {
             children: [
                 {
                     id: 'room',
-                    title: '회의실 보기',
+                    title: '회의실/차량 보기',
                     type: 'item',
-                    url: '/main/room/list'
-                    // ,
-                    // target: true
-                },
-                {
-                    id: 'vehicle',
-                    title: '차량 보기',
-                    type: 'item',
-                    url: '/main/vehicle/list'
+                    url: '/main/room/vehicle/list'
                     // ,
                     // target: true
                 }

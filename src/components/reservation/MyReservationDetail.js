@@ -114,10 +114,10 @@ function MyReservationDetail() {
         }
     };
 
-    const handleUpdate = () => {
-        //
-        window.confirm('수정 날짜방으로 이동하시겠습니까?');
-    };
+    // const handleUpdate = () => {
+    //     //
+    //     window.confirm('수정 날짜방으로 이동하시겠습니까?');
+    // };
     const handleDelete = (id) => {
         let isSure = window.confirm('정말 해당 예약을 삭제하시겠습니까?');
         if (isSure && select === 0) {
@@ -164,13 +164,13 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            <MenuItem
+                            {/* <MenuItem
                                 onClick={() => {
                                     handleUpdate();
                                 }}
                             >
                                 수정
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={() => {
                                     handleDelete(roomItem.id);
@@ -256,13 +256,13 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            <MenuItem
+                            {/* <MenuItem
                                 onClick={() => {
                                     handleUpdate();
                                 }}
                             >
                                 수정
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={() => {
                                     handleDelete(vehicleItem?.reservationId);
