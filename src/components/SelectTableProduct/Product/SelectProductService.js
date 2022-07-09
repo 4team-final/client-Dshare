@@ -1,16 +1,22 @@
+// Install
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { AiFillCar } from 'react-icons/ai';
+import { MdMeetingRoom } from 'react-icons/md';
+// User
 import { selectByType } from 'store/actions/WebsocketAction';
-import { HalfWidthFrame, ComponentFrame, CardFrame, ListFrame } from './SelectProductStyle';
+import { InsideContentFrame, SubContentFrame } from './SelectProductStyle';
 
-const SelectProductCard = () => {
-    return <CardFrame></CardFrame>;
-};
-
-const SelectProduct = () => {
+const SelectProductService = () => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
-    const [type, setType] = useState(0);
+    const [type, setType] = useState(2);
+    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    useEffect(() => {
+        if (resetStore && resetStore.ready) {
+            setType(2);
+        }
+    }, [resetStore]);
 
     useEffect(() => {
         if (selected) {
@@ -19,48 +25,33 @@ const SelectProduct = () => {
         }
     }, [selected]);
     return (
-        <ListFrame>
-            <CardFrame>
-                <SelectProductCard />
-                <button
+        <SubContentFrame>
+            <InsideContentFrame props={type === 0 ? '1565c0' : 'fff'}>
+                <MdMeetingRoom
+                    style={{ width: '100px', height: '100px' }}
                     onClick={() => {
                         setType(0);
                         setSelected(true);
                     }}
                 >
                     회의실
-                </button>
-            </CardFrame>
-            <CardFrame>
-                <SelectProductCard />
-                <button
+                </MdMeetingRoom>
+            </InsideContentFrame>
+            <InsideContentFrame props={type === 1 ? '1565c0' : 'fff'}>
+                <AiFillCar
+                    style={{ width: '100px', height: '100px' }}
                     onClick={() => {
                         setType(1);
                         setSelected(true);
                     }}
                 >
                     차량
-                </button>
-            </CardFrame>
-        </ListFrame>
+                </AiFillCar>
+            </InsideContentFrame>
+        </SubContentFrame>
     );
-};
-
-const SelectProductService = () => {
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(false);
-    }, []);
-    return <>{loading ? <></> : <SelectProduct />}</>;
 };
 
 export const SelectProductFrame = () => {
-    return (
-        <HalfWidthFrame>
-            <ComponentFrame>
-                <SelectProductService />
-            </ComponentFrame>
-        </HalfWidthFrame>
-    );
+    return <SelectProductService />;
 };

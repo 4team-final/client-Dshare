@@ -21,6 +21,29 @@ export const FIND_ALL_ROOM = 'FIND_ALL_ROOM';
 export const FIND_ALL_ROOM_SUCCESS = 'FIND_ALL_ROOM_SUCCESS';
 export const FIND_ALL_ROOM_ERROR = 'FIND_ALL_ROOM_ERROR';
 
+export const MAKE_ROOM_RESERVATION = 'MAKE_ROOM_RESERVATION';
+export const MAKE_ROOM_RESERVATION_SUCCESS = 'MAKE_ROOM_RESERVATION_SUCCESS';
+export const MAKE_ROOM_RESERVATION_ERROR = 'MAKE_ROOM_RESERVATION_ERROR';
+
+export const MAKE_VEHICLE_RESERVATION = 'MAKE_VEHICLE_RESERVATION';
+export const MAKE_VEHICLE_RESERVATION_SUCCESS = 'MAKE_VEHICLE_RESERVATION_SUCCESS';
+export const MAKE_VEHICLE_RESERVATION_ERROR = 'MAKE_VEHICLE_RESERVATION_ERROR';
+
+export const MODIFY_ROOM_RESERVATION = 'MODIFY_ROOM_RESERVATION';
+export const MODIFY_ROOM_RESERVATION_SUCCESS = 'MODIFY_ROOM_RESERVATION_SUCCESS';
+export const MODIFY_ROOM_RESERVATION_ERROR = 'MODIFY_ROOM_RESERVATION_ERROR';
+
+export const MODIFY_VEHICLE_RESERVATION = 'MODIFY_VEHICLE_RESERVATION';
+export const MODIFY_VEHICLE_RESERVATION_SUCCESS = 'MODIFY_VEHICLE_RESERVATION_SUCCESS';
+export const MODIFY_VEHICLE_RESERVATION_ERROR = 'MODIFY_VEHICLE_RESERVATION_ERROR';
+
+export const SELECT_COMPLETE_ROOM_RESERVATION = 'SELECT_COMPLETE_ROOM_RESERVATION';
+export const SELECT_COMPLETE_ROOM_RESERVATION_SUCCESS = 'SELECT_COMPLETE_ROOM_RESERVATION_SUCCESS';
+export const SELECT_COMPLETE_ROOM_RESERVATION_ERROR = 'SELECT_COMPLETE_ROOM_RESERVATION_ERROR';
+
+export const SELECT_COMPLETE_VEHICLE_RESERVATION = 'SELECT_COMPLETE_VEHICLE_RESERVATION';
+export const SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS = 'SELECT_COMPLETE_VEHICLE_RESERVATION_SUCCESS';
+export const SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR = 'SELECT_COMPLETE_VEHICLE_RESERVATION_ERROR';
 //특정 일시 회의실 예약 현황 조회
 export const RESERVATION_TIME_ROOM_GET = 'RESERVATION_TIME_ROOM_GET';
 export const RESERVATION_TIME_ROOM_GET_SUCCESS = 'RESERVATION_TIME_ROOM_GET_SUCCESS';
@@ -35,5 +58,17 @@ export const selectByVehicleDateCalendar = createPromiseThunk(SELECT_VEHICLE_DAT
 export const selectByVehicleNonReservation = createPromiseThunk(SELECT_VEHILCE_NON_RESERVATION, CalendarApi.selectByVehicleNonReservation);
 export const findAllByVehicle = createPromiseThunk(FIND_ALL_VEHICLE, CalendarApi.findAllByVehicle);
 export const findAllByRoom = createPromiseThunk(FIND_ALL_ROOM, CalendarApi.findAllByRoom);
+export const makeRoomReservation = createPromiseThunk(MAKE_ROOM_RESERVATION, CalendarApi.makeRoomReservationAPI);
+export const makeVehicleReservation = createPromiseThunk(MAKE_VEHICLE_RESERVATION, CalendarApi.makeVehicleReservationAPI);
+export const modifyRoomReservation = createPromiseThunk(MODIFY_ROOM_RESERVATION, CalendarApi.modifyRoomReservationAPI);
+export const modifyVehicleReservation = createPromiseThunk(MODIFY_VEHICLE_RESERVATION, CalendarApi.modifyVehicleReservationAPI);
+export const selectCompleteRoomReservation = createPromiseThunk(
+    SELECT_COMPLETE_ROOM_RESERVATION,
+    CalendarApi.selectCompleteRoomReservationAPI
+);
+export const selectCompleteVehicleReservation = createPromiseThunk(
+    SELECT_COMPLETE_VEHICLE_RESERVATION,
+    CalendarApi.selectCompleteVehicleReservationAPI
+);
 export const reservationRoomTime = createPromiseThunk(RESERVATION_TIME_ROOM_GET, CalendarApi.findReservationRoomTime);
 export const reservationVehicleTime = createPromiseThunk(RESERVATION_TIME_VEHICLE_GET, CalendarApi.findReservationVehicleTime);

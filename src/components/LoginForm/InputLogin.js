@@ -49,7 +49,7 @@ export default function InputLogin() {
             <form className="inputLoginForm" onSubmit={onClickLogin}>
                 <div className="input-container">
                     <FaRegUser className="i" />
-                    <input type="number" placeholder="사원번호 입력" onChange={idHandler} />
+                    <input type="text" placeholder="사원번호 입력" onChange={idHandler} />
                 </div>
                 <div className="input-container">
                     <IoIosLock className="i lock" />

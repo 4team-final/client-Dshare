@@ -1,34 +1,26 @@
-import CalendarFrame from '../../../../../components/Calendar/index';
-import SelectTableFrame from '../../../../../components/SelectTableProduct/Table/index';
-import TimeTableFrame from '../../../../../components/DateTimeTable/Time/index';
-import DateTableFrame from 'components/DateTimeTable/Date/index';
-import { ComponentFrame, ContentFrame, FullWidthFrame } from './ReservationPageStyle';
-import WebsocketController from 'components/Websocket/index';
-import SelectProductFrame from 'components/SelectTableProduct/Product/index';
+// Install
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
+// User
+import SelectTableFrame from '../../../../../components/SelectTableProduct/Table';
+import TimeTableFrame from '../../../../../components/DateTimeTable/Time';
+import DateTableFrame from 'components/DateTimeTable/Date';
+import BoardTableFrame from 'components/SelectTableProduct/Board';
+import WebsocketController from 'components/Websocket';
+import { ComponentFrame, ContentFrame, FullWidthFrame } from './ReservationPageStyle';
 
-export const ReservationPage = () => {
-    const [msg, setMsg] = useState(null);
-    const socketMsgStore = useSelector((state) => state.websocketReducer.socketmessage);
-    useEffect(() => {
-        if (socketMsgStore && socketMsgStore.data != null) {
-            setMsg(socketMsgStore.data);
-        }
-    }, [socketMsgStore]);
+export const ReservationPage = (props) => {
+    const [updateData, setUpdateData] = useState(props?.data);
+
     return (
         <FullWidthFrame>
             <ComponentFrame>
                 <ContentFrame>
-                    <SelectProductFrame />
-                </ContentFrame>
-                <ContentFrame>{/* <CalendarFrame /> */}</ContentFrame>
-                <ContentFrame>
                     <DateTableFrame />
                 </ContentFrame>
                 <ContentFrame>
-                    <SelectTableFrame />
+                    <BoardTableFrame />
                 </ContentFrame>
             </ComponentFrame>
             <ComponentFrame>
@@ -36,9 +28,11 @@ export const ReservationPage = () => {
                     <TimeTableFrame />
                 </ContentFrame>
                 <ContentFrame>
+                    <SelectTableFrame />
+                </ContentFrame>
+                <ContentFrame>
                     <WebsocketController />
                 </ContentFrame>
-                {msg !== null ? <Alert severity="info">{socketMsgStore.data}</Alert> : <></>}
             </ComponentFrame>
         </FullWidthFrame>
     );
