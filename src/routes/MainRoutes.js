@@ -11,6 +11,7 @@ const MyReservationDefault = Loadable(lazy(() => import('page/employee/main/rese
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+const AllResource = Loadable(lazy(() => import('components/board/BoardList')));
 
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
@@ -48,12 +49,8 @@ const MainRoutes = {
             element: <MyReservationDefault />
         },
         {
-            path: '/vehicle/list',
-            element: <MyReservationDefault />
-        },
-        {
-            path: '/room/list',
-            element: <MyReservationDefault />
+            path: '/room/vehicle/list',
+            element: <AllResource />
         }
     ]
 };

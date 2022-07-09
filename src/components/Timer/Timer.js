@@ -5,6 +5,7 @@ import { AllTimerMessage } from 'store/actions/ChangeAction';
 import './Timer.scss';
 import { FcAlarmClock } from 'react-icons/fc';
 import Alert from '@mui/material/Alert';
+import Loading from 'components/Loading';
 
 function Timer() {
     const reservationStore = useSelector((state) => state.reservationReducer);
@@ -24,11 +25,14 @@ function Timer() {
     const [message3, setMessage3] = useState('');
     const [message4, setMessage4] = useState('');
     const [oneStartTime, setOneStartTime] = useState(0);
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         dispatch(soonIngTimeRoom(token));
         dispatch(soonTimeVehicle(token));
         dispatch(ingTimeVehicle(token));
+        setLoading(false);
     }, []);
 
     useEffect(() => {
@@ -169,63 +173,71 @@ function Timer() {
 
     return (
         <>
-            <div className="box">
-                <FcAlarmClock className="alarmClock" />
-                <div className="block">
-                    {_soonTimeRoom > 0 ? (
-                        <div className="line">
-                            다음 회의실 예약 :<span className="bold">{handleUpdateTimer(_soonTimeRoom)}</span>
-                            남았습니다.
-                        </div>
-                    ) : (
-                        <div className="line">다음 회의실 예약이 없습니다.</div>
-                    )}
-                    {_ingTimeRoom > 0 ? (
-                        <div className="line">
-                            현재 회의실 반납 :<span className="bold">{handleUpdateTimer(_ingTimeRoom)} </span>
-                            남았습니다.
-                        </div>
-                    ) : (
-                        <div className="line">현재 반납할 회의실이 없습니다.</div>
-                    )}
-                    {_soonTimeVehicle > 0 ? (
-                        <div className="line">
-                            다음 차량 예약 :<span className="bold">{handleUpdateTimer(_soonTimeVehicle)}</span>
-                            남았습니다.
-                        </div>
-                    ) : (
-                        <div className="line">다음 차량 예약이 없습니다.</div>
-                    )}
-                    {_ingTimeVehicle > 0 ? (
-                        <div className="line">
-                            현재 차량 반납 :<span className="bold">{handleUpdateTimer(_ingTimeVehicle)}</span>
-                            남았습니다.
-                        </div>
-                    ) : (
-                        <div className="line">현재 반납할 차량이 없습니다.</div>
-                    )}
+            {isLoading ? (
+                <div className="box">
+                    <Loading text={'조회중...'} center={true} />
                 </div>
-                <div>
-                    {alertBool ? (
-                        <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
-                            <div className="memo">
-                                {message || message2 || message3 || message4 ? (
-                                    <>
-                                        <div>{message}</div>
-                                        <div>{message2}</div>
-                                        <div>{message3}</div>
-                                        <div>{message4}</div>
-                                    </>
-                                ) : (
-                                    <div className="memo">{message}</div>
-                                )}
-                            </div>
-                        </Alert>
-                    ) : (
-                        <></>
-                    )}
-                </div>
-            </div>
+            ) : (
+                <>
+                    <div className="box">
+                        <FcAlarmClock className="alarmClock" />
+                        <div className="block">
+                            {_soonTimeRoom > 0 ? (
+                                <div className="line">
+                                    다음 회의실 예약 :<span className="bold">{handleUpdateTimer(_soonTimeRoom)}</span>
+                                    남았습니다.
+                                </div>
+                            ) : (
+                                <div className="line">다음 회의실 예약이 없습니다.</div>
+                            )}
+                            {_ingTimeRoom > 0 ? (
+                                <div className="line">
+                                    현재 회의실 반납 :<span className="bold">{handleUpdateTimer(_ingTimeRoom)} </span>
+                                    남았습니다.
+                                </div>
+                            ) : (
+                                <div className="line">현재 반납할 회의실이 없습니다.</div>
+                            )}
+                            {_soonTimeVehicle > 0 ? (
+                                <div className="line">
+                                    다음 차량 예약 :<span className="bold">{handleUpdateTimer(_soonTimeVehicle)}</span>
+                                    남았습니다.
+                                </div>
+                            ) : (
+                                <div className="line">다음 차량 예약이 없습니다.</div>
+                            )}
+                            {_ingTimeVehicle > 0 ? (
+                                <div className="line">
+                                    현재 차량 반납 :<span className="bold">{handleUpdateTimer(_ingTimeVehicle)}</span>
+                                    남았습니다.
+                                </div>
+                            ) : (
+                                <div className="line">현재 반납할 차량이 없습니다.</div>
+                            )}
+                        </div>
+                        <div>
+                            {alertBool ? (
+                                <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
+                                    <div className="memo">
+                                        {message || message2 || message3 || message4 ? (
+                                            <>
+                                                <div>{message}</div>
+                                                <div>{message2}</div>
+                                                <div>{message3}</div>
+                                                <div>{message4}</div>
+                                            </>
+                                        ) : (
+                                            <div className="memo">{message}</div>
+                                        )}
+                                    </div>
+                                </Alert>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     );
 }

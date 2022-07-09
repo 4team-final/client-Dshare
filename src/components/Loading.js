@@ -5,9 +5,9 @@ import React from 'react';
 import 'react-spinner-animated/dist/index.css';
 import { Spinner } from 'react-spinner-animated';
 
-const Loading = ({ type, color, text, width, height }) => (
+const Loading = ({ type, color, text, width, height, center }) => (
     <>
-        <Spinner className="border" text={text} bgColor={'white'} center={false} width={'200px'} height={'200px'} />
+        <Spinner className="border" text={text} bgColor={'white'} center={center ? center : false} width={'200px'} height={'200px'} />
     </>
 );
 
