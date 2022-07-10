@@ -661,12 +661,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                         direction="column"
                                         spacing={1}
                                     >
-                                        <Grid item>
-                                            <Typography variant="subtitle2">예약 통계 현황 조회</Typography>
-                                        </Grid>
-
                                         <Grid item spacing={2} columnSpacing={2}>
-                                            <Grid item>
+                                            <Grid item style={{ marginBottom: '10%' }}>
                                                 <TextField
                                                     id="standard-select-currency"
                                                     select

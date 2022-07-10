@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import NumbersIcon from '@mui/icons-material/Numbers';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
@@ -155,7 +155,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             content={false}
                             sx={{
                                 height: '250px',
-                                backgroundImage: `url(${selectImg})`,
+                                backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url(${selectImg})`,
                                 backgroundSize: '100%',
                                 opacity: '1'
                             }}
@@ -254,7 +254,8 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     mr: 1,
                                                                     mt: 1.75,
                                                                     mb: 0.75,
-                                                                    textShadow: '2px 2px 2px gray'
+                                                                    textShadow: '2px 2px 2px gray',
+                                                                    marginBottom: '-5%'
                                                                 }}
                                                             >
                                                                 {rank}위: {selectData?.room?.categoryName}
@@ -267,7 +268,8 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     mr: 1,
                                                                     mt: 1.75,
                                                                     mb: 0.75,
-                                                                    textShadow: '2px 2px 2px gray'
+                                                                    textShadow: '2px 2px 2px gray',
+                                                                    marginBottom: '-5%'
                                                                 }}
                                                             >
                                                                 {rank}위: {selectData?.vehicle?.name}
@@ -288,9 +290,16 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 }}
                                                             >
                                                                 <br />
-                                                                <BsFillHouseDoorFill size={'2em'} />
-                                                                {selectData?.room?.roomNo}호 <IoIosPeople size={'2em'} />
-                                                                {selectData?.room?.capacity}인실
+                                                                <Typography>
+                                                                    <BsFillHouseDoorFill size={'1.3em'} />
+                                                                    &nbsp; &nbsp;
+                                                                    {selectData?.room?.roomNo}호
+                                                                </Typography>
+                                                                <Typography>
+                                                                    <IoIosPeople size={'1.3em'} />
+                                                                    &nbsp; &nbsp;
+                                                                    {selectData?.room?.capacity}인실
+                                                                </Typography>
                                                             </Typography>
                                                         ) : (
                                                             <Typography
@@ -303,12 +312,19 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     textShadow: '2px 2px 2px gray'
                                                                 }}
                                                             >
-                                                                차량번호 : {selectData?.vehicle?.number}
-                                                                <br />
-                                                                <AiFillCar size={'2em'} />
-                                                                모델{selectData?.vehicle?.model} {' / '}
-                                                                <IoIosPeople size={'2em'} />
-                                                                {selectData?.vehicle?.capacity}인승
+                                                                <Typography>
+                                                                    <NumbersIcon style={{ fontSize: '1.3em' }} />
+                                                                    &nbsp;&nbsp;차량번호 : {selectData?.vehicle?.number}
+                                                                </Typography>
+                                                                <Typography>
+                                                                    <AiFillCar size={'1.2em'} />
+                                                                    &nbsp;&nbsp;모델&nbsp;&nbsp;{selectData?.vehicle?.model}
+                                                                </Typography>
+                                                                <Typography>
+                                                                    <IoIosPeople size={'1.2em'} />
+                                                                    &nbsp;&nbsp;
+                                                                    {selectData?.vehicle?.capacity}&nbsp;인승
+                                                                </Typography>
                                                             </Typography>
                                                         )}
                                                     </Grid>

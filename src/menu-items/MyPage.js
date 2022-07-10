@@ -15,21 +15,10 @@ const MyPage = {
     type: 'group',
     children: [
         {
-            id: 'authentication',
+            id: 'room',
             title: '회의실/차량 보기',
-            type: 'collapse',
-            icon: icons.IconEye,
-
-            children: [
-                {
-                    id: 'room',
-                    title: '회의실/차량 보기',
-                    type: 'item',
-                    url: '/main/room/vehicle/list'
-                    // ,
-                    // target: true
-                }
-            ]
+            type: 'item',
+            url: '/main/room/vehicle/list'
         }
     ]
 };
