@@ -78,6 +78,10 @@ export const delVBookmark = async (id) => {
     await dshareAPI.delete(`emp/vehicle/elimination/mark?id=${id}`).then((res) => res.data);
     return getVBookmark();
 };
+export const addVBookmark = async (vid) => {
+    await dshareAPI.post(`emp/vehicle/creation/bookmark?vId=${vid}`).then((res) => res.data);
+    return getVBookmark();
+};
 export const getAllRoomRes = async () => {
     return await dshareAPI(`emp/room/reservation/all/0/10`).then((res) => res.data.value);
 };
@@ -123,6 +127,9 @@ export const getPosition = async () => {
 };
 export const delRoomRes = async (id) => {
     return await dshareAPI.delete(`emp/room/reservation/delete/${id}`).then((res) => res.data);
+};
+export const delVehicleRes = async (id) => {
+    return await dshareAPI.delete(`emp/vehicle/elimination?id=${id}`).then((res) => res.data);
 };
 export const regUpProImg = async (Img, id) => {
     let frm = new FormData();

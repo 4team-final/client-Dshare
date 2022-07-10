@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { getRBookmark, getVBookmark } from 'components/ApiModules/ApiHandler';
+import { getRBookmark, getVBookmark, delVBookmark, delRBookmark, addVBookmark } from 'components/ApiModules/ApiHandler';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -41,13 +41,60 @@ const ExpandMore = styled((props) => {
 export default function BoardCard(props) {
     const [expanded, setExpanded] = React.useState(false);
     const [mark, setMark] = useState(false);
+    const [RBook, setRBook] = useState([]);
+    const [VBook, setVBook] = useState([]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
     const [board, setBoard] = useState(props?.item);
     console.log(board);
+
+    const delVbm = async (id) => {
+        console.log(id);
+        if (mark) {
+            let Rdata = await delVBookmark(id);
+            alert('즐겨 찾기를 취소 했습니다~!');
+        } else {
+            let Rdata = await addVBookmark(id);
+            console.log(Rdata);
+            alert('즐겨 찾기를 등록 했습니다~!');
+        }
+
+        window.location.href = '/main/room/vehicle/list';
+    };
+
+    const delRbm = async (id) => {
+        console.log(id);
+        let Rdata = await delRBookmark(id);
+        if (mark) {
+            alert('즐겨 찾기를 등록 했습니다~!');
+        } else {
+            alert('즐겨 찾기를 취소 했습니다~!');
+        }
+        window.location.href = '/main/room/vehicle/list';
+    };
+
+    async function getBookInfo() {
+        if (!board.content) {
+            console.log('차량입니다');
+            let tmp = await getVBookmark();
+            console.log(tmp);
+
+            tmp.map((tmp) => (tmp.id == board.id ? setMark(true) : <></>));
+        } else {
+            console.log('회의실 입니다');
+            let tmp = await getRBookmark();
+            setRBook(tmp);
+            console.log(tmp);
+            tmp.map((tmp) => (tmp.roomId == board.roomId ? setMark(true) : <></>));
+            // console.log(props.item);
+            // props.item.roomId;
+        }
+    }
+
     useEffect(() => {
+        getBookInfo();
         console.log(props.item);
         props?.item?.roomId;
         // getRBookmark
@@ -178,7 +225,11 @@ export default function BoardCard(props) {
                     sx={{ width: '100%', marginBottom: '10px' }}
                     style={{ textAlign: 'center' }}
                     onClick={() => {
-                        delbm(r.roomId);
+                        if (!board.content) {
+                            delVbm(board.id);
+                        } else {
+                            delRbm(board.roomId);
+                        }
                     }}
                 >
                     <ListItemIcon style={{ color: '#1296ec' }}>
@@ -191,12 +242,16 @@ export default function BoardCard(props) {
                     sx={{ width: '100%', marginBottom: '10px' }}
                     style={{ textAlign: 'center' }}
                     onClick={() => {
-                        delbm(r.roomId);
+                        if (!board.content) {
+                            delVbm(board.id);
+                        } else {
+                            delRbm(board.roomId);
+                        }
                     }}
                 >
-                    <ListItemIcon style={{ color: '#1296ec' }}>
+                    {/* <ListItemIcon style={{ color: '#1296ec' }}>
                         <StarsIcon style={{}} />
-                    </ListItemIcon>
+                    </ListItemIcon> */}
                     <ListItemText>즐겨찾기 등록</ListItemText>
                 </ListItemButton>
             )}
