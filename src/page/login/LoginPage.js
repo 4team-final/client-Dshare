@@ -1,22 +1,17 @@
 import React from 'react';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import LoginForm from '../../components/LoginForm';
 import Logo from '../../components/LoginForm/Logo';
-import Footer from '../../components/Outlet/Footer';
-import './LoginPage.scss';
+import { FullFrame, ComponentFrame } from './LoginPageStyle';
 
-function LoginPage() {
+export const LoginPage = () => {
     return (
-        <>
-            <div className="LoginPage">
-                <div className="LogoFrame">
-                    <Logo />
-                    {/* <Footer /> */}
-                </div>
-                <div className="FormFrame">
-                    <LoginForm />
-                </div>
-            </div>
-        </>
+        <FullFrame>
+            <ComponentFrame>
+                <Logo />
+            </ComponentFrame>
+            <ComponentFrame>
+                <LoginForm />
+            </ComponentFrame>
+        </FullFrame>
     );
-}
-export default LoginPage;
+};

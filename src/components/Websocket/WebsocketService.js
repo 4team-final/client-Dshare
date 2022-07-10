@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // User
 import { alertToSocketMessage, selectIsSeatByUIdAndVId } from 'store/actions/WebsocketAction';
-import { getAccess } from '../ApiModules/ApiParts';
+import { getToken } from '../ApiModules/ApiParts';
 import { requestByEmployeeLogout } from '../ApiModules/ApiHandler';
 
 export const SocketConnection = (props) => {
@@ -22,7 +22,7 @@ export const SocketConnection = (props) => {
     const roomTalkState = useSelector((state) => state.websocketReducer.roomtalk);
     const roomQuitState = useSelector((state) => state.websocketReducer.roomquit);
     const urlV = window.location.protocol === 'http:' ? vehicleURL : vehicleURLS;
-    const urlR = window.location.protocol === 'http:' ? roomURL : roomURL;
+    const urlR = window.location.protocol === 'http:' ? roomURL : roomURLS;
     const socket = new WebSocket(props.props.type === 0 ? urlR : urlV);
     const [connected, setConnected] = useState(false);
     useEffect(() => {
@@ -106,7 +106,7 @@ export const SocketConnection = (props) => {
     return <></>;
 };
 
-const token = getAccess();
+const token = getToken('access');
 
 export const onOpenTable = (socket, enter) => {
     try {

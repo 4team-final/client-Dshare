@@ -1,12 +1,11 @@
-import React from 'react';
-import './Logo.scss';
+import { FullFrame, ImgCard } from './LoginFormStyle';
 import IMG from '../../assets/image/Logo.png';
 
 function Logo() {
     return (
-        <div className="LogoMain">
-            <img src={IMG} alt="" className="LogoImg"></img>
-        </div>
+        <FullFrame>
+            <ImgCard src={IMG} alt="" className="LogoImg" />
+        </FullFrame>
     );
 }
 export default Logo;
