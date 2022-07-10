@@ -108,8 +108,7 @@ const token = getAccess();
 export const onOpenTable = (socket, enter) => {
     try {
         if (!token) {
-            alert('로그인 후 이용해주세요.');
-            requestByEmployeeLogout();
+            requestByEmployeeLogout(3);
             return;
         }
         socket.onopen = () => {
@@ -149,8 +148,7 @@ const waitForWebsocket = (socket, callback) => {
 export const sendMessage = (socket, message) => {
     try {
         if (!token) {
-            alert('로그인 후 이용해주세요.');
-            requestByEmployeeLogout();
+            requestByEmployeeLogout(3);
             return;
         }
         const data = message;
