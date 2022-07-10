@@ -2,9 +2,10 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    overflow-y: hidden;
 
     .eventsItem {
-        overflow-y: none;
+        overflow-y: hidden;
     }
     .ant-badge-status {
         width: 100%;
@@ -17,8 +18,9 @@
 .notes-month {
     font-size: 28px;
     text-align: center;
-    overflow-y: none;
+    overflow-y: hidden;
     .section {
         font-size: 50px;
+        overflow-y: hidden;
     }
 }
