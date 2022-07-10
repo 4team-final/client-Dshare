@@ -41,17 +41,33 @@ const ExpandMore = styled((props) => {
 export default function BoardCard(props) {
     const [expanded, setExpanded] = React.useState(false);
     const [mark, setMark] = useState(false);
+    const [RBook, setRBook] = useState([]);
+    const [VBook, setVBook] = useState([]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
     const [board, setBoard] = useState(props.item);
     console.log(board);
+
+    async function getBookInfo() {
+        if (board.content) {
+            console.log('차량입니다');
+            let tmp = await getVBookmark();
+            console.log(tmp);
+            // tmp.map((v)=>)
+        } else {
+            console.log('회의실 입니다');
+            let tmp = await getRBookmark();
+            setRBook(tmp);
+            console.log(tmp);
+            // console.log(props.item);
+            // props.item.roomId;
+        }
+    }
+
     useEffect(() => {
-        console.log(props.item);
-        props.item.roomId;
-        // getRBookmark
-        // getVBookmark
+        getBookInfo();
     }, []);
 
     function convertTime(time) {
