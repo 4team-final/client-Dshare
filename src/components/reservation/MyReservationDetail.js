@@ -54,7 +54,6 @@ function MyReservationDetail() {
     const changeStoreRoomItem = useSelector((state) => state.changeReducer.roomItem);
     const changeStoreVehicleItem = useSelector((state) => state.changeReducer.vehicleItem);
     const changeStoreSelect = useSelector((state) => state.changeReducer.selected);
-    const ground = useRef();
 
     const dispatch = useDispatch();
 
@@ -114,10 +113,6 @@ function MyReservationDetail() {
         }
     };
 
-    // const handleUpdate = () => {
-    //     //
-    //     window.confirm('수정 날짜방으로 이동하시겠습니까?');
-    // };
     const handleDelete = (id) => {
         let isSure = window.confirm('정말 해당 예약을 삭제하시겠습니까?');
         if (isSure && select === 0) {
@@ -164,13 +159,13 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            {/* <MenuItem
+                            <MenuItem
                                 onClick={() => {
                                     handleUpdate();
                                 }}
                             >
                                 수정
-                            </MenuItem> */}
+                            </MenuItem>
                             <MenuItem
                                 onClick={() => {
                                     handleDelete(roomItem.id);
@@ -181,45 +176,45 @@ function MyReservationDetail() {
                         </div>
                     )}
 
-                    <SimpleSlider data={roomItem?.room?.roomImgResDTOList} style={{ width: '95%', height: '70em' }} />
+                    <SimpleSlider data={roomItem?.room?.roomImgResDTOList} style={{ width: '95%', height: '30em' }} />
 
                     <CardContent>
                         <div className="content_layout">
                             <div className="half line">
-                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
                                     {roomItem?.room.categoryName}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
                                     {roomItem?.room.content}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, float: 'right', fontSize: '3em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, float: 'right', fontSize: '1em' }} color="text.secondary">
                                     비치 물품 :
                                     {roomItem?.room?.roomObjectResDTOList.map((item, i) => {
                                         return item.name !== ' ' && <>{item?.name} </>;
                                     })}
                                 </Typography>
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
-                                    <BsFillHouseDoorFill size={'2em'} />
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
+                                    <BsFillHouseDoorFill size={'1.5em'} />
                                     {roomItem?.room.roomNo}호 {'  '}
-                                    <IoIosPeople size={'2em'} />
+                                    <IoIosPeople size={'1.5em'} />
                                     {roomItem?.room.capacity}인실
                                 </Typography>
                             </div>
                             <div className="half">
-                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
                                     {roomItem?.title}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
                                     {roomItem?.reason}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary"></Typography>
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
                                     <BsFillSkipEndFill size={'1em'} />
                                     시작 {convertDate(roomItem?.startedAt)} {'  '}
                                     <br />
@@ -256,13 +251,13 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            {/* <MenuItem
+                            <MenuItem
                                 onClick={() => {
                                     handleUpdate();
                                 }}
                             >
                                 수정
-                            </MenuItem> */}
+                            </MenuItem>
                             <MenuItem
                                 onClick={() => {
                                     handleDelete(vehicleItem?.reservationId);
@@ -272,40 +267,40 @@ function MyReservationDetail() {
                             </MenuItem>
                         </div>
                     )}
-                    <SimpleSlider data={vehicleItem?.imgList} style={{ width: '95%', height: '70em' }} />
+                    <SimpleSlider data={vehicleItem?.imgList} style={{ width: '95%', height: '30em' }} />
 
                     <CardContent>
                         <div className="content_layout">
                             <div className="half line">
-                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
                                     {vehicleItem?.vname}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
                                     {vehicleItem?.vnumber}
                                 </Typography>
 
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
-                                    <AiFillCar size={'2em'} />
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
+                                    <AiFillCar size={'1.5em'} />
                                     {vehicleItem?.model} 모델 {'  '}
-                                    <IoIosPeople size={'2em'} />
+                                    <IoIosPeople size={'1.5em'} />
                                     {vehicleItem?.capacity}인승
                                 </Typography>
                             </div>
                             <div className="half">
-                                <Typography sx={{ fontSize: '3em' }} color="text.secondary" gutterBottom>
+                                <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '5em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
                                     {vehicleItem?.title}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '3em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
                                     {vehicleItem?.reason}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary"></Typography>
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '3em' }}>
+                                <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
                                     <BsFillSkipEndFill size={'1em'} />
                                     시작 {convertDate(vehicleItem?.reservationCreatedAt)} {'  '}
                                     <br />

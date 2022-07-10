@@ -36,7 +36,6 @@ const Dashboard = () => {
             setVehicleBookmark(data);
             let Rdata = await getRBookmark();
             setRoomBookmark(Rdata);
-            // console.log(Rdata);
         }
         VBookmark();
         setLoading(false);

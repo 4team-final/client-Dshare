@@ -84,12 +84,10 @@ const TotalIncomeLightCard = (props) => {
     }, []);
     //삭제 하는거
     const delbm = async (id) => {
-        console.log(id);
         let check = confirm('삭제하시겠습니까?');
         if (check) {
             let Rdata = await delRBookmark(id);
             setRBookmark(Rdata);
-            // console.log(Rdata);
         }
     };
     return (
