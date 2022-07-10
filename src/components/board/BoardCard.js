@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { getRBookmark, getVBookmark } from 'components/ApiModules/ApiHandler';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -12,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { mdiCartVariant, mdiHeart, mdiComment } from '@mdi/js';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import Icon from '@mdi/react';
 import { mdiBookmark } from '@mdi/js';
 import { mdiLeadPencil } from '@mdi/js';
@@ -21,6 +25,7 @@ import { mdiAccountMultiple } from '@mdi/js';
 import { mdiCounter } from '@mdi/js';
 import './BoardCard.css';
 import SimpleSlider from 'components/reservation/SimpleSlider';
+import StarsIcon from '@mui/icons-material/Stars';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -35,13 +40,19 @@ const ExpandMore = styled((props) => {
 
 export default function BoardCard(props) {
     const [expanded, setExpanded] = React.useState(false);
+    const [mark, setMark] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
     const [board, setBoard] = useState(props.item);
     console.log(board);
-    useEffect(() => {}, []);
+    useEffect(() => {
+        console.log(props.item);
+        props.item.roomId;
+        // getRBookmark
+        // getVBookmark
+    }, []);
 
     function convertTime(time) {
         let convert = time.split('T')[0];
@@ -157,10 +168,38 @@ export default function BoardCard(props) {
                         {board?.capacity + '인'}
                     </div>
                 </Typography>
+
                 {/* <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
                     <ExpandMoreIcon />
                 </ExpandMore> */}
             </CardActions>
+            {mark ? (
+                <ListItemButton
+                    sx={{ width: '100%', marginBottom: '10px' }}
+                    style={{ textAlign: 'center' }}
+                    onClick={() => {
+                        delbm(r.roomId);
+                    }}
+                >
+                    <ListItemIcon style={{ color: '#1296ec' }}>
+                        <StarsIcon style={{}} />
+                    </ListItemIcon>
+                    <ListItemText>즐겨찾기 취소</ListItemText>
+                </ListItemButton>
+            ) : (
+                <ListItemButton
+                    sx={{ width: '100%', marginBottom: '10px' }}
+                    style={{ textAlign: 'center' }}
+                    onClick={() => {
+                        delbm(r.roomId);
+                    }}
+                >
+                    <ListItemIcon style={{ color: '#1296ec' }}>
+                        <StarsIcon style={{}} />
+                    </ListItemIcon>
+                    <ListItemText>즐겨찾기 등록</ListItemText>
+                </ListItemButton>
+            )}
             {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph style={{ fontFamily: 'BMDOHYEON' }}>

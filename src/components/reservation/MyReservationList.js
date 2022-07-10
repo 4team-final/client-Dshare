@@ -47,9 +47,11 @@ function MyReservationList() {
         if (reqRoom.lastId >= 0 && select === 0) {
             if (resRoomList.length === 0) {
                 setLoading(true);
-                dispatch(myReservationRoomList(reqRoom));
-
-                setLoading(false);
+                function fetch() {
+                    dispatch(myReservationRoomList(reqRoom));
+                    setLoading(false);
+                }
+                fetch();
             }
         }
     }, [reqRoom, select]);

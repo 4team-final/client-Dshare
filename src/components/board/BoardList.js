@@ -4,13 +4,15 @@ import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { findAllByRoom, findAllByVehicle } from 'store/actions/CalendarAction';
 import Button from '@mui/material/Button';
-import { Card } from 'antd';
+import { Card, Typography } from 'antd';
 import Icon from '@mdi/react';
 import BoardCard from './BoardCard';
 import Grid from '@mui/material/Grid';
 import './BoardList.css';
 import Loading from 'components/Loading';
 import 'components/Loading.css';
+import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import { AiFillCar } from 'react-icons/ai';
 
 function BoardList() {
     const vehicleStore = useSelector((state) => state.calendarReducer.allVehicle);
@@ -157,24 +159,28 @@ function BoardList() {
                                     {/* Button */}
                                     <div className="button_d" style={{ diplay: 'flex', justifyContent: 'center', alignItem: 'center' }}>
                                         {/* disabled={true} */}
-                                        <Button
-                                            onClick={() => {
-                                                setSelected(1);
-                                            }}
-                                            variant="outlined"
-                                            ref={btn1}
-                                        >
-                                            회의실
-                                        </Button>
-                                        <Button
-                                            onClick={() => {
-                                                setSelected(2);
-                                            }}
-                                            variant="outlined"
-                                            ref={btn2}
-                                        >
-                                            차량
-                                        </Button>
+                                        <Grid container direction="rows" justifyContent="center" alignItems="center">
+                                            <Button
+                                                onClick={() => {
+                                                    setSelected(1);
+                                                }}
+                                                variant="outlined"
+                                                ref={btn1}
+                                                style={{ width: '50%', border: 'none', backgroundColor: '#ffffff' }}
+                                            >
+                                                <StorefrontTwoToneIcon style={{ fontSize: '3em' }}></StorefrontTwoToneIcon>
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    setSelected(2);
+                                                }}
+                                                variant="outlined"
+                                                ref={btn2}
+                                                style={{ width: '50%', border: 'none', backgroundColor: '#ffffff' }}
+                                            >
+                                                <AiFillCar style={{ fontSize: '3em' }}></AiFillCar>
+                                            </Button>
+                                        </Grid>
                                     </div>
                                 </div>
                                 {/* <BoardCard /> */}
@@ -213,24 +219,28 @@ function BoardList() {
                                     {/* Button */}
                                     <div className="button_d" style={{ diplay: 'flex', justifyContent: 'center', alignItem: 'center' }}>
                                         {/* disabled={true} */}
-                                        <Button
-                                            onClick={() => {
-                                                setSelected(1);
-                                            }}
-                                            variant="outlined"
-                                            ref={btn1}
-                                        >
-                                            회의실
-                                        </Button>
-                                        <Button
-                                            onClick={() => {
-                                                setSelected(2);
-                                            }}
-                                            variant="outlined"
-                                            ref={btn2}
-                                        >
-                                            차량
-                                        </Button>
+                                        <Grid container direction="rows" justifyContent="center" alignItems="center">
+                                            <Button
+                                                onClick={() => {
+                                                    setSelected(1);
+                                                }}
+                                                variant="outlined"
+                                                ref={btn1}
+                                                style={{ width: '50%', border: 'none', backgroundColor: '#ffffff' }}
+                                            >
+                                                <StorefrontTwoToneIcon style={{ fontSize: '3em' }}></StorefrontTwoToneIcon>
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    setSelected(2);
+                                                }}
+                                                variant="outlined"
+                                                ref={btn2}
+                                                style={{ width: '50%', border: 'none', backgroundColor: '#ffffff' }}
+                                            >
+                                                <AiFillCar style={{ fontSize: '3em' }}></AiFillCar>
+                                            </Button>
+                                        </Grid>
                                     </div>
                                 </div>
                                 {/* <BoardCard /> */}
