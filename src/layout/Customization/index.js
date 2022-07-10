@@ -425,6 +425,7 @@ const Customization = () => {
         if (value) {
             async function profile() {
                 let emp = await getUserProfile();
+                dispatch(ProfileChangeSave(emp));
                 setProfileImg(emp.profileImg);
                 alert(value.message);
             }
