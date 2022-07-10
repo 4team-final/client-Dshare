@@ -84,12 +84,10 @@ const TotalIncomeLightCard = (props) => {
     }, []);
     //삭제 하는거
     const delbm = async (id) => {
-        console.log(id);
         let check = confirm('삭제하시겠습니까?');
         if (check) {
             let Rdata = await delRBookmark(id);
             setRBookmark(Rdata);
-            // console.log(Rdata);
         }
     };
     return (
@@ -99,7 +97,15 @@ const TotalIncomeLightCard = (props) => {
             ) : (
                 <>
                     <CardWrapper border={false} content={false}>
-                        <Box sx={{ p: 2 }}>
+                        <Box
+                            sx={{ p: 2 }}
+                            style={{
+                                height: '7em',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
+                        >
                             <List sx={{ py: 0 }}>
                                 <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
                                     <ListItemAvatar>

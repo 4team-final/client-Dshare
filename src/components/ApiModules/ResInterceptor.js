@@ -17,6 +17,7 @@ export const resSuccess = async (res) => {
         const dataMethod = res.config.method;
         const originalRequest = res.config.url;
         const RefreshToken = getToken('refresh');
+
         if (RefreshToken && RefreshToken !== undefined && RefreshToken !== null) {
             removeToken('access');
             const result = await dshareAPI(urlRefresh, {

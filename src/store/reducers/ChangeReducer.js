@@ -29,10 +29,8 @@ const initialState = {
 export default function changeReducer(state = initialState, action) {
     switch (action.type) {
         case SELECTED_CHANGE_SAVE:
-            console.log(action.selected);
             return { ...state, selected: action.selected };
         case SELECTED_CHANGE_SAVE2:
-            console.log(action.selected2);
             return { ...state, selected2: action.selected2 };
         case ITEM_CHANGE_SAVE:
             if (action.item && state.selected === 0) {
@@ -52,12 +50,10 @@ export default function changeReducer(state = initialState, action) {
             }
             return state;
         case PROFILE_CHANGE_SAVE:
-            console.log(action.data);
             return { ...state, profileChange: action.data };
         case GO_ADMIN_PAGE:
             return { ...state, adminPage: !state.adminPage };
         case ALL_TIMER_MESSAGE:
-            console.log(action.allMessage);
             return {
                 ...state,
                 allMessage: action.allMessage

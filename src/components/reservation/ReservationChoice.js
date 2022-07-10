@@ -9,7 +9,6 @@ function ReservationChoice() {
     const dispatch = useDispatch();
 
     const handle = (data) => {
-        console.log(data);
         dispatch(SelectedChangeSave(data));
     };
 

@@ -44,19 +44,21 @@ function MyReservationList() {
     }, [changeStoreSelect]);
 
     useEffect(() => {
-        if (reqRoom.lastId >= 0 && select === 0) {
-            if (resRoomList.length === 0) {
+        if (reqRoom?.lastId >= 0 && select === 0) {
+            if (resRoomList?.length === 0) {
                 setLoading(true);
-                dispatch(myReservationRoomList(reqRoom));
-
-                setLoading(false);
+                function fetch() {
+                    dispatch(myReservationRoomList(reqRoom));
+                    setLoading(false);
+                }
+                fetch();
             }
         }
     }, [reqRoom, select]);
 
     useEffect(() => {
-        if (reqVehicle.lastId >= 0 && select === 1) {
-            if (resVehicleList.length === 0) {
+        if (reqVehicle?.lastId >= 0 && select === 1) {
+            if (resVehicleList?.length === 0) {
                 setLoading(true);
                 dispatch(myReservationVehicleList(reqVehicle));
                 setLoading(false);
@@ -93,19 +95,19 @@ function MyReservationList() {
     }, [reservationStore?.myReservationVehicleList?.data?.value]);
 
     useEffect(() => {
-        if (resRoomList[resRoomList.length - 1] && resRoomList.length > 0) {
+        if (resRoomList[resRoomList.length - 1] && resRoomList?.length > 0) {
             setReqRoomLastId(resRoomList[resRoomList.length - 1].reservationResDTO.id);
         }
     }, [resRoomList]);
     useEffect(() => {
-        if (resVehicleList[resVehicleList.length - 1] && resVehicleList.length > 0) {
-            setReqVehicleLastId(resVehicleList[resVehicleList.length - 1].reservationId);
+        if (resVehicleList[resVehicleList?.length - 1] && resVehicleList?.length > 0) {
+            setReqVehicleLastId(resVehicleList[resVehicleList?.length - 1]?.reservationId);
         }
     }, [resVehicleList]);
 
     useEffect(() => {
         if (roomDeleteId >= 0) {
-            const index = resRoomList.findIndex((item) => item.reservationResDTO.id === roomDeleteId);
+            const index = resRoomList?.findIndex((item) => item.reservationResDTO?.id === roomDeleteId);
             resRoomList.splice(index, 1);
             setResRoomList([...resRoomList]);
         }
@@ -113,23 +115,26 @@ function MyReservationList() {
 
     useEffect(() => {
         if (vehicleDeleteId >= 0) {
-            const index = resVehicleList.findIndex((item) => item.reservationId === vehicleDeleteId);
+            const index = resVehicleList?.findIndex((item) => item.reservationId === vehicleDeleteId);
             resVehicleList.splice(index, 1);
             setResVehicleList([...resVehicleList]);
         }
     }, [vehicleDeleteId]);
 
     useEffect(() => {
-        if (resRoomList.length > 0 && select === 0) {
-            setTotal(resRoomList[0].total);
+        if (resRoomList?.length > 0 && select === 0) {
+            setTotal(resRoomList[0]?.total);
         } else if (resVehicleList?.length > 0 && select === 1) {
-            setTotal(resVehicleList[0].total);
+            setTotal(resVehicleList[0]?.total);
         } else {
             setTotal(0);
         }
     }, [resRoomList, resVehicleList]);
 
-    function handleDetail(item) {
+    function handleDetail(item, ref) {
+        console.log(ref);
+        // ref.current.style.border = '1px solid black';
+        console.log(item);
         setLoading(true);
         dispatch(ItemChangeSave(item));
         setLoading(false);
@@ -195,6 +200,8 @@ function MyReservationList() {
         };
     }, [handleScroll]);
 
+    const roomref = useRef();
+    const vehicleref = useRef();
     return (
         <div className="MyReservatationList" id="MyReservatationList" ref={container}>
             {/* <div className="title">내 예약 현황 목록 / Total - {total}</div> */}
@@ -203,11 +210,11 @@ function MyReservationList() {
                 <>
                     {select === 0 && (
                         <>
-                            {resRoomList.length > 0 ? (
+                            {resRoomList?.length > 0 ? (
                                 <>
-                                    {resRoomList.map((item) => (
-                                        <div key={item.reservationId} onClick={() => handleDetail(item)}>
-                                            <MyReservationCard key={item.reservationResDTO.id} data={item} />
+                                    {resRoomList?.map((item) => (
+                                        <div key={item?.reservationId} ref={roomref} onClick={() => handleDetail(item, roomref)}>
+                                            <MyReservationCard data={item} />
                                         </div>
                                     ))}
                                     {loading2 ? (
@@ -225,12 +232,12 @@ function MyReservationList() {
                     )}
                     {select === 1 && (
                         <>
-                            {resVehicleList.length > 0 ? (
+                            {resVehicleList?.length > 0 ? (
                                 <>
-                                    {resVehicleList.map((item, i) => {
+                                    {resVehicleList?.map((item, i) => {
                                         return (
-                                            <div key={item.reservationId} onClick={() => handleDetail(item)}>
-                                                <MyReservationCard data={item} key={item.reservationId}></MyReservationCard>
+                                            <div key={item?.reservationId} ref={vehicleref} onClick={() => handleDetail(item, vehicleref)}>
+                                                <MyReservationCard data={item}></MyReservationCard>
                                             </div>
                                         );
                                     })}

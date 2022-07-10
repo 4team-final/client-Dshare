@@ -78,7 +78,6 @@ export const selectCompleteVehicleReservationAPI = async () => {
 //- /emp/room/reservation/time/{startTime}/{endTime}
 //localhost:8082/emp/room/reservation/time2
 export const findReservationRoomTime = async (data) => {
-    console.log(data);
     const result = dshareAPI
         .get(`emp/room/reservation/time2/${data.startTime}/${data.endTime}`)
         .then((res) => res.data)

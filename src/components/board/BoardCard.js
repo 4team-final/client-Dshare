@@ -47,7 +47,7 @@ export default function BoardCard(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    const [board, setBoard] = useState(props.item);
+    const [board, setBoard] = useState(props?.item);
     console.log(board);
 
     const delVbm = async (id) => {
@@ -95,6 +95,10 @@ export default function BoardCard(props) {
 
     useEffect(() => {
         getBookInfo();
+        console.log(props.item);
+        props?.item?.roomId;
+        // getRBookmark
+        // getVBookmark
     }, []);
 
     function convertTime(time) {

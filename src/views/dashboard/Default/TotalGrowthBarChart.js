@@ -159,7 +159,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         series: chartData.series
     });
 
-    // 첫 렌더링 1,3,7일 통계 회의실 3개 / 차량 3개 => 총 18개
+    // 첫 axios 통신을 통해 18개의 api를 부른다. redux-thunk를 통해서 redux store에 들어가게 된다.
+    // 1, 3, 7일 통계 회의실 3개 / 차량 3개 => 총 18개
     useEffect(() => {
         dispatch(OnedayfindRoomReservationCount(1));
         dispatch(ThreedayfindRoomReservationCount(3));
@@ -290,7 +291,9 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             setSevenDayList6(sevenDayVehicleStartTime.data.value.sort((a, b) => sort1(a.reservationId, b.reservationId)));
         }
     }, [oneDayVehicleStartTime, threeDayVehicleStartTime, sevenDayVehicleStartTime]);
+
     //---------------------------------------------------------------------------------------------
+
     useEffect(() => {
         // 첫번째 회의실 리스트 렌더링
         if (select == 0 && select2 == 1 && onedayList1.length > 0 && threedayList1.length > 0 && sevendayList1.length > 0) {
@@ -301,11 +304,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [select, select2, onedayList1, threedayList1, sevendayList1]);
-
-    useEffect(() => {
-        //두번째 회의실 리스트 렌더링
-        if (select == 0 && select2 == 2 && onedayList2.length > 0 && threedayList2.length > 0 && sevendayList2.length > 0) {
+        if (select == 0 && select2 == 2) {
             async function fetch() {
                 const List = await categoriesTime(onedayList2, threedayList2, sevendayList2);
                 setArrX(List);
@@ -313,10 +312,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [select, select2, onedayList2, threedayList2, sevendayList2]);
-
-    useEffect(() => {
-        if (select == 0 && select2 == 3 && onedayList3.length > 0 && threedayList3.length > 0 && sevendayList3.length > 0) {
+        if (select == 0 && select2 == 3) {
             async function fetch() {
                 const List = await categoriesTime(onedayList3, threedayList3, sevendayList3);
                 setArrX(List);
@@ -324,11 +320,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [select, select2, onedayList3, threedayList3, sevendayList3]);
-    useEffect(() => {
-        if (select == 1 && select2 == 1 && onedayList4.length > 0 && threedayList4.length > 0 && sevendayList4.length > 0) {
-            console.log(111111);
 
+        if (select == 1 && select2 == 1) {
             async function fetch() {
                 const List = await categoriesName(onedayList4, threedayList4, sevendayList4);
                 setArrX(List);
@@ -336,9 +329,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [select, select2, onedayList4, threedayList4, sevendayList4]);
-    useEffect(() => {
-        if (select == 1 && select2 == 2 && onedayList5.length > 0 && threedayList5.length > 0 && sevendayList5.length > 0) {
+        if (select == 1 && select2 == 2) {
             async function fetch() {
                 const List = await categoriesTime(onedayList5, threedayList5, sevendayList5);
                 setArrX(List);
@@ -346,9 +337,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [select, select2, onedayList5, threedayList5, sevendayList5]);
-    useEffect(() => {
-        if (select == 1 && select2 == 3 && threedayList6.length > 0 && sevendayList6.length > 0 && sevendayList6.length > 0) {
+        if (select == 1 && select2 == 3) {
             async function fetch() {
                 const List = await categoriesTime(onedayList6, threedayList6, sevendayList6);
                 setArrX(List);
@@ -356,7 +345,28 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-    }, [select, select2, onedayList6, threedayList6, sevendayList6]);
+    }, [
+        select,
+        select2,
+        onedayList1,
+        threedayList1,
+        sevendayList1,
+        onedayList2,
+        threedayList2,
+        sevendayList2,
+        onedayList3,
+        threedayList3,
+        sevendayList3,
+        onedayList4,
+        threedayList4,
+        sevendayList4,
+        onedayList5,
+        threedayList5,
+        sevendayList5,
+        onedayList6,
+        threedayList6,
+        sevendayList6
+    ]);
 
     // x축 카테고리 설정 - 회의실/차량 이름
     const categoriesName = useCallback(async (onedayList11, threedayList11, sevendayList11) => {
@@ -565,30 +575,66 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             });
         } else if (graphType == 'heatmap') {
             // setchartDataRoomCount({ ...chartDataRoomCount });
-            setchartDataResult({
-                type: 'heatmap',
-                options: {
-                    ...chartData2.options,
-                    xaxis: {
-                        type: 'category',
-                        categories: ArrX
-                    }
-                },
-                series: [
-                    {
-                        name: '1일',
-                        data: oneData
+            if (select == 0) {
+                setchartDataResult({
+                    type: 'heatmap',
+                    options: {
+                        ...chartData2.options,
+                        xaxis: {
+                            type: 'category',
+                            categories: ArrX
+                        },
+                        plotOptions: {
+                            heatmap: {
+                                ...chartData2.options.plotOptions.heatmap,
+                                colorScale: {
+                                    ranges: [
+                                        {
+                                            from: 0,
+                                            to: 3,
+                                            name: '0~3',
+                                            color: '#00A100'
+                                        },
+                                        {
+                                            from: 4,
+                                            to: 7,
+                                            name: '4~7',
+                                            color: '#128FD9'
+                                        },
+                                        {
+                                            from: 8,
+                                            to: 15,
+                                            name: '8~15',
+                                            color: '#FFB200'
+                                        },
+                                        {
+                                            from: 15,
+                                            to: 50,
+                                            name: '15~50',
+                                            color: '#FF0000'
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     },
-                    {
-                        name: '3일',
-                        data: threeData
-                    },
-                    {
-                        name: '7일',
-                        data: sevenData
-                    }
-                ]
-            });
+                    series: [
+                        {
+                            name: '1일',
+                            data: oneData
+                        },
+                        {
+                            name: '3일',
+                            data: threeData
+                        },
+                        {
+                            name: '7일',
+                            data: sevenData
+                        }
+                    ]
+                });
+            } else if (select == 1) {
+            }
         }
     }, [graphType]);
 

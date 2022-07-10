@@ -36,7 +36,6 @@ const Dashboard = () => {
             setVehicleBookmark(data);
             let Rdata = await getRBookmark();
             setRoomBookmark(Rdata);
-            // console.log(Rdata);
         }
         VBookmark();
         setLoading(false);
@@ -80,6 +79,7 @@ const Dashboard = () => {
                                     <Button
                                         variant="outlined"
                                         style={{
+                                            height: '5em',
                                             width: '50%',
                                             borderRadius: '20px',
                                             border: '1px solid #d3d3d3',
@@ -96,6 +96,7 @@ const Dashboard = () => {
                                     <Button
                                         variant="outlined"
                                         style={{
+                                            height: '5em',
                                             width: '50%',
                                             borderRadius: '20px',
                                             border: '1px solid #d3d3d3',

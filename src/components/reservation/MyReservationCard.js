@@ -65,7 +65,7 @@ function MyReservationCard(props) {
                             {data && roomImgs.length ? (
                                 <>
                                     <div className="sliderLayout">
-                                        <SimpleSlider data={roomImgs} style={{ width: '100px', height: '100px' }} />
+                                        <SimpleSlider data={roomImgs} style={{ width: '7em', height: '7em' }} />
                                     </div>
                                 </>
                             ) : (
@@ -121,28 +121,27 @@ function MyReservationCard(props) {
                         }}
                     >
                         <div className="slider_nameLayout">
-                            {data2 && vehicleImgs.length ? (
+                            {data2 && vehicleImgs?.length ? (
                                 <>
                                     <div className="sliderLayout">
-                                        <SimpleSlider data={vehicleImgs} style={{ width: '100px', height: '100px' }} />
+                                        <SimpleSlider data={vehicleImgs} style={{ width: '7em', height: '7em' }} />
                                     </div>
                                 </>
                             ) : (
                                 <div className="sliderLayout"></div>
                             )}
-                            <div className="nameLayout">예약자 - {data2.ename}</div>
+                            <div className="nameLayout">예약자 - {data2?.ename}</div>
                         </div>
                         <div className="room_reserveLayout">
                             <div className="roomLayout">
                                 <div className="half">
-                                    <span className="fontB">{data2.vname}</span>
+                                    <span className="fontB">{data2?.vname}</span>
                                 </div>
                                 <div className="half">
                                     <span>
                                         <span className="float">
-                                            {data2.vnumber}
-                                            <br />
-                                            {data2.color} 색깔 - {data2.capacity}인승
+                                            {data2?.vnumber}
+                                            {data2?.color} 색깔 - {data2?.capacity}인승
                                         </span>
                                     </span>
                                 </div>
@@ -151,14 +150,14 @@ function MyReservationCard(props) {
                                 <div className="half">
                                     <span>
                                         <span className="float">
-                                            <div>시작 {convertDate(data2.startedAt)}</div>
-                                            <div>종료 {convertDate(data2.endedAt)}</div>
+                                            <div>시작 {convertDate(data2?.startedAt)}</div>
+                                            <div>종료 {convertDate(data2?.endedAt)}</div>
                                         </span>
                                     </span>
                                 </div>
                                 <div className="half">
                                     <span>
-                                        <span className="reserveTitle">{data2.title}</span>
+                                        <span className="reserveTitle">{data2?.title}</span>
                                     </span>
                                 </div>
                             </div>
