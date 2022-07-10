@@ -372,6 +372,7 @@ const Customization = () => {
 
     const updateEmp = async () => {
         let emp = await updateEmpInfo();
+        console.log(emp);
         dispatch(ProfileChangeSave(emp));
         // console.log(id, teamId, positionId, name, email, tel, birthday);
         setBirthDay(emp.birthday.split('T', 1)[0]);
