@@ -22,7 +22,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-ㅍ;
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 

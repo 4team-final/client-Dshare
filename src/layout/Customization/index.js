@@ -202,21 +202,33 @@ const Customization = () => {
     const [tel, setTel] = useState('');
     const [birthday, setBirthDay] = useState();
 
+    //업뎃용
+    const [team2, setTeam2] = useState('');
+    const [dept2, setdept2] = useState('');
+    const [position2, setPosition2] = useState('');
+    const [teamId2, setTeamId2] = useState('');
+    const [positionId2, setPositionId2] = useState('');
+    const [deptId2, setDeptId2] = useState('');
+    const [name2, setName2] = useState('');
+    const [email2, setEmail2] = useState('');
+    const [tel2, setTel2] = useState('');
+    const [birthday2, setBirthDay2] = useState();
+
     //이메일 변경
     const emailChange = (e) => {
-        setEmail(e.target.value);
+        setEmail2(e.target.value);
     };
     //이름 변경
     const nameChange = (e) => {
-        setName(e.target.value);
+        setName2(e.target.value);
     };
     //전화번호 변경
     const telChange = (e) => {
-        setTel(e.target.value);
+        setTel2(e.target.value);
     };
     //생일
     const birthdayChange = (e) => {
-        setBirthDay(e.target.value);
+        setBirthDay2(e.target.value);
     };
 
     //체크박스 설정
@@ -298,7 +310,7 @@ const Customization = () => {
         );
         for (var i = 0; i < positions.length; i++) {
             if (positions[i] == value) {
-                setPositionId(i + 1);
+                setPositionId2(i + 1);
             }
         }
     };
@@ -315,7 +327,7 @@ const Customization = () => {
         }
         for (var i = 0; i < names.length; i++) {
             if (names[i] == value) {
-                setTeamId(i + 1);
+                setTeamId2(i + 1);
             }
         }
     };
@@ -331,16 +343,25 @@ const Customization = () => {
     });
     dshareAPI.interceptors.request.use(request);
     dshareAPI.interceptors.response.use(resSuccess, resError);
-
+    // const [team2, setTeam2] = useState('');
+    // const [dept2, setdept2] = useState('');
+    // const [position2, setPosition2] = useState('');
+    // const [teamId2, setTeamId2] = useState('');
+    // const [positionId2, setPositionId2] = useState('');
+    // const [deptId2, setDeptId2] = useState('');
+    // const [name2, setName2] = useState('');
+    // const [email2, setEmail2] = useState('');
+    // const [tel2, setTel2] = useState('');
+    // const [birthday2, setBirthDay2] = useState();
     const updateEmpInfo = async () => {
         return await dshareAPI
             .post(`admin/update/${id}`, {
-                teamId: teamId,
-                positionId: positionId,
-                name: name,
-                email: email,
-                tel: tel,
-                birthday: birthday + 'T00:00:00'
+                teamId: teamId2,
+                positionId: positionId2,
+                name: name2,
+                email: email2,
+                tel: tel2,
+                birthday: birthday2 + 'T00:00:00'
             })
             .then((res) => {
                 let emp = getUserProfile();
@@ -559,7 +580,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="이름"
-                                            defaultValue={empInfo.name}
+                                            defaultValue={name2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -576,7 +597,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="이메일"
-                                            defaultValue={email}
+                                            defaultValue={email2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -592,7 +613,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="생일"
-                                            defaultValue={birthday}
+                                            defaultValue={birthday2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -609,7 +630,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="전화번호"
-                                            defaultValue={tel}
+                                            defaultValue={tel2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">

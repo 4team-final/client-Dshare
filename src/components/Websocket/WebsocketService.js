@@ -10,6 +10,8 @@ export const SocketConnection = (props) => {
     const [items, setItems] = useState([]);
     const [socketMsg, setSocketMsg] = useState();
     const dispatch = useDispatch();
+    const vehicleURLS = process.env.REACT_APP_SOCKET_VEHICLE_S;
+    const roomURLS = process.env.REACT_APP_SOCKET_ROOM_S;
     const vehicleURL = process.env.REACT_APP_SOCKET_VEHICLE;
     const roomURL = process.env.REACT_APP_SOCKET_ROOM;
     const enterState = useSelector((state) => state.websocketReducer.enter);
@@ -19,9 +21,10 @@ export const SocketConnection = (props) => {
     const quitState = useSelector((state) => state.websocketReducer.quit);
     const roomTalkState = useSelector((state) => state.websocketReducer.roomtalk);
     const roomQuitState = useSelector((state) => state.websocketReducer.roomquit);
-    const socket = new WebSocket(props.props.type === 0 ? roomURL : vehicleURL);
+    const urlV = window.location.protocol === 'http:' ? vehicleURL : vehicleURLS;
+    const urlR = window.location.protocol === 'http:' ? roomURL : roomURL;
+    const socket = new WebSocket(props.props.type === 0 ? urlR : urlV);
     const [connected, setConnected] = useState(false);
-
     useEffect(() => {
         if (socketMsg) {
             dispatch(alertToSocketMessage(socketMsg));

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl, removeToken, getAccess, getRefresh } from './ApiParts';
+import { baseUrl, saveToken, getToken, removeToken, resAccess, urlRefresh } from './ApiParts';
 import { request } from './ReqInterceptor';
 import { resError, resSuccess } from './ResInterceptor';
 
@@ -25,30 +25,15 @@ export const requestByEmployeeLogin = async (dataSet) => {
         .then((res) => (res.data.status === 'OK' ? 0 : 1));
 };
 
-export const requestByEmployeeLogout = async (key) => {
+export const requestByEmployeeLogout = async () => {
     removeToken('two');
-    const response = await dshareAPI('logout').then((res) => (res.data.status === 'OK' ? 0 : 1));
-    if (getAccess || getRefresh) {
-        if (key === 1) {
-            alert('로그인 시간이 만료되었습니다. 다시 로그인 해주세요.');
-            if (response === 0) {
-                alert('정상적으로 로그아웃되었습니다.');
-            } else {
-                alert('비정상적으로 로그아웃 처리되었습니다.');
-            }
-        } else if (key === 2) {
-            alert('토큰이 존재하지 않습니다. 다시 로그인 해주세요.');
-            if (response === 0) {
-                alert('정상적으로 로그아웃되었습니다.');
-            } else {
-                alert('비정상적으로 로그아웃 처리되었습니다.');
-            }
-        } else if (key === 3) {
-            alert('로그인 후 이용해주세요.');
-        }
+    let res = await dshareAPI('logout')
+        .then((res) => (res.data.status === 'OK' ? 0 : 1))
+        .catch((e) => console.log(e));
+    if (res === 1) {
+        alert('비정상적으로 로그아웃 처리되었습니다.');
     }
     window.location.href = '/';
-    return;
 };
 
 export const getUserProfile = async () => {
@@ -96,13 +81,13 @@ export const delVBookmark = async (id) => {
 export const getAllRoomRes = async () => {
     return await dshareAPI(`emp/room/reservation/all/0/10`).then((res) => res.data.value);
 };
-export const getAllRoomResPage = async (page, deptFilter, teamFilter, positionFilter, name, empNo) => {
+export const getAllRoomResPage = async (page, deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt) => {
     return await dshareAPI
         .post(`admin/reservation/read/various/${page}/10`, {
             roomNo: null,
             capacity: null,
-            startedAt: '',
-            endedAt: '',
+            startedAt: startedAt,
+            endedAt: endedAt,
             positionId: positionFilter,
             teamId: teamFilter,
             deptId: deptFilter,
@@ -110,6 +95,19 @@ export const getAllRoomResPage = async (page, deptFilter, teamFilter, positionFi
             empName: name
         })
         .then((res) => res.data.value);
+};
+export const getAllVehicleResPage = async (id, vehicle, capacity, position, team, empNo, startedAt, endedAt) => {
+    return await dshareAPI
+        .post(`emp/vehicle/list/reservation/various/${id}`, {
+            vehicleId: vehicle,
+            capacity: capacity,
+            positionId: position,
+            teamId: team,
+            empNo: empNo,
+            startedAt: startedAt,
+            endedAt: endedAt
+        })
+        .then((res) => (res.data.value ? res.data.value : false));
 };
 export const getAll = async (page) => {
     return await dshareAPI(`emp/room/reservation/all2/${page}/10`).then((res) => res.data.value);
@@ -122,6 +120,9 @@ export const getTeam = async (deptId) => {
 };
 export const getPosition = async () => {
     return await dshareAPI(`emp/position/read`).then((res) => res.data.value);
+};
+export const delRoomRes = async (id) => {
+    return await dshareAPI.delete(`emp/room/reservation/delete/${id}`).then((res) => res.data);
 };
 export const regUpProImg = async (Img, id) => {
     let frm = new FormData();
@@ -159,4 +160,12 @@ export const RegistWorker = async (teamId, positionId, password, name, email, te
             console.log(empId);
             regUpProImg(profileImg, empId);
         });
+};
+
+export const ExpiredLogoutHandler = () => {
+    if (getToken('access') || getToken('refresh')) {
+        alert('로그인 시간이 만료되었습니다. 다시 로그인해주세요.');
+        requestByEmployeeLogout();
+    }
+    return;
 };
