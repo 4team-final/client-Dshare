@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 import ReservationPage from 'page/employee/main/reservation/Current';
+import { AccessDeniedHandler } from './RoutesController';
 
 // my reservation routing
 const MyReservationDefault = Loadable(lazy(() => import('page/employee/main/reservation/ReservationStatusPage')));
@@ -21,7 +22,7 @@ const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 
 const MainRoutes = {
     path: '/main',
-    element: <MainLayout />,
+    element: AccessDeniedHandler(<MainLayout />),
     children: [
         {
             path: '/dashboard',
@@ -49,5 +50,4 @@ const MainRoutes = {
         }
     ]
 };
-
 export default MainRoutes;
