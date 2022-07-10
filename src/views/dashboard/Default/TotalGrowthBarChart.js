@@ -190,7 +190,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     // 차량 /  회의실 선택 => 회의실 0, 차량 1
     useEffect(() => {
         if (changeStoreSelect == 0 || changeStoreSelect == 1) {
-            console.log(changeStoreSelect);
             isSelect(changeStoreSelect);
         }
     }, [changeStoreSelect]);
@@ -198,7 +197,6 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     // 통계 3개 선택  => 1,2,3
     useEffect(() => {
         if (changeStoreSelect2 >= 1 && changeStoreSelect2 <= 3) {
-            console.log(changeStoreSelect2);
             isSelect2(changeStoreSelect2);
         }
     }, [changeStoreSelect2]);
@@ -322,11 +320,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             }
             fetch();
         }
-        console.log(select);
-        console.log(select2);
-        if (select == 1 && select2 == 1) {
-            console.log(111111);
 
+        if (select == 1 && select2 == 1) {
             async function fetch() {
                 const List = await categoriesName(onedayList4, threedayList4, sevendayList4);
                 setArrX(List);

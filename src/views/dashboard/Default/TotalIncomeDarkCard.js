@@ -82,18 +82,15 @@ const TotalIncomeDarkCard = (props) => {
         const setV = async () => {
             let Rdata = await getVBookmark();
             setVBookmark(Rdata);
-            console.log(Rdata);
         };
         setV();
     }, []);
     //삭제 하는거
     const delbm = async (id) => {
-        console.log(id);
         let check = confirm('삭제하시겠습니까?');
         if (check) {
             let Rdata = await delVBookmark(id);
             setVBookmark(Rdata);
-            // console.log(Rdata);
         }
     };
 

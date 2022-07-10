@@ -8,12 +8,15 @@
     &:hover {
         border: 1px solid black;
     }
+    &:active {
+        border: 1px solid black;
+    }
     .nameLayout {
-        margin-top: 20px;
+        margin-top: 2em;
         margin-left: 5px;
         position: relative;
-        height: 20px;
-        width: 120px;
+        height: 2em;
+        width: 8em;
         // border: 1px solid black;
     }
 }
@@ -41,18 +44,18 @@
             .sliderLayout {
                 padding: 1%;
                 position: relative;
-                height: 120px;
-                width: 120px;
+                height: 8em;
+                width: 8em;
                 margin-bottom: 2%;
                 // border: 1px solid black;
             }
             .nameLayout {
                 padding: 1%;
-                margin-top: 20px;
+                margin-top: 2em;
                 margin-left: 5px;
                 position: relative;
-                height: 20px;
-                width: 120px;
+                height: 2em;
+                width: 8em;
                 // border: 1px solid black;
             }
         }
@@ -74,6 +77,7 @@
                 .half {
                     height: 50%;
                     // border: 1px solid black;
+                    margin: 1%;
                     span {
                         align-self: center;
                         font-size: medium;
