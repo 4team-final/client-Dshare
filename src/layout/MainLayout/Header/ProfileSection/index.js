@@ -65,9 +65,9 @@ const ProfileSection = () => {
 
     useEffect(() => {
         console.log(newProfile);
-        if (newProfile != null) {
+        if (newProfile) {
             setEmpInfo(newProfile);
-            setProfileImg(newProfile);
+            setProfileImg(newProfile.profileImg);
         }
     }, [newProfile]);
 
