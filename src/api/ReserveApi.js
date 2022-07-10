@@ -2,7 +2,7 @@ import dshareAPI from '../components/ApiModules/index';
 
 //reservation API - 나의 다가오는 회의실 시간 및 남은 회의 시간 조회
 //- /emp/room/reservation/soon/my/time
-export const findSoonIngTimeRoom = async (token) => {
+export const findSoonIngTimeRoom = async () => {
     const result = await dshareAPI
         .get('emp/room/reservation/soon/my/time')
         .then((res) => res.data)
@@ -14,7 +14,7 @@ export const findSoonIngTimeRoom = async (token) => {
 
 //reservation API - 나의 다음 예약 시작 시간 조회 (차량)
 //- /emp/vehicle/own/reservation/ongoing
-export const findSoonTimeVehcle = async (token) => {
+export const findSoonTimeVehcle = async () => {
     const result = await dshareAPI
         .get('emp/vehicle/own/reservation/next')
         .then((res) => res.data)
@@ -25,7 +25,7 @@ export const findSoonTimeVehcle = async (token) => {
 };
 //reservation API - 내가 현재 진행중인 예약 종료 시간 조회 (차량)
 //- /emp/vehicle/own/reservation/next
-export const findIngTimeVehcle = async (token) => {
+export const findIngTimeVehcle = async () => {
     const result = await dshareAPI
         .get('emp/vehicle/own/reservation/ongoing')
         .then((res) => res.data)

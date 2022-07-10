@@ -26,9 +26,9 @@ function Timer() {
     useEffect(() => {
         setLoading(true);
         function fetch() {
-            dispatch(soonIngTimeRoom(token));
-            dispatch(soonTimeVehicle(token));
-            dispatch(ingTimeVehicle(token));
+            dispatch(soonIngTimeRoom());
+            dispatch(soonTimeVehicle());
+            dispatch(ingTimeVehicle());
             setLoading(false);
         }
         fetch();
