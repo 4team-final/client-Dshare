@@ -55,7 +55,7 @@ export const CalendarService = () => {
     }, []);
 
     useEffect(() => {
-        if (data != null) {
+        if (data != null && data.startTime != null && data.endTime != null) {
             dispatch(reservationRoomTime(data));
             dispatch(reservationVehicleTime(data));
         }

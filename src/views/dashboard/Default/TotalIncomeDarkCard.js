@@ -104,7 +104,15 @@ const TotalIncomeDarkCard = (props) => {
             ) : (
                 <>
                     <CardWrapper border={false} content={false}>
-                        <Box sx={{ p: 2 }}>
+                        <Box
+                            sx={{ p: 2 }}
+                            style={{
+                                height: '7em',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
+                        >
                             <List sx={{ py: 0 }}>
                                 <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
                                     <ListItemAvatar>

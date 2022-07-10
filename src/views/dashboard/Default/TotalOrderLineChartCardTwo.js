@@ -32,6 +32,7 @@ import { IoIosPeople } from 'react-icons/io';
 import { BsFillSkipEndFill } from 'react-icons/bs';
 import { BsAlignEnd } from 'react-icons/bs';
 import { AiFillCar } from 'react-icons/ai';
+import { BsFillCalendarDateFill } from 'react-icons/bs';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
@@ -141,8 +142,13 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
             setSelectImg(item?.imgList[0]);
         }
     };
-
-    console.log(vehicleRecentData);
+    function convertTime(time) {
+        if (!time) {
+            return;
+        }
+        let timeArr = time.split('T');
+        return timeArr[0] + ' ' + timeArr[1];
+    }
     return (
         <>
             {isLoading ? (
@@ -154,9 +160,9 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             border={false}
                             content={false}
                             sx={{
-                                height: '250px',
+                                height: '23em',
                                 backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url(${selectImg})`,
-                                backgroundSize: '100%',
+                                backgroundSize: 'contain',
                                 opacity: '1'
                             }}
                         >
@@ -327,6 +333,13 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 </Typography>
                                                             </Typography>
                                                         )}
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography>
+                                                            <BsFillCalendarDateFill size={'1.2em'} />
+                                                            &nbsp; 예약 확정 &nbsp;&nbsp;
+                                                            {convertTime(selectData?.modifiedAt)}&nbsp;
+                                                        </Typography>
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <Typography

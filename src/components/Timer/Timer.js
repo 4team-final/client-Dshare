@@ -29,10 +29,13 @@ function Timer() {
 
     useEffect(() => {
         setLoading(true);
-        dispatch(soonIngTimeRoom(token));
-        dispatch(soonTimeVehicle(token));
-        dispatch(ingTimeVehicle(token));
-        setLoading(false);
+        function fetch() {
+            dispatch(soonIngTimeRoom(token));
+            dispatch(soonTimeVehicle(token));
+            dispatch(ingTimeVehicle(token));
+            setLoading(false);
+        }
+        fetch();
     }, []);
 
     useEffect(() => {
