@@ -75,7 +75,7 @@ const ProfileSection = () => {
      * */
     const anchorRef = useRef(null);
     const handleLogout = async () => {
-        requestByEmployeeLogout();
+        requestByEmployeeLogout(0);
     };
 
     const handleClose = (event) => {

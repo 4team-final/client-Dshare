@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl, removeToken } from './ApiParts';
+import { baseUrl, removeToken, getAccess, getRefresh } from './ApiParts';
 import { request } from './ReqInterceptor';
 import { resError, resSuccess } from './ResInterceptor';
 
@@ -25,19 +25,30 @@ export const requestByEmployeeLogin = async (dataSet) => {
         .then((res) => (res.data.status === 'OK' ? 0 : 1));
 };
 
-export const requestByEmployeeLogout = async () => {
+export const requestByEmployeeLogout = async (key) => {
+    removeToken('two');
     const response = await dshareAPI('logout').then((res) => (res.data.status === 'OK' ? 0 : 1));
-    if (response === 0) {
-        alert('정상적으로 로그아웃되었습니다.');
-        removeToken('two');
-        window.location.href = '/';
-        return;
-    } else {
-        alert('비정상적으로 로그아웃 처리되었습니다.');
-        removeToken('two');
-        window.location.href = '/';
-        return;
+    if (getAccess || getRefresh) {
+        if (key === 1) {
+            alert('로그인 시간이 만료되었습니다. 다시 로그인 해주세요.');
+            if (response === 0) {
+                alert('정상적으로 로그아웃되었습니다.');
+            } else {
+                alert('비정상적으로 로그아웃 처리되었습니다.');
+            }
+        } else if (key === 2) {
+            alert('토큰이 존재하지 않습니다. 다시 로그인 해주세요.');
+            if (response === 0) {
+                alert('정상적으로 로그아웃되었습니다.');
+            } else {
+                alert('비정상적으로 로그아웃 처리되었습니다.');
+            }
+        } else if (key === 3) {
+            alert('로그인 후 이용해주세요.');
+        }
     }
+    window.location.href = '/';
+    return;
 };
 
 export const getUserProfile = async () => {

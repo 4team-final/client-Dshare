@@ -6,19 +6,8 @@ import MainRoutes from './MainRoutes';
 import AuthenticationRoutes from './AuthenticationRoutes';
 import AdminRoutes from './AdminRoutes';
 import LoginRoutes from './LoginRoutes';
-import { getAccess, getRefresh } from '../components/ApiModules/ApiParts';
-import ErrorRoutes from './ErrorRoutes';
-
-const IsLogin = () => {
-    const access = getAccess();
-    const refresh = getRefresh();
-    if (access || refresh) return true;
-    return false;
-};
+import { NotFoundHandler } from './RoutesController';
 
 export default function CustomRoutes() {
-    return useRoutes(
-        IsLogin() ? [MainRoutes, AuthenticationRoutes, AdminRoutes, ErrorRoutes] : [LoginRoutes, ErrorRoutes],
-        config.basename
-    );
+    return useRoutes([LoginRoutes, MainRoutes, AuthenticationRoutes, AdminRoutes, NotFoundHandler], config.basename);
 }

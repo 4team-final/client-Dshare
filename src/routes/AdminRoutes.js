@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import { AccessDeniedHandler } from './RoutesController';
 
 // Admin
 // 사원등록
@@ -12,7 +13,7 @@ const AdminRoomResInfo = Loadable(lazy(() => import('page/admin/main/AdminRoomRe
 const AdminVehicleResInfo = Loadable(lazy(() => import('page/admin/main/AdminVehicleResInfo')));
 const AdminRoutes = {
     path: '/main/admin',
-    element: <MainLayout />,
+    element: AccessDeniedHandler(<MainLayout />),
     children: [
         {
             path: '/CEmp',

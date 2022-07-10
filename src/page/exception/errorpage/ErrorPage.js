@@ -1,4 +1,4 @@
-import errorimg from 'assets/image/errorimg.png';
+import errorimg from 'assets/image/errorpage.png';
 import { FullWidthFrame, ImgCard } from './ErrorPageStyle';
 
 export const ErrorPage = () => {

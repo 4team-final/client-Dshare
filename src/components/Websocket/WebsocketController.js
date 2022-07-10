@@ -9,6 +9,7 @@ import { makeRoomReservation, makeVehicleReservation } from 'store/actions/Calen
 import { useNavigate } from 'react-router';
 import { CustomButton, CardFrame, HalfWidthFrame } from './WebSocketStyle';
 import AlertModule from 'components/Alerts';
+import { replace } from 'formik';
 
 export const WebsocketController = () => {
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ export const WebsocketController = () => {
     const DisconnectHandler = () => {
         QuitSocket();
         dispatch(initSocketData());
-        navigate('/main/dashboard/default');
+        navigate('/main/dashboard/default', { replace: true });
     };
     const UnselectHandler = () => {
         QuitSocket();
@@ -171,8 +172,10 @@ export const WebsocketController = () => {
         if (socketMsgStore && socketMsgStore.data != null) {
             if (socketMsgStore.data.includes('null')) {
                 QuitSocket();
+                setSocketMsg('');
+            } else {
+                setSocketMsg(socketMsgStore.data);
             }
-            setSocketMsg(socketMsgStore.data);
         }
     }, [socketMsgStore]);
     useEffect(() => {
@@ -187,7 +190,7 @@ export const WebsocketController = () => {
 
     return (
         <HalfWidthFrame>
-            <AlertModule status={socketFlag} notice={'info'} font={'17'} contents={socketMsg} />
+            <AlertModule status={socketFlag} notice={'info'} font={'14'} contents={socketMsg} />
             <AlertModule status={alertFlag} notice={'error'} font={'22'} contents={alertMsg} />
             <CardFrame>
                 <CustomButton onClick={UnselectHandler}>선택 취소</CustomButton>

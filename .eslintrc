@@ -37,7 +37,7 @@
         "prefer-destructuring": 0,
         "no-shadow": 0,
         "no-unused-vars": [
-            1,
+            0,
             {
                 "ignoreRestSiblings": false
             }
