@@ -1,5 +1,5 @@
-import { resAccess, resRefresh, urlRefresh, saveToken, getToken, removeToken } from './ApiParts';
-import { dshareAPI, requestByEmployeeLogout } from './ApiHandler';
+import { resAccess, resRefresh, saveToken, getToken, removeToken, urlRefresh } from './ApiParts';
+import { dshareAPI, ExpiredLogoutHandler } from './ApiHandler';
 
 export const resSuccess = async (res) => {
     if (res.headers[resAccess]) {
@@ -10,13 +10,14 @@ export const resSuccess = async (res) => {
     }
 
     if (res.data.message.startsWith('refresh_expired') || res.data.status === 'CONFILCT') {
-        requestByEmployeeLogout(1);
+        ExpiredLogoutHandler();
         return;
     }
     if (res.data.message.startsWith('expired_token') || res.data.status === 'FORBIDDEN') {
         const dataMethod = res.config.method;
         const originalRequest = res.config.url;
         const RefreshToken = getToken('refresh');
+
         if (RefreshToken && RefreshToken !== undefined && RefreshToken !== null) {
             removeToken('access');
             const result = await dshareAPI(urlRefresh, {
@@ -51,11 +52,9 @@ export const resSuccess = async (res) => {
                     });
             }
         } else {
-            requestByEmployeeLogout(2);
-            return;
+            ExpiredLogoutHandler();
         }
     }
-
     return res;
 };
 export const resError = (err) => {
