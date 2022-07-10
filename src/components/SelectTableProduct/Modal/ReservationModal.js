@@ -25,6 +25,7 @@ import {
 } from './ReservationModalStyle';
 import { ImgCardList } from '../Table/SelectTableService';
 import { selectCompleteRoomReservation, selectCompleteVehicleReservation } from '../../../store/actions/CalendarAction';
+import { initSocketData } from 'store/actions/WebsocketAction';
 
 const ModalFrame = ({ children, visible, onClose }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -182,12 +183,13 @@ export const ModalInsideText = (props) => {
 };
 
 const ModalPage = (props) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const isCloseHandler = () => {
         setIsOpen(false);
         navigate('/main/dashboard/default');
-        location.reload();
+        dispatch(initSocketData());
     };
     useEffect(() => {
         setIsOpen(props.open);
