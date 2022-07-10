@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { getRBookmark, getVBookmark } from 'components/ApiModules/ApiHandler';
+import { getRBookmark, getVBookmark, delVBookmark } from 'components/ApiModules/ApiHandler';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -50,17 +50,36 @@ export default function BoardCard(props) {
     const [board, setBoard] = useState(props.item);
     console.log(board);
 
+    const delVbm = async (id) => {
+        console.log(id);
+        let check = confirm('삭제하시겠습니까?');
+        if (check) {
+            let Rdata = await delVBookmark(id);
+        }
+    };
+    const delRbm = async (id) => {
+        console.log(id);
+        let check = confirm('삭제하시겠습니까?');
+        if (check) {
+            let Rdata = await delRBookmark(id);
+            setRBookmark(Rdata);
+            // console.log(Rdata);
+        }
+    };
+
     async function getBookInfo() {
-        if (board.content) {
+        if (!board.content) {
             console.log('차량입니다');
             let tmp = await getVBookmark();
             console.log(tmp);
-            // tmp.map((v)=>)
+
+            tmp.map((tmp) => (tmp.id == board.id ? setMark(true) : <></>));
         } else {
             console.log('회의실 입니다');
             let tmp = await getRBookmark();
             setRBook(tmp);
             console.log(tmp);
+            tmp.map((tmp) => (tmp.roomId == board.roomId ? setMark(true) : <></>));
             // console.log(props.item);
             // props.item.roomId;
         }
@@ -194,7 +213,11 @@ export default function BoardCard(props) {
                     sx={{ width: '100%', marginBottom: '10px' }}
                     style={{ textAlign: 'center' }}
                     onClick={() => {
-                        delbm(r.roomId);
+                        if (!board.content) {
+                            delVbm(board.id);
+                        } else {
+                            delRbm(board.roomId);
+                        }
                     }}
                 >
                     <ListItemIcon style={{ color: '#1296ec' }}>
@@ -207,12 +230,16 @@ export default function BoardCard(props) {
                     sx={{ width: '100%', marginBottom: '10px' }}
                     style={{ textAlign: 'center' }}
                     onClick={() => {
-                        delbm(r.roomId);
+                        if (!board.content) {
+                            delVbm(board.id);
+                        } else {
+                            delRbm(board.roomId);
+                        }
                     }}
                 >
-                    <ListItemIcon style={{ color: '#1296ec' }}>
+                    {/* <ListItemIcon style={{ color: '#1296ec' }}>
                         <StarsIcon style={{}} />
-                    </ListItemIcon>
+                    </ListItemIcon> */}
                     <ListItemText>즐겨찾기 등록</ListItemText>
                 </ListItemButton>
             )}
