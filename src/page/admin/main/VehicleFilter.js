@@ -19,10 +19,15 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux';
+import { findAllByVehicle } from 'store/actions/CalendarAction';
 
-const RoomFilter = (props) => {
+const VehicleFilter = (props) => {
+    const vehicleStore = useSelector((state) => state.calendarReducer.allVehicle);
+    const dispatch = useDispatch();
+    const [vehicleId, setVehicleId] = useState([]);
+    const [vehicle, setVehicle] = useState(null);
     const [nowPage, setNowPage] = useState(1);
-
     const [dept, setDept] = useState([]);
     const [deptFilter, setDeptFilter] = useState(null);
     const [team, setTeam] = useState([]);
@@ -31,10 +36,11 @@ const RoomFilter = (props) => {
     const [positionFilter, setPositionFilter] = useState(null);
     const [name, setName] = useState(null);
     const [empNo, setEmpNo] = useState(null);
+    const [capacity, setCapacity] = useState(null);
     const [startedAt, setStartedAt] = useState(null);
     const [endedAt, setEndedAt] = useState(null);
+    const [capacityList, setCapacityList] = useState([]);
 
-    //시작 및 끝
     const startChange = (newValue) => {
         if (newValue == '') {
             setStartedAt(null);
@@ -49,6 +55,23 @@ const RoomFilter = (props) => {
             setEndedAt(moment(newValue).format('YYYY-MM-DD') + ' 00:00:00');
         }
     };
+    //차종
+    function selectVehicle(e) {
+        if (e.target.value == '') {
+            setVehicle(null);
+        } else {
+            setVehicle(e.target.value);
+        }
+    }
+
+    //수용인원 입력
+    function selectCapacity(e) {
+        if (e.target.value == '') {
+            setCapacity(null);
+        } else {
+            setCapacity(e.target.value);
+        }
+    }
     //사원번호 입력
     function changeEmpNo(e) {
         if (e.target.value == '') {
@@ -99,6 +122,9 @@ const RoomFilter = (props) => {
             setTeam(tmpTeam);
         }
     }
+    function getVehicleList() {
+        dispatch(findAllByVehicle());
+    }
 
     async function getDeptName() {
         let depart = await getDepartment();
@@ -112,17 +138,27 @@ const RoomFilter = (props) => {
     }
 
     useEffect(() => {
+        getVehicleList();
         getDeptName();
         getPositionName();
     }, []);
+    useEffect(() => {
+        if (vehicleStore && vehicleStore.data != null) {
+            setVehicleId(vehicleStore.data.data.value);
+            let copyList = [];
+            vehicleStore.data.data.value.map((v) => copyList.push(v.capacity));
+            copyList = copyList.filter((v, i) => copyList.indexOf(v) === i);
+            copyList.sort();
+            setCapacityList(copyList);
+        }
+    }, [vehicleStore]);
 
     useEffect(() => {
-        props.res(1, deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt);
-        console.log(deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt);
-    }, [deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt]);
+        props.res(1, vehicle, capacity, positionFilter, teamFilter, empNo, startedAt, endedAt);
+    }, [vehicle, capacity, positionFilter, teamFilter, empNo, startedAt, endedAt]);
 
     const selectPage = (item) => {
-        props.res(item.page, deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt);
+        props.res(item.page, vehicle, capacity, positionFilter, teamFilter, empNo, startedAt, endedAt);
     };
 
     const theme = createTheme({});
@@ -140,6 +176,30 @@ const RoomFilter = (props) => {
                         )}
                     />
                 </Stack>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-standard-label">vehicle</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={vehicle}
+                        onChange={selectVehicle}
+                        label="vehicle"
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {console.log(vehicleId)}
+                        {vehicleId != null ? (
+                            vehicleId.map((data) => (
+                                <MenuItem key={data.id} value={data.id}>
+                                    {data.name}
+                                </MenuItem>
+                            ))
+                        ) : (
+                            <></>
+                        )}
+                    </Select>
+                </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-standard-label">dept</InputLabel>
                     <Select
@@ -199,11 +259,33 @@ const RoomFilter = (props) => {
                         ))}
                     </Select>
                 </FormControl>
+
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <TextField id="standard-basic" label="empNo" variant="standard" onChange={changeEmpNo} />
+                    <InputLabel id="demo-simple-select-standard-label">capacity</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={capacity}
+                        onChange={selectCapacity}
+                        label="capacity"
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+
+                        {vehicleId != null ? (
+                            capacityList.map((data, index) => (
+                                <MenuItem key={index} value={data}>
+                                    {data}
+                                </MenuItem>
+                            ))
+                        ) : (
+                            <></>
+                        )}
+                    </Select>
                 </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <TextField id="standard-basic" label="name" variant="standard" onChange={changeName} />
+                    <TextField id="standard-basic" label="empNo" variant="standard" onChange={changeEmpNo} />
                 </FormControl>
                 <FormControl style={{ width: '150px' }}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -235,4 +317,4 @@ const RoomFilter = (props) => {
         </div>
     );
 };
-export default RoomFilter;
+export default VehicleFilter;

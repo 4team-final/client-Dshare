@@ -96,13 +96,13 @@ export const delVBookmark = async (id) => {
 export const getAllRoomRes = async () => {
     return await dshareAPI(`emp/room/reservation/all/0/10`).then((res) => res.data.value);
 };
-export const getAllRoomResPage = async (page, deptFilter, teamFilter, positionFilter, name, empNo) => {
+export const getAllRoomResPage = async (page, deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt) => {
     return await dshareAPI
         .post(`admin/reservation/read/various/${page}/10`, {
             roomNo: null,
             capacity: null,
-            startedAt: '',
-            endedAt: '',
+            startedAt: startedAt,
+            endedAt: endedAt,
             positionId: positionFilter,
             teamId: teamFilter,
             deptId: deptFilter,
@@ -110,6 +110,19 @@ export const getAllRoomResPage = async (page, deptFilter, teamFilter, positionFi
             empName: name
         })
         .then((res) => res.data.value);
+};
+export const getAllVehicleResPage = async (id, vehicle, capacity, position, team, empNo, startedAt, endedAt) => {
+    return await dshareAPI
+        .post(`emp/vehicle/list/reservation/various/${id}`, {
+            vehicleId: vehicle,
+            capacity: capacity,
+            positionId: position,
+            teamId: team,
+            empNo: empNo,
+            startedAt: startedAt,
+            endedAt: endedAt
+        })
+        .then((res) => (res.data.value ? res.data.value : false));
 };
 export const getAll = async (page) => {
     return await dshareAPI(`emp/room/reservation/all2/${page}/10`).then((res) => res.data.value);
@@ -122,6 +135,9 @@ export const getTeam = async (deptId) => {
 };
 export const getPosition = async () => {
     return await dshareAPI(`emp/position/read`).then((res) => res.data.value);
+};
+export const delRoomRes = async (id) => {
+    return await dshareAPI.delete(`emp/room/reservation/delete/${id}`).then((res) => res.data);
 };
 export const regUpProImg = async (Img, id) => {
     let frm = new FormData();
