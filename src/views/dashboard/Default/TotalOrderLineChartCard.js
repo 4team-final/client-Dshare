@@ -4,7 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
+import NumbersIcon from '@mui/icons-material/Numbers';
+import StarsIcon from '@mui/icons-material/Stars';
 
 // third-party
 import Chart from 'react-apexcharts';
@@ -157,9 +159,9 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             border={false}
                             content={false}
                             sx={{
-                                height: '250px',
-                                backgroundImage: `url(${selectImg})`,
-                                backgroundSize: '100%',
+                                height: '23em',
+                                backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url(${selectImg})`,
+                                backgroundSize: 'contain',
                                 opacity: '1'
                             }}
                         >
@@ -235,7 +237,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 return (
                                                                     <>
                                                                         <Chip
-                                                                            key={vehicleBookmarkData.id}
+                                                                            key={vehicleBookmarkData?.vehicle?.id}
                                                                             label={i + 1 + '위'}
                                                                             variant="outlined"
                                                                             sx={{ color: '#ffffff', textShadow: '2px 2px 2px gray' }}
@@ -263,7 +265,8 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     mr: 1,
                                                                     mt: 1.75,
                                                                     mb: 0.75,
-                                                                    textShadow: '2px 2px 2px gray'
+                                                                    textShadow: '2px 2px 2px gray',
+                                                                    marginBottom: '-5%'
                                                                 }}
                                                             >
                                                                 {rank}위: {selectData?.categoryName}
@@ -276,14 +279,14 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     mr: 1,
                                                                     mt: 1.75,
                                                                     mb: 0.75,
-                                                                    textShadow: '2px 2px 2px gray'
+                                                                    textShadow: '2px 2px 2px gray',
+                                                                    marginBottom: '-5%'
                                                                 }}
                                                             >
-                                                                {rank}위: {selectData?.name}
+                                                                {rank}위: {selectData?.vehicle?.name}
                                                             </Typography>
                                                         )}
                                                     </Grid>
-
                                                     <Grid item xs={12}>
                                                         {timeValue ? (
                                                             <Typography
@@ -297,14 +300,20 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                 }}
                                                             >
                                                                 <br />
-                                                                <BsFillHouseDoorFill size={'2em'} />
-                                                                {selectData?.roomNo}호 <IoIosPeople size={'2em'} />
-                                                                {selectData?.capacity}인실
+                                                                <Typography>
+                                                                    <BsFillHouseDoorFill size={'1.2em'} />
+                                                                    &nbsp; &nbsp;{selectData?.roomNo}호
+                                                                </Typography>
+                                                                <Typography>
+                                                                    <IoIosPeople size={'1.2em'} />
+                                                                    &nbsp; &nbsp;{selectData?.capacity}인실
+                                                                </Typography>
                                                             </Typography>
                                                         ) : (
                                                             <Typography
                                                                 sx={{
                                                                     fontSize: '0.8rem',
+                                                                    fontColor: '#ffffff',
                                                                     fontWeight: 200,
                                                                     mr: 1,
                                                                     mt: 1.75,
@@ -312,14 +321,27 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                     textShadow: '2px 2px 2px gray'
                                                                 }}
                                                             >
-                                                                차량번호 : {selectData?.number}
-                                                                <br />
-                                                                <AiFillCar size={'2em'} />
-                                                                모델{selectData?.model} {' / '}
-                                                                <IoIosPeople size={'2em'} />
-                                                                {selectData?.capacity}인승
+                                                                {' '}
+                                                                <Typography>
+                                                                    <NumbersIcon style={{ fontSize: '1.3em' }} />
+                                                                    &nbsp;&nbsp;차량번호 : {selectData?.vehicle?.number}
+                                                                </Typography>
+                                                                <Typography>
+                                                                    <AiFillCar size={'1.3em'} />
+                                                                    &nbsp;&nbsp;모델&nbsp;&nbsp;{selectData?.vehicle?.model}
+                                                                </Typography>
+                                                                <Typography>
+                                                                    <IoIosPeople size={'1.3em'} style={{ top: '5%' }} />
+                                                                    &nbsp;&nbsp;
+                                                                    {selectData?.vehicle?.capacity}&nbsp;인승
+                                                                </Typography>
                                                             </Typography>
                                                         )}
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <StarsIcon size={'1.3em'} style={{ color: '#fff' }} />
+                                                        &nbsp; 즐겨찾기 &nbsp;&nbsp;
+                                                        {selectData?.vcount || selectData?.count}&nbsp;개
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <Typography

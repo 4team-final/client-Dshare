@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Button, Modal, Grid, Link } from '@mui/material';
-
+import StarsIcon from '@mui/icons-material/Stars';
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
@@ -99,7 +99,15 @@ const TotalIncomeLightCard = (props) => {
             ) : (
                 <>
                     <CardWrapper border={false} content={false}>
-                        <Box sx={{ p: 2 }}>
+                        <Box
+                            sx={{ p: 2 }}
+                            style={{
+                                height: '7em',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
+                        >
                             <List sx={{ py: 0 }}>
                                 <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
                                     <ListItemAvatar>
@@ -159,53 +167,49 @@ const TotalIncomeLightCard = (props) => {
                                         component="nav"
                                         aria-labelledby="nested-list-subheader"
                                     >
-                                        <div style={{ display: 'flex' }}>
-                                            <ListItemButton style={{ marginBottom: '10px' }}>
-                                                <ListItemIcon>
-                                                    <StorefrontTwoToneIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={`${r.roomNo}호`} />
-                                            </ListItemButton>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <BadgeOutlinedIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={`${r.categoryName}`} />
-                                            </ListItemButton>
-                                        </div>
-                                        <div style={{ display: 'flex' }}>
-                                            <ListItemButton style={{ width: '90%', marginBottom: '10px' }}>
-                                                <ListItemIcon>
-                                                    <ColorLensOutlinedIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={`${r.content}`} />
-                                            </ListItemButton>
-                                            <ListItemButton style={{ width: '100%', marginBottom: '10px' }}>
-                                                <ListItemIcon>
-                                                    <PeopleAltOutlinedIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={`정원 : ${r.capacity} 명`} />
-                                            </ListItemButton>
-                                        </div>
-                                        <div style={{ display: 'flex' }}>
-                                            <ListItemButton style={{ width: '150%', marginBottom: '10px' }}>
-                                                <ListItemIcon>
-                                                    <BurstModeOutlinedIcon />
-                                                </ListItemIcon>
-                                                <SimpleSlider data={r.roomImgResDTOList} style={{ width: '280px' }} />
-                                            </ListItemButton>
-                                            <ListItemButton
-                                                sx={{ width: '100%', marginBottom: '10px' }}
-                                                onClick={() => {
-                                                    delbm(r.roomId);
-                                                }}
-                                            >
-                                                <ListItemIcon>
-                                                    <GradeOutlinedIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="즐겨찾기 취소" />
-                                            </ListItemButton>
-                                        </div>
+                                        <ListItemButton style={{ marginBottom: '10px' }}>
+                                            <ListItemIcon>
+                                                <StorefrontTwoToneIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={`${r.roomNo}호`} />
+                                        </ListItemButton>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                <BadgeOutlinedIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={`${r.categoryName}`} />
+                                        </ListItemButton>
+
+                                        <ListItemButton style={{ width: '90%', marginBottom: '10px' }}>
+                                            <ListItemIcon>
+                                                <ColorLensOutlinedIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={`${r.content}`} />
+                                        </ListItemButton>
+                                        <ListItemButton style={{ width: '100%', marginBottom: '10px' }}>
+                                            <ListItemIcon>
+                                                <PeopleAltOutlinedIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={`정원 : ${r.capacity} 명`} />
+                                        </ListItemButton>
+
+                                        <ListItemButton style={{ width: '150%', marginBottom: '10px' }}>
+                                            <ListItemIcon>
+                                                <BurstModeOutlinedIcon />
+                                            </ListItemIcon>
+                                            <SimpleSlider data={r.roomImgResDTOList} style={{ width: '280px' }} />
+                                        </ListItemButton>
+                                        <ListItemButton
+                                            sx={{ width: '100%', marginBottom: '10px' }}
+                                            onClick={() => {
+                                                delbm(r.roomId);
+                                            }}
+                                        >
+                                            <ListItemIcon style={{ color: '#1296ec' }}>
+                                                <StarsIcon style={{}} />
+                                            </ListItemIcon>
+                                            즐겨찾기 취소
+                                        </ListItemButton>
                                     </List>
                                     <Grid item xs={12} sm={12}>
                                         {r.roomObjectResDTOList.map((object) =>
