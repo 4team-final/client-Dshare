@@ -35,11 +35,13 @@ export default function BasicExampleDataGrid() {
         }
     ];
     const del = async (resId) => {
+        console.log(resId);
         let result = confirm('삭제하시겠습니까?');
         if (result) {
             let del = await delRoomRes(resId);
+            res(1, null, null, null, null, null, null, null);
             console.log(del);
-            return alert('삭제가 완료 됐습니다.');
+            return alert('예약삭제에 성공했습니다');
         }
         //delete 함수
     };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useCallback, useState, useRef } from 'react';
-import { getAllVehicleResPage, getAllRoomResPage, delRoomRes } from 'components/ApiModules/ApiHandler';
+import { getAllVehicleResPage, getAllRoomResPage, delRoomRes, delVehicleRes } from 'components/ApiModules/ApiHandler';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Avatar, Button } from 'antd';
 import VehicleFilter from './VehicleFilter';
@@ -34,12 +34,14 @@ export default function BasicExampleDataGrid() {
         }
     ];
 
-    const del = async (resId) => {
+    const del = async (resId, id, vehicle, capacity, position, teamId, empNo, startedAt, endedAt) => {
+        console.log(resId);
         let result = confirm('삭제하시겠습니까?');
         if (result) {
-            let del = await delRoomRes(resId);
+            let del = await delVehicleRes(resId);
+            res(1, null, null, null, null, null, null, null);
             console.log(del);
-            return alert('삭제가 완료 됐습니다.');
+            return alert('예약삭제에 성공했습니다');
         }
         //delete 함수
     };
@@ -83,7 +85,7 @@ export default function BasicExampleDataGrid() {
 
     return (
         <div style={{ height: '70vh', width: '100%' }}>
-            <VehicleFilter totalPage={totalPage} res={res} />
+            <VehicleFilter totalPage={totalPage} res={res} del={del} />
             <DataGrid columns={dataColumns} rows={vehicleResData} components={{ Toolbar: GridToolbar }} />
         </div>
     );

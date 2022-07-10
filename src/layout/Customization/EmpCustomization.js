@@ -172,6 +172,9 @@ const Customization = (props) => {
                 setTeamId(emp.teamId);
                 setDeptId(emp.deptId);
                 setPositionId(emp.positionId);
+                setTeamId2(emp.teamId);
+                setDeptId2(emp.deptId);
+                setPositionId2(emp.positionId);
                 setEmpInfo(emp);
                 console.log(emp);
             }
@@ -181,6 +184,62 @@ const Customization = (props) => {
         [],
         [name, email, tel, birthday, positionId, teamId, deptId]
     );
+
+    //업뎃용
+    const [team2, setTeam2] = useState('');
+    const [dept2, setdept2] = useState('');
+    const [position2, setPosition2] = useState('');
+    const [teamId2, setTeamId2] = useState('');
+    const [positionId2, setPositionId2] = useState('');
+    const [deptId2, setDeptId2] = useState('');
+    const [name2, setName2] = useState('');
+    const [email2, setEmail2] = useState('');
+    const [tel2, setTel2] = useState('');
+    const [birthday2, setBirthDay2] = useState();
+
+    //이메일 변경
+    const emailChange = (e) => {
+        setEmail2(e.target.value);
+    };
+    //이름 변경
+    const nameChange = (e) => {
+        setName2(e.target.value);
+    };
+    //전화번호 변경
+    const telChange = (e) => {
+        setTel2(e.target.value);
+    };
+    //생일
+    const birthdayChange = (e) => {
+        setBirthDay2(e.target.value);
+    };
+
+    useEffect(() => {
+        async function profile() {
+            let emp = await getUserProfileById(empId);
+            setBirthDay(emp.birthday.split('T', 1)[0]);
+            setEmail(emp.email);
+            setName(emp.name);
+            setTel(emp.tel);
+            setTeam(emp.team);
+            setPosition(emp.position);
+            setdept(emp.dept);
+            setProfileImg(emp.profileImg);
+            setId(emp.id);
+            setTeamId(emp.teamId);
+            setDeptId(emp.deptId);
+            setPositionId(emp.positionId);
+            setEmpInfo(emp);
+            console.log(emp);
+            //2
+            setEmail2(emp.email);
+            setName2(emp.name);
+            setTel2(emp.tel);
+            setBirthDay2(emp.birthday.split('T', 1)[0]);
+        }
+        profile();
+        console.log(empId);
+    }, []);
 
     //부서 팀 포지션 리스트
     const [liOpen, setLiOpen] = useState(false);
@@ -205,23 +264,6 @@ const Customization = (props) => {
     const [email, setEmail] = useState('');
     const [tel, setTel] = useState('');
     const [birthday, setBirthDay] = useState();
-
-    //이메일 변경
-    const emailChange = (e) => {
-        setEmail(e.target.value);
-    };
-    //이름 변경
-    const nameChange = (e) => {
-        setName(e.target.value);
-    };
-    //전화번호 변경
-    const telChange = (e) => {
-        setTel(e.target.value);
-    };
-    //생일
-    const birthdayChange = (e) => {
-        setBirthDay(e.target.value);
-    };
 
     //체크박스 설정
     const ITEM_HEIGHT = 48;
@@ -338,14 +380,15 @@ const Customization = (props) => {
     dshareAPI.interceptors.response.use(resSuccess, resError);
 
     const updateEmpInfo = async () => {
+        console.log(teamId2, positionId2, name2, email2, birthday2, tel2);
         return await dshareAPI
             .post(`admin/update/${empId}`, {
-                teamId: teamId,
-                positionId: positionId,
-                name: name,
-                email: email,
-                tel: tel,
-                birthday: birthday + 'T00:00:00'
+                teamId: teamId2,
+                positionId: positionId2,
+                name: name2,
+                email: email2,
+                tel: tel2,
+                birthday: birthday2 + 'T00:00:00'
             })
             .then((res) => {
                 let emp = getUserProfileById(empId);
@@ -356,6 +399,7 @@ const Customization = (props) => {
 
     const updateEmp = async () => {
         let emp = await updateEmpInfo();
+        setUpdate(!update);
         console.log(emp);
         // console.log(id, teamId, positionId, name, email, tel, birthday);
         setBirthDay(emp.birthday.split('T', 1)[0]);
@@ -533,7 +577,7 @@ const Customization = (props) => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="이름"
-                                            defaultValue={empInfo.name}
+                                            defaultValue={name2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -550,7 +594,7 @@ const Customization = (props) => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="이메일"
-                                            defaultValue={email}
+                                            defaultValue={email2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -566,7 +610,7 @@ const Customization = (props) => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="생일"
-                                            defaultValue={birthday}
+                                            defaultValue={birthday2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -583,7 +627,7 @@ const Customization = (props) => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="전화번호"
-                                            defaultValue={tel}
+                                            defaultValue={tel2}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">

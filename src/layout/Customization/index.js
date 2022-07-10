@@ -170,6 +170,9 @@ const Customization = () => {
                 setTeamId(emp.teamId);
                 setDeptId(emp.deptId);
                 setPositionId(emp.positionId);
+                setTeamId2(emp.teamId);
+                setDeptId2(emp.deptId);
+                setPositionId2(emp.positionId);
                 setEmpInfo(emp);
             }
             profile();
@@ -177,6 +180,30 @@ const Customization = () => {
         [],
         [name, email, tel, birthday, positionId, teamId, deptId]
     );
+    useEffect(() => {
+        async function profile() {
+            let emp = await getUserProfile();
+            setBirthDay(emp.birthday.split('T', 1)[0]);
+            setEmail(emp.email);
+            setName(emp.name);
+            setTel(emp.tel);
+            setTeam(emp.team);
+            setPosition(emp.position);
+            setdept(emp.dept);
+            setProfileImg(emp.profileImg);
+            setId(emp.id);
+            setTeamId(emp.teamId);
+            setDeptId(emp.deptId);
+            setPositionId(emp.positionId);
+            setEmpInfo(emp);
+            //2
+            setEmail2(emp.email);
+            setName2(emp.name);
+            setTel2(emp.tel);
+            setBirthDay2(emp.birthday.split('T', 1)[0]);
+        }
+        profile();
+    }, []);
 
     //부서 팀 포지션 리스트
     const [liOpen, setLiOpen] = useState(false);
@@ -354,6 +381,7 @@ const Customization = () => {
     // const [tel2, setTel2] = useState('');
     // const [birthday2, setBirthDay2] = useState();
     const updateEmpInfo = async () => {
+        console.log(teamId2, positionId2, name2, email2, birthday2, tel2);
         return await dshareAPI
             .post(`admin/update/${id}`, {
                 teamId: teamId2,
@@ -373,6 +401,7 @@ const Customization = () => {
     const updateEmp = async () => {
         let emp = await updateEmpInfo();
         console.log(emp);
+        setUpdate(!update);
         dispatch(ProfileChangeSave(emp));
         // console.log(id, teamId, positionId, name, email, tel, birthday);
         setBirthDay(emp.birthday.split('T', 1)[0]);
@@ -740,7 +769,7 @@ const Customization = () => {
                                                     <EditIcon style={{ width: '18px', height: '18px' }} />
                                                 </Fab>
                                             </ListItemIcon>
-                                            <ListItemText primary="프로필 사진 수정하기" />
+                                            <ListItemText primary="수정하기" />
                                         </ListItemButton>
                                     </>
                                 ) : (
@@ -765,7 +794,7 @@ const Customization = () => {
                                                     <CheckCircleOutlinedIcon style={{ width: '18px', height: '18px' }} />
                                                 </Fab>
                                             </ListItemIcon>
-                                            <ListItemText primary="프로필 사진 수정 완료" />
+                                            <ListItemText primary="수정 완료" />
                                         </ListItemButton>
                                         <ListItemButton onClick={updateImg} style={{}}>
                                             <ListItemIcon>
@@ -777,7 +806,7 @@ const Customization = () => {
                                                     <CancelOutlinedIcon style={{ width: '18px', height: '18px' }} />
                                                 </Fab>
                                             </ListItemIcon>
-                                            <ListItemText primary="프로필 사진 수정 취소" />
+                                            <ListItemText primary="수정 취소" />
                                         </ListItemButton>
                                     </>
                                 )}

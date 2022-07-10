@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { getRBookmark, getVBookmark, delVBookmark } from 'components/ApiModules/ApiHandler';
+import { getRBookmark, getVBookmark, delVBookmark, delRBookmark, addVBookmark } from 'components/ApiModules/ApiHandler';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -52,19 +52,27 @@ export default function BoardCard(props) {
 
     const delVbm = async (id) => {
         console.log(id);
-        let check = confirm('삭제하시겠습니까?');
-        if (check) {
+        if (mark) {
             let Rdata = await delVBookmark(id);
+            alert('즐겨 찾기를 취소 했습니다~!');
+        } else {
+            let Rdata = await addVBookmark(id);
+            console.log(Rdata);
+            alert('즐겨 찾기를 등록 했습니다~!');
         }
+
+        window.location.href = '/main/room/vehicle/list';
     };
+
     const delRbm = async (id) => {
         console.log(id);
-        let check = confirm('삭제하시겠습니까?');
-        if (check) {
-            let Rdata = await delRBookmark(id);
-            setRBookmark(Rdata);
-            // console.log(Rdata);
+        let Rdata = await delRBookmark(id);
+        if (mark) {
+            alert('즐겨 찾기를 등록 했습니다~!');
+        } else {
+            alert('즐겨 찾기를 취소 했습니다~!');
         }
+        window.location.href = '/main/room/vehicle/list';
     };
 
     async function getBookInfo() {
