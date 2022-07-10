@@ -1,4 +1,4 @@
-import LoginPage from 'page/login/LoginPage';
+import LoginPage from 'page/login';
 import { MainRedirectHandler } from './RoutesController';
 
 const LoginRoutes = {

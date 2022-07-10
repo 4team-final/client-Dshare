@@ -121,8 +121,8 @@ const SelectRoomTable = (item) => {
     return (
         <ListFrame>
             {item ? (
-                item.props.map((i) => (
-                    <ItemFrame key={i.roomId}>
+                item.props.map((i, idx) => (
+                    <ItemFrame key={idx}>
                         <CardFrame props={'fff'}>
                             <RoomTableCard props={i} />
                             <CustomButton
@@ -163,8 +163,8 @@ const SelectVehicleTable = (item) => {
         <div>
             <ListFrame>
                 {item ? (
-                    item.props.map((i) => (
-                        <ItemFrame key={i.id}>
+                    item.props.map((i, idx) => (
+                        <ItemFrame key={idx}>
                             <CardFrame props={'fff'}>
                                 <VehicleTableCard props={i} />
                                 <CustomButton

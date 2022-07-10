@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // User
 import { alertToSocketMessage, selectIsSeatByUIdAndVId } from 'store/actions/WebsocketAction';
-import { getAccess } from '../ApiModules/ApiParts';
+import { getToken } from '../ApiModules/ApiParts';
 import { requestByEmployeeLogout } from '../ApiModules/ApiHandler';
 
 export const SocketConnection = (props) => {
@@ -106,7 +106,7 @@ export const SocketConnection = (props) => {
     return <></>;
 };
 
-const token = getAccess();
+const token = getToken('access');
 
 export const onOpenTable = (socket, enter) => {
     try {
