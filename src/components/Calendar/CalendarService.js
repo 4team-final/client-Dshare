@@ -260,10 +260,10 @@ export const CalendarService = () => {
         dateCellRender = (value) => {
             const listData = getListData(value);
             return (
-                <ul className="events">
+                <ul className="events" style={{ overflow: 'hidden' }}>
                     {listData?.map((item) => (
                         <li className="eventsItem" key={item.content}>
-                            <Badge style={{ overflow: 'none' }} status={item.type} text={item.content} />
+                            <Badge status={item.type} text={item.content} />
                         </li>
                     ))}
                 </ul>
@@ -271,7 +271,7 @@ export const CalendarService = () => {
         };
     }
 
-    return <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />;
+    return <Calendar style={{ overflow: 'hidden' }} dateCellRender={dateCellRender} monthCellRender={monthCellRender} />;
 };
 
 const GetListData = (value) => {
