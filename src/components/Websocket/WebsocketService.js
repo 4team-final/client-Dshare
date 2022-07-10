@@ -22,7 +22,7 @@ export const SocketConnection = (props) => {
     const roomTalkState = useSelector((state) => state.websocketReducer.roomtalk);
     const roomQuitState = useSelector((state) => state.websocketReducer.roomquit);
     const urlV = window.location.protocol === 'http:' ? vehicleURL : vehicleURLS;
-    const urlR = window.location.protocol === 'http:' ? roomURL : roomURL;
+    const urlR = window.location.protocol === 'http:' ? roomURL : roomURLS;
     const socket = new WebSocket(props.props.type === 0 ? urlR : urlV);
     const [connected, setConnected] = useState(false);
     useEffect(() => {

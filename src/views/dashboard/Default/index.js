@@ -76,24 +76,27 @@ const Dashboard = () => {
                                 <TotalIncomeLightCard isLoading={isLoading} roomBookmark={roomBookmark} />
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', paddingRight: '5%' }}>
                                     <Button
                                         variant="outlined"
                                         style={{
+                                            width: '50%',
                                             borderRadius: '20px',
                                             border: '1px solid #d3d3d3',
                                             backgroundColor: '#fafafa',
                                             justifySelf: 'center',
-                                            alignItems: 'center'
+                                            alignItems: 'center',
+                                            marginRight: '5%'
                                         }}
                                         onClick={handleClick}
                                     >
-                                        <BsFillCalendarDateFill size={'2.5em'} style={{ marginRight: '1em' }} />{' '}
+                                        <BsFillCalendarDateFill size={'2em'} style={{ marginRight: '1em' }} />{' '}
                                         <span style={{ fontWeight: 'bold' }}>월별 현황</span>
                                     </Button>
                                     <Button
                                         variant="outlined"
                                         style={{
+                                            width: '50%',
                                             borderRadius: '20px',
                                             border: '1px solid #d3d3d3',
                                             backgroundColor: '#fafafa',
@@ -102,7 +105,7 @@ const Dashboard = () => {
                                         }}
                                         onClick={scrollToBottom2}
                                     >
-                                        <AiOutlineBarChart size={'2.5em'} style={{ marginRight: '1em' }} />
+                                        <AiOutlineBarChart size={'2em'} style={{ marginRight: '1em' }} />
                                         <span style={{ fontWeight: 'bold' }}>통계 현황</span>
                                     </Button>
                                 </div>
