@@ -112,6 +112,8 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
         }
     }, [bookmarkVehicleTopStore]);
 
+    console.log(roomBookmarkData);
+    console.log(vehicleBookmarkData);
     useEffect(() => {
         if (vehicleBookmarkData?.length > 0) {
             setRank(1);
