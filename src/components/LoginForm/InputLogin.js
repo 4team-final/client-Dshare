@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './InputLogin.scss';
+import { LoginFormFrame, LoginAlertFrame, LoginInputFrame, LoginContainerFrame, LoginButtonFrame } from './LoginFormStyle';
 import { FaRegUser } from 'react-icons/fa';
 import { IoIosLock } from 'react-icons/io';
 import { BsExclamationDiamondFill } from 'react-icons/bs';
@@ -45,26 +45,26 @@ export default function InputLogin() {
     };
 
     return (
-        <div className="InputLogin">
+        <LoginFormFrame>
             <form className="inputLoginForm" onSubmit={onClickLogin}>
-                <div className="input-container">
-                    <FaRegUser className="i" />
-                    <input type="text" placeholder="사원번호 입력" onChange={idHandler} />
-                </div>
-                <div className="input-container">
-                    <IoIosLock className="i lock" />
-                    <input type="password" placeholder="비밀번호 입력" onChange={passwordHandler} />
-                </div>
-                <div className="input-container">
+                <LoginContainerFrame>
+                    <FaRegUser style={{ color: '#fff' }} />
+                    <LoginInputFrame type="text" placeholder="사원번호 입력" onChange={idHandler} />
+                </LoginContainerFrame>
+                <LoginContainerFrame>
+                    <IoIosLock style={{ color: '#fff' }} />
+                    <LoginInputFrame type="password" placeholder="비밀번호 입력" onChange={passwordHandler} />
+                </LoginContainerFrame>
+                <LoginContainerFrame>
                     {alert ? <BsExclamationDiamondFill /> : <></>}
-                    <span className="alert">{alert}</span>
-                </div>
-                <div className="input-container">
-                    <button type="submit" disabled={disabledBtn}>
+                    <LoginAlertFrame>{alert}</LoginAlertFrame>
+                </LoginContainerFrame>
+                <LoginContainerFrame>
+                    <LoginButtonFrame type="submit" disabled={disabledBtn}>
                         Login
-                    </button>
-                </div>
+                    </LoginButtonFrame>
+                </LoginContainerFrame>
             </form>
-        </div>
+        </LoginFormFrame>
     );
 }

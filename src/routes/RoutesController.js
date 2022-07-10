@@ -1,11 +1,11 @@
 import { Navigate } from 'react-router-dom';
-import { getAccess, getRefresh } from '../components/ApiModules/ApiParts';
+import { getToken } from '../components/ApiModules/ApiParts';
 import PermitPage from 'page/exception/permitpage';
 import ErrorPage from 'page/exception/errorpage';
 
 const IsLogin = () => {
-    const access = getAccess();
-    const refresh = getRefresh();
+    const access = getToken('access');
+    const refresh = getToken('refresh');
     if (access || refresh) return true;
     return false;
 };

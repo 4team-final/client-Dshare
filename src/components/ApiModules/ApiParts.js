@@ -7,12 +7,6 @@ export const resAccess = process.env.REACT_APP_ACCESS_RES;
 export const reqRefresh = process.env.REACT_APP_REFRESH_REQ;
 export const resRefresh = process.env.REACT_APP_REFRESH_RES;
 export const urlRefresh = process.env.REACT_APP_REFRESH_URL;
-export const getAccess = () => {
-    return cookie.get(reqAccess);
-};
-export const getRefresh = () => {
-    return cookie.get(reqRefresh);
-};
 export const getToken = (key) => {
     switch (key) {
         case 'access':

@@ -33,7 +33,9 @@ export const requestByEmployeeLogout = async () => {
     if (res === 1) {
         alert('비정상적으로 로그아웃 처리되었습니다.');
     }
-    window.location.href = '/';
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 500);
 };
 
 export const getUserProfile = async () => {
