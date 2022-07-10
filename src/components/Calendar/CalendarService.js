@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectRoomDateCalendar, selectVehicleDateCalendar } from 'store/actions/CalendarAction';
 import { reservationRoomTime, reservationVehicleTime } from 'store/actions/CalendarAction';
 
-// import './CalendarService.scss';
 import './CalendarService.css';
 
 const getMonthData = (value) => {
@@ -82,7 +81,6 @@ export const CalendarService = () => {
             Vehiclefetch();
         }
     }, [vehicleData, select]);
-    // console.log(timeVehicleStore);
 
     const Roomfetch = () => {
         let result = [];
@@ -248,13 +246,7 @@ export const CalendarService = () => {
             </div>
         ) : null;
     };
-    // const [listData, setListData] = useState();
 
-    // useEffect(() => {
-    //     if (sampleDataList?.length > 0) {
-    //         setListData(getListData(value));
-    //     }
-    // }, [sampleDataList]);
     let dateCellRender;
     if (sampleDataList?.length > 0) {
         dateCellRender = (value) => {

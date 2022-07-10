@@ -95,9 +95,6 @@ const MainLayout = (props) => {
         setMessages(allMessages);
     }, [allMessages]);
 
-    console.log(allMessages);
-    console.log(messages);
-
     useEffect(() => {
         if (messages.message === '' && messages.message2 === '' && messages.message3 === '' && messages.message4 === '') {
         } else {

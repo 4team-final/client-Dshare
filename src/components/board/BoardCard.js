@@ -45,11 +45,11 @@ export default function BoardCard(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    const [board, setBoard] = useState(props.item);
+    const [board, setBoard] = useState(props?.item);
     console.log(board);
     useEffect(() => {
         console.log(props.item);
-        props.item.roomId;
+        props?.item?.roomId;
         // getRBookmark
         // getVBookmark
     }, []);

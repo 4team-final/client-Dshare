@@ -15,10 +15,11 @@ export default function SimpleSlider(props) {
     const [total, setTotal] = useState(0);
     const [imgs, setImgs] = useState([]);
     const [width, setWidth] = useState(props?.style.width);
+    console.log(props?.style.width);
     const [height, setHeight] = useState(props?.style.height);
 
     useEffect(() => {
-        setImgs(props.data || props);
+        setImgs(props?.data || props);
     }, [props]);
 
     var settings = {
@@ -35,7 +36,7 @@ export default function SimpleSlider(props) {
                 {imgs?.length > 0 &&
                     imgs?.map((item, i) => {
                         return (
-                            <WrapperImg key={item.imgId} width={width} height={height}>
+                            <WrapperImg key={item?.imgId} width={width} height={height}>
                                 <img className="img" src={item?.imgPath || item} alt="" />
                             </WrapperImg>
                         );

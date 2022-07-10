@@ -11,10 +11,6 @@ function Timer() {
     const reservationStore = useSelector((state) => state.reservationReducer);
     const dispatch = useDispatch();
 
-    const [token, setToken] = useState(
-        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMjAxMDAyMzIiLCJpYXQiOjE2NTYzMjYyMjgsImV4cCI6MTY1NjMyODAyOH0.Q50aPz4mYJ9E9KtCiZFopZPTO1uJCgz1DPNIZfRraUY_NWJ0kCyfAO7WDjHAKeo1bOhTDgpovq97wG0ivHORJA'
-    );
-
     const [_soonTimeRoom, setSoonTimeRoom] = useState(-1);
     const [_ingTimeRoom, setIngTimeRoom] = useState(-1);
     const [_soonTimeVehicle, setSoonTimeVehicle] = useState(-1);
