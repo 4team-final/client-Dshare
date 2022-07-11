@@ -28,6 +28,7 @@ export const WebsocketController = () => {
     const [alertFlag, setAlertFlag] = useState(false);
     const [socketMsg, setSocketMsg] = useState('');
     const [socketFlag, setSocketFlag] = useState(false);
+    const [socketBtn, setSocketBtn] = useState(true);
     const typeStore = useSelector((state) => state.websocketReducer.product);
     const vIdStore = useSelector((state) => state.websocketReducer.vid);
     const rIdStore = useSelector((state) => state.websocketReducer.rid);
@@ -38,6 +39,8 @@ export const WebsocketController = () => {
     const titleStore = useSelector((state) => state.websocketReducer.title);
     const contentStore = useSelector((state) => state.websocketReducer.content);
     const socketMsgStore = useSelector((state) => state.websocketReducer.socketmessage);
+    const isSeatStore = useSelector((state) => state.websocketReducer.validisseat);
+    const [reservedBtn, setReservedBtn] = useState(true);
     const ConnectHandler = () => {
         dispatch(validIsSeat());
         dispatch(
@@ -60,6 +63,7 @@ export const WebsocketController = () => {
     };
     const UnselectHandler = () => {
         QuitSocket();
+        setSocketBtn(true);
         dispatch(initSocketData());
     };
     const SetTimeHandler = () => {
@@ -71,12 +75,12 @@ export const WebsocketController = () => {
             setAlertMsg('대여할 차량을 선택해주세요.');
             return;
         }
-        if (uid === 0) {
-            setAlertMsg('자원을 대여할 날짜를 선택해주세요.');
-            return;
-        }
         if (time.length < 1) {
             setAlertMsg('자원을 대여할 시간을 선택해주세요.');
+            return;
+        }
+        if (uid === 0) {
+            setAlertMsg('자원을 대여할 날짜를 선택해주세요.');
             return;
         }
         if (title === '' || title === null || title === undefined) {
@@ -112,6 +116,8 @@ export const WebsocketController = () => {
     };
     useEffect(() => {
         dispatch(selectByEmpNo());
+        setSocketBtn(true);
+        setReservedBtn(true);
     }, []);
     useEffect(() => {
         if (typeStore && typeStore.data != null) {
@@ -179,7 +185,7 @@ export const WebsocketController = () => {
         }
     }, [socketMsgStore]);
     useEffect(() => {
-        if (socketMsg !== '') {
+        if (socketMsg !== '' && socketMsg !== undefined && socketMsg !== null) {
             setSocketFlag(true);
         }
         setTimeout(() => {
@@ -187,19 +193,34 @@ export const WebsocketController = () => {
             setSocketMsg('');
         }, 2500);
     }, [socketMsg]);
-
+    useEffect(() => {
+        if (type !== 2 && uid !== 0 && (rid !== 0 || vid !== 0)) {
+            setSocketBtn(false);
+        }
+    }, [rid, vid, type, uid]);
+    useEffect(() => {
+        if (!socketBtn && time.length > 0) {
+            setReservedBtn(false);
+        }
+    }, [socketBtn, time]);
     return (
         <HalfWidthFrame>
             <AlertModule status={socketFlag} notice={'info'} font={'14'} contents={socketMsg} />
             <AlertModule status={alertFlag} notice={'error'} font={'22'} contents={alertMsg} />
             <CardFrame>
                 <CustomButton onClick={UnselectHandler}>선택 취소</CustomButton>
-                <CustomButton onClick={ConnectHandler}>적용</CustomButton>
-                <CustomButton onClick={DisconnectHandler}>예약 취소</CustomButton>
-                <CustomButton onClick={SetTimeHandler}>예약하기</CustomButton>
-                <ReservationModal type={type} open={reserved} />
-                <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
+                <CustomButton disabled={socketBtn || (isSeatStore && isSeatStore.ready)} onClick={ConnectHandler}>
+                    선택 완료
+                </CustomButton>
+                <CustomButton disabled={reservedBtn} onClick={DisconnectHandler}>
+                    예약 취소
+                </CustomButton>
+                <CustomButton disabled={reservedBtn} onClick={SetTimeHandler}>
+                    예약하기
+                </CustomButton>
             </CardFrame>
+            <ReservationModal type={type} open={reserved} />
+            <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
         </HalfWidthFrame>
     );
 };

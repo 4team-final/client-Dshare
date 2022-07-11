@@ -107,6 +107,28 @@ const SelectRoomTable = (item) => {
     const [selected, setSelected] = useState(false);
     const [rid, setRId] = useState(0);
     const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    const [itemList, setItemList] = useState([]);
+    const [propsItem, setPropsItem] = useState([]);
+
+    const selectedCard = (idx) => {
+        let copyList = [...itemList];
+        copyList = copyList.map((v, i) => (i === idx ? (v === 1 ? 0 : 1) : 0));
+        setItemList(copyList);
+    };
+
+    useEffect(() => {
+        setSelected(false);
+    }, []);
+    useEffect(() => {
+        setPropsItem(item.props);
+    }, [item, itemList]);
+    useEffect(() => {
+        let copyList = [];
+        if (item.props.length > 0) {
+            item.props.map((v) => copyList.push(0));
+            setItemList(copyList);
+        }
+    }, []);
     useEffect(() => {
         if (resetStore && resetStore.ready) {
             setRId(0);
@@ -120,15 +142,16 @@ const SelectRoomTable = (item) => {
     }, [selected]);
     return (
         <ListFrame>
-            {item ? (
-                item.props.map((i, idx) => (
+            {propsItem ? (
+                propsItem.map((i, idx) => (
                     <ItemFrame key={idx}>
-                        <CardFrame props={'fff'}>
+                        <CardFrame props={itemList[idx]}>
                             <RoomTableCard props={i} />
                             <CustomButton
                                 onClick={() => {
                                     setRId(i.roomId);
                                     setSelected(true);
+                                    selectedCard(idx);
                                 }}
                             >
                                 선택
@@ -148,6 +171,28 @@ const SelectVehicleTable = (item) => {
     const [selected, setSelected] = useState(false);
     const [vid, setVId] = useState(0);
     const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+    const [itemList, setItemList] = useState([]);
+    const [propsItem, setPropsItem] = useState([]);
+
+    const selectedCard = (idx) => {
+        let copyList = [...itemList];
+        copyList = copyList.map((v, i) => (i === idx ? (v === 1 ? 0 : 1) : 0));
+        setItemList(copyList);
+    };
+
+    useEffect(() => {
+        setSelected(false);
+    }, []);
+    useEffect(() => {
+        setPropsItem(item.props);
+    }, [item, itemList]);
+    useEffect(() => {
+        let copyList = [];
+        if (item.props.length > 0) {
+            item.props.map((v) => copyList.push(0));
+            setItemList(copyList);
+        }
+    }, []);
     useEffect(() => {
         if (resetStore && resetStore.ready) {
             setVId(0);
@@ -156,21 +201,22 @@ const SelectVehicleTable = (item) => {
     useEffect(() => {
         if (selected) {
             dispatch(selectByVId(vid));
-            setSelected(false);
         }
     }, [selected]);
+
     return (
         <div>
             <ListFrame>
-                {item ? (
-                    item.props.map((i, idx) => (
+                {propsItem ? (
+                    propsItem.map((i, idx) => (
                         <ItemFrame key={idx}>
-                            <CardFrame props={'fff'}>
+                            <CardFrame props={itemList[idx]}>
                                 <VehicleTableCard props={i} />
                                 <CustomButton
                                     onClick={() => {
                                         setVId(i.id);
                                         setSelected(true);
+                                        selectedCard(idx);
                                     }}
                                 >
                                     선택
@@ -192,6 +238,8 @@ const SelectTableService = () => {
     const dateTimeStore = useSelector((state) => state.websocketReducer.uid);
     const vehicleStore = useSelector((state) => state.calendarReducer.allVehicle);
     const roomStore = useSelector((state) => state.calendarReducer.allRoom);
+    const contentStore = useSelector((state) => state.websocketReducer.content);
+    const titleStore = useSelector((state) => state.websocketReducer.title);
     const [loading, setLoading] = useState(true);
     const [item, setItem] = useState([]);
     const [type, setType] = useState(null);
@@ -203,16 +251,23 @@ const SelectTableService = () => {
     }, [resetStore]);
 
     useEffect(() => {
-        if (productTypeStore && productTypeStore.data != null) {
+        if (productTypeStore && productTypeStore.data !== null) {
             setType(productTypeStore.data);
         }
     }, [productTypeStore]);
 
     useEffect(() => {
-        if (dateTimeStore && dateTimeStore.data != null) {
+        if (
+            dateTimeStore &&
+            dateTimeStore.data !== null &&
+            titleStore &&
+            titleStore.data !== null &&
+            contentStore &&
+            contentStore.data !== null
+        ) {
             setLoading(false);
         }
-    }, [dateTimeStore]);
+    }, [dateTimeStore, titleStore, contentStore]);
     useEffect(() => {
         dispatch(findAllByVehicle());
         dispatch(findAllByRoom());
@@ -233,26 +288,24 @@ const SelectTableService = () => {
     return (
         <>
             {loading && item ? (
-                <ComponentFrame>
-                    <TextSubTitle props={'25'}>날짜를 먼저 선택해주세요</TextSubTitle>
-                </ComponentFrame>
+                <></>
             ) : type === 0 ? (
-                <ComponentFrame>
-                    <SelectRoomTable props={item} />
-                </ComponentFrame>
+                <HalfWidthFrame visible={!loading}>
+                    <ComponentFrame>
+                        <SelectRoomTable props={item} />
+                    </ComponentFrame>
+                </HalfWidthFrame>
             ) : (
-                <ComponentFrame>
-                    <SelectVehicleTable props={item} />
-                </ComponentFrame>
+                <HalfWidthFrame visible={!loading}>
+                    <ComponentFrame>
+                        <SelectVehicleTable props={item} />
+                    </ComponentFrame>
+                </HalfWidthFrame>
             )}
         </>
     );
 };
 
 export const SelectTableFrame = () => {
-    return (
-        <HalfWidthFrame>
-            <SelectTableService />
-        </HalfWidthFrame>
-    );
+    return <SelectTableService />;
 };

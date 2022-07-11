@@ -101,3 +101,13 @@ export const CustomButton = styled.button`
         transition: all 0.3s;
     }
 `;
+
+export const TitleTextFrame = styled.div`
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 25px;
+`;

@@ -12,12 +12,15 @@ const SelectProductService = () => {
     const [selected, setSelected] = useState(false);
     const [type, setType] = useState(2);
     const resetStore = useSelector((state) => state.websocketReducer.resetdata);
+
+    useEffect(() => {
+        setType(2);
+    }, []);
     useEffect(() => {
         if (resetStore && resetStore.ready) {
             setType(2);
         }
     }, [resetStore]);
-
     useEffect(() => {
         if (selected) {
             dispatch(selectByType(type));

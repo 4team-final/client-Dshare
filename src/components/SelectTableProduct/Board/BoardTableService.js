@@ -12,7 +12,8 @@ import {
     TitleFrame,
     SectionFrame,
     TextTitle,
-    CustomButton
+    CustomButton,
+    TitleTextFrame
 } from './BoardTableStyle';
 import { selectByTitle, selectByContent } from '../../../store/actions/WebsocketAction';
 
@@ -55,6 +56,9 @@ const BoardTableContentBar = () => {
         }
     };
     useEffect(() => {
+        setDisabled(false);
+    }, []);
+    useEffect(() => {
         if (resetStore && resetStore.ready) {
             setDisabled(false);
         }
@@ -65,7 +69,10 @@ const BoardTableContentBar = () => {
         }
     }, [disabled]);
     return (
-        <SectionFrame>
+        <SectionFrame props={disabled}>
+            <TitleTextFrame>
+                <p>예약 신청서</p>
+            </TitleTextFrame>
             <TextFrame>
                 <BoardTableTitleBar props={disabled} />
             </TextFrame>

@@ -13,9 +13,7 @@ import {
     HalfWidthFrame,
     ComponentFrame,
     CalendarFrame,
-    CardFrame,
-    ItemFrame,
-    ListFrame,
+    TitleTextFrame,
     ContentFrame,
     CustomButton,
     SubContentFrame,
@@ -99,7 +97,8 @@ const DateTableService = () => {
 export const DateTableFrame = () => {
     return (
         <HalfWidthFrame height={650}>
-            <ComponentFrame height={650}>
+            <TitleTextFrame>날짜 선택</TitleTextFrame>
+            <ComponentFrame height={550}>
                 <DateTableService />
             </ComponentFrame>
         </HalfWidthFrame>
