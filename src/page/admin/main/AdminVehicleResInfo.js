@@ -34,7 +34,7 @@ export default function BasicExampleDataGrid() {
         }
     ];
 
-    const del = async (resId, id, vehicle, capacity, position, teamId, empNo, startedAt, endedAt) => {
+    const del = async (resId) => {
         console.log(resId);
         let result = confirm('삭제하시겠습니까?');
         if (result) {
