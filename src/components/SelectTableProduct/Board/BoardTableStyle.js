@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
     max-width: 800px;
-    height: 320px;
+    height: 360px;
     background-color: #fff;
     text-align: center;
     margin: 15px auto;
@@ -14,9 +14,9 @@ export const HalfWidthFrame = styled.div`
 
 export const ComponentFrame = styled.div`
     width: 97%;
-    height: 300px;
-    overflow-x: auto;
-    overflow-y: auto;
+    height: 350px;
+    overflow-x: none;
+    overflow-y: none;
     margin: auto;
     padding-top: 1%;
     padding-bottom: 3%;
@@ -42,6 +42,9 @@ export const SectionFrame = styled.div`
     padding: 0;
     display: flex;
     flex-direction: column;
+    border-radius: 30px;
+    box-shadow: inset 0 0 30px #fff;
+    background-color: ${(props) => (props.props ? 'rgba(0, 0, 0, 0.3)' : '#fff')};
 `;
 
 export const CardFrame = styled.div`
@@ -138,4 +141,15 @@ export const CustomButton = styled.button`
         height: 30px;
         transition: all 0.3s;
     }
+`;
+
+export const TitleTextFrame = styled.div`
+    width: auto;
+    height: auto;
+    min-height: 50px;
+    margin-top: 10px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 25px;
+    color: rgba(0, 0, 0, 0.8);
 `;

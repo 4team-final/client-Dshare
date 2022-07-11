@@ -1,6 +1,21 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        height: 600px;
+        opacity: 1;
+    }
+`;
 
 export const HalfWidthFrame = styled.div`
+    animation: ${fadeIn} 1.25s ease-out;
     max-width: 800px;
     height: 600px;
     background-color: #fff;
@@ -46,7 +61,7 @@ export const CardFrame = styled.div`
     display: flex;
     box-shadow: inset 0 0 5px #673ab7;
     border-radius: 20px;
-    background-color: #${(props) => props.props};
+    background-color: ${(props) => (props.props === 1 ? 'rgba(0, 0, 0, 0.5)' : '#fff')};
 `;
 
 export const ListFrame = styled.ul`
@@ -71,6 +86,7 @@ export const ImgCard = styled.div`
     height: ${(props) => props.height}px;
     width: ${(props) => props.width}px;
     border-radius: 20px;
+    cursor: pointer;
 `;
 
 export const InsideFrame = styled.div`

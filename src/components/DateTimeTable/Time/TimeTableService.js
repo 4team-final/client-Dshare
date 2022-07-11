@@ -117,15 +117,21 @@ const TimeTableService = () => {
             setLoading(false);
         }
     }, [isSeatStore]);
-    return <>{loading ? <TextTitle props={'25'}>날짜와 자원을 먼저 선택해주세요</TextTitle> : <TimeTable />}</>;
+    return (
+        <>
+            {loading ? (
+                <></>
+            ) : (
+                <HalfWidthFrame visible={!loading} height={150}>
+                    <ComponentFrame height={100}>
+                        <TimeTable />
+                    </ComponentFrame>
+                </HalfWidthFrame>
+            )}
+        </>
+    );
 };
 
 export const TimeTableFrame = () => {
-    return (
-        <HalfWidthFrame height={150}>
-            <ComponentFrame height={100}>
-                <TimeTableService />
-            </ComponentFrame>
-        </HalfWidthFrame>
-    );
+    return <TimeTableService />;
 };
