@@ -44,7 +44,7 @@ export const HalfFrame = styled.div`
     background-color: #1296ec;
     width: 100%;
     height: 100%;
-    padding: 10% 0 4.5% 0;
+    padding: 10% 0 8% 0;
     margin: 0;
     overflow-y: hidden;
 `;

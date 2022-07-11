@@ -1,6 +1,21 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.2;
+    }
+    100% {
+        height: 150px;
+        opacity: 1;
+    }
+`;
 
 export const HalfWidthFrame = styled.div`
+    animation: ${fadeIn} 0.75s ease-out;
     box-shadow: inset 0 0 8px #fff;
     border: 1px solid #1296ec;
     max-width: 800px;
