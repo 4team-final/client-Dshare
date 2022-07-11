@@ -158,10 +158,12 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             content={false}
                             sx={{
                                 height: '23em',
+                                width: '100%',
                                 backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url(${selectImg})`,
-                                backgroundSize: 'contain',
+                                backgroundSize: '100%',
                                 opacity: '1'
                             }}
+                            style={{}}
                         >
                             <Box sx={{ p: 2.25 }}>
                                 <Grid container direction="column">
@@ -212,7 +214,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                         <Stack direction="row" spacing={1}>
                                                             {roomBookmarkData?.map((item, i) => {
                                                                 return (
-                                                                    <>
+                                                                    <div key={i}>
                                                                         <Chip
                                                                             key={roomBookmarkData.roomId}
                                                                             label={i + 1 + '위'}
@@ -223,7 +225,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                             }}
                                                                             onClick={() => handleClick(item, i)}
                                                                         />
-                                                                    </>
+                                                                    </div>
                                                                 );
                                                             })}
                                                         </Stack>
@@ -233,7 +235,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                         <Stack direction="row" spacing={1}>
                                                             {vehicleBookmarkData?.map((item, i) => {
                                                                 return (
-                                                                    <>
+                                                                    <div key={i}>
                                                                         <Chip
                                                                             key={vehicleBookmarkData?.vehicle?.id}
                                                                             label={i + 1 + '위'}
@@ -241,7 +243,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                                                             sx={{ color: '#ffffff', textShadow: '2px 2px 2px gray' }}
                                                                             onClick={() => handleClick(item, i)}
                                                                         />
-                                                                    </>
+                                                                    </div>
                                                                 );
                                                             })}
                                                         </Stack>

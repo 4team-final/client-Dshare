@@ -46,6 +46,7 @@ function MyReservationCard(props) {
         return a[0] + '년 ' + a[1] + '월 ' + +a[2] + '일 ' + b[0] + '시 ' + b[1] + '분 ';
     };
 
+    console.log(data2);
     return (
         <>
             {select === 0 && (
@@ -90,15 +91,73 @@ function MyReservationCard(props) {
                                 <div className="half">
                                     <span>
                                         <span className="float">
-                                            <div>시작 {convertDate(data?.startedAt)}</div>
-                                            <div>종료 {convertDate(data?.endedAt)}</div>
+                                            <div>
+                                                <span
+                                                    style={{
+                                                        fontSize: '10px',
+                                                        margin: '5px',
+                                                        borderRadius: '30px',
+                                                        padding: '3px',
+                                                        background: 'lightyellow',
+                                                        boxShadow: '1px 1px 3px 1px #dadce0'
+                                                    }}
+                                                >
+                                                    시작
+                                                </span>
+                                                {convertDate(data?.startedAt)}
+                                            </div>
+                                            <div>
+                                                <span
+                                                    style={{
+                                                        fontSize: '10px',
+                                                        margin: '5px',
+                                                        borderRadius: '30px',
+                                                        padding: '3px',
+                                                        background: 'lightyellow',
+                                                        boxShadow: '1px 1px 3px 1px #dadce0'
+                                                    }}
+                                                >
+                                                    종료
+                                                </span>
+                                                {convertDate(data?.endedAt)}
+                                            </div>
                                         </span>
                                     </span>
                                 </div>
                                 <div className="half">
                                     <span>
-                                        <div>예약 확정 {convertDate(data?.createdAt)}</div>
-                                        <span className="reserveTitle">{data?.title}</span>
+                                        <div>
+                                            <span
+                                                style={{
+                                                    fontSize: '10px',
+                                                    margin: '5px',
+                                                    borderRadius: '30px',
+                                                    padding: '3px',
+                                                    background: '#FFDDDC',
+                                                    boxShadow: '1px 1px 3px 1px #dadce0'
+                                                }}
+                                            >
+                                                확정
+                                            </span>
+
+                                            {convertDate(data?.createdAt)}
+                                        </div>
+                                        <span className="reserveTitle">
+                                            {' '}
+                                            <span
+                                                style={{
+                                                    fontSize: '10px',
+                                                    margin: '5px',
+                                                    borderRadius: '30px',
+                                                    padding: '3px',
+                                                    background: '#DBFFCF',
+                                                    boxShadow: '1px 1px 3px 1px #dadce0'
+                                                }}
+                                            >
+                                                예약 이름
+                                            </span>
+                                            {data?.title}
+                                        </span>
                                     </span>
                                 </div>
                             </div>
@@ -150,14 +209,73 @@ function MyReservationCard(props) {
                                 <div className="half">
                                     <span>
                                         <span className="float">
-                                            <div>시작 {convertDate(data2?.startedAt)}</div>
-                                            <div>종료 {convertDate(data2?.endedAt)}</div>
+                                            <div>
+                                                <span
+                                                    style={{
+                                                        fontSize: '10px',
+                                                        margin: '5px',
+                                                        borderRadius: '30px',
+                                                        padding: '3px',
+                                                        background: 'lightyellow',
+                                                        boxShadow: '1px 1px 3px 1px #dadce0'
+                                                    }}
+                                                >
+                                                    시작
+                                                </span>{' '}
+                                                {convertDate(data2?.startedAt)}
+                                            </div>
+                                            <div>
+                                                <span
+                                                    style={{
+                                                        fontSize: '10px',
+                                                        margin: '5px',
+                                                        borderRadius: '30px',
+                                                        padding: '3px',
+                                                        background: 'lightyellow',
+                                                        boxShadow: '1px 1px 3px 1px #dadce0'
+                                                    }}
+                                                >
+                                                    종료
+                                                </span>
+                                                {convertDate(data2?.endedAt)}
+                                            </div>
+                                            <div>
+                                                <span
+                                                    style={{
+                                                        fontSize: '10px',
+                                                        margin: '5px',
+                                                        borderRadius: '30px',
+                                                        padding: '3px',
+                                                        background: '#FFDDDC',
+                                                        boxShadow: '1px 1px 3px 1px #dadce0'
+                                                    }}
+                                                >
+                                                    확정
+                                                </span>
+
+                                                {convertDate(data2?.reservationModifiedAt)}
+                                            </div>
                                         </span>
                                     </span>
                                 </div>
                                 <div className="half">
                                     <span>
-                                        <span className="reserveTitle">{data2?.title}</span>
+                                        <span className="reserveTitle">
+                                            {' '}
+                                            <span
+                                                style={{
+                                                    fontSize: '10px',
+                                                    margin: '5px',
+                                                    borderRadius: '30px',
+                                                    padding: '3px',
+                                                    background: '#DBFFCF',
+                                                    boxShadow: '1px 1px 3px 1px #dadce0'
+                                                }}
+                                            >
+                                                예약 이름
+                                            </span>
+                                            {data2?.title}
+                                        </span>
                                     </span>
                                 </div>
                             </div>

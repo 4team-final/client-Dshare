@@ -161,8 +161,9 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                             content={false}
                             sx={{
                                 height: '23em',
+                                width: '100%',
                                 backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url(${selectImg})`,
-                                backgroundSize: 'contain',
+                                backgroundSize: '100%',
                                 opacity: '1'
                             }}
                         >
