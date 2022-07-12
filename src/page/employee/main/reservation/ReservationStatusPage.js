@@ -31,7 +31,10 @@ function ReservationStatusPage() {
                         </div>
 
                         <div className="right">
-                            <ReservationChoice />
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <ReservationChoice />
+                            </div>
+
                             <MyReservationList />
                         </div>
                     </div>

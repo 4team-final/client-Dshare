@@ -4,6 +4,10 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'BMHannaAir';
+    src: url('../../fonts/BMHANNAAir_ttf.ttf');
+}
 .content_layout {
     display: flex;
     flex-direction: row;
@@ -11,14 +15,13 @@
     align-items: center;
     margin: 1%;
     padding: 1%;
+    height: 100%;
     .half {
         padding: 1%;
         margin: 2%;
         width: 45%;
         height: 100%;
-    }
-    .line {
-        border-right: 1px solid #d3d3d3;
+        font-family: 'BMHannaAir';
     }
 }
 .which {

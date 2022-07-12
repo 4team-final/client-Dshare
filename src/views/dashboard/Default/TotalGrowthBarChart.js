@@ -702,41 +702,54 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                             <Grid container alignItems="center" justifyContent="space-between">
                                 <Grid item xs={12} md={4}>
                                     <Grid
-                                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                        style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'start' }}
                                         container
                                         direction="column"
                                         spacing={1}
                                     >
-                                        <Grid item spacing={2} columnSpacing={2}>
-                                            <Grid item style={{ marginBottom: '10%' }}>
-                                                <TextField
-                                                    id="standard-select-currency"
-                                                    select
-                                                    value={value}
-                                                    onChange={(e) => setValue(e.target.value)}
-                                                >
-                                                    {status.map((option) => (
-                                                        <MenuItem
-                                                            onClick={() => {
-                                                                handleSelected2(option);
-                                                            }}
-                                                            key={option.value}
-                                                            value={option.value}
-                                                        >
-                                                            {!select ? <>회의실을 </> : <>차량을 </>}
-                                                            {option.label}
-                                                        </MenuItem>
-                                                    ))}
-                                                </TextField>
-                                            </Grid>
-
-                                            <Grid item>
+                                        <Grid item rowSpacing={2}>
+                                            <Grid item style={{ marginBottom: '10%', display: 'flex' }}>
+                                                <FormControl fullWidth variant="standard" sx={{ m: 1.5, minWidth: 120 }}>
+                                                    <TextField
+                                                        id="standard-basic"
+                                                        variant="standard"
+                                                        select
+                                                        value={value}
+                                                        onChange={(e) => setValue(e.target.value)}
+                                                        label="통계 조건"
+                                                    >
+                                                        {status.map((option) => (
+                                                            <MenuItem
+                                                                sx={{ fontSize: '1em' }}
+                                                                onClick={() => {
+                                                                    handleSelected2(option);
+                                                                }}
+                                                                key={option.value}
+                                                                value={option.value}
+                                                            >
+                                                                {!select ? <>회의실을 </> : <>차량을 </>}
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
+                                                </FormControl>
                                                 <Box sx={{ minWidth: 60, width: 100 }}>
-                                                    <FormControl fullWidth>
+                                                    <FormControl fullWidth variant="standard" sx={{ m: 1.5, minWidth: 120 }}>
                                                         <InputLabel id="demo-simple-select-label">그래프</InputLabel>
-                                                        <Select
+                                                        {/* <Select
                                                             labelId="demo-simple-select-label"
                                                             id="demo-simple-select"
+                                                            value={graphType}
+                                                            label="그래프"
+                                                            onChange={handleChange}
+                                                        >
+                                                            <MenuItem value={'bar'}>bar</MenuItem>
+                                                            <MenuItem value={'heatmap'}>heatmap</MenuItem>
+                                                        </Select> */}
+                                                        <Select
+                                                            id="standard-basic"
+                                                            variant="standard"
+                                                            select
                                                             value={graphType}
                                                             label="그래프"
                                                             onChange={handleChange}
@@ -747,6 +760,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                                     </FormControl>
                                                 </Box>
                                             </Grid>
+
+                                            <Grid item></Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -756,7 +771,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                                     </h1>
                                 </Grid>
                                 <Grid item xs={12} md={4}>
-                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'end' }}>
                                         <ReservationChoice />
                                     </div>
                                 </Grid>
