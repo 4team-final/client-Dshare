@@ -6,6 +6,8 @@ import { baseUrl } from '../../components/ApiModules/ApiParts';
 import { request } from '../../components/ApiModules/ReqInterceptor';
 import { resError, resSuccess } from '../../components/ApiModules/ResInterceptor';
 import { ProfileChangeSave } from 'store/actions/ChangeAction';
+import { LoginAlertFrame } from 'components/LoginForm/LoginFormStyle';
+import { BsExclamationDiamondFill } from 'react-icons/bs';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -240,9 +242,29 @@ const Customization = () => {
     const [email2, setEmail2] = useState('');
     const [tel2, setTel2] = useState('');
     const [birthday2, setBirthDay2] = useState();
+    const [eAlert, setEAlert] = useState(false);
+    const [tAlert, setTAlert] = useState(false);
+    const [bAlert, setBAlert] = useState(false);
+    const [eMessage, setEMessage] = useState('');
+    const [tMessage, setTMessage] = useState('');
+    const [bMessage, setBMessage] = useState('');
+    const [disabledBtn, setDisabledBtn] = useState(false);
 
+    const bExp = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    const tExp = /^\d{3}-\d{3,4}-\d{4}$/;
+    const emailExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     //이메일 변경
     const emailChange = (e) => {
+        if (!emailExp.test(e.target.value)) {
+            setEAlert(true);
+            setEMessage('이메일 형식에 맞게 입력해주세요');
+            setDisabledBtn(true);
+            return;
+        }
+        if (!(tAlert && bAlert && eAlert)) {
+            setDisabledBtn(false);
+        }
+        setEAlert(false);
         setEmail2(e.target.value);
     };
     //이름 변경
@@ -251,10 +273,30 @@ const Customization = () => {
     };
     //전화번호 변경
     const telChange = (e) => {
+        if (!tExp.test(e.target.value)) {
+            setTAlert(true);
+            setDisabledBtn(true);
+            setTMessage('휴대전화 형식에 맞게 입력해주세요');
+            return;
+        }
+        setTAlert(false);
+        if (!(tAlert && bAlert && eAlert)) {
+            setDisabledBtn(false);
+        }
         setTel2(e.target.value);
     };
     //생일
     const birthdayChange = (e) => {
+        if (!bExp.test(e.target.value)) {
+            setBAlert(true);
+            setDisabledBtn(true);
+            setBMessage('생일을 yyyy-mm-dd에 맞게 입력해주세요');
+            return;
+        }
+        setBAlert(false);
+        if (!(tAlert && bAlert && eAlert)) {
+            setDisabledBtn(false);
+        }
         setBirthDay2(e.target.value);
     };
 
@@ -607,7 +649,7 @@ const Customization = () => {
                                     </List>
                                 ) : (
                                     <List
-                                        sx={{ width: '100%', margin: 'auto', maxWidth: 360, bgcolor: 'background.paper' }}
+                                        sx={{ width: '100%', margin: 'auto', maxWidth: 360, bgcolor: 'background.paper', pl: 5 }}
                                         component="nav"
                                         aria-labelledby="nested-list-subheader"
                                         subheader={
@@ -637,6 +679,7 @@ const Customization = () => {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="이메일"
+                                            error={eAlert}
                                             defaultValue={email2}
                                             InputProps={{
                                                 startAdornment: (
@@ -649,10 +692,24 @@ const Customization = () => {
                                             variant="standard"
                                             style={{ marginBottom: '15px', width: '80%' }}
                                         />
+                                        {eAlert ? (
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    marginBottom: '10px'
+                                                }}
+                                            >
+                                                <BsExclamationDiamondFill style={{ color: 'red' }} />
+                                                <LoginAlertFrame style={{ color: 'red' }}>{eMessage}</LoginAlertFrame>
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )}
                                         {/* 생일 */}
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="생일"
+                                            error={bAlert}
                                             defaultValue={birthday2}
                                             InputProps={{
                                                 startAdornment: (
@@ -665,11 +722,24 @@ const Customization = () => {
                                             variant="standard"
                                             style={{ marginBottom: '15px', width: '80%' }}
                                         />
-
+                                        {bAlert ? (
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    marginBottom: '10px'
+                                                }}
+                                            >
+                                                <BsExclamationDiamondFill style={{ color: 'red' }} />
+                                                <LoginAlertFrame style={{ color: 'red' }}>{bMessage}</LoginAlertFrame>
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )}
                                         {/* 전화 */}
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="전화번호"
+                                            error={tAlert}
                                             defaultValue={tel2}
                                             InputProps={{
                                                 startAdornment: (
@@ -682,6 +752,19 @@ const Customization = () => {
                                             variant="standard"
                                             style={{ marginBottom: '15px', width: '80%' }}
                                         />
+                                        {tAlert ? (
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    marginBottom: '10px'
+                                                }}
+                                            >
+                                                <BsExclamationDiamondFill style={{ color: 'red' }} />
+                                                <LoginAlertFrame style={{ color: 'red' }}>{tMessage}</LoginAlertFrame>
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )}
                                         {/* 팀, 부서, 포지션 */}
                                         <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px', width: '80%' }}>
                                             <InputLabel id="demo-multiple-name-label">부서, 팀</InputLabel>
@@ -730,7 +813,7 @@ const Customization = () => {
                                             </Select>
                                         </FormControl>
                                         <List style={{ display: 'flex', width: '80%' }}>
-                                            <ListItemButton onClick={updateEmp}>
+                                            <ListItemButton onClick={updateEmp} disabled={disabledBtn}>
                                                 <ListItemIcon>
                                                     <Fab
                                                         color="primary"

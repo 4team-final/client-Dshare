@@ -251,12 +251,25 @@ const FirebaseRegister = ({ ...others }) => {
                     try {
                         if (checked) {
                             if (!(profileImg[0] == [] || profileImg[0] == '' || profileImg[0] == null || profileImg[0] == undefined)) {
-                                if (scriptedRef.current) {
-                                    setStatus({ success: true });
-                                    setSubmitting(false);
-                                    let success = await RegistWorker(teamId, positionId, password, name, email, tel, birthday, profileImg);
-                                    console.log(success);
-                                    //사원조회목록으로 라우팅
+                                if (!(name == '' || email == '' || positionId == '' || teamId == '')) {
+                                    if (scriptedRef.current) {
+                                        setStatus({ success: true });
+                                        setSubmitting(false);
+                                        let success = await RegistWorker(
+                                            teamId,
+                                            positionId,
+                                            password,
+                                            name,
+                                            email,
+                                            tel,
+                                            birthday,
+                                            profileImg
+                                        );
+                                        console.log(success);
+                                        //사원조회목록으로 라우팅
+                                    }
+                                } else {
+                                    alert('사원정보를 모두 입력해 주세요!');
                                 }
                             } else {
                                 alert('프로필 사진을 등록해주세요!');
@@ -280,7 +293,7 @@ const FirebaseRegister = ({ ...others }) => {
                             <Grid item xs={12} container alignItems="center" justifyContent="center">
                                 <Box sx={{ mb: 2 }}></Box>
                             </Grid>
-                            <Grid item xs={12} container alignItems="center" justifyContent="center">
+                            <Grid item xs={12} container alignItems="center" justifyContent="center" style={{ marginBottom: '2%' }}>
                                 <Box sx={{ mb: 2 }}>
                                     <ImageUploader
                                         singleImage={true}
@@ -296,7 +309,7 @@ const FirebaseRegister = ({ ...others }) => {
                                 </Box>
                             </Grid>
 
-                            <Grid container spacing={matchDownSM ? 0 : 2}>
+                            <Grid container spacing={matchDownSM ? 0 : 2} style={{ marginBottom: '1%' }}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
@@ -311,7 +324,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={6} style={{ marginBottom: '3%' }}>
                                     <TextField
                                         fullWidth
                                         label="Tel"
@@ -325,7 +338,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={matchDownSM ? 0 : 2}>
+                            <Grid container spacing={matchDownSM ? 0 : 2} style={{ marginBottom: '3%' }}>
                                 <Grid item xs={12} sm={6}>
                                     <InputLabel id="demo-simple-select-standard-label">Dept/team</InputLabel>
                                     <Select
@@ -346,7 +359,7 @@ const FirebaseRegister = ({ ...others }) => {
                                         ))}
                                     </Select>
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={6} style={{ marginBottom: '3%' }}>
                                     <InputLabel id="demo-simple-select-standard-label">Position</InputLabel>
                                     <Select
                                         labelId="demo-multiple-position-label"
@@ -365,8 +378,8 @@ const FirebaseRegister = ({ ...others }) => {
                                     </Select>
                                 </Grid>
                             </Grid>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <Stack spacing={3} style={{ marginTop: '6px' }}>
+                            <LocalizationProvider dateAdapter={AdapterDateFns} style={{ marginBottom: '3%' }}>
+                                <Stack spacing={3} style={{ marginBottom: '3%' }}>
                                     <DatePicker
                                         openTo="year"
                                         views={['year', 'month', 'day']}
@@ -380,7 +393,12 @@ const FirebaseRegister = ({ ...others }) => {
                                     />
                                 </Stack>
                             </LocalizationProvider>
-                            <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
+                            <FormControl
+                                fullWidth
+                                error={Boolean(touched.email && errors.email)}
+                                sx={{ ...theme.typography.customInput }}
+                                style={{ marginBottom: '3%' }}
+                            >
                                 <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
                                 <OutlinedInput
                                     id="outlined-adornment-email-register"

@@ -32,12 +32,18 @@ const Register = () => {
 
     return (
         <AuthWrapper1>
-            <Grid container direction="column" justifyContent="flex-end" style={{ minHeight: '100vh' }}>
-                <Grid item xs={12}>
-                    <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
+            <Grid container direction="column" justifyContent="flex-end" style={{ minHeight: '100vh', width: '100%' }}>
+                <Grid item xs={6}>
+                    <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)', width: '100%' }}>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
-                            <AuthCardWrapper>
-                                <Grid container spacing={2} alignItems="center" justifyContent="center">
+                            <AuthCardWrapper style={{ minHeight: '100vh', width: '100%', alignItems: 'center', maxWidth: 'none' }}>
+                                <Grid
+                                    container
+                                    spacing={2}
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    style={{ padding: '10%', minHeight: '100vh', width: '100%' }}
+                                >
                                     <Grid item sx={{ mb: 3 }}>
                                         <Link to="#">
                                             <Logo />
