@@ -485,7 +485,7 @@ const Customization = (props) => {
                 open={open}
                 PaperProps={{
                     sx: {
-                        width: 280
+                        width: '30%'
                     }
                 }}
             >
@@ -493,7 +493,7 @@ const Customization = (props) => {
                     <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
                         <Grid item xs={12}>
                             {/* font family */}
-                            <SubCard title="D-Share 사원 정보 입니다.">
+                            <SubCard title={`${name} ${position}의 프로필 정보 조회 화면 입니다.`} style={{ width: '100%' }}>
                                 {!update ? (
                                     <List
                                         sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -501,7 +501,7 @@ const Customization = (props) => {
                                         aria-labelledby="nested-list-subheader"
                                         subheader={
                                             <ListSubheader component="div" id="nested-list-subheader">
-                                                {name}님, 반갑습니다!
+                                                {name}님의 프로필 정보 입니다.
                                             </ListSubheader>
                                         }
                                     >
@@ -572,7 +572,16 @@ const Customization = (props) => {
                                         </ListItemButton>
                                     </List>
                                 ) : (
-                                    <>
+                                    <List
+                                        sx={{ width: '100%', margin: 'auto', maxWidth: 360, bgcolor: 'background.paper', pl: 5 }}
+                                        component="nav"
+                                        aria-labelledby="nested-list-subheader"
+                                        subheader={
+                                            <ListSubheader component="div" id="nested-list-subheader">
+                                                {name}님의 프로필 수정 화면 입니다.
+                                            </ListSubheader>
+                                        }
+                                    >
                                         {/* 이름 */}
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -587,7 +596,7 @@ const Customization = (props) => {
                                             }}
                                             onChange={nameChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
 
                                         {/* 이메일 */}
@@ -604,7 +613,7 @@ const Customization = (props) => {
                                             }}
                                             onChange={emailChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
                                         {/* 생일 */}
                                         <TextField
@@ -620,7 +629,7 @@ const Customization = (props) => {
                                             }}
                                             onChange={birthdayChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
 
                                         {/* 전화 */}
@@ -637,10 +646,10 @@ const Customization = (props) => {
                                             }}
                                             onChange={telChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
                                         {/* 팀, 부서, 포지션 */}
-                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px' }}>
+                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px', width: '80%' }}>
                                             <InputLabel id="demo-multiple-name-label">부서, 팀</InputLabel>
                                             <Select
                                                 labelId="demo-multiple-name-label"
@@ -665,7 +674,7 @@ const Customization = (props) => {
                                             </Select>
                                         </FormControl>
                                         {/* 포지션 */}
-                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px' }}>
+                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px', width: '80%' }}>
                                             <InputLabel id="demo-multiple-position-label">직급</InputLabel>
                                             <Select
                                                 labelId="demo-multiple-position-label"
@@ -712,7 +721,7 @@ const Customization = (props) => {
                                                 <ListItemText primary="취소" />
                                             </ListItemButton>
                                         </List>
-                                    </>
+                                    </List>
                                 )}
                             </SubCard>
                             {/* border radius */}
@@ -720,9 +729,18 @@ const Customization = (props) => {
                             <SubCard title="프로필 사진">
                                 {!imgUpdate ? (
                                     <>
-                                        <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
+                                        <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5, pl: 4 }}>
                                             <Grid item>
-                                                <img src={profileImg} alt="" style={{ borderRadius: '10px', width: '190px' }} />
+                                                <img
+                                                    src={profileImg}
+                                                    alt=""
+                                                    style={{
+                                                        width: 260,
+                                                        textAlign: 'center',
+                                                        bgcolor: 'background.paper',
+                                                        borderRadius: '10px'
+                                                    }}
+                                                />
                                             </Grid>
                                         </Grid>
                                         <ListItemButton onClick={updateImg} style={{}}>
