@@ -4,9 +4,13 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'BMHannaAir';
+    src: url('../../fonts/BMHANNAAir_ttf.ttf');
+}
 .card {
-    font-family: BMDOHYEON;
-    height: 270px;
+    font-family: BMHannaAir;
+    height: auto;
     width: 100%;
     border-radius: 20px;
     border: 1px solid #d3d3d3;
@@ -14,9 +18,15 @@
 
     &:hover {
         border: 1px solid black;
+        cursor: pointer;
+    }
+    &:active {
+        border: 1px solid black;
+        cursor: pointer;
     }
 
     .nameLayout {
+        font-family: BMDOHYEON;
         margin-top: 2em;
         margin-left: 5px;
         position: relative;
@@ -75,6 +85,7 @@
             height: auto;
             margin: 3%;
             padding: 2%;
+            font-family: 'BMDOHYEON';
             // border: 1px solid black;
 
             .roomLayout {

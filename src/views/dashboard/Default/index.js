@@ -79,11 +79,11 @@ const Dashboard = () => {
                                     <Button
                                         variant="outlined"
                                         style={{
-                                            height: '5em',
+                                            height: '4em',
                                             width: '50%',
-                                            borderRadius: '20px',
+                                            borderRadius: '30px',
                                             border: '1px solid #d3d3d3',
-                                            backgroundColor: '#fafafa',
+                                            backgroundColor: '#fff',
                                             justifySelf: 'center',
                                             alignItems: 'center',
                                             marginRight: '5%'
@@ -91,23 +91,23 @@ const Dashboard = () => {
                                         onClick={handleClick}
                                     >
                                         <BsFillCalendarDateFill size={'2em'} style={{ marginRight: '1em' }} />{' '}
-                                        <span style={{ fontWeight: 'bold' }}>월별 현황</span>
+                                        <span style={{ fontSize: '0.8em' }}>월별 현황</span>
                                     </Button>
                                     <Button
                                         variant="outlined"
                                         style={{
-                                            height: '5em',
+                                            height: '4em',
                                             width: '50%',
-                                            borderRadius: '20px',
+                                            borderRadius: '30px',
                                             border: '1px solid #d3d3d3',
-                                            backgroundColor: '#fafafa',
+                                            backgroundColor: '#fff',
                                             justifySelf: 'center',
                                             alignItems: 'center'
                                         }}
                                         onClick={scrollToBottom2}
                                     >
                                         <AiOutlineBarChart size={'2em'} style={{ marginRight: '1em' }} />
-                                        <span style={{ fontWeight: 'bold' }}>통계 현황</span>
+                                        <span style={{ fontSize: '0.8em' }}>통계 현황</span>
                                     </Button>
                                 </div>
                             </Grid>

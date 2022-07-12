@@ -36,6 +36,11 @@ function MyReservationList() {
     const [loading, setLoading] = useState(false);
     const [flag, setFlag] = useState(false);
     const [loading2, setLoading2] = useState(false);
+    const roomref = useRef();
+    const vehicleref = useRef();
+
+    let [btnActive, setBtnActive] = useState('');
+    let [btnActive2, setBtnActive2] = useState('');
 
     useEffect(() => {
         if (changeStoreSelect === 0 || changeStoreSelect === 1) {
@@ -66,14 +71,6 @@ function MyReservationList() {
         }
     }, [reqVehicle, select]);
 
-    // useEffect(() => {
-    //     if (flag) {
-    //         document.getElementById('MyReservatationList').style.overflowY = 'hidden';
-    //     } else if (!flag) {
-    //         document.getElementById('MyReservatationList').style.overflowY = 'scroll';
-    //     }
-    // }, [flag]);
-
     useEffect(() => {
         if (
             reservationStore?.myReservationRoomList?.data?.value &&
@@ -85,6 +82,12 @@ function MyReservationList() {
     }, [reservationStore?.myReservationRoomList?.data?.value]);
 
     useEffect(() => {
+        if (resRoomList?.length > 0) {
+            dispatch(ItemChangeSave(resRoomList[0]));
+        }
+    }, [resRoomList]);
+
+    useEffect(() => {
         if (
             reservationStore?.myReservationVehicleList?.data?.value &&
             reservationStore?.myReservationVehicleList?.data?.value[reservationStore?.myReservationVehicleList?.data?.value?.length - 1]
@@ -93,6 +96,11 @@ function MyReservationList() {
             setResVehicleList([...resVehicleList, ...reservationStore?.myReservationVehicleList?.data?.value]);
         }
     }, [reservationStore?.myReservationVehicleList?.data?.value]);
+    useEffect(() => {
+        if (resVehicleList?.length > 0) {
+            dispatch(ItemChangeSave(resVehicleList[0]));
+        }
+    }, [resVehicleList]);
 
     useEffect(() => {
         if (resRoomList[resRoomList.length - 1] && resRoomList?.length > 0) {
@@ -121,20 +129,13 @@ function MyReservationList() {
         }
     }, [vehicleDeleteId]);
 
-    useEffect(() => {
-        if (resRoomList?.length > 0 && select === 0) {
-            setTotal(resRoomList[0]?.total);
-        } else if (resVehicleList?.length > 0 && select === 1) {
-            setTotal(resVehicleList[0]?.total);
-        } else {
-            setTotal(0);
-        }
-    }, [resRoomList, resVehicleList]);
-
-    function handleDetail(item, ref) {
-        console.log(ref);
-        // ref.current.style.border = '1px solid black';
-        console.log(item);
+    function handleDetail1(item, idx) {
+        setLoading(true);
+        dispatch(ItemChangeSave(item));
+        setLoading(false);
+    }
+    function handleDetail2(item, idx) {
+        setBtnActive2(idx);
         setLoading(true);
         dispatch(ItemChangeSave(item));
         setLoading(false);
@@ -145,13 +146,13 @@ function MyReservationList() {
     const handleScroll = useCallback(async () => {
         // const { innerHeight } = window ;
         // 브라우저창 내용의 크기 (스크롤을 포함하지 않음)
-        const innerHeight = document.getElementById('MyReservatationList').getBoundingClientRect().width;
+        const innerHeight = document?.getElementById('MyReservatationList')?.getBoundingClientRect()?.width;
 
         // 브라우저 총 내용의 크기 (스크롤을 포함한다)
-        const scrollHeight = container.current.scrollHeight;
+        const scrollHeight = container?.current?.scrollHeight;
 
         // 현재 스크롤바의 위치
-        const scrollTop = container.current.scrollTop;
+        const scrollTop = container?.current?.scrollTop;
 
         if (!flag) {
             document.getElementById('MyReservatationList').style.overflowY = 'scroll';
@@ -200,8 +201,6 @@ function MyReservationList() {
         };
     }, [handleScroll]);
 
-    const roomref = useRef();
-    const vehicleref = useRef();
     return (
         <div className="MyReservatationList" id="MyReservatationList" ref={container}>
             {/* <div className="title">내 예약 현황 목록 / Total - {total}</div> */}
@@ -212,8 +211,13 @@ function MyReservationList() {
                         <>
                             {resRoomList?.length > 0 ? (
                                 <>
-                                    {resRoomList?.map((item) => (
-                                        <div key={item?.reservationId} ref={roomref} onClick={() => handleDetail(item, roomref)}>
+                                    {resRoomList?.map((item, idx) => (
+                                        <div
+                                            key={item?.reservationId}
+                                            ref={roomref}
+                                            onClick={() => handleDetail1(item, idx)}
+                                            className={idx == btnActive ? 'active2' : ''}
+                                        >
                                             <MyReservationCard data={item} />
                                         </div>
                                     ))}
@@ -234,9 +238,14 @@ function MyReservationList() {
                         <>
                             {resVehicleList?.length > 0 ? (
                                 <>
-                                    {resVehicleList?.map((item, i) => {
+                                    {resVehicleList?.map((item, idx) => {
                                         return (
-                                            <div key={item?.reservationId} ref={vehicleref} onClick={() => handleDetail(item, vehicleref)}>
+                                            <div
+                                                key={item?.reservationId}
+                                                ref={vehicleref}
+                                                onClick={() => handleDetail2(item, idx)}
+                                                className={idx == btnActive2 ? 'active2' : ''}
+                                            >
                                                 <MyReservationCard data={item}></MyReservationCard>
                                             </div>
                                         );

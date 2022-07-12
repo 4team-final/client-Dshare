@@ -68,9 +68,9 @@ export default function BoardCard(props) {
         console.log(id);
         let Rdata = await delRBookmark(id);
         if (mark) {
-            alert('즐겨 찾기를 등록 했습니다~!');
-        } else {
             alert('즐겨 찾기를 취소 했습니다~!');
+        } else {
+            alert('즐겨 찾기를 등록 했습니다~!');
         }
         window.location.href = '/main/room/vehicle/list';
     };

@@ -18,6 +18,14 @@
     font-size: medium;
     margin-bottom: 2%;
 
+    overflow-y: auto;
+
+    .active2 {
+        border: 1px solid black;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
     &::-webkit-scrollbar {
         width: 4px;
     }

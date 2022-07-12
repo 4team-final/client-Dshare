@@ -9,6 +9,7 @@ export const FullFrame = styled.div`
     align-items: center;
 `;
 export const MiddleFrame = styled.div`
+    margin: 10% 0 0 0;
     width: 80%;
     height: 100%;
     overflow-y: hidden;
@@ -20,7 +21,7 @@ export const ImgCard = styled.img`
 export const TitleFrame = styled.div`
     margin: auto;
     h2 {
-        font-size: 2em;
+        font-size: 1.7em;
         margin: 0 0 5% 0;
         color: #fff;
     }
@@ -44,13 +45,13 @@ export const HalfFrame = styled.div`
     background-color: #1296ec;
     width: 100%;
     height: 100%;
-    padding: 10% 0 8% 0;
+    padding: 0% 0 8% 0;
     margin: 0;
     overflow-y: hidden;
 `;
 
 export const LoginFormFrame = styled.div`
-    width: 60%;
+    width: 80%;
     height: 28%;
     margin: 10% auto;
     border-radius: 5px;
@@ -61,11 +62,12 @@ export const LoginFormFrame = styled.div`
     color: #fff;
 `;
 export const LoginAlertFrame = styled.span`
-    font-size: 1em;
+    font-size: 0.8em;
     color: #fff;
     margin-left: 5px;
 `;
 export const LoginContainerFrame = styled.div`
+    width: 1000px;
     display: flex;
     margin-bottom: 30px;
     width: 340px;
@@ -92,6 +94,7 @@ export const LoginButtonFrame = styled.button`
     }
 `;
 export const LoginInputFrame = styled.input`
+    width: 100%;
     box-sizing: border-box;
     background: transparent;
     width: 80%;
