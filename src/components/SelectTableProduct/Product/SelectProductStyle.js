@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 
 export const SubContentFrame = styled.div`
-    border-right: solid 3px #1296ec;
     margin-top: 15px;
-    margin-left: 20px;
-    margin-right: 50px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     width: 100px;
 `;

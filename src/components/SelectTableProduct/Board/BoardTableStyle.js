@@ -74,8 +74,8 @@ export const TextFrame = styled.div`
 `;
 
 export const TextTitle = styled.input`
-    font-weight: bold;
-    font-size: 22px;
+    text-align: center;
+    font-size: 18px;
     width: 96%;
     height: 40px;
     border-radius: 10px;
@@ -83,11 +83,14 @@ export const TextTitle = styled.input`
     margin-bottom: 10px;
     resize: none;
     color: #000;
-    border: thick soild #673ab7;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    &::placeholder {
+        opacity: 0.6;
+    }
 `;
 
 export const TextContent = styled.textarea`
-    font-weight: bold;
+    padding-top: 15px;
     width: 97%;
     font-size: 18px;
     height: 180px;
@@ -95,8 +98,14 @@ export const TextContent = styled.textarea`
     margin-top: 20px;
     resize: none;
     color: #000;
-    border: thick soild #673ab7;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
     overflow-y: auto;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    &::placeholder {
+        opacity: 0.6;
+    }
     &::-webkit-scrollbar {
         width: 10px;
         height: 10px;
@@ -115,7 +124,6 @@ export const TextContent = styled.textarea`
 `;
 
 export const ContentFrame = styled.div`
-    border-top: 3px solid #b39ddb;
     display: flex;
     margin: auto;
     align-items: center;

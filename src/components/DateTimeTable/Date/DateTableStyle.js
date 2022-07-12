@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
-    max-width: 800px;
+    width: 480px;
     height: ${(props) => props.height}px;
     background-color: #fff;
     text-align: center;
@@ -52,10 +52,8 @@ export const ItemFrame = styled.li`
 export const CalendarFrame = styled.div`
     margin: 0;
     padding: 0;
-    width: 80%;
+    width: 100%;
     height: auto;
-    box-shadow: inset 0 0 5px #1296ec;
-    border-radius: 20px;
 `;
 
 export const AllContentFrame = styled.div`
@@ -63,6 +61,7 @@ export const AllContentFrame = styled.div`
     margin: auto;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 `;
 
 export const ContentFrame = styled.div`
