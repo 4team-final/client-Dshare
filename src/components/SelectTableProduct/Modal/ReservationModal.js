@@ -188,7 +188,7 @@ const ModalPage = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const isCloseHandler = () => {
         setIsOpen(false);
-        navigate('/main/dashboard/default');
+        navigate('/main/my/reservation/status');
         dispatch(initSocketData());
     };
     useEffect(() => {

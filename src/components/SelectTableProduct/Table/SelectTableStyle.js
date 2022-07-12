@@ -55,10 +55,9 @@ export const ComponentFrame = styled.div`
 export const CardFrame = styled.div`
     margin: 5px 0;
     padding: 0;
-    width: 740px;
+    width: 550px;
     height: 160px;
     color: #673ab7;
-    display: flex;
     box-shadow: inset 0 0 5px #673ab7;
     border-radius: 20px;
     background-color: ${(props) => (props.props === 1 ? 'rgba(0, 0, 0, 0.5)' : '#fff')};
@@ -91,12 +90,14 @@ export const ImgCard = styled.div`
 
 export const InsideFrame = styled.div`
     display: flex;
+    justify-content: center;
+    text-align: center;
     margin: 0;
     padding: 0 5px 0 0;
 `;
 export const TextFrame = styled.div`
     height: 100%;
-    width: 350px;
+    width: 250px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -120,7 +121,6 @@ export const ContentFrame = styled.div`
 
 export const SubContentFrame = styled.div`
     margin-top: 15px;
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
     text-align: left;

@@ -7,15 +7,10 @@ import { convertArrayToTimeTable, convertToTime } from 'store/actions/WebsocketA
 import { HalfWidthFrame, ComponentFrame, ListFrame, ItemFrame, CardFrame, CustomButton, TextTitle } from './TimeTableStyle';
 
 const TimeTableCard = (v) => {
-    const [lock, setLock] = useState(false);
     const [used, setUsed] = useState('fff');
-
     useEffect(() => {
-        setLock(v.props === 1 ? true : false);
+        setUsed(v.props === 1 ? '1296ec' : v.props === 2 ? '673ab7' : 'fff');
     }, [v]);
-    useEffect(() => {
-        setUsed(lock ? '1296ec' : 'fff');
-    }, [lock]);
     return <CardFrame props={used} />;
 };
 
@@ -26,9 +21,34 @@ const TimeTable = () => {
     const [sendData, setSendData] = useState([]);
     const [transData, setTransData] = useState();
     const timeStore = useSelector((state) => state.websocketReducer.isSeatData);
-    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
     const convertDataList = (i) => {
-        const filterData = dataList.map((v, index) => (i === index ? { ...v, isSeat: 1 } : v));
+        let filterData = [...dataList];
+        let copyList = dataList.filter((v) => v.isSeat === 2);
+        console.log(copyList);
+        if (copyList.length < 2) {
+            filterData = dataList.map((v, index) => (i === index && v.isSeat !== 1 ? { ...v, isSeat: 2 } : v));
+        } else {
+            let start = 0;
+            let end = 0;
+            for (let j = 0; j < filterData.length; j++) {
+                if (filterData[j].isSeat === 2) {
+                    start = j;
+                    break;
+                }
+            }
+            for (let j = filterData.length - 1; j >= 0; j--) {
+                if (filterData[j].isSeat === 2) {
+                    end = j;
+                    break;
+                }
+            }
+            for (let j = start; j <= end; j++) {
+                if (filterData[j].isSeat === 1) {
+                    continue;
+                }
+                filterData[j] = { ...filterData[j], isSeat: 2 };
+            }
+        }
         setDataList(filterData);
     };
     const setTimeTable = () => {
@@ -36,35 +56,32 @@ const TimeTable = () => {
         let copyList2 = [];
         for (let i = 0; i < dataList.length; i++) {
             copyList.push(dataList[i]);
-            copyList2.push(dataList[i].isSeat);
+            copyList2.push(dataList[i].isSeat === 0 ? 0 : 1);
         }
         setSendData([...copyList2]);
-        const fliterDataList = copyList.map((v, i) => (v.isSeat === 1 && v.isSeat === defaultList[i].isSeat ? { ...v, isSeat: 0 } : v));
+        const fliterDataList = copyList.map((v, i) => (v.isSeat !== 2 ? { ...v, isSeat: 0 } : { ...v, isSeat: 1 }));
         const filterCopyData = fliterDataList.filter((v) => v.isSeat === 1);
         let startUid = moment(filterCopyData[0].uid).format('YYYY-MM-DD');
         let endUid = moment(filterCopyData[filterCopyData.length - 1].uid).format('YYYY-MM-DD');
         let start = filterCopyData[0].time.length < 5 ? '0' + filterCopyData[0].time : filterCopyData[0].time;
+        let end =
+            filterCopyData[filterCopyData.length - 1].time.length < 5
+                ? '0' + filterCopyData[filterCopyData.length - 1].time
+                : filterCopyData[filterCopyData.length - 1].time;
         let endTime =
-            filterCopyData[0].time.substring(3) === '00'
-                ? filterCopyData[0].time.substring(0, 3) + '30'
-                : filterCopyData[0].time.substring(0, 2) === '23'
+            end.substring(3) === '00'
+                ? end.substring(0, 3) + '30'
+                : end.substring(0, 2) === '23'
                 ? '00:00'
-                : Number(filterCopyData[0].time.substring(0, 2)) + 1 + ':00';
-        let end = filterCopyData[filterCopyData.length - 1].time.length < 5 ? '0' + endTime : endTime;
+                : Number(end.substring(0, 2)) + 1 + ':00';
         setTransData({
             start: startUid + 'T' + start + ':00',
-            end: endUid + 'T' + end + ':00'
+            end: endUid + 'T' + endTime + ':00'
         });
     };
     const resetTimeTable = () => {
         setDataList(defaultList);
     };
-    useEffect(() => {
-        if (resetStore && resetStore.ready) {
-            setSendData([]);
-            setDataList([]);
-        }
-    }, [resetStore]);
     useEffect(() => {
         if (sendData.length > 0) {
             dispatch(convertToTime(sendData));
@@ -103,6 +120,7 @@ const TimeTable = () => {
 
 const TimeTableService = () => {
     const isSeatStore = useSelector((state) => state.websocketReducer.validisseat);
+    const nextStepTwoToThreeStore = useSelector((state) => state.nextReducer.twotothree);
     const [loading, setLoading] = useState(true);
     const resetStore = useSelector((state) => state.websocketReducer.resetdata);
 
@@ -113,10 +131,12 @@ const TimeTableService = () => {
     }, [resetStore]);
 
     useEffect(() => {
-        if (isSeatStore && isSeatStore.ready) {
+        if (isSeatStore && isSeatStore.ready && nextStepTwoToThreeStore && nextStepTwoToThreeStore.ready) {
             setLoading(false);
+        } else {
+            setLoading(true);
         }
-    }, [isSeatStore]);
+    }, [isSeatStore, nextStepTwoToThreeStore]);
     return (
         <>
             {loading ? (

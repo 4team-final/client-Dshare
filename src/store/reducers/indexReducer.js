@@ -5,6 +5,7 @@ import changeReducer from './ChangeReducer';
 import calendarReducer from './CalendarReducer';
 import websocketReducer from './WebsocketReducer';
 import dashboardReducer from './DashboardReducer';
+import nextReducer from './NextReducer';
 
 const rootReducer = combineReducers({
     reservationReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     calendarReducer,
     websocketReducer,
     customization,
-    dashboardReducer
+    dashboardReducer,
+    nextReducer
 });
 
 export default rootReducer;

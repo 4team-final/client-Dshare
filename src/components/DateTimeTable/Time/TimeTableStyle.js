@@ -42,7 +42,8 @@ export const CardFrame = styled.div`
     padding: 0;
     width: 50px;
     height: 50px;
-    border: #1296ec 1px solid;
+    border: 1px solid #1296ec;
+    border-radius: 10px;
     background-color: #${(props) => props.props};
 `;
 

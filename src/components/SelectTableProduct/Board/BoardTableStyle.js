@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
     max-width: 800px;
-    height: 360px;
+    height: 440px;
     background-color: #fff;
     text-align: center;
     margin: 15px auto;
@@ -14,7 +14,7 @@ export const HalfWidthFrame = styled.div`
 
 export const ComponentFrame = styled.div`
     width: 97%;
-    height: 350px;
+    height: 400px;
     overflow-x: none;
     overflow-y: none;
     margin: auto;
@@ -50,10 +50,11 @@ export const SectionFrame = styled.div`
 export const CardFrame = styled.div`
     margin: 0;
     padding: 0;
-    width: 740px;
-    height: 160px;
+    width: 100%;
+    height: 200px;
     color: #fafafa;
     display: flex;
+    justify-content: center;
     border: #fafafa 1px solid;
     border-radius: 20px;
     background-color: #${(props) => props.props};
@@ -75,8 +76,8 @@ export const TextFrame = styled.div`
 export const TextTitle = styled.input`
     font-weight: bold;
     font-size: 22px;
-    width: 740px;
-    height: 35px;
+    width: 96%;
+    height: 40px;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -87,9 +88,9 @@ export const TextTitle = styled.input`
 
 export const TextContent = styled.textarea`
     font-weight: bold;
-    width: 760px;
+    width: 97%;
     font-size: 18px;
-    height: 140px;
+    height: 180px;
     border-radius: 15px;
     margin-top: 20px;
     resize: none;
@@ -119,6 +120,7 @@ export const ContentFrame = styled.div`
     margin: auto;
     align-items: center;
     justify-content: center;
+    width: 100%;
 `;
 
 export const CustomButton = styled.button`
