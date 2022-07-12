@@ -130,7 +130,7 @@ function MyReservationDetail() {
     };
     return (
         <>
-            {((!roomItem?.id && select === 0) || (!vehicleItem?.reservationId && select === 1)) && (
+            {((roomItem == {} && !roomItem?.id && select === 0) || (vehicleItem == {} && !vehicleItem?.reservationId && select === 1)) && (
                 <Card sx={{ width: '100%', height: '100%', borderRadius: '20px' }}>
                     <img style={{ width: '100%', height: '100%' }} src={ImageRight} alt="img"></img>
                 </Card>
