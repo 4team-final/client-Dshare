@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FullFrame = styled.div`
     background-color: #fff;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ export const FullFrame = styled.div`
 `;
 export const ComponentFrame = styled.div`
     width: 100%;
-    height: auto;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

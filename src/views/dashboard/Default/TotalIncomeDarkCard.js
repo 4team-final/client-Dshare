@@ -102,12 +102,14 @@ const TotalIncomeDarkCard = (props) => {
                 <>
                     <CardWrapper border={false} content={false}>
                         <Box
+                            onClick={handleOpen}
                             sx={{ p: 2 }}
                             style={{
                                 height: '7em',
                                 display: 'flex',
                                 justifyContent: 'center',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                cursor: 'pointer'
                             }}
                         >
                             <List sx={{ py: 0 }}>
@@ -122,7 +124,7 @@ const TotalIncomeDarkCard = (props) => {
                                                 color: '#fff'
                                             }}
                                         >
-                                            <DirectionsCarFilledOutlinedIcon fontSize="inherit" onClick={handleOpen} />
+                                            <DirectionsCarFilledOutlinedIcon fontSize="inherit" />
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText
@@ -132,12 +134,12 @@ const TotalIncomeDarkCard = (props) => {
                                             mb: 0.45
                                         }}
                                         primary={
-                                            <Typography variant="h4" sx={{ color: '#fff' }}>
+                                            <Typography variant="h2" sx={{ color: '#fff' }}>
                                                 차량
                                             </Typography>
                                         }
                                         secondary={
-                                            <Typography variant="subtitle2" sx={{ color: 'primary.light', mt: 0.25 }}>
+                                            <Typography variant="subtitle1" sx={{ color: 'primary.light', mt: 0.25 }}>
                                                 내가 즐겨찾기한 차량 조회
                                             </Typography>
                                         }

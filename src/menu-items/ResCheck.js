@@ -13,7 +13,7 @@ const other = {
     children: [
         {
             id: 'Room-Reserve',
-            title: '나의 회의실 예약 현황',
+            title: '내 예약 현황',
             type: 'item',
             url: 'main/my/reservation/status',
             icon: icons.IconBellRinging,

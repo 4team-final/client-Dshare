@@ -11,6 +11,8 @@ const AdminRegister = Loadable(lazy(() => import('views/pages/authentication/aut
 const AdminEmpInfo = Loadable(lazy(() => import('page/admin/main/AdminEmpInfo')));
 const AdminRoomResInfo = Loadable(lazy(() => import('page/admin/main/AdminRoomResInfo')));
 const AdminVehicleResInfo = Loadable(lazy(() => import('page/admin/main/AdminVehicleResInfo')));
+const BoardList = Loadable(lazy(() => import('components/board/BoardList')));
+
 const AdminRoutes = {
     path: '/main/admin',
     element: AccessDeniedHandler(<MainLayout />),
@@ -30,6 +32,10 @@ const AdminRoutes = {
         {
             path: '/VehicleResInfo',
             element: <AdminVehicleResInfo />
+        },
+        {
+            path: '/RV',
+            element: <BoardList />
         }
     ]
 };

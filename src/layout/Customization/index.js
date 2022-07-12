@@ -473,7 +473,7 @@ const Customization = () => {
                 <Fab
                     component="div"
                     onClick={handleToggle}
-                    size="medium"
+                    size="large"
                     variant="circular"
                     color="secondary"
                     sx={{
@@ -494,7 +494,7 @@ const Customization = () => {
                                 <Avatar
                                     src={profileImg}
                                     sx={{
-                                        ...theme.typography.mediumAvatar,
+                                        ...theme.typography.largeAvatar,
                                         margin: '0px 0 0px 0px !important',
                                         cursor: 'pointer'
                                     }}
@@ -515,7 +515,7 @@ const Customization = () => {
                 open={open}
                 PaperProps={{
                     sx: {
-                        width: 280
+                        width: '30%'
                     }
                 }}
             >
@@ -523,15 +523,15 @@ const Customization = () => {
                     <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
                         <Grid item xs={12}>
                             {/* font family */}
-                            <SubCard title="D-Share 사원 정보 입니다.">
+                            <SubCard title={`${name} ${position}님, 반갑습니다!`} style={{ width: '100%' }}>
                                 {!update ? (
                                     <List
-                                        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                                        sx={{ width: '100%', margin: 'auto', maxWidth: 360, bgcolor: 'background.paper' }}
                                         component="nav"
                                         aria-labelledby="nested-list-subheader"
                                         subheader={
                                             <ListSubheader component="div" id="nested-list-subheader">
-                                                {name}님, 반갑습니다!
+                                                {name}님의 프로필 정보 입니다.
                                             </ListSubheader>
                                         }
                                     >
@@ -606,7 +606,16 @@ const Customization = () => {
                                         )}
                                     </List>
                                 ) : (
-                                    <>
+                                    <List
+                                        sx={{ width: '100%', margin: 'auto', maxWidth: 360, bgcolor: 'background.paper' }}
+                                        component="nav"
+                                        aria-labelledby="nested-list-subheader"
+                                        subheader={
+                                            <ListSubheader component="div" id="nested-list-subheader">
+                                                {name}님의 프로필 수정 화면 입니다.
+                                            </ListSubheader>
+                                        }
+                                    >
                                         {/* 이름 */}
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -621,7 +630,7 @@ const Customization = () => {
                                             }}
                                             onChange={nameChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
 
                                         {/* 이메일 */}
@@ -638,7 +647,7 @@ const Customization = () => {
                                             }}
                                             onChange={emailChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
                                         {/* 생일 */}
                                         <TextField
@@ -654,7 +663,7 @@ const Customization = () => {
                                             }}
                                             onChange={birthdayChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
 
                                         {/* 전화 */}
@@ -671,10 +680,10 @@ const Customization = () => {
                                             }}
                                             onChange={telChange}
                                             variant="standard"
-                                            style={{ marginBottom: '15px' }}
+                                            style={{ marginBottom: '15px', width: '80%' }}
                                         />
                                         {/* 팀, 부서, 포지션 */}
-                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px' }}>
+                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px', width: '80%' }}>
                                             <InputLabel id="demo-multiple-name-label">부서, 팀</InputLabel>
                                             <Select
                                                 labelId="demo-multiple-name-label"
@@ -699,7 +708,7 @@ const Customization = () => {
                                             </Select>
                                         </FormControl>
                                         {/* 포지션 */}
-                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px' }}>
+                                        <FormControl sx={{ minWidth: 180 }} style={{ marginBottom: '15px', width: '80%' }}>
                                             <InputLabel id="demo-multiple-position-label">직급</InputLabel>
                                             <Select
                                                 labelId="demo-multiple-position-label"
@@ -720,7 +729,7 @@ const Customization = () => {
                                                 ))}
                                             </Select>
                                         </FormControl>
-                                        <List style={{ display: 'flex' }}>
+                                        <List style={{ display: 'flex', width: '80%' }}>
                                             <ListItemButton onClick={updateEmp}>
                                                 <ListItemIcon>
                                                     <Fab
@@ -746,7 +755,7 @@ const Customization = () => {
                                                 <ListItemText primary="취소" />
                                             </ListItemButton>
                                         </List>
-                                    </>
+                                    </List>
                                 )}
                             </SubCard>
                             {/* border radius */}
@@ -754,23 +763,33 @@ const Customization = () => {
                             <SubCard title="프로필 사진">
                                 {!imgUpdate ? (
                                     <>
-                                        <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
+                                        <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5, pl: 4 }}>
                                             <Grid item>
-                                                <img src={profileImg} alt="" style={{ borderRadius: '10px', width: '190px' }} />
+                                                <img
+                                                    src={profileImg}
+                                                    alt=""
+                                                    style={{
+                                                        width: 260,
+                                                        textAlign: 'center',
+                                                        bgcolor: 'background.paper',
+                                                        borderRadius: '10px'
+                                                    }}
+                                                />
                                             </Grid>
+
+                                            <ListItemButton onClick={updateImg} style={{}}>
+                                                <ListItemIcon>
+                                                    <Fab
+                                                        color="secondary"
+                                                        aria-label="edit"
+                                                        style={{ width: '25px', height: '25px', minHeight: 0 }}
+                                                    >
+                                                        <EditIcon style={{ width: '18px', height: '18px' }} />
+                                                    </Fab>
+                                                </ListItemIcon>
+                                                <ListItemText primary="수정하기" />
+                                            </ListItemButton>
                                         </Grid>
-                                        <ListItemButton onClick={updateImg} style={{}}>
-                                            <ListItemIcon>
-                                                <Fab
-                                                    color="secondary"
-                                                    aria-label="edit"
-                                                    style={{ width: '25px', height: '25px', minHeight: 0 }}
-                                                >
-                                                    <EditIcon style={{ width: '18px', height: '18px' }} />
-                                                </Fab>
-                                            </ListItemIcon>
-                                            <ListItemText primary="수정하기" />
-                                        </ListItemButton>
                                     </>
                                 ) : (
                                     <>

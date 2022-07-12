@@ -18,7 +18,8 @@ const MyPage = {
             id: 'room',
             title: '회의실/차량 보기',
             type: 'item',
-            url: '/main/room/vehicle/list'
+            url: '/main/room/vehicle/list',
+            icon: icons.IconEye
         }
     ]
 };

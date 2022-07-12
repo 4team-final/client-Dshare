@@ -4,8 +4,20 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import { IconKey, IconEye } from '@tabler/icons';
 // constant
-const icons = { IconDashboard, PersonAddAltIcon, FormatListBulletedIcon, AutoFixHighIcon, DeleteOutlineIcon };
+const icons = {
+    IconDashboard,
+    StorefrontIcon,
+    PersonAddAltIcon,
+    FormatListBulletedIcon,
+    AutoFixHighIcon,
+    DirectionsCarIcon,
+    DeleteOutlineIcon,
+    IconEye
+};
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -17,19 +29,10 @@ const adminItem = {
     children: [
         {
             id: 'RoomInfo',
-            title: '회의실 정보',
+            title: '회의실 및 차량 정보',
             type: 'item',
-            url: '/main/admin/CEmp',
-            icon: icons.PersonAddAltIcon,
-            breadcrumbs: false
-        },
-
-        {
-            id: 'VehicleInfo',
-            title: '차량 정보',
-            type: 'item',
-            url: '/main/admin/REmp',
-            icon: icons.FormatListBulletedIcon,
+            url: '/main/admin/RV',
+            icon: icons.IconEye,
             breadcrumbs: false
         }
     ]

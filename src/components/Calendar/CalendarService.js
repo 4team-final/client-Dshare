@@ -5,6 +5,7 @@ import { ContentNote, ContentNoteSection, ContentFrame, ContentBadge } from './C
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRoomDateCalendar, selectVehicleDateCalendar } from 'store/actions/CalendarAction';
 import { reservationRoomTime, reservationVehicleTime } from 'store/actions/CalendarAction';
+import moment from 'moment';
 
 import './CalendarService.css';
 
@@ -120,9 +121,9 @@ export const CalendarService = () => {
     };
     const handleCheck = (data) => {
         if (data >= 0 && data <= 3) {
-            return 'warning';
-        } else if (data >= 4 && data <= 9) {
             return 'success';
+        } else if (data >= 4 && data <= 7) {
+            return 'warning';
         } else {
             return 'error';
         }
@@ -263,7 +264,15 @@ export const CalendarService = () => {
         };
     }
 
-    return <Calendar style={{ overflow: 'hidden' }} dateCellRender={dateCellRender} monthCellRender={monthCellRender} />;
+    return (
+        <Calendar
+            style={{ overflow: 'hidden' }}
+            validRange={[new moment('2022-07-01 00:00:00'), new moment('2022-07-31 23:59:00')]}
+            mode={'month'}
+            dateCellRender={dateCellRender}
+            monthCellRender={monthCellRender}
+        />
+    );
 };
 
 const GetListData = (value) => {
