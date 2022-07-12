@@ -51,7 +51,7 @@ export const HalfFrame = styled.div`
 `;
 
 export const LoginFormFrame = styled.div`
-    width: 60%;
+    width: 80%;
     height: 28%;
     margin: 10% auto;
     border-radius: 5px;
@@ -62,13 +62,12 @@ export const LoginFormFrame = styled.div`
     color: #fff;
 `;
 export const LoginAlertFrame = styled.span`
-    border-style: solid;
-    border-width: 0 0 1px 0;
     font-size: 0.8em;
     color: #fff;
     margin-left: 5px;
 `;
 export const LoginContainerFrame = styled.div`
+    width: 1000px;
     display: flex;
     margin-bottom: 30px;
     width: 340px;
@@ -95,6 +94,7 @@ export const LoginButtonFrame = styled.button`
     }
 `;
 export const LoginInputFrame = styled.input`
+    width: 100%;
     box-sizing: border-box;
     background: transparent;
     width: 80%;
