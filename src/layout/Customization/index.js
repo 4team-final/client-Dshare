@@ -261,11 +261,12 @@ const Customization = () => {
             setDisabledBtn(true);
             return;
         }
-        if (!(tAlert && bAlert && eAlert)) {
-            setDisabledBtn(false);
-        }
+
         setEAlert(false);
         setEmail2(e.target.value);
+        if (!(tAlert || bAlert || eAlert)) {
+            setDisabledBtn(false);
+        }
     };
     //이름 변경
     const nameChange = (e) => {
@@ -280,10 +281,10 @@ const Customization = () => {
             return;
         }
         setTAlert(false);
-        if (!(tAlert && bAlert && eAlert)) {
+        setTel2(e.target.value);
+        if (!(tAlert || bAlert || eAlert)) {
             setDisabledBtn(false);
         }
-        setTel2(e.target.value);
     };
     //생일
     const birthdayChange = (e) => {
@@ -294,10 +295,14 @@ const Customization = () => {
             return;
         }
         setBAlert(false);
-        if (!(tAlert && bAlert && eAlert)) {
+
+        setBirthDay2(e.target.value);
+        console.log(tAlert);
+        console.log(bAlert);
+        console.log(eAlert);
+        if (!(tAlert || bAlert || eAlert)) {
             setDisabledBtn(false);
         }
-        setBirthDay2(e.target.value);
     };
 
     //체크박스 설정

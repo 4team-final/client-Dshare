@@ -63,16 +63,16 @@ const RoomTableCard = (item) => {
     return (
         <div>
             <InsideFrame>
-                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'320'} height={'157'} /> : <></>}
+                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'250'} height={'157'} /> : <></>}
                 <TextFrame>
-                    <TextTitle props={'22'}>{item.props.content}</TextTitle>
+                    <TextTitle props={'15'}>{item.props.content}</TextTitle>
                     <ContentFrame>
                         <SubContentFrame>
                             <TextContent props={'20'}>{item.props.categoryName}</TextContent>
                         </SubContentFrame>
                         <SubContentFrame>
-                            <TextContent props={'18'}>방번호 : {item.props.roomNo}</TextContent>
-                            <TextContent props={'18'}>인원수 : {item.props.capacity}</TextContent>
+                            <TextContent props={'15'}>방번호 : {item.props.roomNo}</TextContent>
+                            <TextContent props={'15'}>인원수 : {item.props.capacity}</TextContent>
                         </SubContentFrame>
                     </ContentFrame>
                 </TextFrame>
@@ -85,15 +85,14 @@ const VehicleTableCard = (item) => {
     return (
         <div>
             <InsideFrame>
-                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'320'} height={'157'} /> : <></>}
+                {item.props && item.props.imgList.length ? <ImgCardList data={item.props.imgList} width={'250'} height={'157'} /> : <></>}
                 <TextFrame>
-                    <TextTitle props={'30'}>{item.props.name}</TextTitle>
+                    <TextTitle props={'25'}>{item.props.name}</TextTitle>
                     <ContentFrame>
-                        <SubContentFrame></SubContentFrame>
                         <SubContentFrame>
-                            <TextContent props={'18'}>차종 : {item.props.model}</TextContent>
+                            <TextContent props={'15'}>차종 : {item.props.model}</TextContent>
                             <TextContent props={'15'}>차량 번호 : {item.props.number}</TextContent>
-                            <TextContent props={'18'}>탑승 인원 : {item.props.capacity}</TextContent>
+                            <TextContent props={'15'}>탑승 인원 : {item.props.capacity}</TextContent>
                         </SubContentFrame>
                     </ContentFrame>
                 </TextFrame>
@@ -144,18 +143,16 @@ const SelectRoomTable = (item) => {
         <ListFrame>
             {propsItem ? (
                 propsItem.map((i, idx) => (
-                    <ItemFrame key={idx}>
+                    <ItemFrame
+                        key={idx}
+                        onClick={() => {
+                            setRId(i.roomId);
+                            setSelected(true);
+                            selectedCard(idx);
+                        }}
+                    >
                         <CardFrame props={itemList[idx]}>
                             <RoomTableCard props={i} />
-                            <CustomButton
-                                onClick={() => {
-                                    setRId(i.roomId);
-                                    setSelected(true);
-                                    selectedCard(idx);
-                                }}
-                            >
-                                선택
-                            </CustomButton>
                         </CardFrame>
                     </ItemFrame>
                 ))
@@ -170,7 +167,6 @@ const SelectVehicleTable = (item) => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
     const [vid, setVId] = useState(0);
-    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
     const [itemList, setItemList] = useState([]);
     const [propsItem, setPropsItem] = useState([]);
 
@@ -179,7 +175,6 @@ const SelectVehicleTable = (item) => {
         copyList = copyList.map((v, i) => (i === idx ? (v === 1 ? 0 : 1) : 0));
         setItemList(copyList);
     };
-
     useEffect(() => {
         setSelected(false);
     }, []);
@@ -194,11 +189,6 @@ const SelectVehicleTable = (item) => {
         }
     }, []);
     useEffect(() => {
-        if (resetStore && resetStore.ready) {
-            setVId(0);
-        }
-    }, [resetStore]);
-    useEffect(() => {
         if (selected) {
             dispatch(selectByVId(vid));
         }
@@ -209,18 +199,16 @@ const SelectVehicleTable = (item) => {
             <ListFrame>
                 {propsItem ? (
                     propsItem.map((i, idx) => (
-                        <ItemFrame key={idx}>
+                        <ItemFrame
+                            key={idx}
+                            onClick={() => {
+                                setVId(i.id);
+                                setSelected(true);
+                                selectedCard(idx);
+                            }}
+                        >
                             <CardFrame props={itemList[idx]}>
                                 <VehicleTableCard props={i} />
-                                <CustomButton
-                                    onClick={() => {
-                                        setVId(i.id);
-                                        setSelected(true);
-                                        selectedCard(idx);
-                                    }}
-                                >
-                                    선택
-                                </CustomButton>
                             </CardFrame>
                         </ItemFrame>
                     ))
@@ -235,20 +223,12 @@ const SelectVehicleTable = (item) => {
 const SelectTableService = () => {
     const dispatch = useDispatch();
     const productTypeStore = useSelector((state) => state.websocketReducer.product);
-    const dateTimeStore = useSelector((state) => state.websocketReducer.uid);
+    const nextStepOneToTwoStore = useSelector((state) => state.nextReducer.onetotwo);
     const vehicleStore = useSelector((state) => state.calendarReducer.allVehicle);
     const roomStore = useSelector((state) => state.calendarReducer.allRoom);
-    const contentStore = useSelector((state) => state.websocketReducer.content);
-    const titleStore = useSelector((state) => state.websocketReducer.title);
     const [loading, setLoading] = useState(true);
     const [item, setItem] = useState([]);
     const [type, setType] = useState(null);
-    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
-    useEffect(() => {
-        if (resetStore && resetStore.ready) {
-            setLoading(true);
-        }
-    }, [resetStore]);
 
     useEffect(() => {
         if (productTypeStore && productTypeStore.data !== null) {
@@ -257,17 +237,12 @@ const SelectTableService = () => {
     }, [productTypeStore]);
 
     useEffect(() => {
-        if (
-            dateTimeStore &&
-            dateTimeStore.data !== null &&
-            titleStore &&
-            titleStore.data !== null &&
-            contentStore &&
-            contentStore.data !== null
-        ) {
+        if (nextStepOneToTwoStore && nextStepOneToTwoStore.ready) {
             setLoading(false);
+        } else {
+            setLoading(true);
         }
-    }, [dateTimeStore, titleStore, contentStore]);
+    }, [nextStepOneToTwoStore]);
     useEffect(() => {
         dispatch(findAllByVehicle());
         dispatch(findAllByRoom());

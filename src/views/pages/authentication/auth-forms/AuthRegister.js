@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Stack from '@mui/material/Stack';
 import { RegistWorker } from 'components/ApiModules/ApiHandler';
 import { IMaskInput } from 'react-imask';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -116,7 +117,7 @@ const FirebaseRegister = ({ ...others }) => {
     const [email, setEmail] = useState('');
     const [deptName, setDeptName] = useState('');
     const [profileImg, setProfileImg] = useState([]);
-
+    const navigate = useNavigate();
     //이메일 변경
     const emailChange = (value) => {
         setEmail(value);
@@ -266,6 +267,8 @@ const FirebaseRegister = ({ ...others }) => {
                                             profileImg
                                         );
                                         console.log(success);
+                                        alert('등록이 완료됐습니다~! 사원 조회 페이지로 이동합니다!');
+                                        navigate('/main/admin/REmp', { replace: true });
                                         //사원조회목록으로 라우팅
                                     }
                                 } else {

@@ -37,6 +37,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SimpleSlider from './SimpleSlider';
 
+import moment from 'moment';
+
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -128,7 +130,7 @@ function MyReservationDetail() {
     };
     return (
         <>
-            {((!roomItem?.id && select === 0) || (!vehicleItem?.reservationId && select === 1)) && (
+            {((roomItem == {} && !roomItem?.id && select === 0) || (vehicleItem == {} && !vehicleItem?.reservationId && select === 1)) && (
                 <Card sx={{ width: '100%', height: '100%', borderRadius: '20px' }}>
                     <img style={{ width: '100%', height: '100%' }} src={ImageRight} alt="img"></img>
                 </Card>
@@ -159,13 +161,13 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            <MenuItem
+                            {/* <MenuItem
                                 onClick={() => {
                                     handleUpdate();
                                 }}
                             >
                                 수정
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={() => {
                                     handleDelete(roomItem.id);
@@ -175,22 +177,24 @@ function MyReservationDetail() {
                             </MenuItem>
                         </div>
                     )}
+                    <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center', marginBottom: '1%' }}>
+                        <SimpleSlider data={roomItem?.room?.roomImgResDTOList} style={{ width: '40em', height: '15em' }} />
+                    </div>
 
-                    <SimpleSlider data={roomItem?.room?.roomImgResDTOList} style={{ width: '95%', height: '30em' }} />
-
-                    <CardContent>
+                    <CardContent style={{ height: '15em' }}>
                         <div className="content_layout">
                             <div className="half line">
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h6" component="div">
                                     {roomItem?.room.categoryName}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
                                     {roomItem?.room.content}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, float: 'right', fontSize: '1em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
+                                    <br />
                                     비치 물품 :
                                     {roomItem?.room?.roomObjectResDTOList.map((item, i) => {
                                         return item.name !== ' ' && <>{item?.name} </>;
@@ -207,20 +211,20 @@ function MyReservationDetail() {
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h6" component="div">
                                     {roomItem?.title}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
+                                <Typography sx={{ mb: 1.5, fontSize: '1em', fontSize: '1em' }} color="text.secondary">
                                     {roomItem?.reason}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary"></Typography>
-                                <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
+                                <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
+                                <Typography variant="body2" sx={{ fontSize: '1em' }}>
                                     <BsFillSkipEndFill size={'1em'} />
                                     시작 {convertDate(roomItem?.startedAt)} {'  '}
                                     <br />
                                     <BsAlignEnd size={'1em'} />
                                     종료 {convertDate(roomItem?.endedAt)}
-                                    <br />총{diffDate(roomItem?.rperiod)}
+                                    <br />총 소요시간 {diffDate(roomItem?.rperiod)}
                                 </Typography>
                             </div>
                         </div>
@@ -251,13 +255,13 @@ function MyReservationDetail() {
                     />
                     {toggle && (
                         <div className="which">
-                            <MenuItem
+                            {/* <MenuItem
                                 onClick={() => {
                                     handleUpdate();
                                 }}
                             >
                                 수정
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={() => {
                                     handleDelete(vehicleItem?.reservationId);
@@ -267,24 +271,26 @@ function MyReservationDetail() {
                             </MenuItem>
                         </div>
                     )}
-                    <SimpleSlider data={vehicleItem?.imgList} style={{ width: '95%', height: '30em' }} />
+                    <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center', marginBottom: '1%' }}>
+                        <SimpleSlider data={vehicleItem?.imgList} style={{ width: '40em', height: '15em' }} />
+                    </div>
 
-                    <CardContent>
+                    <CardContent style={{ height: '15em' }}>
                         <div className="content_layout">
                             <div className="half line">
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h8" component="div">
                                     {vehicleItem?.vname}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
-                                    {vehicleItem?.vnumber}
+                                    차번호: {vehicleItem?.vnumber}
                                 </Typography>
 
                                 <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
                                     <AiFillCar size={'1.5em'} />
-                                    {vehicleItem?.model} 모델 {'  '}
+                                    모델명 {vehicleItem?.model} {'  '}
                                     <IoIosPeople size={'1.5em'} />
                                     {vehicleItem?.capacity}인승
                                 </Typography>
@@ -293,19 +299,19 @@ function MyReservationDetail() {
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h6" component="div">
                                     {vehicleItem?.title}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
                                     {vehicleItem?.reason}
                                 </Typography>
-                                <Typography sx={{ mb: 1.5, float: 'right' }} color="text.secondary"></Typography>
+                                <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
                                 <Typography variant="body2" sx={{ float: 'right', fontSize: '1em' }}>
                                     <BsFillSkipEndFill size={'1em'} />
-                                    시작 {convertDate(vehicleItem?.reservationCreatedAt)} {'  '}
+                                    시작 {convertDate(vehicleItem?.startedAt)} {'  '}
                                     <br />
                                     <BsAlignEnd size={'1em'} />
-                                    종료 {convertDate(vehicleItem?.reservationModifiedAt)}
+                                    종료 {convertDate(vehicleItem?.endedAt)}
                                     <br />
                                 </Typography>
                             </div>

@@ -1,47 +1,124 @@
 // Install
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 // User
 import { SocketConnection } from './WebsocketService';
 import ReservationModal from 'components/SelectTableProduct/Modal';
 import { validIsSeat, socketMsgByReservation, selectByEmpNo, initSocketData } from 'store/actions/WebsocketAction';
 import { makeRoomReservation, makeVehicleReservation } from 'store/actions/CalendarAction';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { CustomButton, CardFrame, HalfWidthFrame } from './WebSocketStyle';
 import AlertModule from 'components/Alerts';
-import { replace } from 'formik';
+import { nextStepOneToTwo, nextStepThreeToFour, nextStepTwoToThree } from 'store/actions/NextAction';
 
 export const WebsocketController = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [vid, setVid] = useState(0);
-    const [rid, setRid] = useState(0);
-    const [uid, setUid] = useState(0);
-    const [type, setType] = useState(2);
-    const [time, setTime] = useState([]);
+    const [stepOne, setStepOne] = useState(true);
+    const [stepTwo, setStepTwo] = useState(false);
+    const [stepThree, setStepThree] = useState(false);
     const [empNo, setEmpNo] = useState();
-    const [transTime, setTransTime] = useState();
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [reserved, setReserved] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
     const [alertFlag, setAlertFlag] = useState(false);
+    const [type, setType] = useState(2);
+    const [uid, setUid] = useState();
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [readyStepOne, setReadyStepOne] = useState(false);
+    const [vid, setVid] = useState(0);
+    const [rid, setRid] = useState(0);
+    const [readyStepTwo, setReadyStepTwo] = useState(false);
+    const [time, setTime] = useState([]);
     const [socketMsg, setSocketMsg] = useState('');
     const [socketFlag, setSocketFlag] = useState(false);
-    const [socketBtn, setSocketBtn] = useState(true);
-    const typeStore = useSelector((state) => state.websocketReducer.product);
-    const vIdStore = useSelector((state) => state.websocketReducer.vid);
-    const rIdStore = useSelector((state) => state.websocketReducer.rid);
-    const uIdStore = useSelector((state) => state.websocketReducer.uid);
-    const timeStore = useSelector((state) => state.websocketReducer.converttotime);
+    const [readyStepThree, setReadyStepThree] = useState(false);
+    const [transTime, setTransTime] = useState();
+    const [reserved, setReserved] = useState(false);
     const empnoStore = useSelector((state) => state.websocketReducer.empno);
-    const transTimeStore = useSelector((state) => state.websocketReducer.arraytotime);
+    const typeStore = useSelector((state) => state.websocketReducer.product);
+    const uIdStore = useSelector((state) => state.websocketReducer.uid);
     const titleStore = useSelector((state) => state.websocketReducer.title);
     const contentStore = useSelector((state) => state.websocketReducer.content);
+    const vIdStore = useSelector((state) => state.websocketReducer.vid);
+    const rIdStore = useSelector((state) => state.websocketReducer.rid);
+    const timeStore = useSelector((state) => state.websocketReducer.converttotime);
     const socketMsgStore = useSelector((state) => state.websocketReducer.socketmessage);
-    const isSeatStore = useSelector((state) => state.websocketReducer.validisseat);
-    const [reservedBtn, setReservedBtn] = useState(true);
-    const ConnectHandler = () => {
+    const transTimeStore = useSelector((state) => state.websocketReducer.arraytotime);
+    const StepOneHandler = () => {
+        if (type === 2) {
+            setAlertMsg('예약할 공용 물품의 종류를 선택해주세요.');
+            return;
+        }
+        if (uid === 0) {
+            setAlertMsg('예약할 날짜를 선택해주세요.');
+            return;
+        }
+        if (title === '' || title === undefined || title === null || title === ' ') {
+            setAlertMsg('예약 신청서의 제목을 입력해주세요.');
+            return;
+        }
+        if (content === '' || content === undefined || content === null || content === ' ') {
+            setAlertMsg('예약 신청서의 사유를 입력해주세요.');
+            return;
+        }
+        setStepOne(false);
+        setStepTwo(true);
+        dispatch(nextStepOneToTwo(true));
+    };
+    const StepTwoHandler = () => {
+        if (type === 1 && vid === 0) {
+            setAlertMsg('차량 모델을 선택해주세요.');
+            return;
+        }
+        if (type === 0 && rid === 0) {
+            setAlertMsg('회의실 종류를 선택해주세요.');
+            return;
+        }
+        setStepTwo(false);
+        setStepThree(true);
+        dispatch(nextStepTwoToThree(true));
+        SendEnter();
+    };
+    const initStepTwo = () => {
+        setVid(0);
+        setRid(0);
+        setReadyStepOne(false);
+        setReadyStepTwo(false);
+        setStepTwo(false);
+        setStepOne(true);
+        dispatch(nextStepOneToTwo(false));
+    };
+    const StepThreeHandler = () => {
+        if (time.length < 1) {
+            setAlertMsg('시간이 선택되지 않았습니다.');
+            return;
+        }
+        if (transTime === null) {
+            setAlertMsg('예약 중 오류가 발생하였습니다. 다시 시도해주세요.');
+            return;
+        }
+        setStepThree(false);
+        dispatch(nextStepOneToTwo(false));
+        dispatch(nextStepTwoToThree(false));
+        SendTalk();
+        ConvertTimeAndReserve();
+    };
+    const initStepThree = () => {
+        SendQuit();
+        setTime([]);
+        setSocketMsg('');
+        setSocketFlag(false);
+        setReadyStepOne(false);
+        setReadyStepTwo(false);
+        setReadyStepThree(false);
+        setStepThree(false);
+        setStepTwo(false);
+        setStepOne(true);
+        dispatch(nextStepOneToTwo(false));
+        dispatch(nextStepTwoToThree(false));
+    };
+    const SendEnter = () => {
         dispatch(validIsSeat());
         dispatch(
             type === 0
@@ -49,57 +126,29 @@ export const WebsocketController = () => {
                 : socketMsgByReservation('ENTER', { vid: vid, uid: uid, empno: empNo })
         );
     };
-    const QuitSocket = () => {
+    const SendTalk = () => {
+        dispatch(
+            type === 0
+                ? socketMsgByReservation('R_TALK', { rid: rid, uid: uid, empno: empNo, time: time })
+                : socketMsgByReservation('TALK', { vid: vid, uid: uid, empno: empNo, time: time })
+        );
+    };
+    const SendQuit = () => {
         dispatch(
             type === 0
                 ? socketMsgByReservation('R_QUIT', { rid: rid, uid: uid, empno: empNo })
                 : socketMsgByReservation('QUIT', { vid: vid, uid: uid, empno: empNo })
         );
     };
-    const DisconnectHandler = () => {
-        QuitSocket();
+    const DisconnectAndToBack = () => {
+        SendQuit();
         dispatch(initSocketData());
+        initStepTwo();
+        initStepThree();
         navigate('/main/dashboard/default', { replace: true });
     };
-    const UnselectHandler = () => {
-        QuitSocket();
-        setSocketBtn(true);
-        dispatch(initSocketData());
-    };
-    const SetTimeHandler = () => {
-        if (type === 0 && rid === 0) {
-            setAlertMsg('대여할 회의실을 선택해주세요.');
-            return;
-        }
-        if (type === 1 && vid === 0) {
-            setAlertMsg('대여할 차량을 선택해주세요.');
-            return;
-        }
-        if (time.length < 1) {
-            setAlertMsg('자원을 대여할 시간을 선택해주세요.');
-            return;
-        }
-        if (uid === 0) {
-            setAlertMsg('자원을 대여할 날짜를 선택해주세요.');
-            return;
-        }
-        if (title === '' || title === null || title === undefined) {
-            setAlertMsg('예약에 대한 제목을 입력해주세요.');
-            return;
-        }
-        if (content === '' || content === null || content === undefined) {
-            setAlertMsg('예약에 관한 사유를 입력해주세요.');
-            return;
-        }
-        dispatch(
-            type === 0
-                ? socketMsgByReservation('R_TALK', { rid: rid, uid: uid, empno: empNo, time: time })
-                : socketMsgByReservation('TALK', { vid: vid, uid: uid, empno: empNo, time: time })
-        );
-        QuitSocket();
-
-        let start = transTime.start.replace('T', ' ');
-        let end = transTime.end.replace('T', ' ');
+    const ConvertTimeAndReserve = () => {
+        console.log(rid, content, title, transTime);
         dispatch(
             type === 0
                 ? makeRoomReservation({
@@ -109,52 +158,58 @@ export const WebsocketController = () => {
                       startedAt: transTime.start,
                       endedAt: transTime.end
                   })
-                : makeVehicleReservation({ vid: vid, reason: content, title: title, startedAt: start, endedAt: end })
+                : makeVehicleReservation({
+                      vid: vid,
+                      reason: content,
+                      title: title,
+                      startedAt: transTime.start.replace('T', ' '),
+                      endedAt: transTime.end.replace('T', ' ')
+                  })
         );
         setReserved(true);
         dispatch(initSocketData());
     };
     useEffect(() => {
         dispatch(selectByEmpNo());
-        setSocketBtn(true);
-        setReservedBtn(true);
+        dispatch(initSocketData());
+        dispatch(nextStepOneToTwo(false));
+        dispatch(nextStepTwoToThree(false));
+        dispatch(nextStepThreeToFour(false));
+        setAlertMsg('');
+        initStepTwo();
+        initStepThree();
+        setStepOne(true);
+        setStepTwo(false);
+        setStepThree(false);
+        setReadyStepOne(false);
+        setReadyStepTwo(false);
+        setReadyStepThree(false);
+        setUid(moment().format('yyyyMMdd'));
     }, []);
-    useEffect(() => {
-        if (typeStore && typeStore.data != null) {
-            setType(typeStore.data);
-        }
-    }, [typeStore]);
-    useEffect(() => {
-        if (vIdStore && vIdStore.data != null) {
-            setVid(vIdStore.data);
-        }
-    }, [vIdStore]);
-    useEffect(() => {
-        if (rIdStore && rIdStore.data != null) {
-            setRid(rIdStore.data);
-        }
-    }, [rIdStore]);
-    useEffect(() => {
-        if (uIdStore && uIdStore.data != null) {
-            setUid(uIdStore.data);
-        }
-    }, [uIdStore]);
     useEffect(() => {
         if (empnoStore && empnoStore.data != null) {
             setEmpNo(empnoStore.data);
         }
     }, [empnoStore]);
     useEffect(() => {
-        if (timeStore && timeStore.data != null) {
-            setTime(timeStore.data);
+        if (alertMsg !== '') {
+            setAlertFlag(true);
         }
-    }, [timeStore]);
+        setTimeout(() => {
+            setAlertFlag(false);
+            setAlertMsg('');
+        }, 2500);
+    }, [alertMsg]);
     useEffect(() => {
-        if (transTimeStore && transTimeStore.data != null) {
-            setTransTime(transTimeStore.data);
+        if (typeStore && typeStore.data != null) {
+            setType(typeStore.data);
         }
-    }, [transTimeStore]);
-
+    }, [typeStore]);
+    useEffect(() => {
+        if (uIdStore && uIdStore.data != null) {
+            setUid(uIdStore.data);
+        }
+    }, [uIdStore]);
     useEffect(() => {
         if (titleStore && titleStore.data != null) {
             setTitle(titleStore.data);
@@ -166,18 +221,45 @@ export const WebsocketController = () => {
         }
     }, [contentStore]);
     useEffect(() => {
-        if (alertMsg !== '') {
-            setAlertFlag(true);
+        if (
+            type !== 2 &&
+            uid !== 0 &&
+            title !== '' &&
+            title !== undefined &&
+            title !== null &&
+            title !== ' ' &&
+            content !== '' &&
+            content !== undefined &&
+            content !== null &&
+            content !== ' '
+        ) {
+            setReadyStepOne(true);
         }
-        setTimeout(() => {
-            setAlertFlag(false);
-            setAlertMsg('');
-        }, 2500);
-    }, [alertMsg]);
+    }, [type, uid, title, content]);
+    useEffect(() => {
+        if (vIdStore && vIdStore.data != null) {
+            setVid(vIdStore.data);
+        }
+    }, [vIdStore]);
+    useEffect(() => {
+        if (rIdStore && rIdStore.data != null) {
+            setRid(rIdStore.data);
+        }
+    }, [rIdStore]);
+    useEffect(() => {
+        if (rid !== 0 || vid !== 0) {
+            setReadyStepTwo(true);
+        }
+    }, [rid, vid]);
+    useEffect(() => {
+        if (timeStore && timeStore.data != null) {
+            setTime(timeStore.data);
+        }
+    }, [timeStore]);
     useEffect(() => {
         if (socketMsgStore && socketMsgStore.data != null) {
             if (socketMsgStore.data.includes('null')) {
-                QuitSocket();
+                SendQuit();
                 setSocketMsg('');
             } else {
                 setSocketMsg(socketMsgStore.data);
@@ -194,28 +276,37 @@ export const WebsocketController = () => {
         }, 2500);
     }, [socketMsg]);
     useEffect(() => {
-        if (type !== 2 && uid !== 0 && (rid !== 0 || vid !== 0)) {
-            setSocketBtn(false);
+        if (transTimeStore && transTimeStore.data != null) {
+            setTransTime(transTimeStore.data);
         }
-    }, [rid, vid, type, uid]);
+    }, [transTimeStore]);
     useEffect(() => {
-        if (!socketBtn && time.length > 0) {
-            setReservedBtn(false);
+        if (time.length > 0 && transTime) {
+            setReadyStepThree(true);
         }
-    }, [socketBtn, time]);
+    }, [time]);
+
     return (
         <HalfWidthFrame>
             <AlertModule status={socketFlag} notice={'info'} font={'14'} contents={socketMsg} />
             <AlertModule status={alertFlag} notice={'error'} font={'22'} contents={alertMsg} />
             <CardFrame>
-                <CustomButton onClick={UnselectHandler}>선택 취소</CustomButton>
-                <CustomButton disabled={socketBtn || (isSeatStore && isSeatStore.ready)} onClick={ConnectHandler}>
-                    선택 완료
+                <CustomButton hello={stepOne} disabled={!readyStepOne} onClick={StepOneHandler}>
+                    다 음
                 </CustomButton>
-                <CustomButton disabled={reservedBtn} onClick={DisconnectHandler}>
-                    예약 취소
+                <CustomButton hello={stepTwo} onClick={initStepTwo}>
+                    이 전
                 </CustomButton>
-                <CustomButton disabled={reservedBtn} onClick={SetTimeHandler}>
+                <CustomButton hello={stepTwo} disabled={!readyStepTwo} onClick={StepTwoHandler}>
+                    다 음
+                </CustomButton>
+                <CustomButton hello={stepThree} onClick={initStepThree}>
+                    이 전
+                </CustomButton>
+                <CustomButton hello={stepThree} onClick={DisconnectAndToBack}>
+                    예약취소
+                </CustomButton>
+                <CustomButton hello={stepThree} disabled={!readyStepThree} onClick={StepThreeHandler}>
                     예약하기
                 </CustomButton>
             </CardFrame>

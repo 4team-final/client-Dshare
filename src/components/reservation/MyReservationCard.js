@@ -18,6 +18,7 @@ function MyReservationCard(props) {
     const [roomImgs, setRoomImgs] = useState([]);
     const [vehicleImgs, setVehicleImgs] = useState([]);
     const [select, isSelect] = useState(0);
+    const clickref = useRef();
 
     useEffect(() => {
         if (props?.data?.reservationResDTO) {
@@ -46,7 +47,6 @@ function MyReservationCard(props) {
         return a[0] + '년 ' + a[1] + '월 ' + +a[2] + '일 ' + b[0] + '시 ' + b[1] + '분 ';
     };
 
-    console.log(data2);
     return (
         <>
             {select === 0 && (
@@ -61,6 +61,8 @@ function MyReservationCard(props) {
                             display: 'flex',
                             flexDirection: 'row'
                         }}
+                        ref={clickref}
+                        onClick={() => {}}
                     >
                         <div className="slider_nameLayout">
                             {data && roomImgs.length ? (
@@ -77,7 +79,7 @@ function MyReservationCard(props) {
                         <div className="room_reserveLayout">
                             <div className="roomLayout">
                                 <div className="half">
-                                    <span className="fontB">{data?.room?.content}</span>
+                                    <span className="fontB">{data?.room?.categoryName}</span>
                                 </div>
                                 <div className="half">
                                     <span>
@@ -104,7 +106,13 @@ function MyReservationCard(props) {
                                                 >
                                                     시작
                                                 </span>
-                                                {convertDate(data?.startedAt)}
+                                                <span
+                                                    style={{
+                                                        fontSize: '0.8em'
+                                                    }}
+                                                >
+                                                    {convertDate(data?.startedAt)}
+                                                </span>
                                             </div>
                                             <div>
                                                 <span
@@ -119,7 +127,13 @@ function MyReservationCard(props) {
                                                 >
                                                     종료
                                                 </span>
-                                                {convertDate(data?.endedAt)}
+                                                <span
+                                                    style={{
+                                                        fontSize: '0.8em'
+                                                    }}
+                                                >
+                                                    {convertDate(data?.endedAt)}
+                                                </span>
                                             </div>
                                         </span>
                                     </span>
@@ -139,11 +153,15 @@ function MyReservationCard(props) {
                                             >
                                                 확정
                                             </span>
-
-                                            {convertDate(data?.createdAt)}
+                                            <span
+                                                style={{
+                                                    fontSize: '0.8em'
+                                                }}
+                                            >
+                                                {convertDate(data?.createdAt)}
+                                            </span>
                                         </div>
                                         <span className="reserveTitle">
-                                            {' '}
                                             <span
                                                 style={{
                                                     fontSize: '10px',
@@ -196,11 +214,13 @@ function MyReservationCard(props) {
                                 <div className="half">
                                     <span className="fontB">{data2?.vname}</span>
                                 </div>
+
                                 <div className="half">
                                     <span>
                                         <span className="float">
-                                            {data2?.vnumber}
-                                            {data2?.color} 색깔 - {data2?.capacity}인승
+                                            차번호 : {data2?.vnumber}
+                                            <br />
+                                            색깔 : {data2?.color} / {data2?.capacity}인승
                                         </span>
                                     </span>
                                 </div>
@@ -209,7 +229,7 @@ function MyReservationCard(props) {
                                 <div className="half">
                                     <span>
                                         <span className="float">
-                                            <div>
+                                            <div style={{ marginTop: '1%' }}>
                                                 <span
                                                     style={{
                                                         fontSize: '10px',
@@ -221,8 +241,14 @@ function MyReservationCard(props) {
                                                     }}
                                                 >
                                                     시작
-                                                </span>{' '}
-                                                {convertDate(data2?.startedAt)}
+                                                </span>
+                                                <span
+                                                    style={{
+                                                        fontSize: '0.8em'
+                                                    }}
+                                                >
+                                                    {convertDate(data2?.startedAt)}
+                                                </span>
                                             </div>
                                             <div>
                                                 <span
@@ -237,7 +263,13 @@ function MyReservationCard(props) {
                                                 >
                                                     종료
                                                 </span>
-                                                {convertDate(data2?.endedAt)}
+                                                <span
+                                                    style={{
+                                                        fontSize: '0.8em'
+                                                    }}
+                                                >
+                                                    {convertDate(data2?.endedAt)}
+                                                </span>
                                             </div>
                                             <div>
                                                 <span
@@ -252,8 +284,13 @@ function MyReservationCard(props) {
                                                 >
                                                     확정
                                                 </span>
-
-                                                {convertDate(data2?.reservationModifiedAt)}
+                                                <span
+                                                    style={{
+                                                        fontSize: '0.8em'
+                                                    }}
+                                                >
+                                                    {convertDate(data2?.reservationModifiedAt)}
+                                                </span>
                                             </div>
                                         </span>
                                     </span>
@@ -261,7 +298,6 @@ function MyReservationCard(props) {
                                 <div className="half">
                                     <span>
                                         <span className="reserveTitle">
-                                            {' '}
                                             <span
                                                 style={{
                                                     fontSize: '10px',

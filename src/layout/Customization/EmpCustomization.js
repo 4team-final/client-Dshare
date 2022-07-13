@@ -218,10 +218,11 @@ const Customization = (props) => {
             return;
         }
         setEAlert(false);
-        if (!(tAlert && bAlert && eAlert)) {
+
+        setEmail2(e.target.value);
+        if (!(tAlert || bAlert || eAlert)) {
             setDisabledBtn(false);
         }
-        setEmail2(e.target.value);
     };
     //이름 변경
     const nameChange = (e) => {
@@ -236,10 +237,11 @@ const Customization = (props) => {
             return;
         }
         setTAlert(false);
-        if (!(tAlert && bAlert && eAlert)) {
+
+        setTel2(e.target.value);
+        if (!(tAlert || bAlert || eAlert)) {
             setDisabledBtn(false);
         }
-        setTel2(e.target.value);
     };
     //생일
     const birthdayChange = (e) => {
@@ -250,10 +252,11 @@ const Customization = (props) => {
             return;
         }
         setBAlert(false);
-        if (!(tAlert && bAlert && eAlert)) {
+
+        setBirthDay2(e.target.value);
+        if (!(tAlert || bAlert || eAlert)) {
             setDisabledBtn(false);
         }
-        setBirthDay2(e.target.value);
     };
 
     useEffect(() => {

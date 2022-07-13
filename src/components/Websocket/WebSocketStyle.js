@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CustomButton = styled.button`
+    display: ${(props) => (props.hello ? 'block' : 'none')};
     margin: 2px;
     font-size: large;
     font-weight: bold;
@@ -33,21 +34,19 @@ export const CustomButton = styled.button`
 `;
 
 export const CardFrame = styled.div`
-    margin: 5px 0;
+    margin: 5px 20px 0 0;
     padding: 0;
     width: 100%;
     height: 140px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
 `;
 
 export const HalfWidthFrame = styled.div`
-    border-bottom: 2px solid #673ab7;
     max-width: 800px;
     height: 40px;
     background-color: none;
-    text-align: center;
     margin: 15px auto;
     display: flex;
     align-items: center;

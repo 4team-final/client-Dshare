@@ -9,7 +9,7 @@ const fadeIn = keyframes`
         opacity: 0;
     }
     100% {
-        height: 600px;
+        height: 520px;
         opacity: 1;
     }
 `;
@@ -17,20 +17,19 @@ const fadeIn = keyframes`
 export const HalfWidthFrame = styled.div`
     animation: ${fadeIn} 1.25s ease-out;
     max-width: 800px;
-    height: 600px;
+    height: 520px;
     background-color: #fff;
     text-align: center;
     margin: 15px auto;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    box-shadow: inset 0 0 5px #673ab7;
 `;
 
 export const ComponentFrame = styled.div`
     width: 97%;
-    height: 580px;
-    overflow-x: auto;
+    height: 500px;
+    overflow-x: hidden;
     overflow-y: auto;
     margin: auto;
     padding-top: 1%;
@@ -42,6 +41,7 @@ export const ComponentFrame = styled.div`
     }
     &::-webkit-scrollbar-thumb {
         background-color: #673ab7;
+        opacity: 0.6;
         border-radius: 10px;
         box-shadow: inset 0px 0px 10px white;
     }
@@ -55,13 +55,13 @@ export const ComponentFrame = styled.div`
 export const CardFrame = styled.div`
     margin: 5px 0;
     padding: 0;
-    width: 740px;
+    width: 530px;
     height: 160px;
     color: #673ab7;
-    display: flex;
-    box-shadow: inset 0 0 5px #673ab7;
+    box-shadow: inset 0 0 5px #b39ddb;
     border-radius: 20px;
-    background-color: ${(props) => (props.props === 1 ? 'rgba(0, 0, 0, 0.5)' : '#fff')};
+    cursor: pointer;
+    background-color: ${(props) => (props.props === 1 ? '#b39ddb' : '#fff')};
 `;
 
 export const ListFrame = styled.ul`
@@ -91,12 +91,14 @@ export const ImgCard = styled.div`
 
 export const InsideFrame = styled.div`
     display: flex;
+    justify-content: center;
+    text-align: center;
     margin: 0;
     padding: 0 5px 0 0;
 `;
 export const TextFrame = styled.div`
     height: 100%;
-    width: 350px;
+    width: 250px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -120,7 +122,6 @@ export const ContentFrame = styled.div`
 
 export const SubContentFrame = styled.div`
     margin-top: 15px;
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
     text-align: left;

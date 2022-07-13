@@ -27,13 +27,12 @@ const AlertStyle = (visible) => css`
 
 export const Alert = styled.div`
     position: absolute;
-    top: 10%;
-    /* left: 40%; */
+    top: 20%;
     width: 100%;
     height: 70px;
     padding: 20px;
     border-radius: 8px;
-    background-color: ${(props) => (props.notice === 'error' ? 'rgba(255, 0, 0, 0.6)' : 'rgba(25 ,38 ,236 ,0.5)')};
+    background-color: ${(props) => (props.notice === 'error' ? 'rgba(255, 0, 0, 0.9)' : 'rgba(25 ,38 ,236 ,0.9)')};
     box-shadow: 0px 4px 4px #00000025;
     display: flex;
     align-items: center;

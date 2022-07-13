@@ -18,17 +18,17 @@ export default function BasicExampleDataGrid() {
     const dataColumns = [
         { field: 'roomNo', headerName: '회의실 번호', hide: false, sortable: true },
         { field: 'title', headerName: '회의 제목', width: 200, hide: false, sortable: true },
-        { field: 'content', headerName: '회의실 설명', width: 200, hide: false, sortable: true },
-        { field: 'categoryName', headerName: '회의실 이름', hide: false, sortable: true },
+        { field: 'content', headerName: '회의실 설명', width: 450, hide: false, sortable: true },
+        { field: 'categoryName', headerName: '회의실 이름', width: 150, hide: false, sortable: true },
         { field: 'capacity', headerName: '정원', hide: false, sortable: true },
         { field: 'modifiedAt', headerName: '최종수정일', width: 200, hide: false, sortable: true },
         { field: 'createdAt', headerName: '예약일', width: 200, hide: false, sortable: true },
         { field: 'startedAt', headerName: '시작시간', width: 200, hide: false, sortable: true },
         { field: 'endedAt', headerName: '종료시간', width: 200, hide: false, sortable: true },
-        { field: 'name', headerName: '예약자', width: 200, hide: false, sortable: true },
+        { field: 'name', headerName: '예약자', width: 100, hide: false, sortable: true },
         {
             field: 'id',
-            headerName: '예약 번호',
+            headerName: '예약 삭제',
             renderCell: (params) => <DeleteIcon onClick={() => del(`${params.value}`)} />,
             hide: false,
             sortable: false
@@ -45,6 +45,13 @@ export default function BasicExampleDataGrid() {
         }
         //delete 함수
     };
+    function convertTime(time) {
+        if (!time) {
+            return;
+        }
+        let timeArr = time.split('T');
+        return timeArr[0] + ' ' + timeArr[1];
+    }
 
     const res = useCallback(async (page, deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt) => {
         setRoomResData([]);
@@ -64,10 +71,10 @@ export default function BasicExampleDataGrid() {
                     content: data.reservationResDTO.reason,
                     categoryName: data.reservationResDTO.room.categoryName,
                     capacity: data.reservationResDTO.room.capacity,
-                    modifiedAt: data.reservationResDTO.modifiedAt,
-                    createdAt: data.reservationResDTO.createdAt,
-                    startedAt: data.reservationResDTO.startedAt,
-                    endedAt: data.reservationResDTO.endedAt,
+                    modifiedAt: data.reservationResDTO.modifiedAt.split('T')[0] + ' ' + data.reservationResDTO.modifiedAt.split('T')[1],
+                    createdAt: data.reservationResDTO.createdAt.split('T')[0] + ' ' + data.reservationResDTO.createdAt.split('T')[1],
+                    startedAt: data.reservationResDTO.startedAt.split('T')[0] + ' ' + data.reservationResDTO.startedAt.split('T')[1],
+                    endedAt: data.reservationResDTO.endedAt.split('T')[0] + ' ' + data.reservationResDTO.endedAt.split('T')[1],
                     name: data.reservationResDTO.emp.name
                 };
             });

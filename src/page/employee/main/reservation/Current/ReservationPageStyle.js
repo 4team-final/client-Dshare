@@ -10,8 +10,6 @@ export const FullWidthFrame = styled.div`
 export const ComponentFrame = styled.div`
     width: 50%;
     height: auto;
-    margin-top: 3%;
-    padding: 5px;
 `;
 
 export const ContentFrame = styled.div`

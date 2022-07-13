@@ -98,12 +98,14 @@ const TotalIncomeLightCard = (props) => {
                 <>
                     <CardWrapper border={false} content={false}>
                         <Box
+                            onClick={handleOpen}
                             sx={{ p: 2 }}
                             style={{
                                 height: '7em',
                                 display: 'flex',
                                 justifyContent: 'center',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                cursor: 'pointer'
                             }}
                         >
                             <List sx={{ py: 0 }}>
@@ -127,10 +129,10 @@ const TotalIncomeLightCard = (props) => {
                                             mt: 0.45,
                                             mb: 0.45
                                         }}
-                                        primary={<Typography variant="h4">회의실</Typography>}
+                                        primary={<Typography variant="h2">회의실</Typography>}
                                         secondary={
                                             <Typography
-                                                variant="subtitle2"
+                                                variant="subtitle1"
                                                 sx={{
                                                     color: theme.palette.grey[500],
                                                     mt: 0.5
@@ -152,7 +154,7 @@ const TotalIncomeLightCard = (props) => {
                             style={{ width: '50%', height: '80%', textAlign: 'center', marginBottom: '30px' }}
                         >
                             {/* <Grid container spacing={gridSpacing} sx={{ p: 3 }}> */}
-                            {RBookmark.map((r) => (
+                            {RBookmark?.map((r) => (
                                 <SubCard key={r.roomId} title={r.name} style={{ width: '100%', marginBottom: '50px' }}>
                                     <List
                                         style={{
@@ -210,7 +212,7 @@ const TotalIncomeLightCard = (props) => {
                                         </ListItemButton>
                                     </List>
                                     <Grid item xs={12} sm={12}>
-                                        {r.roomObjectResDTOList.map((object) =>
+                                        {r.roomObjectResDTOList?.map((object) =>
                                             object.name != ' ' ? (
                                                 <Chip
                                                     key={object.imgId}

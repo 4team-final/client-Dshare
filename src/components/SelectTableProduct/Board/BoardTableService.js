@@ -30,7 +30,7 @@ const BoardTableTitleBar = (props) => {
     }, [props.props]);
     return (
         <TitleFrame>
-            <TextTitle disabled={props.props} placeholder=" 제목을 입력해주세요" onChange={setTitleHandler} />
+            <TextTitle disabled={props.props} placeholder=" 제목을 입력해주세요" value={title} onChange={setTitleHandler} />
         </TitleFrame>
     );
 };
@@ -39,7 +39,6 @@ const BoardTableContentBar = () => {
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [disabled, setDisabled] = useState(false);
-    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
     const contentHandler = (e) => {
         setContent(e.target.value);
     };
@@ -58,11 +57,6 @@ const BoardTableContentBar = () => {
     useEffect(() => {
         setDisabled(false);
     }, []);
-    useEffect(() => {
-        if (resetStore && resetStore.ready) {
-            setDisabled(false);
-        }
-    }, [resetStore]);
     useEffect(() => {
         if (disabled) {
             dispatch(selectByContent(content));
@@ -99,18 +93,32 @@ const BoardTableContentBar = () => {
 
 export const BoardTableService = () => {
     const [loading, setLoading] = useState(true);
+    const nextStepOneToTwoStore = useSelector((state) => state.nextReducer.onetotwo);
     useEffect(() => {
         setLoading(false);
     }, []);
-    return <>{loading ? <></> : <BoardTableContentBar />}</>;
+    useEffect(() => {
+        if (nextStepOneToTwoStore && nextStepOneToTwoStore.ready) {
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
+    }, [nextStepOneToTwoStore]);
+    return (
+        <>
+            {loading ? (
+                <></>
+            ) : (
+                <HalfWidthFrame>
+                    <ComponentFrame>
+                        <BoardTableContentBar />
+                    </ComponentFrame>
+                </HalfWidthFrame>
+            )}
+        </>
+    );
 };
 
 export const BoardTableFrame = () => {
-    return (
-        <HalfWidthFrame>
-            <ComponentFrame>
-                <BoardTableService />
-            </ComponentFrame>
-        </HalfWidthFrame>
-    );
+    return <BoardTableService />;
 };
