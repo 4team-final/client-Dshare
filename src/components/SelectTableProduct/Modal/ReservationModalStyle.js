@@ -19,7 +19,7 @@ export const fadeOut = keyframes`
 
 const modalSettings = (visible) => css`
     visibility: ${visible ? 'visible' : 'hidden'};
-    z-index: 15;
+    z-index: 900;
     animation: ${visible ? fadeIn : fadeOut} 0.15s ease-out;
     transition: visibility 0.15s ease-out;
 `;
@@ -36,11 +36,11 @@ export const BackFrame = styled.div`
 `;
 
 export const ModalSection = styled.div`
-    height: 700px;
-    width: 1000px;
+    height: 70%;
+    width: 60%;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 60%;
+    left: 60%;
     transform: translate(-50%, -50%);
     background-color: #fafafa;
     padding: 16px;
@@ -124,7 +124,7 @@ export const CustomButton = styled.button`
 `;
 
 export const ModalFrameTitle = styled.div`
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     margin: 20px auto;
     text-align: center;
@@ -140,7 +140,7 @@ export const ModalFrameContent = styled.div`
 `;
 
 export const ImgCard = styled.div`
-    width: 100%;
+    width: 50%;
 `;
 
 export const InsideFrame = styled.div`
@@ -149,10 +149,15 @@ export const InsideFrame = styled.div`
     margin: 0;
     padding: 0;
 `;
-export const TextFrame = styled.div`
+export const TextOutFrame = styled.div`
     margin: auto;
     display: flex;
     flex-direction: column;
+    justify-content: left;
+`;
+export const TextFrame = styled.div`
+    margin: auto;
+    display: flex;
 `;
 
 export const TextTitle = styled.div`
@@ -164,6 +169,7 @@ export const TextContent = styled.div`
     font-size: ${(props) => props.props}px;
     text-align: center;
     margin: auto;
+    padding-right: 10px;
     font-weight: bold;
 `;
 

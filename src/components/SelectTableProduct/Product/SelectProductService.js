@@ -1,6 +1,6 @@
 // Install
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AiFillCar } from 'react-icons/ai';
 import { MdMeetingRoom } from 'react-icons/md';
 // User
@@ -11,16 +11,9 @@ const SelectProductService = () => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
     const [type, setType] = useState(2);
-    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
-
     useEffect(() => {
         setType(2);
     }, []);
-    useEffect(() => {
-        if (resetStore && resetStore.ready) {
-            setType(2);
-        }
-    }, [resetStore]);
     useEffect(() => {
         if (selected) {
             dispatch(selectByType(type));
@@ -31,7 +24,7 @@ const SelectProductService = () => {
         <SubContentFrame>
             <InsideContentFrame props={type === 0 ? '1565c0' : 'fff'}>
                 <MdMeetingRoom
-                    style={{ width: '100px', height: '100px' }}
+                    style={{ width: '50px', height: '50px' }}
                     onClick={() => {
                         setType(0);
                         setSelected(true);
@@ -42,7 +35,7 @@ const SelectProductService = () => {
             </InsideContentFrame>
             <InsideContentFrame props={type === 1 ? '1565c0' : 'fff'}>
                 <AiFillCar
-                    style={{ width: '100px', height: '100px' }}
+                    style={{ width: '50px', height: '50px' }}
                     onClick={() => {
                         setType(1);
                         setSelected(true);

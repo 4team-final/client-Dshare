@@ -1,20 +1,20 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
+    animation: ${fadeIn} 1.25s ease-out;
     max-width: 800px;
-    height: 360px;
+    height: 440px;
     background-color: #fff;
     text-align: center;
     margin: 15px auto;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    box-shadow: inset 0 0 5px #673ab7;
 `;
 
 export const ComponentFrame = styled.div`
     width: 97%;
-    height: 350px;
+    height: 400px;
     overflow-x: none;
     overflow-y: none;
     margin: auto;
@@ -44,16 +44,17 @@ export const SectionFrame = styled.div`
     flex-direction: column;
     border-radius: 30px;
     box-shadow: inset 0 0 30px #fff;
-    background-color: ${(props) => (props.props ? 'rgba(0, 0, 0, 0.3)' : '#fff')};
+    background-color: ${(props) => (props.props ? 'rgba(150, 150, 150, 0.1)' : '#fff')};
 `;
 
 export const CardFrame = styled.div`
     margin: 0;
     padding: 0;
-    width: 740px;
-    height: 160px;
+    width: 100%;
+    height: 200px;
     color: #fafafa;
     display: flex;
+    justify-content: center;
     border: #fafafa 1px solid;
     border-radius: 20px;
     background-color: #${(props) => props.props};
@@ -73,29 +74,38 @@ export const TextFrame = styled.div`
 `;
 
 export const TextTitle = styled.input`
-    font-weight: bold;
-    font-size: 22px;
-    width: 740px;
-    height: 35px;
+    text-align: center;
+    font-size: 18px;
+    width: 96%;
+    height: 40px;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     resize: none;
     color: #000;
-    border: thick soild #673ab7;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    &::placeholder {
+        opacity: 0.6;
+    }
 `;
 
 export const TextContent = styled.textarea`
-    font-weight: bold;
-    width: 760px;
+    padding-top: 15px;
+    width: 97%;
     font-size: 18px;
-    height: 140px;
+    height: 180px;
     border-radius: 15px;
     margin-top: 20px;
     resize: none;
     color: #000;
-    border: thick soild #673ab7;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
     overflow-y: auto;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    &::placeholder {
+        opacity: 0.6;
+    }
     &::-webkit-scrollbar {
         width: 10px;
         height: 10px;
@@ -114,11 +124,11 @@ export const TextContent = styled.textarea`
 `;
 
 export const ContentFrame = styled.div`
-    border-top: 3px solid #b39ddb;
     display: flex;
     margin: auto;
     align-items: center;
     justify-content: center;
+    width: 100%;
 `;
 
 export const CustomButton = styled.button`
@@ -152,4 +162,17 @@ export const TitleTextFrame = styled.div`
     font-weight: bold;
     font-size: 25px;
     color: rgba(0, 0, 0, 0.8);
+`;
+const fadeIn = keyframes`
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        height: 520px;
+        opacity: 1;
+    }
 `;

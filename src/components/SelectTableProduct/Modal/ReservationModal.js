@@ -1,7 +1,7 @@
 // Install
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 // User
 import {
     BackFrame,
@@ -21,7 +21,8 @@ import {
     ImgCard,
     InsideFrame,
     TextFrame,
-    ModalTag
+    ModalTag,
+    TextOutFrame
 } from './ReservationModalStyle';
 import { ImgCardList } from '../Table/SelectTableService';
 import { selectCompleteRoomReservation, selectCompleteVehicleReservation } from '../../../store/actions/CalendarAction';
@@ -90,7 +91,7 @@ export const ModalInsideText = (props) => {
                                     {dataSet.reservationResDTO.room && dataSet.reservationResDTO.room.roomImgResDTOList.length ? (
                                         <ImgCardList
                                             data={dataSet.reservationResDTO.room.roomImgResDTOList}
-                                            width={'700'}
+                                            width={'400'}
                                             height={'auto'}
                                         />
                                     ) : (
@@ -98,14 +99,14 @@ export const ModalInsideText = (props) => {
                                     )}
                                 </div>
                                 <InsideFrame>
-                                    <TextFrame>
-                                        <TextContent props={'18'}>예약자 : {dataSet.reservationResDTO.emp.name}</TextContent>
-                                        <TextContent props={'18'}>사번 : {dataSet.reservationResDTO.emp.empNo}</TextContent>
-                                    </TextFrame>
-                                    <TextFrame>
-                                        <TextTitle props={'18'}>제목 : {dataSet.reservationResDTO.title}</TextTitle>
-                                        <TextTitle props={'18'}>내용 : {dataSet.reservationResDTO.reason}</TextTitle>
-                                    </TextFrame>
+                                    <TextOutFrame>
+                                        <TextFrame>
+                                            <TextContent props={'13'}>예약자 : {dataSet.reservationResDTO.emp.name}</TextContent>
+                                            <TextContent props={'13'}>사번 : {dataSet.reservationResDTO.emp.empNo}</TextContent>
+                                        </TextFrame>
+                                        <TextTitle props={'13'}>제목 : {dataSet.reservationResDTO.title}</TextTitle>
+                                        <TextTitle props={'13'}>내용 : {dataSet.reservationResDTO.reason}</TextTitle>
+                                    </TextOutFrame>
                                 </InsideFrame>
                             </ImgCard>
                             <SubContentFrame>
@@ -113,10 +114,10 @@ export const ModalInsideText = (props) => {
                                 <TextContent props={'20'}>{dataSet.reservationResDTO.room.content}</TextContent>
                                 <ContentFrame>
                                     <TextContent props={'19'}>{dataSet.reservationResDTO.room.categoryName}</TextContent>
-                                    <TextFrame>
+                                    <TextOutFrame>
                                         <TextContent props={'18'}>방번호 : {dataSet.reservationResDTO.room.roomNo}</TextContent>
                                         <TextContent props={'18'}>인원수 : {dataSet.reservationResDTO.room.capacity}</TextContent>
-                                    </TextFrame>
+                                    </TextOutFrame>
                                 </ContentFrame>
                                 <ContentFrame>
                                     {dataSet.reservationResDTO.room.roomObjectResDTOList ? (
@@ -130,7 +131,8 @@ export const ModalInsideText = (props) => {
                                     )}
                                 </ContentFrame>
                                 <TextContent props={'16'}>
-                                    예약시간 : {dataSet.reservationResDTO.startedAt} ~ {dataSet.reservationResDTO.endedAt}
+                                    예약시간 : {convertDateTime(dataSet.reservationResDTO.startedAt)} ~{' '}
+                                    {convertDateTime(dataSet.reservationResDTO.endedAt)}
                                 </TextContent>
                                 <div style={{ marginTop: '10px' }}>등록일 : {dataSet.reservationResDTO.createdAt}</div>
                             </SubContentFrame>
@@ -140,20 +142,20 @@ export const ModalInsideText = (props) => {
                             <ImgCard>
                                 <div style={{ marginBottom: '20px' }}>
                                     {dataSet && dataSet.imgList.length ? (
-                                        <ImgCardList data={dataSet.imgList} width={'700'} height={'auto'} />
+                                        <ImgCardList data={dataSet.imgList} width={'400'} height={'auto'} />
                                     ) : (
                                         <></>
                                     )}
                                 </div>
                                 <InsideFrame>
-                                    <TextFrame>
-                                        <TextContent props={'18'}>예약자 : {dataSet.ename}</TextContent>
-                                        <TextContent props={'18'}>사번 : {dataSet.empNo}</TextContent>
-                                    </TextFrame>
-                                    <TextFrame>
-                                        <TextTitle props={'18'}>제목 : {dataSet.title}</TextTitle>
-                                        <TextTitle props={'18'}>내용 : {dataSet.reason}</TextTitle>
-                                    </TextFrame>
+                                    <TextOutFrame>
+                                        <TextFrame>
+                                            <TextContent props={'13'}>예약자 : {dataSet.ename}</TextContent>
+                                            <TextContent props={'13'}>사번 : {dataSet.empNo}</TextContent>
+                                        </TextFrame>
+                                        <TextTitle props={'13'}>제목 : {dataSet.title}</TextTitle>
+                                        <TextTitle props={'13'}>내용 : {dataSet.reason}</TextTitle>
+                                    </TextOutFrame>
                                 </InsideFrame>
                             </ImgCard>
                             <SubContentFrame>
@@ -161,14 +163,14 @@ export const ModalInsideText = (props) => {
                                 <TextContent props={'20'}>{dataSet.vname}</TextContent>
                                 <ContentFrame>
                                     <TextContent props={'19'}>{dataSet.model}</TextContent>
-                                    <TextFrame>
-                                        <TextContent props={'18'}>차량번호 : {dataSet.vnumber}</TextContent>
-                                        <TextContent props={'18'}>탑승인원 : {dataSet.capacity}</TextContent>
-                                        <TextContent props={'18'}>차량색상 : {dataSet.color}</TextContent>
-                                    </TextFrame>
+                                    <TextOutFrame>
+                                        <TextContent props={'15'}>차량번호 : {dataSet.vnumber}</TextContent>
+                                        <TextContent props={'15'}>탑승인원 : {dataSet.capacity}</TextContent>
+                                        <TextContent props={'15'}>차량색상 : {dataSet.color}</TextContent>
+                                    </TextOutFrame>
                                 </ContentFrame>
                                 <TextContent props={'16'}>
-                                    예약시간 : {dataSet.startedAt} ~ {dataSet.endedAt}
+                                    예약시간 : {convertDateTime(dataSet.startedAt)} ~ {convertDateTime(dataSet.endedAt)}
                                 </TextContent>
                                 <div style={{ marginTop: '10px' }}>등록일 : {dataSet.reservationCreatedAt}</div>
                             </SubContentFrame>
@@ -188,7 +190,7 @@ const ModalPage = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const isCloseHandler = () => {
         setIsOpen(false);
-        navigate('/main/dashboard/default');
+        navigate('/main/my/reservation/status');
         dispatch(initSocketData());
     };
     useEffect(() => {
@@ -209,4 +211,8 @@ export const ReservationModal = (props) => {
             <ModalPage type={props.type} open={props.open} />
         </>
     );
+};
+
+const convertDateTime = (props) => {
+    return props.replace('T', ' ');
 };

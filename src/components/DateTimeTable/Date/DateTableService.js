@@ -1,6 +1,6 @@
 // Install
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -9,68 +9,33 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 // User
 import { selectByUId } from 'store/actions/WebsocketAction';
 import SelectProductFrame from 'components/SelectTableProduct/Product';
-import {
-    HalfWidthFrame,
-    ComponentFrame,
-    CalendarFrame,
-    TitleTextFrame,
-    ContentFrame,
-    CustomButton,
-    SubContentFrame,
-    AllContentFrame
-} from './DateTableStyle';
+import { HalfWidthFrame, ComponentFrame, CalendarFrame, TitleTextFrame, ContentFrame, AllContentFrame } from './DateTableStyle';
 
 const DateTableCalendar = () => {
     const dispatch = useDispatch();
     const [value, setValue] = useState(new Date());
     const [dateTime, setDateTime] = useState();
-    const [disable, setDisable] = useState(false);
-    const resetStore = useSelector((state) => state.websocketReducer.resetdata);
-    useEffect(() => {
-        if (resetStore && resetStore.ready) {
-            setDisable(false);
-            setDateTime();
-        }
-    }, [resetStore]);
-    useEffect(() => {
-        setDisable(false);
-    }, []);
     useEffect(() => {
         setDateTime(moment(value).format('YYYYMMDD'));
     }, [value]);
+    useEffect(() => {
+        dispatch(selectByUId(dateTime));
+    }, [dateTime]);
     return (
         <CalendarFrame>
             <ContentFrame>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <StaticDatePicker
-                        disabled={disable}
                         displayStaticWrapperAs="desktop"
                         openTo="day"
                         value={value}
+                        minDate={new Date()}
                         onChange={(newValue) => {
                             setValue(newValue);
                         }}
                         renderInput={(params) => <TextField fullWidth {...params} />}
                     />
                 </LocalizationProvider>
-                <SubContentFrame>
-                    <CustomButton
-                        onClick={() => {
-                            setDisable(true);
-                            dispatch(selectByUId(dateTime));
-                        }}
-                        disabled={disable}
-                    >
-                        확인
-                    </CustomButton>
-                    <CustomButton
-                        onClick={() => {
-                            setDisable(false);
-                        }}
-                    >
-                        재입력
-                    </CustomButton>
-                </SubContentFrame>
             </ContentFrame>
         </CalendarFrame>
     );
@@ -96,9 +61,9 @@ const DateTableService = () => {
 
 export const DateTableFrame = () => {
     return (
-        <HalfWidthFrame height={650}>
+        <HalfWidthFrame height={530}>
             <TitleTextFrame>날짜 선택</TitleTextFrame>
-            <ComponentFrame height={550}>
+            <ComponentFrame height={460}>
                 <DateTableService />
             </ComponentFrame>
         </HalfWidthFrame>

@@ -4,6 +4,7 @@ import DateTableFrame from 'components/DateTimeTable/Date';
 import BoardTableFrame from 'components/SelectTableProduct/Board';
 import WebsocketController from 'components/Websocket';
 import { ComponentFrame, ContentFrame, FullWidthFrame } from './ReservationPageStyle';
+import { Grid } from '@mui/material';
 
 export const ReservationPage = () => {
     return (
@@ -18,13 +19,13 @@ export const ReservationPage = () => {
             </ComponentFrame>
             <ComponentFrame>
                 <ContentFrame>
-                    <WebsocketController />
-                </ContentFrame>
-                <ContentFrame>
                     <SelectTableFrame />
                 </ContentFrame>
                 <ContentFrame>
                     <BoardTableFrame />
+                </ContentFrame>
+                <ContentFrame>
+                    <WebsocketController />
                 </ContentFrame>
             </ComponentFrame>
         </FullWidthFrame>
