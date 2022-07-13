@@ -28,7 +28,7 @@ export default function BasicExampleDataGrid() {
         { field: 'birthday', headerName: '생일', width: 200, hide: false, sortable: true },
         {
             field: 'id',
-            headerName: '수정',
+            headerName: '조회 및 수정',
             renderCell: (params) => <EmpCustomization tmp={tmp} empId={`${params.value}`} />,
             hide: false,
             sortable: false

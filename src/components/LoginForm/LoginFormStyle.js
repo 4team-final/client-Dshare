@@ -63,7 +63,7 @@ export const LoginFormFrame = styled.div`
 `;
 export const LoginAlertFrame = styled.span`
     font-size: 0.8em;
-    color: #fff;
+    color: black;
     margin-left: 5px;
 `;
 export const LoginContainerFrame = styled.div`
