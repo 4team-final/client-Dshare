@@ -17,7 +17,6 @@ const fadeIn = keyframes`
 export const HalfWidthFrame = styled.div`
     animation: ${fadeIn} 0.75s ease-out;
     box-shadow: inset 0 0 8px #fff;
-    border: 1px solid #1296ec;
     max-width: 800px;
     height: ${(props) => props.height}px;
     background-color: #fff;
@@ -31,8 +30,8 @@ export const HalfWidthFrame = styled.div`
 export const ComponentFrame = styled.div`
     width: 97%;
     height: ${(props) => props.height}px;
-    overflow-y: none;
-    margin: auto;
+    overflow-y: hidden;
+    margin: 10px auto auto auto;
     padding-top: 0;
     padding-bottom: 3%;
 `;
@@ -49,7 +48,7 @@ export const CardFrame = styled.div`
 
 export const ListFrame = styled.ul`
     list-style: none;
-    margin: 0;
+    margin-top: 0;
     padding: 0;
     display: flex;
     align-items: center;
@@ -79,7 +78,6 @@ export const ItemFrame = styled.li`
 `;
 export const CustomButton = styled.button`
     color: #fafafa;
-    margin-top: 10px;
     background-color: #1296ec;
     opacity: 0.7;
     border: none;
@@ -92,7 +90,6 @@ export const CustomButton = styled.button`
         box-shadow: inset 0 0 5px #fff;
         transition: all 0.3s;
         opacity: 1;
-        width: 65px;
         height: 30px;
     }
 `;

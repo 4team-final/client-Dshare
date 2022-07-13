@@ -24,13 +24,12 @@ export const HalfWidthFrame = styled.div`
     border-radius: 30px;
     display: flex;
     align-items: center;
-    box-shadow: inset 0 0 5px #673ab7;
 `;
 
 export const ComponentFrame = styled.div`
     width: 97%;
     height: 500px;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     margin: auto;
     padding-top: 1%;
@@ -42,6 +41,7 @@ export const ComponentFrame = styled.div`
     }
     &::-webkit-scrollbar-thumb {
         background-color: #673ab7;
+        opacity: 0.6;
         border-radius: 10px;
         box-shadow: inset 0px 0px 10px white;
     }
@@ -55,12 +55,13 @@ export const ComponentFrame = styled.div`
 export const CardFrame = styled.div`
     margin: 5px 0;
     padding: 0;
-    width: 550px;
+    width: 530px;
     height: 160px;
     color: #673ab7;
-    box-shadow: inset 0 0 5px #673ab7;
+    box-shadow: inset 0 0 5px #b39ddb;
     border-radius: 20px;
-    background-color: ${(props) => (props.props === 1 ? 'rgba(0, 0, 0, 0.5)' : '#fff')};
+    cursor: pointer;
+    background-color: ${(props) => (props.props === 1 ? '#b39ddb' : '#fff')};
 `;
 
 export const ListFrame = styled.ul`

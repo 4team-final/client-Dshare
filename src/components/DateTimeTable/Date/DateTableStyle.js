@@ -6,9 +6,8 @@ export const HalfWidthFrame = styled.div`
     background-color: #fff;
     text-align: center;
     margin: 15px auto;
+    padding-top: 5px;
     border-radius: 30px;
-    border: #1296ec 1px solid;
-    box-shadow: inset 0 0 2px #1296ec;
 `;
 
 export const ComponentFrame = styled.div`

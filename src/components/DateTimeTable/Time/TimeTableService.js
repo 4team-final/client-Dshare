@@ -143,7 +143,7 @@ const TimeTableService = () => {
                 <></>
             ) : (
                 <HalfWidthFrame visible={!loading} height={150}>
-                    <ComponentFrame height={100}>
+                    <ComponentFrame height={150}>
                         <TimeTable />
                     </ComponentFrame>
                 </HalfWidthFrame>

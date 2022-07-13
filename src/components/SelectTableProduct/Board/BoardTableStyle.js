@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const HalfWidthFrame = styled.div`
+    animation: ${fadeIn} 1.25s ease-out;
     max-width: 800px;
     height: 440px;
     background-color: #fff;
@@ -9,7 +10,6 @@ export const HalfWidthFrame = styled.div`
     border-radius: 30px;
     display: flex;
     align-items: center;
-    box-shadow: inset 0 0 5px #673ab7;
 `;
 
 export const ComponentFrame = styled.div`
@@ -162,4 +162,17 @@ export const TitleTextFrame = styled.div`
     font-weight: bold;
     font-size: 25px;
     color: rgba(0, 0, 0, 0.8);
+`;
+const fadeIn = keyframes`
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        height: 520px;
+        opacity: 1;
+    }
 `;
