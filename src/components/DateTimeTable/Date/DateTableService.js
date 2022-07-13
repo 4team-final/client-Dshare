@@ -16,12 +16,11 @@ const DateTableCalendar = () => {
     const [value, setValue] = useState(new Date());
     const [dateTime, setDateTime] = useState();
     useEffect(() => {
-        dispatch(selectByUId(moment().format('YYYYMMDD')));
-    }, []);
-    useEffect(() => {
         setDateTime(moment(value).format('YYYYMMDD'));
-        dispatch(selectByUId(dateTime));
     }, [value]);
+    useEffect(() => {
+        dispatch(selectByUId(dateTime));
+    }, [dateTime]);
     return (
         <CalendarFrame>
             <ContentFrame>

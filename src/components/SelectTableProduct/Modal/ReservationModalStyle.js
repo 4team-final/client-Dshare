@@ -149,10 +149,15 @@ export const InsideFrame = styled.div`
     margin: 0;
     padding: 0;
 `;
-export const TextFrame = styled.div`
+export const TextOutFrame = styled.div`
     margin: auto;
     display: flex;
     flex-direction: column;
+    justify-content: left;
+`;
+export const TextFrame = styled.div`
+    margin: auto;
+    display: flex;
 `;
 
 export const TextTitle = styled.div`
@@ -164,6 +169,7 @@ export const TextContent = styled.div`
     font-size: ${(props) => props.props}px;
     text-align: center;
     margin: auto;
+    padding-right: 10px;
     font-weight: bold;
 `;
 

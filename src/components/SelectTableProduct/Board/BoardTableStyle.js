@@ -44,7 +44,7 @@ export const SectionFrame = styled.div`
     flex-direction: column;
     border-radius: 30px;
     box-shadow: inset 0 0 30px #fff;
-    background-color: ${(props) => (props.props ? 'rgba(0, 0, 0, 0.3)' : '#fff')};
+    background-color: ${(props) => (props.props ? 'rgba(150, 150, 150, 0.1)' : '#fff')};
 `;
 
 export const CardFrame = styled.div`
