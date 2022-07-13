@@ -85,7 +85,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
     const recentReservationVehicleStore = useSelector((state) => state.dashboardReducer.recentReservationVehicle);
 
     const [message, setMessage] = useState(text);
-    const [timeValue, setTimeValue] = useState(false);
+    const [timeValue, setTimeValue] = useState(true);
 
     const [roomRecentData, setRoomRecentData] = useState([]);
     const [vehicleRecentData, setVehicleRecentData] = useState([]);
@@ -95,7 +95,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
     const [selectImg, setSelectImg] = useState('');
 
     useEffect(() => {
-        dispatch(recentRoomRervation(5));
+        dispatch(recentRoomRervation(3));
         dispatch(recentVehicleRervation());
     }, []);
 
@@ -111,12 +111,17 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
     }, [recentReservationVehicleStore]);
 
     useEffect(() => {
-        if (vehicleRecentData?.length > 0) {
+        if (!timeValue && vehicleRecentData?.length > 0) {
             setRank(1);
             setselectData(vehicleRecentData[0]);
             setSelectImg(vehicleRecentData[0]?.imgList[0]);
         }
-    }, [vehicleRecentData]);
+        if (timeValue && roomRecentData?.length > 0) {
+            setRank(1);
+            setselectData(roomRecentData[0]);
+            setSelectImg(roomRecentData[0]?.room.roomImgResDTOList[0]?.imgPath);
+        }
+    }, [vehicleRecentData, roomRecentData]);
 
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
