@@ -86,7 +86,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
     const bookmarkVehicleTopStore = useSelector((state) => state.dashboardReducer.bookmarkVehicleTop);
 
     const [message, setMessage] = useState(text);
-    const [timeValue, setTimeValue] = useState(false);
+    const [timeValue, setTimeValue] = useState(true);
 
     const [roomBookmarkData, setRoomBookmarkData] = useState([]);
     const [vehicleBookmarkData, setVehicleBookmarkData] = useState([]);
@@ -115,12 +115,17 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
     }, [bookmarkVehicleTopStore]);
 
     useEffect(() => {
-        if (vehicleBookmarkData?.length > 0) {
+        if (!timeValue && vehicleBookmarkData?.length > 0) {
             setRank(1);
             setselectData(vehicleBookmarkData[0]);
             setSelectImg(vehicleBookmarkData[0]?.imgList[0]);
         }
-    }, [vehicleBookmarkData]);
+        if (timeValue && roomBookmarkData?.length > 0) {
+            setRank(1);
+            setselectData(roomBookmarkData[0]);
+            setSelectImg(roomBookmarkData[0]?.roomImgResDTOList[0]?.imgPath);
+        }
+    }, [vehicleBookmarkData, roomBookmarkData]);
 
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
@@ -160,8 +165,7 @@ const TotalOrderLineChartCard = ({ isLoading, text }) => {
                                 height: '23em',
                                 width: '100%',
                                 backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url(${selectImg})`,
-                                // backgroundSize: '100%',
-                                backgroundSize: 'contain',
+                                backgroundSize: '100%',
                                 opacity: '1'
                             }}
                             style={{}}

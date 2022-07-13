@@ -14,6 +14,12 @@ function MyReservationList() {
     const roomDeleteId = useSelector((state) => state.changeReducer.deleteRoomId);
     const vehicleDeleteId = useSelector((state) => state.changeReducer.deleteVehicleId);
 
+    const changeStoreRoomItem = useSelector((state) => state.changeReducer.roomItem);
+    const changeStoreVehicleItem = useSelector((state) => state.changeReducer.vehicleItem);
+
+    const [start, isStart] = useState(false);
+    const [start2, isStart2] = useState(false);
+
     const dispatch = useDispatch();
 
     const [reqRoomLastId, setReqRoomLastId] = useState(0);
@@ -78,6 +84,7 @@ function MyReservationList() {
                 ?.reservationResDTO?.id !== resRoomList[resRoomList?.length - 1]?.reservationResDTO?.id
         ) {
             setResRoomList([...resRoomList, ...reservationStore?.myReservationRoomList?.data?.value]);
+            isStart(true);
         }
     }, [reservationStore?.myReservationRoomList?.data?.value]);
 
@@ -85,7 +92,7 @@ function MyReservationList() {
         if (resRoomList?.length > 0) {
             dispatch(ItemChangeSave(resRoomList[0]));
         }
-    }, [resRoomList]);
+    }, [resRoomList && !start]);
 
     useEffect(() => {
         if (
@@ -94,13 +101,14 @@ function MyReservationList() {
                 ?.reservationId !== resVehicleList[resVehicleList?.length - 1]?.reservationId
         ) {
             setResVehicleList([...resVehicleList, ...reservationStore?.myReservationVehicleList?.data?.value]);
+            isStart2(true);
         }
     }, [reservationStore?.myReservationVehicleList?.data?.value]);
     useEffect(() => {
         if (resVehicleList?.length > 0) {
             dispatch(ItemChangeSave(resVehicleList[0]));
         }
-    }, [resVehicleList]);
+    }, [resVehicleList && !start2]);
 
     useEffect(() => {
         if (resRoomList[resRoomList.length - 1] && resRoomList?.length > 0) {
