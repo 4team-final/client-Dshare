@@ -150,7 +150,7 @@ export const regUpProImg = async (Img, id) => {
         .catch((e) => console.log(e));
 };
 export const RegistWorker = async (teamId, positionId, password, name, email, tel, birthday, profileImg) => {
-    console.log(profileImg);
+    // console.log(profileImg);
     return await dshareAPI
         .post(`admin/register`, {
             teamId: teamId,
@@ -163,8 +163,8 @@ export const RegistWorker = async (teamId, positionId, password, name, email, te
         })
         .then((res) => {
             let empId = res.data.value;
-            console.log(profileImg);
-            console.log(empId);
+            // console.log(profileImg);
+            // console.log(empId);
             regUpProImg(profileImg, empId);
         });
 };

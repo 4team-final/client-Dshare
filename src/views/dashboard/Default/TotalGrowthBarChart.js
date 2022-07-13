@@ -634,6 +634,63 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                     ]
                 });
             } else if (select == 1) {
+                setchartDataResult({
+                    type: 'heatmap',
+                    options: {
+                        ...chartData2.options,
+                        xaxis: {
+                            type: 'category',
+                            categories: ArrX
+                        },
+                        plotOptions: {
+                            heatmap: {
+                                ...chartData2.options.plotOptions.heatmap,
+                                colorScale: {
+                                    ranges: [
+                                        {
+                                            from: 0,
+                                            to: 3,
+                                            name: '0~3',
+                                            color: '#00A100'
+                                        },
+                                        {
+                                            from: 4,
+                                            to: 7,
+                                            name: '4~7',
+                                            color: '#128FD9'
+                                        },
+                                        {
+                                            from: 8,
+                                            to: 15,
+                                            name: '8~15',
+                                            color: '#FFB200'
+                                        },
+                                        {
+                                            from: 15,
+                                            to: 50,
+                                            name: '15~50',
+                                            color: '#FF0000'
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            name: '1일',
+                            data: oneData
+                        },
+                        {
+                            name: '3일',
+                            data: threeData
+                        },
+                        {
+                            name: '7일',
+                            data: sevenData
+                        }
+                    ]
+                });
             }
         }
     }, [graphType]);

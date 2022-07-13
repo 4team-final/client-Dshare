@@ -178,10 +178,10 @@ const Customization = (props) => {
                 setDeptId2(emp.deptId);
                 setPositionId2(emp.positionId);
                 setEmpInfo(emp);
-                console.log(emp);
+                // console.log(emp);
             }
             profile();
-            console.log(empId);
+            // console.log(empId);
         },
         [],
         [name, email, tel, birthday, positionId, teamId, deptId]
@@ -275,7 +275,7 @@ const Customization = (props) => {
             setDeptId(emp.deptId);
             setPositionId(emp.positionId);
             setEmpInfo(emp);
-            console.log(emp);
+            // console.log(emp);
             //2
             setEmail2(emp.email);
             setName2(emp.name);
@@ -283,7 +283,7 @@ const Customization = (props) => {
             setBirthDay2(emp.birthday.split('T', 1)[0]);
         }
         profile();
-        console.log(empId);
+        // console.log(empId);
     }, []);
 
     //부서 팀 포지션 리스트
@@ -403,7 +403,7 @@ const Customization = (props) => {
         );
         setDeptId(value.split('-', 1));
         if (names == value) {
-            console.log(names.length);
+            // console.log(names.length);
         }
         for (var i = 0; i < names.length; i++) {
             if (names[i] == value) {
@@ -425,7 +425,7 @@ const Customization = (props) => {
     dshareAPI.interceptors.response.use(resSuccess, resError);
 
     const updateEmpInfo = async () => {
-        console.log(teamId2, positionId2, name2, email2, birthday2, tel2);
+        // console.log(teamId2, positionId2, name2, email2, birthday2, tel2);
         return await dshareAPI
             .post(`admin/update/${empId}`, {
                 teamId: teamId2,
@@ -479,8 +479,8 @@ const Customization = (props) => {
         let frm = new FormData();
         frm.enctype = 'multipart/form-data';
         let pic = pictures[0];
-        console.log(pictures[0]);
-        console.log(pic);
+        // console.log(pictures[0]);
+        // console.log(pic);
         frm.append('files', pic);
         frm.append('TargetEmpId', id);
         await dshareAPI

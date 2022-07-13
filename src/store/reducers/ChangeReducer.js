@@ -6,7 +6,9 @@ import {
     PROFILE_CHANGE_SAVE,
     GO_ADMIN_PAGE,
     SELECTED_CHANGE_SAVE2,
-    ALL_TIMER_MESSAGE
+    ALL_TIMER_MESSAGE,
+    CHANGE_TIMER_MESSAGE,
+    CHANGE_DELETE_ITEM_FLAG
 } from '../actions/ChangeAction';
 
 const initialState = {
@@ -23,7 +25,9 @@ const initialState = {
         message2: '',
         message3: '',
         message4: ''
-    }
+    },
+    changeCount: 0,
+    changeDeleteCount: 0
 };
 
 export default function changeReducer(state = initialState, action) {
@@ -57,6 +61,16 @@ export default function changeReducer(state = initialState, action) {
             return {
                 ...state,
                 allMessage: action.allMessage
+            };
+        case CHANGE_TIMER_MESSAGE:
+            return {
+                ...state,
+                changeCount: initialState.changeCount + action.plus
+            };
+        case CHANGE_DELETE_ITEM_FLAG:
+            return {
+                ...state,
+                changeDeleteCount: initialState.changeDeleteCount + action.plus
             };
         default:
             return state;

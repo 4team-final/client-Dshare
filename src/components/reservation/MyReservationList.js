@@ -16,6 +16,7 @@ function MyReservationList() {
 
     const changeStoreRoomItem = useSelector((state) => state.changeReducer.roomItem);
     const changeStoreVehicleItem = useSelector((state) => state.changeReducer.vehicleItem);
+    const changeDeleteFlag = useSelector((state) => state.changeReducer.changeDeleteCount);
 
     const [start, isStart] = useState(false);
     const [start2, isStart2] = useState(false);
@@ -126,6 +127,7 @@ function MyReservationList() {
             const index = resRoomList?.findIndex((item) => item.reservationResDTO?.id === roomDeleteId);
             resRoomList.splice(index, 1);
             setResRoomList([...resRoomList]);
+            dispatch(ItemChangeSave(resRoomList[index]));
         }
     }, [roomDeleteId]);
 
@@ -134,6 +136,7 @@ function MyReservationList() {
             const index = resVehicleList?.findIndex((item) => item.reservationId === vehicleDeleteId);
             resVehicleList.splice(index, 1);
             setResVehicleList([...resVehicleList]);
+            dispatch(ItemChangeSave(resVehicleList[index]));
         }
     }, [vehicleDeleteId]);
 
@@ -163,11 +166,11 @@ function MyReservationList() {
         // 현재 스크롤바의 위치
         const scrollTop = container?.current?.scrollTop;
 
-        if (!flag) {
-            document.getElementById('MyReservatationList').style.overflowY = 'scroll';
-        } else if (flag) {
-            document.getElementById('MyReservatationList').style.overflowY = 'hidden';
-        }
+        // if (!flag) {
+        //     document.getElementById('MyReservatationList').style.overflowY = 'scroll';
+        // } else if (flag) {
+        //     document.getElementById('MyReservatationList').style.overflowY = 'hidden';
+        // }
         // scrollTop과 innerHeight를 더한 값이 scrollHeight보다 크다면, 가장 아래에 도달했다는 의미이다.
         if (Math.round(scrollTop + innerHeight) >= Math.round(scrollHeight * 0.75)) {
             if (select === 0 && reqRoomLastId && resRoomList.length !== total) {

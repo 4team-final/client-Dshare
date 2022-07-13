@@ -148,7 +148,7 @@ export const WebsocketController = () => {
         navigate('/main/dashboard/default', { replace: true });
     };
     const ConvertTimeAndReserve = () => {
-        console.log(rid, content, title, transTime);
+        // console.log(rid, content, title, transTime);
         dispatch(
             type === 0
                 ? makeRoomReservation({

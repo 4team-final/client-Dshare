@@ -129,7 +129,7 @@ const FirebaseRegister = ({ ...others }) => {
     //전화번호 변경
     const telChange = (e) => {
         const regex = /^[0-9\b -]{0,13}$/;
-        console.log(regex.test(e.target.value));
+        // console.log(regex.test(e.target.value));
 
         if (regex.test(e.target.value)) {
             setTel(e.target.value);
@@ -193,7 +193,7 @@ const FirebaseRegister = ({ ...others }) => {
         // setDeptName();
 
         if (names == value) {
-            console.log(names.length);
+            // console.log(names.length);
         }
         for (var i = 0; i < names.length; i++) {
             if (names[i] == value) {
@@ -266,7 +266,7 @@ const FirebaseRegister = ({ ...others }) => {
                                             birthday,
                                             profileImg
                                         );
-                                        console.log(success);
+                                        // console.log(success);
                                         alert('등록이 완료됐습니다~! 사원 조회 페이지로 이동합니다!');
                                         navigate('/main/admin/REmp', { replace: true });
                                         //사원조회목록으로 라우팅
@@ -389,7 +389,7 @@ const FirebaseRegister = ({ ...others }) => {
                                         label="Birthday"
                                         value={birthday}
                                         onChange={(newValue) => {
-                                            console.log(newValue);
+                                            // console.log(newValue);
                                             setBirthday(newValue);
                                         }}
                                         renderInput={(params) => <TextField {...params} helperText={null} />}

@@ -12,7 +12,7 @@ export default function CustomIcons(props) {
 
     const selectPage = (item) => {
         props.res(item.page);
-        console.log(item.page);
+        // console.log(item.page);
     };
 
     return (

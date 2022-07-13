@@ -37,16 +37,16 @@ export default function BasicExampleDataGrid() {
 
     const tmp = useCallback(async () => {
         let tmpEmp = await getUser();
-        console.log(tmpEmp);
+        // console.log(tmpEmp);
         setEmpData(tmpEmp);
     });
 
     useEffect(() => {
         tmp();
-        console.log(empData);
+        // console.log(empData);
     }, []);
 
-    console.log(empData);
+    // console.log(empData);
     return (
         <>
             <div style={{ height: '80vh', width: '100%' }}>

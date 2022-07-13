@@ -64,7 +64,7 @@ const ProfileSection = () => {
     const [profileImg, setProfileImg] = useState();
 
     useEffect(() => {
-        console.log(newProfile);
+        // console.log(newProfile);
         if (newProfile) {
             setEmpInfo(newProfile);
             setProfileImg(newProfile.profileImg);
@@ -93,7 +93,7 @@ const ProfileSection = () => {
         if (route && route !== '') {
             navigate(route);
         }
-        console.log(empInfo.id);
+        // console.log(empInfo.id);
         if (empInfo.id) {
             dispatch(goAdminPage());
         }
