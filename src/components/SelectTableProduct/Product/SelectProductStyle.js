@@ -4,7 +4,8 @@ export const SubContentFrame = styled.div`
     margin-top: 15px;
     display: flex;
     align-items: center;
-    width: 100px;
+    justify-content: center;
+    width: 100%;
 `;
 
 export const InsideContentFrame = styled.div`

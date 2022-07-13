@@ -9,7 +9,7 @@ const fadeIn = keyframes`
         opacity: 0;
     }
     100% {
-        height: 600px;
+        height: 520px;
         opacity: 1;
     }
 `;
@@ -17,7 +17,7 @@ const fadeIn = keyframes`
 export const HalfWidthFrame = styled.div`
     animation: ${fadeIn} 1.25s ease-out;
     max-width: 800px;
-    height: 600px;
+    height: 520px;
     background-color: #fff;
     text-align: center;
     margin: 15px auto;
@@ -29,7 +29,7 @@ export const HalfWidthFrame = styled.div`
 
 export const ComponentFrame = styled.div`
     width: 97%;
-    height: 580px;
+    height: 500px;
     overflow-x: auto;
     overflow-y: auto;
     margin: auto;
