@@ -5,7 +5,7 @@ import { AiFillCar } from 'react-icons/ai';
 import { MdMeetingRoom } from 'react-icons/md';
 // User
 import { selectByType } from 'store/actions/WebsocketAction';
-import { InsideContentFrame, SubContentFrame } from './SelectProductStyle';
+import { CardFrame, InsideContentFrame, SubContentFrame } from './SelectProductStyle';
 
 const SelectProductService = () => {
     const dispatch = useDispatch();
@@ -22,27 +22,28 @@ const SelectProductService = () => {
     }, [selected]);
     return (
         <SubContentFrame>
-            <InsideContentFrame props={type === 0 ? '1565c0' : 'fff'}>
-                <MdMeetingRoom
-                    style={{ width: '50px', height: '50px' }}
+            <InsideContentFrame>
+                <CardFrame
+                    props={type === 0 ? '1296ec' : 'fff'}
                     onClick={() => {
                         setType(0);
                         setSelected(true);
                     }}
                 >
+                    <MdMeetingRoom style={{ width: '30px', height: '30px', paddingRight: '10px', color: type === 0 ? 'fff' : '000' }} />
                     회의실
-                </MdMeetingRoom>
+                </CardFrame>
             </InsideContentFrame>
-            <InsideContentFrame props={type === 1 ? '1565c0' : 'fff'}>
-                <AiFillCar
-                    style={{ width: '50px', height: '50px' }}
+            <InsideContentFrame>
+                <CardFrame
+                    props={type === 1 ? '1296ec' : 'fff'}
                     onClick={() => {
                         setType(1);
                         setSelected(true);
                     }}
                 >
-                    차량
-                </AiFillCar>
+                    <AiFillCar style={{ width: '30px', height: '30px', paddingRight: '10px', color: type === 1 ? 'fff' : '000' }} />차 량
+                </CardFrame>
             </InsideContentFrame>
         </SubContentFrame>
     );

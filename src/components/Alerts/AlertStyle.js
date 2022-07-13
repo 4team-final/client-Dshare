@@ -20,26 +20,27 @@ const fadeOut = keyframes`
 
 const AlertStyle = (visible) => css`
     visibility: ${visible ? 'visible' : 'hidden'};
-    z-index: 5;
+    z-index: 9999;
     animation: ${visible ? fadeIn : fadeOut} 0.25s ease-out;
     transition: visibility 0.25s ease-out;
 `;
 
 export const Alert = styled.div`
     position: absolute;
-    top: 20%;
+    top: 10%;
     width: 100%;
     height: 70px;
     padding: 20px;
     border-radius: 8px;
-    background-color: ${(props) => (props.notice === 'error' ? 'rgba(255, 0, 0, 0.9)' : 'rgba(25 ,38 ,236 ,0.9)')};
+    background-color: ${(props) => (props.notice === 'error' ? 'rgba(255, 0, 0, 0.9)' : 'rgba(18 ,150 ,236 ,0.9)')};
     box-shadow: 0px 4px 4px #00000025;
     display: flex;
     align-items: center;
     ${(props) => AlertStyle(props.visible)}
     h5 {
+        color: #fff;
         font-weight: bold;
-        margin-left: 3%;
+        margin-left: 10px;
         font-size: ${(props) => props.font}px;
     }
 `;
