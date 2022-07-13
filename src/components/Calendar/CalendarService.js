@@ -267,7 +267,7 @@ export const CalendarService = () => {
     return (
         <Calendar
             style={{ overflow: 'hidden' }}
-            validRange={[new moment('2022-07-01 00:00:00'), new moment('2022-07-31 23:59:00')]}
+            validRange={[new moment('2022-07-01 00:00:00'), new moment('2022-07-16 23:59:00')]}
             mode={'month'}
             dateCellRender={dateCellRender}
             monthCellRender={monthCellRender}
