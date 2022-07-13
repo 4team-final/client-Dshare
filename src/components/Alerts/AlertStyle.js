@@ -27,7 +27,7 @@ const AlertStyle = (visible) => css`
 
 export const Alert = styled.div`
     position: absolute;
-    top: 10%;
+    top: 20%;
     /* left: 40%; */
     width: 100%;
     height: 70px;

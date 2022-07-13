@@ -90,7 +90,7 @@ export const ModalInsideText = (props) => {
                                     {dataSet.reservationResDTO.room && dataSet.reservationResDTO.room.roomImgResDTOList.length ? (
                                         <ImgCardList
                                             data={dataSet.reservationResDTO.room.roomImgResDTOList}
-                                            width={'700'}
+                                            width={'400'}
                                             height={'auto'}
                                         />
                                     ) : (
@@ -99,12 +99,12 @@ export const ModalInsideText = (props) => {
                                 </div>
                                 <InsideFrame>
                                     <TextFrame>
-                                        <TextContent props={'18'}>예약자 : {dataSet.reservationResDTO.emp.name}</TextContent>
-                                        <TextContent props={'18'}>사번 : {dataSet.reservationResDTO.emp.empNo}</TextContent>
+                                        <TextContent props={'15'}>예약자 : {dataSet.reservationResDTO.emp.name}</TextContent>
+                                        <TextContent props={'15'}>사번 : {dataSet.reservationResDTO.emp.empNo}</TextContent>
                                     </TextFrame>
                                     <TextFrame>
-                                        <TextTitle props={'18'}>제목 : {dataSet.reservationResDTO.title}</TextTitle>
-                                        <TextTitle props={'18'}>내용 : {dataSet.reservationResDTO.reason}</TextTitle>
+                                        <TextTitle props={'15'}>제목 : {dataSet.reservationResDTO.title}</TextTitle>
+                                        <TextTitle props={'15'}>내용 : {dataSet.reservationResDTO.reason}</TextTitle>
                                     </TextFrame>
                                 </InsideFrame>
                             </ImgCard>
@@ -130,7 +130,8 @@ export const ModalInsideText = (props) => {
                                     )}
                                 </ContentFrame>
                                 <TextContent props={'16'}>
-                                    예약시간 : {dataSet.reservationResDTO.startedAt} ~ {dataSet.reservationResDTO.endedAt}
+                                    예약시간 : {convertDateTime(dataSet.reservationResDTO.startedAt)} ~{' '}
+                                    {convertDateTime(dataSet.reservationResDTO.endedAt)}
                                 </TextContent>
                                 <div style={{ marginTop: '10px' }}>등록일 : {dataSet.reservationResDTO.createdAt}</div>
                             </SubContentFrame>
@@ -140,19 +141,19 @@ export const ModalInsideText = (props) => {
                             <ImgCard>
                                 <div style={{ marginBottom: '20px' }}>
                                     {dataSet && dataSet.imgList.length ? (
-                                        <ImgCardList data={dataSet.imgList} width={'700'} height={'auto'} />
+                                        <ImgCardList data={dataSet.imgList} width={'400'} height={'auto'} />
                                     ) : (
                                         <></>
                                     )}
                                 </div>
                                 <InsideFrame>
                                     <TextFrame>
-                                        <TextContent props={'18'}>예약자 : {dataSet.ename}</TextContent>
-                                        <TextContent props={'18'}>사번 : {dataSet.empNo}</TextContent>
+                                        <TextContent props={'14'}>예약자 : {dataSet.ename}</TextContent>
+                                        <TextContent props={'14'}>사번 : {dataSet.empNo}</TextContent>
                                     </TextFrame>
                                     <TextFrame>
-                                        <TextTitle props={'18'}>제목 : {dataSet.title}</TextTitle>
-                                        <TextTitle props={'18'}>내용 : {dataSet.reason}</TextTitle>
+                                        <TextTitle props={'14'}>제목 : {dataSet.title}</TextTitle>
+                                        <TextTitle props={'14'}>내용 : {dataSet.reason}</TextTitle>
                                     </TextFrame>
                                 </InsideFrame>
                             </ImgCard>
@@ -162,13 +163,13 @@ export const ModalInsideText = (props) => {
                                 <ContentFrame>
                                     <TextContent props={'19'}>{dataSet.model}</TextContent>
                                     <TextFrame>
-                                        <TextContent props={'18'}>차량번호 : {dataSet.vnumber}</TextContent>
-                                        <TextContent props={'18'}>탑승인원 : {dataSet.capacity}</TextContent>
-                                        <TextContent props={'18'}>차량색상 : {dataSet.color}</TextContent>
+                                        <TextContent props={'15'}>차량번호 : {dataSet.vnumber}</TextContent>
+                                        <TextContent props={'15'}>탑승인원 : {dataSet.capacity}</TextContent>
+                                        <TextContent props={'15'}>차량색상 : {dataSet.color}</TextContent>
                                     </TextFrame>
                                 </ContentFrame>
                                 <TextContent props={'16'}>
-                                    예약시간 : {dataSet.startedAt} ~ {dataSet.endedAt}
+                                    예약시간 : {convertDateTime(dataSet.startedAt)} ~ {convertDateTime(dataSet.endedAt)}
                                 </TextContent>
                                 <div style={{ marginTop: '10px' }}>등록일 : {dataSet.reservationCreatedAt}</div>
                             </SubContentFrame>
@@ -209,4 +210,8 @@ export const ReservationModal = (props) => {
             <ModalPage type={props.type} open={props.open} />
         </>
     );
+};
+
+const convertDateTime = (props) => {
+    return props.replace('T', ' ');
 };
