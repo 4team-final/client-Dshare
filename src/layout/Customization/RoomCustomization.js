@@ -391,8 +391,8 @@ const Customization = (props) => {
         let frm = new FormData();
         frm.enctype = 'multipart/form-data';
         let pic = pictures[0];
-        console.log(pictures[0]);
-        console.log(pic);
+        // console.log(pictures[0]);
+        // console.log(pic);
         frm.append('files', pic);
         frm.append('TargetEmpId', id);
         await dshareAPI

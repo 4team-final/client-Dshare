@@ -27,8 +27,11 @@ import {
 import { ImgCardList } from '../Table/SelectTableService';
 import { selectCompleteRoomReservation, selectCompleteVehicleReservation } from '../../../store/actions/CalendarAction';
 import { initSocketData } from 'store/actions/WebsocketAction';
+import { ChangeTimerMessage } from 'store/actions/ChangeAction';
 
 const ModalFrame = ({ children, visible, onClose }) => {
+    const dispatch = useDispatch();
+
     const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         if (visible) {
@@ -40,18 +43,41 @@ const ModalFrame = ({ children, visible, onClose }) => {
     if (!isOpen) {
         return null;
     }
+
+    function onDispatchTimer() {
+        dispatch(ChangeTimerMessage());
+    }
     return (
         <>
-            <BackFrame visible={visible} onClick={onClose} />
+            <BackFrame
+                visible={visible}
+                onClick={() => {
+                    onClose();
+                    onDispatchTimer();
+                }}
+            />
             <ModalSection visible={visible}>
                 <ModalTitle>
-                    <ModalCloseButton type={'button'} onClick={onClose}>
+                    <ModalCloseButton
+                        type={'button'}
+                        onClick={() => {
+                            onClose();
+                            onDispatchTimer();
+                        }}
+                    >
                         X
                     </ModalCloseButton>
                 </ModalTitle>
                 <ModalContent>{children}</ModalContent>
                 <ModalCheckButton>
-                    <CustomButton onClick={onClose}>확인</CustomButton>
+                    <CustomButton
+                        onClick={() => {
+                            onClose();
+                            onDispatchTimer();
+                        }}
+                    >
+                        확인
+                    </CustomButton>
                 </ModalCheckButton>
             </ModalSection>
         </>

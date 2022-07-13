@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { soonIngTimeRoom, soonTimeVehicle, ingTimeVehicle } from 'store/actions/ReservationAction';
-import { AllTimerMessage } from 'store/actions/ChangeAction';
+import { AllTimerMessage, changeCount } from 'store/actions/ChangeAction';
 import './Timer.scss';
 import { FcAlarmClock } from 'react-icons/fc';
 import Alert from '@mui/material/Alert';
@@ -9,6 +9,7 @@ import Loading from 'components/Loading';
 
 function Timer() {
     const reservationStore = useSelector((state) => state.reservationReducer);
+    const changeCount = useSelector((state) => state.changeReducer.changeCount);
     const dispatch = useDispatch();
 
     const [_soonTimeRoom, setSoonTimeRoom] = useState(-1);
@@ -32,7 +33,8 @@ function Timer() {
             setLoading(false);
         }
         fetch();
-    }, []);
+    }, [changeCount]);
+    // console.log(reservationStore?.soonIngTimeRoom?.data?.value);
 
     useEffect(() => {
         if (message != '' || message2 != '' || message3 != '' || message4 != '') {

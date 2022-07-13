@@ -38,7 +38,7 @@ export default function InputLogin() {
         setPassword(e.target.value);
     };
     const inputReset = () => {
-        console.log('gg');
+        // console.log('gg');
         setId('');
         setPassword('');
         setAlert('');

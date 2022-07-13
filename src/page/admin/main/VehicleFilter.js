@@ -99,8 +99,8 @@ const VehicleFilter = (props) => {
     }
     //team 선택하는 부분
     function selectTeam(e) {
-        console.log(deptFilter);
-        console.log(e.target.value);
+        // console.log(deptFilter);
+        // console.log(e.target.value);
         if (e.target.value == '') {
             setTeamFilter(null);
         } else {
@@ -110,7 +110,7 @@ const VehicleFilter = (props) => {
 
     //dept 선택하는 부분
     async function selectDept(e) {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setDeptFilter(e.target.value);
         if (e.target.value == '') {
             setDeptFilter(null);
@@ -128,12 +128,12 @@ const VehicleFilter = (props) => {
 
     async function getDeptName() {
         let depart = await getDepartment();
-        console.log(depart);
+        // console.log(depart);
         setDept(depart);
     }
     async function getPositionName() {
         let pos = await getPosition();
-        console.log(pos);
+        // console.log(pos);
         setPosition(pos);
     }
 

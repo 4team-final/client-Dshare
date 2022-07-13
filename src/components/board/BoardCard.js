@@ -49,16 +49,16 @@ export default function BoardCard(props) {
         setExpanded(!expanded);
     };
     const [board, setBoard] = useState(props?.item);
-    console.log(board);
+    // console.log(board);
 
     const delVbm = async (id) => {
-        console.log(id);
+        // console.log(id);
         if (mark) {
             let Rdata = await delVBookmark(id);
             alert('즐겨 찾기를 취소 했습니다~!');
         } else {
             let Rdata = await addVBookmark(id);
-            console.log(Rdata);
+            // console.log(Rdata);
             alert('즐겨 찾기를 등록 했습니다~!');
         }
 
@@ -66,7 +66,7 @@ export default function BoardCard(props) {
     };
 
     const delRbm = async (id) => {
-        console.log(id);
+        // console.log(id);
         let Rdata = await delRBookmark(id);
         if (mark) {
             alert('즐겨 찾기를 취소 했습니다~!');
@@ -78,16 +78,16 @@ export default function BoardCard(props) {
 
     async function getBookInfo() {
         if (!board.content) {
-            console.log('차량입니다');
+            // console.log('차량입니다');
             let tmp = await getVBookmark();
-            console.log(tmp);
+            // console.log(tmp);
 
             tmp.map((tmp) => (tmp.id == board.id ? setMark(true) : <></>));
         } else {
-            console.log('회의실 입니다');
+            // console.log('회의실 입니다');
             let tmp = await getRBookmark();
             setRBook(tmp);
-            console.log(tmp);
+            // console.log(tmp);
             tmp.map((tmp) => (tmp.roomId == board.roomId ? setMark(true) : <></>));
             // console.log(props.item);
             // props.item.roomId;

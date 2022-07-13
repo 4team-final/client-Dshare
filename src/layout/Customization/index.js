@@ -297,9 +297,9 @@ const Customization = () => {
         setBAlert(false);
 
         setBirthDay2(e.target.value);
-        console.log(tAlert);
-        console.log(bAlert);
-        console.log(eAlert);
+        // console.log(tAlert);
+        // console.log(bAlert);
+        // console.log(eAlert);
         if (!(tAlert || bAlert || eAlert)) {
             setDisabledBtn(false);
         }
@@ -428,7 +428,7 @@ const Customization = () => {
     // const [tel2, setTel2] = useState('');
     // const [birthday2, setBirthDay2] = useState();
     const updateEmpInfo = async () => {
-        console.log(teamId2, positionId2, name2, email2, birthday2, tel2);
+        // console.log(teamId2, positionId2, name2, email2, birthday2, tel2);
         return await dshareAPI
             .post(`admin/update/${id}`, {
                 teamId: teamId2,
@@ -447,7 +447,7 @@ const Customization = () => {
 
     const updateEmp = async () => {
         let emp = await updateEmpInfo();
-        console.log(emp);
+        // console.log(emp);
         setUpdate(!update);
         dispatch(ProfileChangeSave(emp));
         // console.log(id, teamId, positionId, name, email, tel, birthday);

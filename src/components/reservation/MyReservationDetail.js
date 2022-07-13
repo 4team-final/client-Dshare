@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { myReservationDeleteRoom, myReservationDeleteVehicle } from 'store/actions/ReservationAction';
-import { RoomItemDelete, VehicleItemDelete } from 'store/actions/ChangeAction';
+import { RoomItemDelete, VehicleItemDelete, ChangeDeleteItemFlag } from 'store/actions/ChangeAction';
 import './MyReservationDetail.scss';
 
 import { styled } from '@mui/material/styles';
@@ -121,11 +121,13 @@ function MyReservationDetail() {
             dispatch(myReservationDeleteRoom(id));
             dispatch(RoomItemDelete(id));
             setRoomItem(null);
+            ChangeDeleteItemFlag();
         }
         if (isSure && select === 1) {
             dispatch(myReservationDeleteVehicle(id));
             dispatch(VehicleItemDelete(id));
             setVehicleItem(null);
+            ChangeDeleteItemFlag();
         }
     };
     return (
