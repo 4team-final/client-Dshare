@@ -130,6 +130,7 @@ function MyReservationList() {
     }, [vehicleDeleteId]);
 
     function handleDetail1(item, idx) {
+        setBtnActive(idx);
         setLoading(true);
         dispatch(ItemChangeSave(item));
         setLoading(false);
@@ -216,7 +217,7 @@ function MyReservationList() {
                                             key={item?.reservationId}
                                             ref={roomref}
                                             onClick={() => handleDetail1(item, idx)}
-                                            className={idx == btnActive ? 'active2' : ''}
+                                            className={idx == btnActive ? ' active2' : ''}
                                         >
                                             <MyReservationCard data={item} />
                                         </div>
@@ -244,7 +245,7 @@ function MyReservationList() {
                                                 key={item?.reservationId}
                                                 ref={vehicleref}
                                                 onClick={() => handleDetail2(item, idx)}
-                                                className={idx == btnActive2 ? 'active2' : ''}
+                                                className={idx == btnActive2 ? ' active2' : ''}
                                             >
                                                 <MyReservationCard data={item}></MyReservationCard>
                                             </div>

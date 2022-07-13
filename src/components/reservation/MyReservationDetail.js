@@ -187,7 +187,7 @@ function MyReservationDetail() {
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h6" component="div">
                                     {roomItem?.room.categoryName}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
@@ -211,7 +211,7 @@ function MyReservationDetail() {
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h6" component="div">
                                     {roomItem?.title}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em', fontSize: '1em' }} color="text.secondary">
@@ -281,7 +281,7 @@ function MyReservationDetail() {
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     자원 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h8" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h8" component="div">
                                     {vehicleItem?.vname}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
@@ -299,7 +299,7 @@ function MyReservationDetail() {
                                 <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                                     예약 정보
                                 </Typography>
-                                <Typography sx={{ fontSize: '3em' }} variant="h6" component="div">
+                                <Typography sx={{ fontSize: '2em' }} variant="h6" component="div">
                                     {vehicleItem?.title}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5, fontSize: '1em' }} color="text.secondary">
