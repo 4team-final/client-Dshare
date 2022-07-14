@@ -17,6 +17,7 @@ import { SET_MENU } from 'store/actions/DashboardActions';
 import { getUserProfile } from 'components/ApiModules/ApiHandler';
 
 import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 
 // assets
 import { IconChevronRight } from '@tabler/icons';
@@ -75,6 +76,7 @@ const MainLayout = (props) => {
     const leftDrawerOpened = useSelector((state) => state?.customization?.opened);
     const dispatch = useDispatch();
     const allMessages = useSelector((state) => state.changeReducer.allMessage);
+    const changeCount = useSelector((state) => state.changeReducer.changeCount);
     const [messages, setMessages] = useState({});
 
     const handleLeftDrawerToggle = () => {
@@ -93,7 +95,7 @@ const MainLayout = (props) => {
 
     useEffect(() => {
         setMessages(allMessages);
-    }, [allMessages]);
+    }, [allMessages, changeCount]);
 
     useEffect(() => {
         if (messages.message === '' && messages.message2 === '' && messages.message3 === '' && messages.message4 === '') {
@@ -132,27 +134,35 @@ const MainLayout = (props) => {
                 {messages.message != '' ? (
                     <>
                         <>
-                            <Alert sx={{ bgcolor: '#5073b4' }} variant="filled" severity="success">
-                                <div className="memo" style={{ display: 'flex' }}>
+                            <Alert
+                                sx={{
+                                    color: '#fff',
+                                    bgcolor: 'rgba(18 ,150 ,236 ,0.9)',
+                                    fontSize: '1.5em',
+                                    width: 'auto'
+                                }}
+                                variant="filled"
+                                severity="success"
+                            >
+                                <div className="memo" style={{ display: 'flex', overflowX: 'hidden' }}>
                                     <span>
                                         {messages.message ? (
                                             <>
-                                                <div>{messages.message}</div>
+                                                <div style={{ width: '15em' }}>{messages.message}</div>
                                             </>
                                         ) : (
                                             <div className="memo">{}</div>
                                         )}
                                     </span>
-                                    <button
+                                    <Button
                                         onClick={() => {
                                             setMessages({ message: '', message2: '', message3: '', message4: '' });
                                         }}
-                                        style={{
-                                            zIndex: 80
-                                        }}
+                                        variant="filled"
+                                        style={{ width: '100%', color: '#1296ec', backgroundColor: '#fff' }}
                                     >
                                         x
-                                    </button>
+                                    </Button>
                                 </div>
                             </Alert>
                         </>
