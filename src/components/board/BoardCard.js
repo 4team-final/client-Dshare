@@ -162,7 +162,7 @@ export default function BoardCard(props) {
                     <Typography
                         style={{
                             fontFamily: 'Roboto',
-                            fontSize: '10px',
+                            fontSize: '0.5em',
                             margin: '8px',
                             borderRadius: '30px',
                             padding: '3px 8px 3px 8px',
@@ -177,7 +177,7 @@ export default function BoardCard(props) {
                     <Typography
                         style={{
                             fontFamily: 'Roboto',
-                            fontSize: '10px',
+                            fontSize: '0.5em',
                             margin: '8px',
                             borderRadius: '30px',
                             padding: '3px 8px 3px 8px',
@@ -202,7 +202,7 @@ export default function BoardCard(props) {
                     <Typography
                         style={{
                             fontFamily: 'Roboto',
-                            fontSize: '10px',
+                            fontSize: '0.5em',
                             margin: '5px',
                             borderRadius: '30px',
                             padding: '3px 6px 3px 6px ',
