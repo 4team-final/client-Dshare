@@ -30,8 +30,6 @@ export const WebsocketController = () => {
     const [rid, setRid] = useState(0);
     const [readyStepTwo, setReadyStepTwo] = useState(false);
     const [time, setTime] = useState([]);
-    const [socketMsg, setSocketMsg] = useState('');
-    const [socketFlag, setSocketFlag] = useState(false);
     const [readyStepThree, setReadyStepThree] = useState(false);
     const [transTime, setTransTime] = useState();
     const [reserved, setReserved] = useState(false);
@@ -43,7 +41,6 @@ export const WebsocketController = () => {
     const vIdStore = useSelector((state) => state.websocketReducer.vid);
     const rIdStore = useSelector((state) => state.websocketReducer.rid);
     const timeStore = useSelector((state) => state.websocketReducer.converttotime);
-    const socketMsgStore = useSelector((state) => state.websocketReducer.socketmessage);
     const transTimeStore = useSelector((state) => state.websocketReducer.arraytotime);
     const StepOneHandler = () => {
         if (type === 2) {
@@ -107,8 +104,6 @@ export const WebsocketController = () => {
     const initStepThree = () => {
         SendQuit();
         setTime([]);
-        setSocketMsg('');
-        setSocketFlag(false);
         setReadyStepOne(false);
         setReadyStepTwo(false);
         setReadyStepThree(false);
@@ -198,7 +193,7 @@ export const WebsocketController = () => {
         setTimeout(() => {
             setAlertFlag(false);
             setAlertMsg('');
-        }, 2500);
+        }, 3500);
     }, [alertMsg]);
     useEffect(() => {
         if (typeStore && typeStore.data != null) {
@@ -257,25 +252,6 @@ export const WebsocketController = () => {
         }
     }, [timeStore]);
     useEffect(() => {
-        if (socketMsgStore && socketMsgStore.data != null) {
-            if (socketMsgStore.data.includes('null')) {
-                SendQuit();
-                setSocketMsg('');
-            } else {
-                setSocketMsg(socketMsgStore.data);
-            }
-        }
-    }, [socketMsgStore]);
-    useEffect(() => {
-        if (socketMsg !== '' && socketMsg !== undefined && socketMsg !== null) {
-            setSocketFlag(true);
-        }
-        setTimeout(() => {
-            setSocketFlag(false);
-            setSocketMsg('');
-        }, 2500);
-    }, [socketMsg]);
-    useEffect(() => {
         if (transTimeStore && transTimeStore.data != null) {
             setTransTime(transTimeStore.data);
         }
@@ -287,31 +263,32 @@ export const WebsocketController = () => {
     }, [time]);
 
     return (
-        <HalfWidthFrame>
-            <AlertModule status={socketFlag} notice={'info'} font={'14'} contents={socketMsg} />
+        <>
             <AlertModule status={alertFlag} notice={'error'} font={'22'} contents={alertMsg} />
-            <CardFrame>
-                <CustomButton hello={stepOne} disabled={!readyStepOne} onClick={StepOneHandler}>
-                    다 음
-                </CustomButton>
-                <CustomButton hello={stepTwo} onClick={initStepTwo}>
-                    이 전
-                </CustomButton>
-                <CustomButton hello={stepTwo} disabled={!readyStepTwo} onClick={StepTwoHandler}>
-                    다 음
-                </CustomButton>
-                <CustomButton hello={stepThree} onClick={initStepThree}>
-                    이 전
-                </CustomButton>
-                <CustomButton hello={stepThree} onClick={DisconnectAndToBack}>
-                    예약취소
-                </CustomButton>
-                <CustomButton hello={stepThree} disabled={!readyStepThree} onClick={StepThreeHandler}>
-                    예약하기
-                </CustomButton>
-            </CardFrame>
-            <ReservationModal type={type} open={reserved} />
-            <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
-        </HalfWidthFrame>
+            <HalfWidthFrame>
+                <CardFrame>
+                    <CustomButton hello={stepOne} disabled={!readyStepOne} onClick={StepOneHandler}>
+                        다 음
+                    </CustomButton>
+                    <CustomButton hello={stepTwo} onClick={initStepTwo}>
+                        이 전
+                    </CustomButton>
+                    <CustomButton hello={stepTwo} disabled={!readyStepTwo} onClick={StepTwoHandler}>
+                        다 음
+                    </CustomButton>
+                    <CustomButton hello={stepThree} onClick={initStepThree}>
+                        이 전
+                    </CustomButton>
+                    <CustomButton hello={stepThree} onClick={DisconnectAndToBack}>
+                        예약취소
+                    </CustomButton>
+                    <CustomButton hello={stepThree} disabled={!readyStepThree} onClick={StepThreeHandler}>
+                        예약하기
+                    </CustomButton>
+                </CardFrame>
+                <ReservationModal type={type} open={reserved} />
+                <SocketConnection props={type === 0 ? { type: 0, rid: rid, uid: uid } : { type: 1, vid: vid, uid: uid }} />
+            </HalfWidthFrame>
+        </>
     );
 };
