@@ -35,12 +35,12 @@ export default function BasicExampleDataGrid() {
     ];
 
     const del = async (resId) => {
-        console.log(resId);
+        // console.log(resId);
         let result = confirm('삭제하시겠습니까?');
         if (result) {
             let del = await delVehicleRes(resId);
             res(1, null, null, null, null, null, null, null);
-            console.log(del);
+            // console.log(del);
             return alert('예약삭제에 성공했습니다');
         }
         //delete 함수
@@ -71,7 +71,7 @@ export default function BasicExampleDataGrid() {
                     };
                 });
                 setVehicleResData([...test]);
-                console.log(test);
+                // console.log(test);
             }
         } else {
             setTotalPage(0);

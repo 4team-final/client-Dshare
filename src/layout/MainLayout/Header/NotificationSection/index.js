@@ -32,6 +32,8 @@ import NotificationList from './NotificationList';
 // assets
 import { IconBell } from '@tabler/icons';
 import Timer from 'components/Timer/Timer.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChangeTimerMessage } from 'store/actions/ChangeAction';
 
 // notification status options
 const status = [
@@ -56,6 +58,7 @@ const status = [
 // ==============================|| NOTIFICATION ||============================== //
 
 const NotificationSection = () => {
+    const dispatch = useDispatch();
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -67,6 +70,10 @@ const NotificationSection = () => {
     const anchorRef = useRef(null);
 
     const handleToggle = () => {
+        function onDispatchTimer() {
+            dispatch(ChangeTimerMessage());
+        }
+        onDispatchTimer();
         setOpen((prevOpen) => !prevOpen);
     };
 

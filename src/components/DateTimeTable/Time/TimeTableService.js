@@ -24,7 +24,7 @@ const TimeTable = () => {
     const convertDataList = (i) => {
         let filterData = [...dataList];
         let copyList = dataList.filter((v) => v.isSeat === 2);
-        console.log(copyList);
+        // console.log(copyList);
         if (copyList.length < 2) {
             filterData = dataList.map((v, index) => (i === index && v.isSeat !== 1 ? { ...v, isSeat: 2 } : v));
         } else {

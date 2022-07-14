@@ -35,12 +35,12 @@ export default function BasicExampleDataGrid() {
         }
     ];
     const del = async (resId) => {
-        console.log(resId);
+        // console.log(resId);
         let result = confirm('삭제하시겠습니까?');
         if (result) {
             let del = await delRoomRes(resId);
             res(1, null, null, null, null, null, null, null);
-            console.log(del);
+            // console.log(del);
             return alert('예약삭제에 성공했습니다');
         }
         //delete 함수
@@ -57,10 +57,10 @@ export default function BasicExampleDataGrid() {
         setRoomResData([]);
 
         let roomRes = await getAllRoomResPage(page, deptFilter, teamFilter, positionFilter, name, empNo, startedAt, endedAt); //nowPage
-        console.log(startedAt);
-        console.log('예약현황 : ', roomRes);
+        // console.log(startedAt);
+        // console.log('예약현황 : ', roomRes);
         if (roomRes.length != 0) {
-            console.log(Math.floor(roomRes[0].total / 10 + 1));
+            // console.log(Math.floor(roomRes[0].total / 10 + 1));c
             setTotalPage(Math.floor(roomRes[0].total / 10 + 1));
 
             let test = roomRes.map((data) => {
@@ -79,7 +79,7 @@ export default function BasicExampleDataGrid() {
                 };
             });
             setRoomResData([...test]);
-            console.log(test);
+            // console.log(test);
         } else {
             setTotalPage(0);
         }
