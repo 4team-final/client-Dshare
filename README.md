@@ -9,32 +9,12 @@ D-share : 사내 실시간 공유자원 웹 어플리케이션
 #### 프로젝트 구성 : 요구사항 분석 -> 계획 -> 설계 -> 구현 -> 시험
 #### 발표 구성 : 요구사항 분석(문제인식, 문제분석, 해결전제) -> 전략 -> 전략에 대한 문제점-> 해결방안
 
+### [노션](https://helix-meadow-617.notion.site/NEOHAGO-f3f87a2305c34e54a70c652897203669)
+- 스토리보드
+- ERD(만료)
+- 간트차트
+- ppt
 
-### [스토리보드]()
-### [플로우차트]()
-### [ERD - aquerytool]()
-### [ERD]()  
-### [회의록]()
-### [최종 PPT]()
-
----
-
-## 전체 구성 단계 (SPA 형식)
-- front-end
-```
-
-                       
-```
-  - redux
-```
- event(onclick) -> action                         -> store                      -> reducer                         ->useEffect
-                    ㄴaction type                     ㄴdispatch                     
-                    ㄴaction method                                                   ㄴ상태변경 전 initialState
-                      - createPrimiseThunk- > api                                     ㄴapi 호출 성공 
-                                                                                      ㄴapi 호출 실패
-```
-
-## 역할분담()
 
 ### 프로젝트 설계 및 역할 분담
 |내용|사람|기간|
